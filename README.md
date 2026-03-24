@@ -88,8 +88,8 @@ Make sure you have the following installed on your machine:
 **Cloning the Repository**
 
 ```bash
-git clone https://github.com/adrianhajdin/3d-portfolio.git
-cd 3d-portfolio
+git clone https://github.com/lenny-lewis/3d-Load-Lennox.git
+cd Load-Lennox
 ```
 
 **Installation**
