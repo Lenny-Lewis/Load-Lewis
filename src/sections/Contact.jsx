@@ -59,9 +59,16 @@ const Contact = () => {
       setForm({ name: "", email: "", message: "" });
       setIsSubmitted(true);
     } catch (error) {
-      console.error("EmailJS Error:", error); // Optional: show toast
+      console.error("EmailJS Error:", {
+        status: error?.status,
+        text: error?.text,
+        message: error?.message,
+        error,
+      });
       setIsSubmitted(false);
-      setSubmitError("Message failed to send. Please try again.");
+      setSubmitError(
+        error?.text || "Message failed to send. Please try again."
+      );
     } finally {
       setLoading(false); // Always stop loading, even on error
     }
