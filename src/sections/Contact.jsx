@@ -8,6 +8,7 @@ const Contact = () => {
   const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -17,6 +18,7 @@ const Contact = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (isSubmitted) setIsSubmitted(false);
+    if (submitError) setSubmitError("");
     setForm({ ...form, [name]: value });
   };
 
@@ -30,16 +32,26 @@ const Contact = () => {
 
     if (!trimmedForm.name || !trimmedForm.email || !trimmedForm.message) {
       setForm(trimmedForm);
+      formRef.current?.reportValidity();
       return;
     }
 
+    setSubmitError("");
     setLoading(true); // Show loading state
 
     try {
-      await emailjs.sendForm(
+      await emailjs.send(
         import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
-        formRef.current,
+        {
+          name: trimmedForm.name,
+          email: trimmedForm.email,
+          message: trimmedForm.message,
+          from_name: trimmedForm.name,
+          from_email: trimmedForm.email,
+          reply_to: trimmedForm.email,
+          to_name: "Lennox",
+        },
         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
       );
 
@@ -48,6 +60,8 @@ const Contact = () => {
       setIsSubmitted(true);
     } catch (error) {
       console.error("EmailJS Error:", error); // Optional: show toast
+      setIsSubmitted(false);
+      setSubmitError("Message failed to send. Please try again.");
     } finally {
       setLoading(false); // Always stop loading, even on error
     }
@@ -122,6 +136,16 @@ const Contact = () => {
                     </div>
                   </div>
                 </button>
+
+                {(isSubmitted || submitError) && (
+                  <p
+                    className={`text-sm ${
+                      submitError ? "text-red-400" : "text-green-400"
+                    }`}
+                  >
+                    {submitError || "Message sent successfully."}
+                  </p>
+                )}
               </form>
             </div>
           </div>
