@@ -7,6 +7,7 @@ import ContactExperience from "../components/models/contact/ContactExperience";
 const Contact = () => {
   const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -15,11 +16,23 @@ const Contact = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (isSubmitted) setIsSubmitted(false);
     setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const trimmedForm = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      message: form.message.trim(),
+    };
+
+    if (!trimmedForm.name || !trimmedForm.email || !trimmedForm.message) {
+      setForm(trimmedForm);
+      return;
+    }
+
     setLoading(true); // Show loading state
 
     try {
@@ -32,6 +45,7 @@ const Contact = () => {
 
       // Reset form and stop loading
       setForm({ name: "", email: "", message: "" });
+      setIsSubmitted(true);
     } catch (error) {
       console.error("EmailJS Error:", error); // Optional: show toast
     } finally {
@@ -93,11 +107,15 @@ const Contact = () => {
                   />
                 </div>
 
-                <button type="submit">
+                <button type="submit" disabled={loading}>
                   <div className="cta-button group">
                     <div className="bg-circle" />
                     <p className="text">
-                      {loading ? "Sending..." : "Send Message"}
+                      {loading
+                        ? "Sending..."
+                        : isSubmitted
+                        ? "Message Sent"
+                        : "Send Message"}
                     </p>
                     <div className="arrow-wrapper">
                       <img src="/images/arrow-down.svg" alt="arrow" />
