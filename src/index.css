@@ -314,6 +314,10 @@ section {
       img {
         @apply inline-block;
       }
+
+      .github-icon img {
+        filter: brightness(0) invert(1);
+      }
     }
   }
 

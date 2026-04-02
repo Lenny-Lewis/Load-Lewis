@@ -18,7 +18,7 @@ const Footer = () => {
               href={socialImg.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="icon"
+              className={`icon ${socialImg.name === "github" ? "github-icon" : ""}`}
             >
               <img
                 src={socialImg.imgPath}
