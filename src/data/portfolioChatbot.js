@@ -116,6 +116,39 @@ const getIntroReply = () =>
     ", "
   )}.`;
 
+export const buildPortfolioContext = () => `
+Profile:
+- Name: ${portfolioProfile.name}
+- Role: ${portfolioProfile.role}
+- Location: ${portfolioProfile.location}
+- Intro: ${portfolioProfile.intro}
+
+Strengths:
+${portfolioProfile.strengths.map((item) => `- ${item}`).join("\n")}
+
+Projects:
+${portfolioProfile.projects
+  .map(
+    (project) =>
+      `- ${project.name}: ${project.summary} Stack: ${project.stack.join(", ")}.`
+  )
+  .join("\n")}
+
+Experience:
+${portfolioProfile.experience
+  .map(
+    (item) => `- ${item.title} (${item.period}): ${item.summary}`
+  )
+  .join("\n")}
+
+Contact:
+- Contact form on the portfolio website
+- GitHub: ${portfolioProfile.contact.github}
+- LinkedIn: ${portfolioProfile.contact.linkedin}
+- X: ${portfolioProfile.contact.x}
+- Instagram: ${portfolioProfile.contact.instagram}
+`.trim();
+
 export const getPortfolioChatReply = (question) => {
   const tokens = normalizeText(question);
 

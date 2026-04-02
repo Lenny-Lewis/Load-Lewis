@@ -372,6 +372,11 @@ section {
     @apply rounded-full bg-white text-black font-semibold transition-transform duration-300 hover:scale-[1.02];
   }
 
+  .chatbot-toggle:disabled,
+  .chatbot-send:disabled {
+    @apply cursor-not-allowed opacity-70;
+  }
+
   .chatbot-toggle {
     @apply px-5 py-3 text-sm;
   }
@@ -422,6 +427,10 @@ section {
 
   .chatbot-form input {
     @apply flex-1 rounded-full border border-white/10 bg-[#171922] px-5 py-4 text-white placeholder:text-blue-50;
+  }
+
+  .chatbot-form input:disabled {
+    @apply opacity-70;
   }
 
   .chatbot-send {

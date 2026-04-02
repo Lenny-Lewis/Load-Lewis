@@ -12,27 +12,66 @@ const assistantWelcome = {
   text: `Ask me about ${portfolioProfile.name}'s projects, experience, skills, or how to contact him.`,
 };
 
+const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "/api").replace(
+  /\/$/,
+  ""
+);
+
 const PortfolioChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState([assistantWelcome]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const quickPrompts = useMemo(() => suggestedPrompts, []);
 
-  const submitQuestion = (question) => {
+  const submitQuestion = async (question) => {
     const trimmedQuestion = question.trim();
 
     if (!trimmedQuestion) return;
 
-    const reply = getPortfolioChatReply(trimmedQuestion);
-
-    setMessages((current) => [
-      ...current,
-      { role: "user", text: trimmedQuestion },
-      { role: "assistant", text: reply },
-    ]);
+    setMessages((current) => [...current, { role: "user", text: trimmedQuestion }]);
     setDraft("");
     setIsOpen(true);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/chat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ question: trimmedQuestion }),
+      });
+
+      if (!response.ok) {
+        throw new Error("API request failed");
+      }
+
+      const data = await response.json();
+
+      setMessages((current) => [
+        ...current,
+        {
+          role: "assistant",
+          text:
+            data.answer ||
+            "I couldn't generate a response from the portfolio context.",
+        },
+      ]);
+    } catch {
+      const fallbackReply = getPortfolioChatReply(trimmedQuestion);
+
+      setMessages((current) => [
+        ...current,
+        {
+          role: "assistant",
+          text: `${fallbackReply} This answer is using the local portfolio fallback because the API is not available yet.`,
+        },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSubmit = (event) => {
@@ -109,9 +148,14 @@ const PortfolioChatbot = () => {
                     value={draft}
                     onChange={(event) => setDraft(event.target.value)}
                     placeholder="Ask about projects, skills, or experience"
+                    disabled={isLoading}
                   />
-                  <button type="submit" className="chatbot-send">
-                    Send
+                  <button
+                    type="submit"
+                    className="chatbot-send"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Thinking..." : "Send"}
                   </button>
                 </form>
               </div>
