@@ -9,7 +9,7 @@ import {
 
 const assistantWelcome = {
   role: "assistant",
-  text: `Ask me about ${portfolioProfile.name}'s projects, experience, skills, or how to contact him.`,
+  text: `Ask about ${portfolioProfile.name}'s featured projects, experience, technical strengths, or how to get in touch.`,
 };
 
 const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "/api").replace(
@@ -119,19 +119,18 @@ const PortfolioChatbot = () => {
       <section id="chatbot" className="section-padding">
         <div className="w-full md:px-10 px-5">
           <TitleHeader
-            title="AI Chatbot About Lenny"
-            sub="🤖 Ask About My Work"
+            title="Ask About Lenny's Work"
+            sub="🤖 Portfolio Assistant"
           />
 
           <div className="chatbot-section mt-16">
             <div className="chatbot-info card-border">
-              <p className="chatbot-kicker">Portfolio assistant</p>
-              <h3>Let visitors explore your CV and projects in conversation.</h3>
+              <p className="chatbot-kicker">Ask anything</p>
+              <h3>Explore Lennox Lewis&apos;s projects, experience, and technical strengths in one place.</h3>
               <p className="chatbot-copy">
-                This assistant answers from the portfolio content already on the
-                site, so users can ask about projects, technical strengths,
-                experience, and contact details without digging through every
-                section.
+                Use the assistant to learn about selected work, development
+                experience, core technologies, and contact details without
+                digging through every section of the portfolio manually.
               </p>
               <div className="chatbot-tags">
                 {quickPrompts.map((prompt) => (
@@ -150,8 +149,8 @@ const PortfolioChatbot = () => {
             <div className="chatbot-panel card-border">
               <div className="chatbot-panel-header">
                 <div>
-                  <p className="chatbot-kicker">Live demo</p>
-                  <h3>Chat with Lenny&apos;s portfolio</h3>
+                  <p className="chatbot-kicker">Portfolio chat</p>
+                  <h3>Ask Lenny&apos;s portfolio assistant</h3>
                 </div>
                 <button
                   type="button"
