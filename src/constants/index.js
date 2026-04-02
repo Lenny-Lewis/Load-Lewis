@@ -1,9 +1,5 @@
 const navLinks = [
   {
-    name: "About",
-    link: "#about",
-  },
-  {
     name: "Work",
     link: "#work",
   },
@@ -47,24 +43,6 @@ const resumeLinks = {
   resume: "/cv,%20resume/Lennox_Lewis%20Resume.docx",
   cv: "/cv,%20resume/Lennox_Odhiambo_CV.docx",
 };
-
-const aboutHighlights = [
-  {
-    title: "Education",
-    value: "Kisii University",
-    desc: "Year 3 student balancing software engineering growth with hands-on product work.",
-  },
-  {
-    title: "Availability",
-    value: "Open To New Work",
-    desc: "Interested in freelance, internships, and product-focused engineering opportunities.",
-  },
-  {
-    title: "Interests",
-    value: "Anime, Basketball, Gaming",
-    desc: "A mix of curiosity, creativity, and competition that carries into how Lennox builds.",
-  },
-];
 
 const logoIconsList = [
   {
@@ -300,7 +278,6 @@ const socialImgs = [
 ];
 
 export {
-  aboutHighlights,
   words,
   abilities,
   logoIconsList,

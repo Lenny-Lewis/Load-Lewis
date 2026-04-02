@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { navLinks } from "../constants";
+import { navLinks, resumeLinks } from "../constants";
 
 const NavBar = () => {
   // track if the user has scrolled down the page
@@ -42,11 +42,23 @@ const NavBar = () => {
           </ul>
         </nav>
 
-        <a href="#contact" className="contact-btn group">
-          <div className="inner">
-            <span>Contact me</span>
-          </div>
-        </a>
+        <div className="nav-actions">
+          <a
+            href={resumeLinks.resume}
+            download
+            className="resume-btn group"
+          >
+            <div className="inner">
+              <span>Download Resume</span>
+            </div>
+          </a>
+
+          <a href="#contact" className="contact-btn group">
+            <div className="inner">
+              <span>Contact me</span>
+            </div>
+          </a>
+        </div>
       </div>
     </header>
   );

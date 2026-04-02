@@ -160,6 +160,18 @@ section {
         }
       }
     }
+
+    .nav-actions {
+      @apply flex items-center gap-3;
+    }
+
+    .resume-btn {
+      @apply hidden md:flex;
+
+      .inner {
+        @apply px-5 py-2 rounded-lg border border-white/12 bg-white/5 text-white transition-colors duration-300 hover:bg-white hover:text-black;
+      }
+    }
   }
 
   .app-showcase {
@@ -208,63 +220,6 @@ section {
         @apply text-lg md:text-xl lg:text-2xl font-semibold mt-5;
       }
     }
-  }
-
-  .about-layout {
-    @apply grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr] gap-6 items-start;
-  }
-
-  .about-story,
-  .about-card {
-    @apply rounded-3xl p-8 md:p-10;
-  }
-
-  .about-story {
-    @apply bg-[linear-gradient(180deg,rgba(17,18,23,0.96)_0%,rgba(14,14,16,1)_100%)];
-  }
-
-  .about-kicker {
-    @apply uppercase tracking-[0.28em] text-xs text-[#8ab2d6];
-  }
-
-  .about-story h2 {
-    @apply mt-4 text-3xl md:text-5xl font-semibold leading-tight;
-  }
-
-  .about-story p {
-    @apply mt-5 text-white-50 text-base md:text-lg leading-7;
-  }
-
-  .about-actions {
-    @apply mt-8 flex flex-wrap gap-4;
-  }
-
-  .about-action {
-    @apply inline-flex items-center justify-center rounded-xl px-5 py-4 font-semibold transition-colors duration-300;
-  }
-
-  .about-action.primary {
-    @apply bg-white text-black hover:bg-white/85;
-  }
-
-  .about-action.secondary {
-    @apply border border-white/12 bg-white/5 text-white hover:bg-white hover:text-black;
-  }
-
-  .about-grid {
-    @apply grid grid-cols-1 gap-6;
-  }
-
-  .about-card {
-    @apply bg-[linear-gradient(180deg,rgba(21,23,31,0.96)_0%,rgba(14,14,16,1)_100%)];
-  }
-
-  .about-card h3 {
-    @apply mt-4 text-2xl font-semibold;
-  }
-
-  .about-card p {
-    @apply mt-3 text-white-50 leading-7;
   }
 
   .cta-wrapper {
