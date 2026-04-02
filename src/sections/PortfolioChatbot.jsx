@@ -17,6 +17,31 @@ const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "/api").replace(
   ""
 );
 
+const getFriendlyApiError = (message) => {
+  const normalizedMessage = message.toLowerCase();
+
+  if (
+    normalizedMessage.includes("insufficient_quota") ||
+    normalizedMessage.includes("quota") ||
+    normalizedMessage.includes("billing")
+  ) {
+    return "The AI assistant is temporarily unavailable while the API billing setup is being completed.";
+  }
+
+  if (normalizedMessage.includes("openai_api_key")) {
+    return "The AI assistant is temporarily unavailable because the server configuration is incomplete.";
+  }
+
+  if (
+    normalizedMessage.includes("401") ||
+    normalizedMessage.includes("unauthorized")
+  ) {
+    return "The AI assistant is temporarily unavailable because the API credentials could not be verified.";
+  }
+
+  return "The AI assistant is temporarily unavailable right now, so this answer is coming from the local portfolio data.";
+};
+
 const PortfolioChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [draft, setDraft] = useState("");
@@ -68,13 +93,15 @@ const PortfolioChatbot = () => {
     } catch (error) {
       const fallbackReply = getPortfolioChatReply(trimmedQuestion);
       const diagnostic =
-        error instanceof Error ? error.message : "Unknown API error";
+        error instanceof Error
+          ? getFriendlyApiError(error.message)
+          : "The AI assistant is temporarily unavailable right now, so this answer is coming from the local portfolio data.";
 
       setMessages((current) => [
         ...current,
         {
           role: "assistant",
-          text: `${fallbackReply} This answer is using the local portfolio fallback because the API request failed: ${diagnostic}.`,
+          text: `${fallbackReply} ${diagnostic}`,
         },
       ]);
     } finally {
