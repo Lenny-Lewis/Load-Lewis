@@ -47,8 +47,8 @@ const PortfolioChatbot = () => {
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);
         const errorMessage =
-          errorData?.error ||
           errorData?.details ||
+          errorData?.error ||
           `API request failed with status ${response.status}`;
 
         throw new Error(errorMessage);
