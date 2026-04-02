@@ -51,7 +51,7 @@ const Hero = () => {
             </div>
 
             <p className="hero-description">
-              Hi, I’m Lennox Lewis Odhiambo, a frontend and full stack
+              Hi, I’m Lennox Lewis, a frontend and full stack
               developer based in Kenya building polished digital products for
               web and mobile.
             </p>
