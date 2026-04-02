@@ -7,7 +7,7 @@ const Footer = () => {
         
         {/* Left */}
         <div className="flex flex-col justify-center">
-          <p>Terms & Conditions</p>
+          <p>Open to thoughtful freelance and product work.</p>
         </div>
 
         {/* Social Icons */}

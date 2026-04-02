@@ -8,6 +8,12 @@ const suggestedPrompts = [
   "Is Lenny available for freelance work?",
 ];
 
+const defaultFollowUps = [
+  "What projects has Lenny done?",
+  "What technologies does Lenny use?",
+  "How can I contact Lenny?",
+];
+
 const portfolioProfile = {
   name: "Lennox Lewis Odhiambo",
   role: "Frontend and full stack developer",
@@ -95,86 +101,191 @@ const normalizeText = (value) =>
 const includesAny = (tokens, candidates) =>
   candidates.some((candidate) => tokens.includes(candidate));
 
+const createChatReply = (text, followUps = defaultFollowUps) => ({
+  text,
+  followUps,
+});
+
+const getProjectByKeyword = (tokens) =>
+  portfolioProfile.projects.find((project) =>
+    project.keywords.some((keyword) => tokens.includes(keyword))
+  );
+
 const getProjectsReply = () => {
   const lines = portfolioProfile.projects.map(
     (project) =>
       `${project.name}: ${project.summary} Stack: ${project.stack.join(", ")}.`
   );
 
-  return `Lennox has worked on ${portfolioProfile.projects.length} standout portfolio projects. ${lines.join(
-    " "
-  )}`;
+  return createChatReply(
+    `Lennox has worked on ${portfolioProfile.projects.length} standout portfolio projects. ${lines.join(
+      " "
+    )}`,
+    [
+      "Tell me about Ryde",
+      "Tell me about the Library Management Platform",
+      "Tell me about YC Directory",
+    ]
+  );
 };
+
+const getProjectDetailReply = (project) =>
+  createChatReply(
+    `${project.name} is one of Lennox's featured projects. ${project.summary} The main stack highlighted for it is ${project.stack.join(
+      ", "
+    )}.`,
+    ["What technologies does Lenny use?", "Tell me about Lenny's experience", "How can I contact Lenny?"]
+  );
 
 const getExperienceReply = () => {
   const lines = portfolioProfile.experience.map(
     (item) => `${item.title} (${item.period}): ${item.summary}`
   );
 
-  return `Lennox's recent experience spans frontend, full stack, and React Native roles. ${lines.join(
-    " "
-  )}`;
+  return createChatReply(
+    `Lennox's recent experience spans frontend, full stack, and React Native roles. ${lines.join(
+      " "
+    )}`,
+    ["What kind of work does Lenny do?", "What technologies does Lenny use?", "How can I contact Lenny?"]
+  );
 };
 
 const getSkillsReply = () =>
-  `Lennox primarily works with ${portfolioProfile.strengths.join(
-    ", "
-  )}. His portfolio also highlights React, Python, Node.js, Three.js, and Git.`;
+  createChatReply(
+    `Lennox primarily works with ${portfolioProfile.strengths.join(
+      ", "
+    )}. His portfolio also highlights React, Python, Node.js, Three.js, and Git.`,
+    ["What projects has Lenny done?", "Tell me about Lenny's experience", "Is Lenny available for freelance work?"]
+  );
 
 const getContactReply = () =>
-  `The best way to reach Lennox is through the contact form on this site. You can also find him on GitHub (${portfolioProfile.contact.github}), LinkedIn (${portfolioProfile.contact.linkedin}), X (${portfolioProfile.contact.x}), and Instagram (${portfolioProfile.contact.instagram}).`;
+  createChatReply(
+    `The best way to reach Lennox is through the contact form on this site. You can also find him on GitHub (${portfolioProfile.contact.github}), LinkedIn (${portfolioProfile.contact.linkedin}), X (${portfolioProfile.contact.x}), and Instagram (${portfolioProfile.contact.instagram}).`,
+    ["Is Lenny available for freelance work?", "What kind of work does Lenny do?", "What projects has Lenny done?"]
+  );
 
 const getIntroReply = () =>
-  `${portfolioProfile.intro} His strongest areas are ${portfolioProfile.strengths.join(
-    ", "
-  )}.`;
+  createChatReply(
+    `${portfolioProfile.intro} His strongest areas are ${portfolioProfile.strengths.join(
+      ", "
+    )}.`,
+    ["What kind of work does Lenny do?", "Tell me about Lenny's experience", "What technologies does Lenny use?"]
+  );
 
 const getGreetingReply = () =>
-  `Hi. I can help you learn about ${portfolioProfile.name}'s projects, experience, technical strengths, and contact details.`;
+  createChatReply(
+    `Hi. I can help you learn about ${portfolioProfile.name}'s projects, experience, technical strengths, and contact details.`,
+    ["What projects has Lenny done?", "What kind of work does Lenny do?", "How can I contact Lenny?"]
+  );
 
 const getHelpReply = () =>
-  "You can ask about featured projects, experience, technologies, services, contact details, availability, or background.";
+  createChatReply(
+    "You can ask about featured projects, experience, technologies, services, contact details, availability, or background.",
+    ["Tell me about Ryde", "What technologies does Lenny use?", "How old is Lenny?"]
+  );
 
 const getServicesReply = () =>
-  `${portfolioProfile.name} focuses on ${portfolioProfile.services.join(
-    ", "
-  )}.`;
+  createChatReply(
+    `${portfolioProfile.name} focuses on ${portfolioProfile.services.join(
+      ", "
+    )}.`,
+    ["Is Lenny available for freelance work?", "What projects has Lenny done?", "How can I contact Lenny?"]
+  );
 
 const getAvailabilityReply = () =>
-  `For current availability, the best option is to contact ${portfolioProfile.name} directly through the contact form on this site or via LinkedIn.`;
+  createChatReply(
+    `For current availability, the best option is to contact ${portfolioProfile.name} directly through the contact form on this site or via LinkedIn.`,
+    ["How can I contact Lenny?", "What kind of work does Lenny do?", "What projects has Lenny done?"]
+  );
 
 const getLocationReply = () =>
-  `${portfolioProfile.name} is based in ${portfolioProfile.location}.`;
+  createChatReply(
+    `${portfolioProfile.name} is based in ${portfolioProfile.location}.`,
+    ["Where does Lenny study?", "How old is Lenny?", "What does Lenny do for fun?"]
+  );
 
-const getNameReply = () => `His full name is ${portfolioProfile.name}.`;
+const getNameReply = () =>
+  createChatReply(`His full name is ${portfolioProfile.name}.`, [
+    "How old is Lenny?",
+    "Where does Lenny study?",
+    "What does Lenny do for fun?",
+  ]);
 
-const getAgeReply = () => `${portfolioProfile.name} is ${portfolioProfile.age} years old.`;
+const getAgeReply = () =>
+  createChatReply(`${portfolioProfile.name} is ${portfolioProfile.age} years old.`, [
+    "Where does Lenny study?",
+    "How tall is Lenny?",
+    "What does Lenny do for fun?",
+  ]);
 
-const getHeightReply = () => `${portfolioProfile.name} is ${portfolioProfile.height}.`;
+const getHeightReply = () =>
+  createChatReply(`${portfolioProfile.name} is ${portfolioProfile.height}.`, [
+    "How old is Lenny?",
+    "Where does Lenny study?",
+    "What does Lenny do for fun?",
+  ]);
 
 const getFunFactReply = () =>
-  `${portfolioProfile.name} loves anime, enjoys basketball, and plays video games.`;
+  createChatReply(
+    `${portfolioProfile.name} loves anime, enjoys basketball, and plays video games.`,
+    ["How old is Lenny?", "Where does Lenny study?", "What kind of work does Lenny do?"]
+  );
 
 const getThanksReply = () =>
-  "You’re welcome. If you want, ask about projects, skills, experience, or how to get in touch.";
+  createChatReply(
+    "You’re welcome. If you want, ask about projects, skills, experience, or how to get in touch.",
+    ["What projects has Lenny done?", "What technologies does Lenny use?", "How can I contact Lenny?"]
+  );
 
 const getEducationReply = () =>
-  `${portfolioProfile.name} is currently a ${portfolioProfile.education}.`;
+  createChatReply(
+    `${portfolioProfile.name} is currently a ${portfolioProfile.education}.`,
+    ["How old is Lenny?", "How tall is Lenny?", "What does Lenny do for fun?"]
+  );
 
 const getPricingReply = () =>
-  `Pricing is not listed on the portfolio. The best next step is to send a message with your project scope and requirements.`;
+  createChatReply(
+    `Pricing is not listed on the portfolio. The best next step is to send a message with your project scope and requirements.`,
+    ["How can I contact Lenny?", "Is Lenny available for freelance work?", "What kind of work does Lenny do?"]
+  );
 
 const getResumeReply = () =>
-  `If you need a CV or resume, the best option is to contact ${portfolioProfile.name} directly through the contact section of this site.`;
+  createChatReply(
+    `If you need a CV or resume, the best option is to contact ${portfolioProfile.name} directly through the contact section of this site.`,
+    ["How can I contact Lenny?", "Tell me about Lenny's experience", "What projects has Lenny done?"]
+  );
 
 const getDefaultReply = () =>
-  "I can help with questions about Lennox's projects, skills, experience, services, availability, location, and contact details.";
+  createChatReply(
+    "I can help with questions about Lennox's projects, skills, experience, services, availability, location, and contact details.",
+    defaultFollowUps
+  );
 
 export const getPortfolioChatReply = (question) => {
   const tokens = normalizeText(question);
 
   if (!tokens.length) {
-    return "Ask about projects, skills, experience, or contact details and I’ll answer from Lennox's portfolio content.";
+    return createChatReply(
+      "Ask about projects, skills, experience, or contact details and I’ll answer from Lennox's portfolio content.",
+      defaultFollowUps
+    );
+  }
+
+  const matchedProject = getProjectByKeyword(tokens);
+
+  if (
+    matchedProject &&
+    includesAny(tokens, [
+      "tell",
+      "about",
+      "project",
+      "projects",
+      "what",
+      "describe",
+      "details",
+    ])
+  ) {
+    return getProjectDetailReply(matchedProject);
   }
 
   if (
@@ -369,4 +480,4 @@ export const getPortfolioChatReply = (question) => {
   return getDefaultReply();
 };
 
-export { portfolioProfile, suggestedPrompts };
+export { defaultFollowUps, portfolioProfile, suggestedPrompts };

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 import TitleHeader from "../components/TitleHeader";
@@ -11,6 +11,7 @@ import {
 const assistantWelcome = {
   role: "assistant",
   text: `Ask about ${portfolioProfile.name}'s featured projects, experience, technical strengths, or how to get in touch.`,
+  followUps: suggestedPrompts.slice(0, 3),
 };
 
 const typedPhrases = [
@@ -48,6 +49,7 @@ const PortfolioChatbot = () => {
   const [messages, setMessages] = useState([assistantWelcome]);
   const [typedText, setTypedText] = useState("");
   const [typedIndex, setTypedIndex] = useState(0);
+  const messagesRef = useRef(null);
 
   const quickPrompts = useMemo(() => suggestedPrompts, []);
   const insightCards = useMemo(
@@ -92,6 +94,17 @@ const PortfolioChatbot = () => {
     return () => window.clearInterval(typingInterval);
   }, [typedIndex]);
 
+  useEffect(() => {
+    const container = messagesRef.current;
+
+    if (!container) return;
+
+    container.scrollTo({
+      top: container.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages]);
+
   const submitQuestion = (question) => {
     const trimmedQuestion = question.trim();
 
@@ -102,10 +115,15 @@ const PortfolioChatbot = () => {
     setMessages((current) => [
       ...current,
       { role: "user", text: trimmedQuestion },
-      { role: "assistant", text: reply },
+      { role: "assistant", text: reply.text, followUps: reply.followUps },
     ]);
     setDraft("");
     setIsOpen(true);
+  };
+
+  const resetChat = () => {
+    setMessages([assistantWelcome]);
+    setDraft("");
   };
 
   const handleSubmit = (event) => {
@@ -187,18 +205,28 @@ const PortfolioChatbot = () => {
                   <p className="chatbot-kicker">Portfolio chat</p>
                   <h3>Ask Lenny&apos;s portfolio assistant</h3>
                 </div>
-                <button
-                  type="button"
-                  className="chatbot-toggle"
-                  onClick={() => setIsOpen((current) => !current)}
-                >
-                  {isOpen ? "Collapse" : "Open chat"}
-                </button>
+                <div className="chatbot-actions">
+                  <button
+                    type="button"
+                    className="chatbot-reset"
+                    onClick={resetChat}
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type="button"
+                    className="chatbot-toggle"
+                    onClick={() => setIsOpen((current) => !current)}
+                  >
+                    {isOpen ? "Collapse" : "Open chat"}
+                  </button>
+                </div>
               </div>
 
               <div className={`chatbot-shell ${isOpen ? "open" : ""}`}>
                 <motion.div
                   className="chatbot-messages"
+                  ref={messagesRef}
                   initial={{ opacity: 0, y: 14 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
@@ -215,6 +243,21 @@ const PortfolioChatbot = () => {
                         {message.role === "assistant" ? "AI" : "You"}
                       </span>
                       <p>{message.text}</p>
+                      {message.role === "assistant" &&
+                        message.followUps?.length > 0 && (
+                          <div className="chatbot-followups">
+                            {message.followUps.map((followUp) => (
+                              <button
+                                key={`${message.role}-${index}-${followUp}`}
+                                type="button"
+                                className="chatbot-followup"
+                                onClick={() => submitQuestion(followUp)}
+                              >
+                                {followUp}
+                              </button>
+                            ))}
+                          </div>
+                        )}
                     </motion.div>
                   ))}
                 </motion.div>

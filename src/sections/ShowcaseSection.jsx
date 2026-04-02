@@ -2,27 +2,21 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { caseStudies } from "../constants";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const AppShowcase = () => {
   const sectionRef = useRef(null);
-  const rydeRef = useRef(null);
-  const libraryRef = useRef(null);
-  const ycDirectoryRef = useRef(null);
 
   useGSAP(() => {
-    // Animation for the main section
     gsap.fromTo(
       sectionRef.current,
       { opacity: 0 },
       { opacity: 1, duration: 1.5 }
     );
 
-    // Animations for each app showcase
-    const cards = [rydeRef.current, libraryRef.current, ycDirectoryRef.current];
-
-    cards.forEach((card, index) => {
+    gsap.utils.toArray(".case-study-card").forEach((card, index) => {
       gsap.fromTo(
         card,
         {
@@ -33,7 +27,7 @@ const AppShowcase = () => {
           y: 0,
           opacity: 1,
           duration: 1,
-          delay: 0.3 * (index + 1),
+          delay: 0.15 * (index + 1),
           scrollTrigger: {
             trigger: card,
             start: "top bottom-=100",
@@ -46,41 +40,53 @@ const AppShowcase = () => {
   return (
     <div id="work" ref={sectionRef} className="app-showcase">
       <div className="w-full">
-        <div className="showcaselayout">
-          <div ref={rydeRef} className="first-project-wrapper">
-            <div className="image-wrapper">
-              <img src="/images/project1.png" alt="Ryde App Interface" />
-            </div>
-            <div className="text-content">
-              <h2>
-                On-Demand Rides Made Simple with a Powerful, User-Friendly App
-                called Ryde
-              </h2>
-              <p className="text-white-50 md:text-xl">
-                An app built with React Native, Expo, & TailwindCSS for a fast,
-                user-friendly experience.
-              </p>
-            </div>
-          </div>
+        <div className="case-study-heading">
+          <p className="about-kicker">Case Studies</p>
+          <h2>Selected work with clearer context, role definition, and outcomes.</h2>
+          <p>
+            Beyond visuals, each project below highlights the kind of product
+            thinking, implementation focus, and delivery quality Lennox brings
+            to client and portfolio work.
+          </p>
+        </div>
 
-          <div className="project-list-wrapper overflow-hidden">
-            <div className="project" ref={libraryRef}>
-              <div className="image-wrapper bg-[#FFEFDB]">
-                <img
-                  src="/images/project2.png"
-                  alt="Library Management Platform"
-                />
+        <div className="case-study-grid">
+          {caseStudies.map((study) => (
+            <article key={study.name} className="case-study-card card-border">
+              <div
+                className="case-study-media"
+                style={{ backgroundColor: study.accent }}
+              >
+                <img src={study.imgPath} alt={study.name} />
               </div>
-              <h2>The Library Management Platform</h2>
-            </div>
-
-            <div className="project" ref={ycDirectoryRef}>
-              <div className="image-wrapper bg-[#FFE7EB]">
-                <img src="/images/project3.png" alt="YC Directory App" />
+              <div className="case-study-content">
+                <div className="case-study-meta">
+                  <span>{study.name}</span>
+                  <span>{study.role}</span>
+                </div>
+                <h3>{study.title}</h3>
+                <div className="case-study-copy">
+                  <div>
+                    <p className="about-kicker">Problem</p>
+                    <p>{study.problem}</p>
+                  </div>
+                  <div>
+                    <p className="about-kicker">Outcome</p>
+                    <p>{study.outcome}</p>
+                  </div>
+                </div>
+                <div className="case-study-stack">
+                  {study.stack.map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+                <div className="case-study-actions">
+                  <a href={study.linkHref}>{study.linkLabel}</a>
+                  <a href="#chatbot">Ask The Portfolio Assistant</a>
+                </div>
               </div>
-              <h2>YC Directory - A Startup Showcase App</h2>
-            </div>
-          </div>
+            </article>
+          ))}
         </div>
       </div>
     </div>

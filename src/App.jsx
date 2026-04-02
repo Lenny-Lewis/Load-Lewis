@@ -9,11 +9,13 @@ import LogoShowcase from "./sections/LogoShowcase";
 import FeatureCards from "./sections/FeatureCards";
 import PortfolioChatbot from "./sections/PortfolioChatbot";
 import Navbar from "./components/NavBar";
+import AboutSection from "./sections/AboutSection";
 
 const App = () => (
   <>
     <Navbar />
     <Hero />
+    <AboutSection />
     <ShowcaseSection />
     <LogoShowcase />
     <FeatureCards />

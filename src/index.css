@@ -98,6 +98,18 @@ section {
     @apply bg-black-200 py-2 px-4 rounded-full w-fit text-sm md:text-base text-nowrap;
   }
 
+  .hero-status {
+    @apply w-fit rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white-50 backdrop-blur-sm;
+  }
+
+  .hero-actions {
+    @apply flex flex-col md:flex-row gap-4 items-start;
+  }
+
+  .hero-secondary-cta {
+    @apply inline-flex items-center justify-center rounded-xl border border-white/12 bg-white/5 px-6 py-4 text-white transition-colors duration-300 hover:bg-white hover:text-black;
+  }
+
   .hero-3d-layout {
     @apply xl:w-[70%] w-full h-full min-h-[50vh] absolute xl:-top-20 top-24 xl:-right-20 right-0;
   }
@@ -202,6 +214,135 @@ section {
     }
   }
 
+  .about-layout {
+    @apply grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr] gap-6 items-start;
+  }
+
+  .about-story,
+  .about-card {
+    @apply rounded-3xl p-8 md:p-10;
+  }
+
+  .about-story {
+    @apply bg-[linear-gradient(180deg,rgba(17,18,23,0.96)_0%,rgba(14,14,16,1)_100%)];
+  }
+
+  .about-kicker {
+    @apply uppercase tracking-[0.28em] text-xs text-[#8ab2d6];
+  }
+
+  .about-story h2 {
+    @apply mt-4 text-3xl md:text-5xl font-semibold leading-tight;
+  }
+
+  .about-story p {
+    @apply mt-5 text-white-50 text-base md:text-lg leading-8;
+  }
+
+  .about-actions {
+    @apply mt-8 flex flex-wrap gap-4;
+  }
+
+  .about-action {
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-4 font-semibold transition-colors duration-300;
+  }
+
+  .about-action.primary {
+    @apply bg-white text-black hover:bg-white/85;
+  }
+
+  .about-action.secondary {
+    @apply border border-white/12 bg-white/5 text-white hover:bg-white hover:text-black;
+  }
+
+  .about-grid {
+    @apply grid grid-cols-1 gap-6;
+  }
+
+  .about-card {
+    @apply bg-[linear-gradient(180deg,rgba(21,23,31,0.96)_0%,rgba(14,14,16,1)_100%)];
+  }
+
+  .about-card h3 {
+    @apply mt-4 text-2xl font-semibold;
+  }
+
+  .about-card p {
+    @apply mt-3 text-white-50 leading-7;
+  }
+
+  .case-study-heading {
+    @apply max-w-3xl mb-10;
+  }
+
+  .case-study-heading h2 {
+    @apply mt-4 text-3xl md:text-5xl font-semibold;
+  }
+
+  .case-study-heading p:last-child {
+    @apply mt-5 text-white-50 text-base md:text-lg leading-8;
+  }
+
+  .case-study-grid {
+    @apply grid grid-cols-1 gap-8;
+  }
+
+  .case-study-card {
+    @apply grid grid-cols-1 xl:grid-cols-[0.95fr_1.05fr] gap-0 overflow-hidden rounded-[2rem];
+  }
+
+  .case-study-media {
+    @apply min-h-[20rem] flex items-center justify-center px-6 py-8;
+
+    img {
+      @apply w-full h-full max-h-[24rem] object-contain;
+    }
+  }
+
+  .case-study-content {
+    @apply p-8 md:p-10;
+  }
+
+  .case-study-meta {
+    @apply flex flex-wrap gap-3 text-xs uppercase tracking-[0.2em] text-[#8ab2d6];
+  }
+
+  .case-study-content h3 {
+    @apply mt-4 text-2xl md:text-4xl font-semibold leading-tight;
+  }
+
+  .case-study-copy {
+    @apply mt-8 grid grid-cols-1 md:grid-cols-2 gap-6;
+
+    p:last-child {
+      @apply mt-3 text-white-50 leading-7;
+    }
+  }
+
+  .case-study-stack {
+    @apply mt-8 flex flex-wrap gap-3;
+
+    span {
+      @apply rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white-50;
+    }
+  }
+
+  .case-study-actions {
+    @apply mt-8 flex flex-wrap gap-4;
+
+    a {
+      @apply inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold transition-colors duration-300;
+    }
+
+    a:first-child {
+      @apply bg-white text-black hover:bg-white/85;
+    }
+
+    a:last-child {
+      @apply border border-white/12 bg-white/5 text-white hover:bg-white hover:text-black;
+    }
+  }
+
   .cta-wrapper {
     @apply relative z-20 cursor-pointer;
   }
@@ -295,6 +436,22 @@ section {
         @apply inline-block;
       }
     }
+  }
+
+  .contact-quick-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+  }
+
+  .contact-quick-card {
+    @apply rounded-2xl border border-white/8 bg-white/[0.03] p-5;
+
+    h3 {
+      @apply mt-3 text-lg font-semibold;
+    }
+  }
+
+  .contact-download {
+    @apply transition-colors duration-300 hover:bg-white hover:text-black;
   }
 
   .footer {
@@ -395,7 +552,12 @@ section {
     @apply flex flex-col md:flex-row md:items-center md:justify-between gap-4;
   }
 
+  .chatbot-actions {
+    @apply flex items-center gap-3;
+  }
+
   .chatbot-toggle,
+  .chatbot-reset,
   .chatbot-send,
   .chatbot-fab {
     @apply rounded-full bg-white text-black font-semibold transition-transform duration-300 hover:scale-[1.02];
@@ -408,6 +570,10 @@ section {
 
   .chatbot-toggle {
     @apply px-5 py-3 text-sm;
+  }
+
+  .chatbot-reset {
+    @apply px-5 py-3 text-sm bg-transparent text-white border border-white/12 hover:bg-white/6;
   }
 
   .chatbot-shell {
@@ -448,6 +614,14 @@ section {
 
   .chatbot-message p {
     @apply mt-3;
+  }
+
+  .chatbot-followups {
+    @apply mt-4 flex flex-wrap gap-2;
+  }
+
+  .chatbot-followup {
+    @apply rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-white-50 transition-colors duration-300 hover:bg-white hover:text-black;
   }
 
   .chatbot-form {

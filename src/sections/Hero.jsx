@@ -3,7 +3,7 @@ import gsap from "gsap";
 
 import AnimatedCounter from "../components/AnimatedCounter";
 import Button from "../components/Button";
-import { words } from "../constants";
+import { resumeLinks, words } from "../constants";
 import HeroExperience from "../components/models/hero_models/HeroExperience";
 
 const Hero = () => {
@@ -25,6 +25,9 @@ const Hero = () => {
         {/* LEFT: Hero Content */}
         <header className="flex flex-col justify-center md:w-full w-screen md:px-20 px-5">
           <div className="flex flex-col gap-7">
+            <div className="hero-status">
+              Available for freelance, internships, and product-focused roles
+            </div>
             <div className="hero-text">
               <h1>
                 Shaping
@@ -51,15 +54,21 @@ const Hero = () => {
             </div>
 
             <p className="text-white-50 md:text-xl relative z-10 pointer-events-none">
-              Hi, I’m Lennox, a developer based in Kenya with a passion for
-              code.
+              Hi, I’m Lennox Lewis Odhiambo, a frontend and full stack
+              developer based in Kenya, currently studying at Kisii University
+              and building polished digital products for web and mobile.
             </p>
 
-            <Button
-              text="See My Work"
-              className="md:w-80 md:h-16 w-60 h-12"
-              id="counter"
-            />
+            <div className="hero-actions">
+              <Button
+                text="See My Work"
+                className="md:w-80 md:h-16 w-60 h-12"
+                id="counter"
+              />
+              <a href={resumeLinks.resume} download className="hero-secondary-cta">
+                Download Resume
+              </a>
+            </div>
           </div>
         </header>
 
