@@ -12,6 +12,10 @@ const navLinks = [
     link: "#skills",
   },
   {
+    name: "AI Chat",
+    link: "#chatbot",
+  },
+  {
     name: "Testimonials",
     link: "#testimonials",
   },
