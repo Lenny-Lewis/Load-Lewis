@@ -24,10 +24,7 @@ const Hero = () => {
       <div className="hero-layout">
         {/* LEFT: Hero Content */}
         <header className="flex flex-col justify-center md:w-full w-screen md:px-20 px-5">
-          <div className="flex flex-col gap-7">
-            <div className="hero-status">
-              Available for freelance, internships, and product-focused roles
-            </div>
+          <div className="hero-copy">
             <div className="hero-text">
               <h1>
                 Shaping
@@ -53,7 +50,7 @@ const Hero = () => {
               <h1>that Deliver Results</h1>
             </div>
 
-            <p className="text-white-50 md:text-xl relative z-10 pointer-events-none">
+            <p className="hero-description">
               Hi, I’m Lennox Lewis Odhiambo, a frontend and full stack
               developer based in Kenya, currently studying at Kisii University
               and building polished digital products for web and mobile.

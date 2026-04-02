@@ -98,8 +98,12 @@ section {
     @apply bg-black-200 py-2 px-4 rounded-full w-fit text-sm md:text-base text-nowrap;
   }
 
-  .hero-status {
-    @apply w-fit rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white-50 backdrop-blur-sm;
+  .hero-copy {
+    @apply flex flex-col gap-7 max-w-2xl xl:max-w-[38rem];
+  }
+
+  .hero-description {
+    @apply text-white-50 md:text-xl relative z-10 leading-8 md:leading-9 max-w-xl pointer-events-none;
   }
 
   .hero-actions {
