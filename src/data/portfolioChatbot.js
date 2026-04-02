@@ -9,9 +9,12 @@ const suggestedPrompts = [
 ];
 
 const portfolioProfile = {
-  name: "Lennox Lewis",
+  name: "Lennox Lewis Odhiambo",
   role: "Frontend and full stack developer",
   location: "Kenya",
+  age: "21",
+  education: "Kisii University, Year 3 student",
+  height: "6 foot flat",
   intro:
     "Lennox is a developer based in Kenya who builds polished web and mobile products with a strong focus on performance, usability, and clean implementation.",
   strengths: [
@@ -79,6 +82,7 @@ const portfolioProfile = {
     "React Native app development",
     "UI implementation and performance optimization",
   ],
+  funFacts: ["Loves anime", "Enjoys basketball", "Plays video games"],
 };
 
 const normalizeText = (value) =>
@@ -142,11 +146,20 @@ const getAvailabilityReply = () =>
 const getLocationReply = () =>
   `${portfolioProfile.name} is based in ${portfolioProfile.location}.`;
 
+const getNameReply = () => `His full name is ${portfolioProfile.name}.`;
+
+const getAgeReply = () => `${portfolioProfile.name} is ${portfolioProfile.age} years old.`;
+
+const getHeightReply = () => `${portfolioProfile.name} is ${portfolioProfile.height}.`;
+
+const getFunFactReply = () =>
+  `${portfolioProfile.name} loves anime, enjoys basketball, and plays video games.`;
+
 const getThanksReply = () =>
   "You’re welcome. If you want, ask about projects, skills, experience, or how to get in touch.";
 
 const getEducationReply = () =>
-  `This portfolio highlights ${portfolioProfile.name}'s work, projects, and technical experience. Education details are not currently listed here.`;
+  `${portfolioProfile.name} is currently a ${portfolioProfile.education}.`;
 
 const getPricingReply = () =>
   `Pricing is not listed on the portfolio. The best next step is to send a message with your project scope and requirements.`;
@@ -175,6 +188,54 @@ export const getPortfolioChatReply = (question) => {
     ])
   ) {
     return getGreetingReply();
+  }
+
+  if (
+    includesAny(tokens, [
+      "name",
+      "fullname",
+      "full",
+      "called",
+      "call",
+    ])
+  ) {
+    return getNameReply();
+  }
+
+  if (
+    includesAny(tokens, [
+      "age",
+      "old",
+      "years",
+    ])
+  ) {
+    return getAgeReply();
+  }
+
+  if (
+    includesAny(tokens, [
+      "height",
+      "tall",
+      "foot",
+      "feet",
+    ])
+  ) {
+    return getHeightReply();
+  }
+
+  if (
+    includesAny(tokens, [
+      "fun",
+      "hobby",
+      "hobbies",
+      "anime",
+      "basketball",
+      "games",
+      "gaming",
+      "video",
+    ])
+  ) {
+    return getFunFactReply();
   }
 
   if (
