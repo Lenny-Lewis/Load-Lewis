@@ -45,7 +45,13 @@ const PortfolioChatbot = () => {
       });
 
       if (!response.ok) {
-        throw new Error("API request failed");
+        const errorData = await response.json().catch(() => null);
+        const errorMessage =
+          errorData?.error ||
+          errorData?.details ||
+          `API request failed with status ${response.status}`;
+
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
@@ -59,14 +65,16 @@ const PortfolioChatbot = () => {
             "I couldn't generate a response from the portfolio context.",
         },
       ]);
-    } catch {
+    } catch (error) {
       const fallbackReply = getPortfolioChatReply(trimmedQuestion);
+      const diagnostic =
+        error instanceof Error ? error.message : "Unknown API error";
 
       setMessages((current) => [
         ...current,
         {
           role: "assistant",
-          text: `${fallbackReply} This answer is using the local portfolio fallback because the API is not available yet.`,
+          text: `${fallbackReply} This answer is using the local portfolio fallback because the API request failed: ${diagnostic}.`,
         },
       ]);
     } finally {
