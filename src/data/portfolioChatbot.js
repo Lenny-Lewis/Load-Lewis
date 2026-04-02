@@ -3,6 +3,9 @@ const suggestedPrompts = [
   "What technologies does Lenny use?",
   "Tell me about Lenny's experience",
   "How can I contact Lenny?",
+  "Hi",
+  "What kind of work does Lenny do?",
+  "Is Lenny available for freelance work?",
 ];
 
 const portfolioProfile = {
@@ -70,6 +73,12 @@ const portfolioProfile = {
     x: "https://x.com/thatboylewis",
     linkedin: "https://www.linkedin.com/in/lennox-lewis-975642359",
   },
+  services: [
+    "Frontend web development",
+    "Full stack product development",
+    "React Native app development",
+    "UI implementation and performance optimization",
+  ],
 };
 
 const normalizeText = (value) =>
@@ -116,44 +125,69 @@ const getIntroReply = () =>
     ", "
   )}.`;
 
-export const buildPortfolioContext = () => `
-Profile:
-- Name: ${portfolioProfile.name}
-- Role: ${portfolioProfile.role}
-- Location: ${portfolioProfile.location}
-- Intro: ${portfolioProfile.intro}
+const getGreetingReply = () =>
+  `Hi. I can help you learn about ${portfolioProfile.name}'s projects, experience, technical strengths, and contact details.`;
 
-Strengths:
-${portfolioProfile.strengths.map((item) => `- ${item}`).join("\n")}
+const getHelpReply = () =>
+  "You can ask about featured projects, experience, technologies, services, contact details, availability, or background.";
 
-Projects:
-${portfolioProfile.projects
-  .map(
-    (project) =>
-      `- ${project.name}: ${project.summary} Stack: ${project.stack.join(", ")}.`
-  )
-  .join("\n")}
+const getServicesReply = () =>
+  `${portfolioProfile.name} focuses on ${portfolioProfile.services.join(
+    ", "
+  )}.`;
 
-Experience:
-${portfolioProfile.experience
-  .map(
-    (item) => `- ${item.title} (${item.period}): ${item.summary}`
-  )
-  .join("\n")}
+const getAvailabilityReply = () =>
+  `For current availability, the best option is to contact ${portfolioProfile.name} directly through the contact form on this site or via LinkedIn.`;
 
-Contact:
-- Contact form on the portfolio website
-- GitHub: ${portfolioProfile.contact.github}
-- LinkedIn: ${portfolioProfile.contact.linkedin}
-- X: ${portfolioProfile.contact.x}
-- Instagram: ${portfolioProfile.contact.instagram}
-`.trim();
+const getLocationReply = () =>
+  `${portfolioProfile.name} is based in ${portfolioProfile.location}.`;
+
+const getThanksReply = () =>
+  "You’re welcome. If you want, ask about projects, skills, experience, or how to get in touch.";
+
+const getEducationReply = () =>
+  `This portfolio highlights ${portfolioProfile.name}'s work, projects, and technical experience. Education details are not currently listed here.`;
+
+const getPricingReply = () =>
+  `Pricing is not listed on the portfolio. The best next step is to send a message with your project scope and requirements.`;
+
+const getResumeReply = () =>
+  `If you need a CV or resume, the best option is to contact ${portfolioProfile.name} directly through the contact section of this site.`;
+
+const getDefaultReply = () =>
+  "I can help with questions about Lennox's projects, skills, experience, services, availability, location, and contact details.";
 
 export const getPortfolioChatReply = (question) => {
   const tokens = normalizeText(question);
 
   if (!tokens.length) {
     return "Ask about projects, skills, experience, or contact details and I’ll answer from Lennox's portfolio content.";
+  }
+
+  if (
+    includesAny(tokens, [
+      "hi",
+      "hello",
+      "hey",
+      "yo",
+      "sup",
+      "greetings",
+    ])
+  ) {
+    return getGreetingReply();
+  }
+
+  if (
+    includesAny(tokens, [
+      "help",
+      "menu",
+      "options",
+      "ask",
+      "questions",
+      "question",
+    ])
+  ) {
+    return getHelpReply();
   }
 
   if (
@@ -192,9 +226,41 @@ export const getPortfolioChatReply = (question) => {
 
   if (
     includesAny(tokens, [
+      "service",
+      "services",
+      "offer",
+      "offers",
+      "specialize",
+      "specialises",
+      "specializes",
+      "works",
+    ])
+  ) {
+    return getServicesReply();
+  }
+
+  if (
+    includesAny(tokens, [
+      "available",
+      "availability",
+      "freelance",
+      "hire",
+      "open",
+      "booking",
+      "bookings",
+    ])
+  ) {
+    return getAvailabilityReply();
+  }
+
+  if (includesAny(tokens, ["where", "location", "based", "country", "kenya"])) {
+    return getLocationReply();
+  }
+
+  if (
+    includesAny(tokens, [
       "contact",
       "email",
-      "hire",
       "reach",
       "book",
       "connect",
@@ -202,6 +268,24 @@ export const getPortfolioChatReply = (question) => {
     ])
   ) {
     return getContactReply();
+  }
+
+  if (
+    includesAny(tokens, ["resume", "cv", "curriculum", "vitae"])
+  ) {
+    return getResumeReply();
+  }
+
+  if (
+    includesAny(tokens, ["education", "study", "school", "college", "university"])
+  ) {
+    return getEducationReply();
+  }
+
+  if (
+    includesAny(tokens, ["price", "pricing", "rate", "rates", "cost", "budget"])
+  ) {
+    return getPricingReply();
   }
 
   if (
@@ -217,7 +301,11 @@ export const getPortfolioChatReply = (question) => {
     return getIntroReply();
   }
 
-  return "I can answer questions about Lennox's projects, skills, experience, and contact details. Try asking what he has built, what technologies he uses, or how to get in touch.";
+  if (includesAny(tokens, ["thanks", "thank", "appreciate"])) {
+    return getThanksReply();
+  }
+
+  return getDefaultReply();
 };
 
 export { portfolioProfile, suggestedPrompts };

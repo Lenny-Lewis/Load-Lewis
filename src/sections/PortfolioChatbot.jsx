@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 
 import TitleHeader from "../components/TitleHeader";
 import {
@@ -12,101 +13,99 @@ const assistantWelcome = {
   text: `Ask about ${portfolioProfile.name}'s featured projects, experience, technical strengths, or how to get in touch.`,
 };
 
-const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "/api").replace(
-  /\/$/,
-  ""
-);
+const typedPhrases = [
+  "featured projects",
+  "frontend expertise",
+  "mobile app work",
+  "how to get in touch",
+];
 
-const getFriendlyApiError = (message) => {
-  const normalizedMessage = message.toLowerCase();
+const containerVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: "easeOut",
+      staggerChildren: 0.12,
+    },
+  },
+};
 
-  if (
-    normalizedMessage.includes("insufficient_quota") ||
-    normalizedMessage.includes("quota") ||
-    normalizedMessage.includes("billing")
-  ) {
-    return "The AI assistant is temporarily unavailable while the API billing setup is being completed.";
-  }
-
-  if (normalizedMessage.includes("openai_api_key")) {
-    return "The AI assistant is temporarily unavailable because the server configuration is incomplete.";
-  }
-
-  if (
-    normalizedMessage.includes("401") ||
-    normalizedMessage.includes("unauthorized")
-  ) {
-    return "The AI assistant is temporarily unavailable because the API credentials could not be verified.";
-  }
-
-  return "The AI assistant is temporarily unavailable right now, so this answer is coming from the local portfolio data.";
+const itemVariants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
 };
 
 const PortfolioChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState([assistantWelcome]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [typedText, setTypedText] = useState("");
+  const [typedIndex, setTypedIndex] = useState(0);
 
   const quickPrompts = useMemo(() => suggestedPrompts, []);
+  const insightCards = useMemo(
+    () => [
+      {
+        label: "Projects",
+        value: `${portfolioProfile.projects.length}+`,
+        detail: "Selected builds featured in this portfolio.",
+      },
+      {
+        label: "Focus",
+        value: "Web + Mobile",
+        detail: "React, React Native, frontend systems, and product work.",
+      },
+      {
+        label: "Based In",
+        value: portfolioProfile.location,
+        detail: "Available for conversations through the contact section.",
+      },
+    ],
+    []
+  );
 
-  const submitQuestion = async (question) => {
+  useEffect(() => {
+    const currentPhrase = typedPhrases[typedIndex];
+    let currentIndex = 0;
+
+    const typingInterval = window.setInterval(() => {
+      currentIndex += 1;
+      setTypedText(currentPhrase.slice(0, currentIndex));
+
+      if (currentIndex >= currentPhrase.length) {
+        window.clearInterval(typingInterval);
+
+        window.setTimeout(() => {
+          setTypedText("");
+          setTypedIndex((current) => (current + 1) % typedPhrases.length);
+        }, 1400);
+      }
+    }, 55);
+
+    return () => window.clearInterval(typingInterval);
+  }, [typedIndex]);
+
+  const submitQuestion = (question) => {
     const trimmedQuestion = question.trim();
 
     if (!trimmedQuestion) return;
 
-    setMessages((current) => [...current, { role: "user", text: trimmedQuestion }]);
+    const reply = getPortfolioChatReply(trimmedQuestion);
+
+    setMessages((current) => [
+      ...current,
+      { role: "user", text: trimmedQuestion },
+      { role: "assistant", text: reply },
+    ]);
     setDraft("");
     setIsOpen(true);
-    setIsLoading(true);
-
-    try {
-      const response = await fetch(`${apiBaseUrl}/chat`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ question: trimmedQuestion }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => null);
-        const errorMessage =
-          errorData?.details ||
-          errorData?.error ||
-          `API request failed with status ${response.status}`;
-
-        throw new Error(errorMessage);
-      }
-
-      const data = await response.json();
-
-      setMessages((current) => [
-        ...current,
-        {
-          role: "assistant",
-          text:
-            data.answer ||
-            "I couldn't generate a response from the portfolio context.",
-        },
-      ]);
-    } catch (error) {
-      const fallbackReply = getPortfolioChatReply(trimmedQuestion);
-      const diagnostic =
-        error instanceof Error
-          ? getFriendlyApiError(error.message)
-          : "The AI assistant is temporarily unavailable right now, so this answer is coming from the local portfolio data.";
-
-      setMessages((current) => [
-        ...current,
-        {
-          role: "assistant",
-          text: `${fallbackReply} ${diagnostic}`,
-        },
-      ]);
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const handleSubmit = (event) => {
@@ -123,30 +122,66 @@ const PortfolioChatbot = () => {
             sub="🤖 Portfolio Assistant"
           />
 
-          <div className="chatbot-section mt-16">
-            <div className="chatbot-info card-border">
+          <motion.div
+            className="chatbot-section mt-16"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <motion.div
+              className="chatbot-info card-border"
+              variants={itemVariants}
+              whileInView={{ y: [18, 0], opacity: [0, 1] }}
+              viewport={{ once: true, amount: 0.25 }}
+            >
               <p className="chatbot-kicker">Ask anything</p>
-              <h3>Explore Lennox Lewis&apos;s projects, experience, and technical strengths in one place.</h3>
+              <h3>
+                Explore Lennox Lewis&apos;s{" "}
+                <span className="chatbot-typed">{typedText}</span>
+                <span className="chatbot-caret" />
+              </h3>
               <p className="chatbot-copy">
                 Use the assistant to learn about selected work, development
                 experience, core technologies, and contact details without
                 digging through every section of the portfolio manually.
               </p>
+              <div className="chatbot-summary-grid">
+                {insightCards.map((card) => (
+                  <motion.div
+                    key={card.label}
+                    className="chatbot-summary-card"
+                    variants={itemVariants}
+                    whileHover={{ y: -4, scale: 1.01 }}
+                  >
+                    <p className="chatbot-summary-label">{card.label}</p>
+                    <h4>{card.value}</h4>
+                    <p>{card.detail}</p>
+                  </motion.div>
+                ))}
+              </div>
               <div className="chatbot-tags">
                 {quickPrompts.map((prompt) => (
-                  <button
+                  <motion.button
                     key={prompt}
                     type="button"
                     className="chatbot-chip"
                     onClick={() => submitQuestion(prompt)}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     {prompt}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            <div className="chatbot-panel card-border">
+            <motion.div
+              className="chatbot-panel card-border"
+              variants={itemVariants}
+              whileInView={{ y: [24, 0], opacity: [0, 1] }}
+              viewport={{ once: true, amount: 0.25 }}
+            >
               <div className="chatbot-panel-header">
                 <div>
                   <p className="chatbot-kicker">Portfolio chat</p>
@@ -162,19 +197,27 @@ const PortfolioChatbot = () => {
               </div>
 
               <div className={`chatbot-shell ${isOpen ? "open" : ""}`}>
-                <div className="chatbot-messages">
+                <motion.div
+                  className="chatbot-messages"
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                >
                   {messages.map((message, index) => (
-                    <div
+                    <motion.div
                       key={`${message.role}-${index}`}
                       className={`chatbot-message ${message.role}`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.28, ease: "easeOut" }}
                     >
                       <span className="chatbot-badge">
                         {message.role === "assistant" ? "AI" : "You"}
                       </span>
                       <p>{message.text}</p>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                </motion.div>
 
                 <form onSubmit={handleSubmit} className="chatbot-form">
                   <input
@@ -182,23 +225,18 @@ const PortfolioChatbot = () => {
                     value={draft}
                     onChange={(event) => setDraft(event.target.value)}
                     placeholder="Ask about projects, skills, or experience"
-                    disabled={isLoading}
                   />
-                  <button
-                    type="submit"
-                    className="chatbot-send"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? "Thinking..." : "Send"}
+                  <button type="submit" className="chatbot-send">
+                    Send
                   </button>
                 </form>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
-      <button
+      <motion.button
         type="button"
         className="chatbot-fab"
         onClick={() => {
@@ -208,9 +246,14 @@ const PortfolioChatbot = () => {
             ?.scrollIntoView({ behavior: "smooth", block: "start" });
         }}
         aria-label="Open portfolio chatbot"
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        whileHover={{ y: -3, scale: 1.03 }}
+        whileTap={{ scale: 0.98 }}
       >
         <span>Ask AI</span>
-      </button>
+      </motion.button>
     </>
   );
 };

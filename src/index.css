@@ -338,7 +338,7 @@ section {
   }
 
   .chatbot-panel {
-    @apply bg-black-100;
+    @apply bg-black-100 border border-white/8 shadow-[0_28px_80px_rgba(0,0,0,0.35)];
   }
 
   .chatbot-kicker {
@@ -352,6 +352,35 @@ section {
 
   .chatbot-copy {
     @apply mt-5 text-white-50 text-base md:text-lg leading-8;
+  }
+
+  .chatbot-typed {
+    @apply text-white;
+  }
+
+  .chatbot-caret {
+    @apply inline-block h-[1.1em] w-[2px] translate-y-1 bg-[#62e0ff] align-middle;
+    animation: chatbotCaretBlink 1s steps(1) infinite;
+  }
+
+  .chatbot-summary-grid {
+    @apply mt-8 grid grid-cols-1 md:grid-cols-3 gap-4;
+  }
+
+  .chatbot-summary-card {
+    @apply rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm;
+  }
+
+  .chatbot-summary-card h4 {
+    @apply mt-3 text-xl font-semibold text-white;
+  }
+
+  .chatbot-summary-card p {
+    @apply mt-2 text-sm leading-6 text-white-50;
+  }
+
+  .chatbot-summary-label {
+    @apply uppercase tracking-[0.22em] text-[11px] text-[#9fd8ff];
   }
 
   .chatbot-tags {
@@ -390,7 +419,7 @@ section {
   }
 
   .chatbot-messages {
-    @apply max-h-[24rem] overflow-y-auto rounded-[1.5rem] border border-white/8 bg-[#111217] p-4 md:p-5 space-y-4;
+    @apply max-h-[24rem] overflow-y-auto rounded-[1.5rem] border border-white/8 bg-[linear-gradient(180deg,#111217_0%,#151926_100%)] p-4 md:p-5 space-y-4 shadow-inner;
   }
 
   .chatbot-message {
@@ -398,11 +427,11 @@ section {
   }
 
   .chatbot-message.assistant {
-    @apply bg-white/6 text-white;
+    @apply max-w-[90%] bg-white/6 text-white border border-white/6;
   }
 
   .chatbot-message.user {
-    @apply ml-auto max-w-[85%] bg-[#62e0ff] text-black;
+    @apply ml-auto max-w-[85%] bg-[#62e0ff] text-black shadow-[0_14px_36px_rgba(98,224,255,0.18)];
   }
 
   .chatbot-badge {
@@ -422,7 +451,7 @@ section {
   }
 
   .chatbot-form {
-    @apply mt-4 flex flex-col md:flex-row gap-3;
+    @apply mt-4 rounded-[1.5rem] border border-white/8 bg-white/[0.03] p-3 flex flex-col md:flex-row gap-3;
   }
 
   .chatbot-form input {
@@ -434,7 +463,7 @@ section {
   }
 
   .chatbot-send {
-    @apply px-6 py-4;
+    @apply px-6 py-4 shadow-[0_12px_30px_rgba(255,255,255,0.14)];
   }
 
   .chatbot-fab {
@@ -479,6 +508,17 @@ section {
   }
   87.5% {
     transform: translateY(-87.5%);
+  }
+}
+
+@keyframes chatbotCaretBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
   }
 }
 
