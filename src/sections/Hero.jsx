@@ -3,7 +3,7 @@ import gsap from "gsap";
 
 import AnimatedCounter from "../components/AnimatedCounter";
 import Button from "../components/Button";
-import { resumeLinks, words } from "../constants";
+import { words } from "../constants";
 import HeroExperience from "../components/models/hero_models/HeroExperience";
 
 const Hero = () => {
@@ -52,20 +52,15 @@ const Hero = () => {
 
             <p className="hero-description">
               Hi, I’m Lennox Lewis Odhiambo, a frontend and full stack
-              developer based in Kenya, currently studying at Kisii University
-              and building polished digital products for web and mobile.
+              developer based in Kenya building polished digital products for
+              web and mobile.
             </p>
 
-            <div className="hero-actions">
-              <Button
-                text="See My Work"
-                className="md:w-80 md:h-16 w-60 h-12"
-                id="counter"
-              />
-              <a href={resumeLinks.resume} download className="hero-secondary-cta">
-                Download Resume
-              </a>
-            </div>
+            <Button
+              text="See My Work"
+              className="md:w-80 md:h-16 w-60 h-12"
+              id="counter"
+            />
           </div>
         </header>
 

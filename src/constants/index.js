@@ -66,51 +66,6 @@ const aboutHighlights = [
   },
 ];
 
-const caseStudies = [
-  {
-    name: "Ryde",
-    title: "Ryde: a cross-platform ride booking experience designed for speed and clarity",
-    imgPath: "/images/project1.png",
-    accent: "#d7f5ff",
-    role: "React Native developer",
-    problem:
-      "Design a mobile ride-booking experience that feels fast, easy to navigate, and dependable from onboarding to trip request.",
-    outcome:
-      "Delivered a clean cross-platform experience with a clear booking flow and mobile-first interaction patterns.",
-    stack: ["React Native", "Expo", "Tailwind CSS"],
-    linkLabel: "Discuss Similar Work",
-    linkHref: "#contact",
-  },
-  {
-    name: "Library Management Platform",
-    title: "Library Management Platform: a structured workflow for collections and day-to-day operations",
-    imgPath: "/images/project2.png",
-    accent: "#ffefdb",
-    role: "Frontend and platform implementation",
-    problem:
-      "Organize library workflows into a single interface that supports catalog visibility, user activity, and operational efficiency.",
-    outcome:
-      "Built a platform-oriented experience that simplifies management tasks while keeping the interface approachable for daily use.",
-    stack: ["React", "Frontend UI", "Platform Architecture"],
-    linkLabel: "Request Case Study",
-    linkHref: "#contact",
-  },
-  {
-    name: "YC Directory",
-    title: "YC Directory: a startup showcase built to surface founders, products, and early traction",
-    imgPath: "/images/project3.png",
-    accent: "#ffe7eb",
-    role: "Frontend product developer",
-    problem:
-      "Create a directory-style experience that makes startup discovery feel curated, lightweight, and easy to browse.",
-    outcome:
-      "Shaped a clean showcase interface focused on discovery, structure, and clear presentation of early-stage products.",
-    stack: ["React", "Directory UI", "Startup Discovery"],
-    linkLabel: "Start A Conversation",
-    linkHref: "#contact",
-  },
-];
-
 const logoIconsList = [
   {
     imgPath: "/images/logos/company-logo-1.png",
@@ -348,7 +303,6 @@ export {
   aboutHighlights,
   words,
   abilities,
-  caseStudies,
   logoIconsList,
   counterItems,
   expCards,

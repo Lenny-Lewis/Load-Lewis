@@ -99,19 +99,11 @@ section {
   }
 
   .hero-copy {
-    @apply flex flex-col gap-7 max-w-2xl xl:max-w-[38rem];
+    @apply flex flex-col gap-6 max-w-xl xl:max-w-[34rem];
   }
 
   .hero-description {
-    @apply text-white-50 md:text-xl relative z-10 leading-8 md:leading-9 max-w-xl pointer-events-none;
-  }
-
-  .hero-actions {
-    @apply flex flex-col md:flex-row gap-4 items-start;
-  }
-
-  .hero-secondary-cta {
-    @apply inline-flex items-center justify-center rounded-xl border border-white/12 bg-white/5 px-6 py-4 text-white transition-colors duration-300 hover:bg-white hover:text-black;
+    @apply text-white-50 md:text-lg relative z-10 leading-7 md:leading-8 max-w-lg pointer-events-none;
   }
 
   .hero-3d-layout {
@@ -240,7 +232,7 @@ section {
   }
 
   .about-story p {
-    @apply mt-5 text-white-50 text-base md:text-lg leading-8;
+    @apply mt-5 text-white-50 text-base md:text-lg leading-7;
   }
 
   .about-actions {
@@ -273,78 +265,6 @@ section {
 
   .about-card p {
     @apply mt-3 text-white-50 leading-7;
-  }
-
-  .case-study-heading {
-    @apply max-w-3xl mb-10;
-  }
-
-  .case-study-heading h2 {
-    @apply mt-4 text-3xl md:text-5xl font-semibold;
-  }
-
-  .case-study-heading p:last-child {
-    @apply mt-5 text-white-50 text-base md:text-lg leading-8;
-  }
-
-  .case-study-grid {
-    @apply grid grid-cols-1 gap-8;
-  }
-
-  .case-study-card {
-    @apply grid grid-cols-1 xl:grid-cols-[0.95fr_1.05fr] gap-0 overflow-hidden rounded-[2rem];
-  }
-
-  .case-study-media {
-    @apply min-h-[20rem] flex items-center justify-center px-6 py-8;
-
-    img {
-      @apply w-full h-full max-h-[24rem] object-contain;
-    }
-  }
-
-  .case-study-content {
-    @apply p-8 md:p-10;
-  }
-
-  .case-study-meta {
-    @apply flex flex-wrap gap-3 text-xs uppercase tracking-[0.2em] text-[#8ab2d6];
-  }
-
-  .case-study-content h3 {
-    @apply mt-4 text-2xl md:text-4xl font-semibold leading-tight;
-  }
-
-  .case-study-copy {
-    @apply mt-8 grid grid-cols-1 md:grid-cols-2 gap-6;
-
-    p:last-child {
-      @apply mt-3 text-white-50 leading-7;
-    }
-  }
-
-  .case-study-stack {
-    @apply mt-8 flex flex-wrap gap-3;
-
-    span {
-      @apply rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white-50;
-    }
-  }
-
-  .case-study-actions {
-    @apply mt-8 flex flex-wrap gap-4;
-
-    a {
-      @apply inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold transition-colors duration-300;
-    }
-
-    a:first-child {
-      @apply bg-white text-black hover:bg-white/85;
-    }
-
-    a:last-child {
-      @apply border border-white/12 bg-white/5 text-white hover:bg-white hover:text-black;
-    }
   }
 
   .cta-wrapper {

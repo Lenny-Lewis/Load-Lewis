@@ -14,14 +14,12 @@ const AboutSection = () => {
             <p>
               Lennox Lewis Odhiambo is a developer based in Kenya who builds
               web and mobile experiences with attention to clarity,
-              responsiveness, and real-world usability. He is currently a Year
-              3 student at Kisii University while actively growing through
-              project work and product delivery.
+              responsiveness, and real-world usability while actively growing
+              through product work and project delivery.
             </p>
             <p>
-              He enjoys turning ideas into interfaces that feel polished and
-              easy to use, and he works best on products that need thoughtful
-              frontend execution backed by practical engineering decisions.
+              He enjoys turning ideas into interfaces that feel polished,
+              easy to use, and technically sound.
             </p>
             <div className="about-actions">
               <a href={resumeLinks.resume} download className="about-action primary">
