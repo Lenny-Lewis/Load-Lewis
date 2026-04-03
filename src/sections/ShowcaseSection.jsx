@@ -47,7 +47,13 @@ const AppShowcase = () => {
         <div className="showcaselayout">
           <div ref={rydeRef} className="first-project-wrapper">
             <div className="image-wrapper">
-              <img src="/images/project1.png" alt="Ryde App Interface" />
+              <a
+                href="https://ryde-umber.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img src="/images/project1.png" alt="Ryde App Interface" />
+              </a>
             </div>
             <div className="text-content">
               <h2>
