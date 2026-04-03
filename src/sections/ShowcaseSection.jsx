@@ -48,7 +48,7 @@ const AppShowcase = () => {
           <div ref={rydeRef} className="first-project-wrapper">
             <div className="image-wrapper">
               <a
-                href="https://ryde-umber.vercel.app/"
+                href="https://ryde-gamma.vercel.app/"
                 target="_blank"
                 rel="noreferrer"
               >
