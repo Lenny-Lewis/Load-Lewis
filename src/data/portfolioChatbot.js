@@ -45,11 +45,11 @@ const portfolioProfile = {
       keywords: ["project", "projects", "library", "management", "platform"],
     },
     {
-      name: "YC Directory",
+      name: "YG Directory",
       summary:
         "A startup showcase application designed to surface founders, ideas, and early-stage products in a clean directory experience.",
       stack: ["React", "Directory UI", "Startup Discovery"],
-      keywords: ["project", "projects", "yc", "directory", "startup"],
+      keywords: ["project", "projects", "yg", "yc", "directory", "startup"],
     },
   ],
   experience: [
@@ -124,7 +124,7 @@ const getProjectsReply = () => {
     [
       "Tell me about Ryde",
       "Tell me about the Library Management Platform",
-      "Tell me about YC Directory",
+      "Tell me about YG Directory",
     ]
   );
 };

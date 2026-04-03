@@ -86,9 +86,15 @@ const AppShowcase = () => {
 
             <div className="project" ref={ycDirectoryRef}>
               <div className="image-wrapper bg-[#FFE7EB]">
-                <img src="/images/project3.png" alt="YC Directory App" />
+                <a
+                  href="https://yg-directory.vercel.app/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="/images/project3.png" alt="YG Directory App" />
+                </a>
               </div>
-              <h2>YC Directory - A Startup Showcase App</h2>
+              <h2>YG Directory - A Startup Showcase App</h2>
             </div>
           </div>
         </div>
