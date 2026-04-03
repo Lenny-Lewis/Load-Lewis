@@ -70,10 +70,16 @@ const AppShowcase = () => {
           <div className="project-list-wrapper overflow-hidden">
             <div className="project" ref={libraryRef}>
               <div className="image-wrapper bg-[#FFEFDB]">
-                <img
-                  src="/images/project2.png"
-                  alt="Library Management Platform"
-                />
+                <a
+                  href="https://potter-library.vercel.app/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src="/images/project2.png"
+                    alt="Library Management Platform"
+                  />
+                </a>
               </div>
               <h2>The Library Management Platform</h2>
             </div>
