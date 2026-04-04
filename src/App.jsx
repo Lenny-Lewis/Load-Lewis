@@ -9,6 +9,7 @@ import LogoShowcase from "./sections/LogoShowcase";
 import FeatureCards from "./sections/FeatureCards";
 import PortfolioChatbot from "./sections/PortfolioChatbot";
 import Navbar from "./components/NavBar";
+import { Analytics } from "@vercel/analytics/next";
 
 const App = () => (
   <>
