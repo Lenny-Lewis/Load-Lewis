@@ -86,11 +86,23 @@ section {
 
   .hero-text {
     @apply flex flex-col justify-center md:text-[60px] text-[30px] font-semibold relative z-10 pointer-events-none;
+    line-height: 1.12;
+
+    h1 {
+      @apply relative;
+      line-height: 1.12;
+    }
+
     img {
       @apply size-8 md:size-10 object-contain;
     }
+
     .slide {
-      @apply absolute pt-0 px-2 md:px-5 py-[30px] h-[48px] md:h-[78px] md:translate-y-1 translate-y-0 overflow-hidden;
+      @apply absolute px-2 md:px-5 overflow-hidden;
+      top: 50%;
+      height: 1.2em;
+      transform: translateY(-50%);
+      padding-top: 0.06em;
     }
   }
 
