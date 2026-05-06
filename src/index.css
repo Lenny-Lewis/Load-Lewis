@@ -367,12 +367,12 @@ section {
         @apply border border-black-50 bg-black-100 flex justify-center items-center rounded-xl size-10 md:size-12 cursor-pointer transition-all duration-500 hover:bg-black-50;
       }
 
-      .github-icon img {
-        filter: brightness(0) invert(1);
+      img {
+        @apply inline-block w-5 h-5 md:w-6 md:h-6 object-contain;
       }
 
-      img {
-        @apply inline-block;
+      .github-icon img {
+        filter: brightness(0) invert(1);
       }
     }
   }
