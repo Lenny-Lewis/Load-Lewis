@@ -40,15 +40,15 @@ section {
 
 @layer components {
   .padding-x {
-    @apply px-5 md:px-10;
+    @apply px-4 md:px-10;
   }
 
   .padding-x-lg {
-    @apply px-5 md:px-20;
+    @apply px-4 md:px-20;
   }
 
   .section-padding {
-    @apply px-5 md:px-10 md:mt-40 mt-20;
+    @apply px-4 md:px-10 md:mt-40 mt-16;
   }
 
   .mt-responsive {
@@ -85,7 +85,7 @@ section {
   }
 
   .hero-text {
-    @apply flex flex-col justify-center md:text-[60px] text-[30px] font-semibold relative z-10 pointer-events-none;
+    @apply flex flex-col justify-center md:text-[60px] text-[26px] font-semibold relative z-10 pointer-events-none;
     line-height: 1.12;
 
     h1 {
@@ -107,7 +107,7 @@ section {
   }
 
   .hero-badge {
-    @apply bg-black-200 py-2 px-4 rounded-full w-fit text-sm md:text-base text-nowrap;
+    @apply bg-black-200 py-1.5 px-3 rounded-full w-fit text-xs md:text-base text-nowrap;
   }
 
   .hero-copy {
@@ -115,7 +115,7 @@ section {
   }
 
   .hero-description {
-    @apply text-white-50 md:text-lg relative z-10 leading-7 md:leading-8 max-w-lg pointer-events-none;
+    @apply text-white-50 text-sm md:text-lg relative z-10 leading-6 md:leading-8 max-w-lg pointer-events-none;
   }
 
   .hero-3d-layout {
@@ -187,7 +187,7 @@ section {
   }
 
   .app-showcase {
-    @apply w-full mt-20 px-5 md:px-20 py-10 md:py-20 flex items-center justify-center;
+    @apply w-full mt-16 md:mt-20 px-4 md:px-20 py-8 md:py-20 flex items-center justify-center;
 
     .showcaselayout {
       @apply flex xl:flex-row flex-col gap-10 justify-between;
@@ -212,7 +212,7 @@ section {
         }
 
         h2 {
-          @apply text-2xl md:text-3xl lg:text-4xl font-bold;
+          @apply text-xl md:text-3xl lg:text-4xl font-bold;
         }
       }
     }
@@ -229,7 +229,7 @@ section {
       }
 
       h2 {
-        @apply text-lg md:text-xl lg:text-2xl font-semibold mt-5;
+        @apply text-base md:text-xl lg:text-2xl font-semibold mt-4 md:mt-5;
       }
     }
   }
@@ -338,10 +338,10 @@ section {
   }
 
   .contact-quick-card {
-    @apply rounded-2xl border border-white/8 bg-white/[0.03] p-5;
+    @apply rounded-2xl border border-white/8 bg-white/[0.03] p-4 md:p-5;
 
     h3 {
-      @apply mt-3 text-lg font-semibold;
+      @apply mt-2 md:mt-3 text-base md:text-lg font-semibold;
     }
   }
 
@@ -379,7 +379,7 @@ section {
 
   .chatbot-info,
   .chatbot-panel {
-    @apply rounded-3xl p-8 md:p-10;
+    @apply rounded-3xl p-6 md:p-10;
   }
 
   .chatbot-info {
