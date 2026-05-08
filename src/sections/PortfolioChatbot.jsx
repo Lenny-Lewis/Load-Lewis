@@ -137,7 +137,16 @@ const PortfolioChatbot = () => {
         <div className="w-full md:px-10 px-5">
           <TitleHeader
             title="Ask About Lenny's Work"
-            sub="🤖 Portfolio Assistant"
+            sub={
+              <>
+                <img
+                  src="/images/Portfolio%20Assistant.png"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <span>Portfolio Assistant</span>
+              </>
+            }
           />
 
           <motion.div

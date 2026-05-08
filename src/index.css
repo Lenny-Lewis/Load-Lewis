@@ -107,7 +107,19 @@ section {
   }
 
   .hero-badge {
-    @apply bg-black-200 py-1.5 px-3 rounded-full w-fit text-xs md:text-base text-nowrap;
+    @apply bg-black-200 py-1.5 px-3 rounded-full w-fit max-w-full text-xs md:text-base;
+  }
+
+  .hero-badge-copy {
+    @apply flex flex-wrap items-center justify-center gap-2 text-center md:flex-nowrap;
+
+    img {
+      @apply h-4 w-4 shrink-0 object-contain md:h-5 md:w-5;
+    }
+  }
+
+  .hero-badge-icon-light {
+    filter: brightness(0) invert(1);
   }
 
   .hero-copy {
