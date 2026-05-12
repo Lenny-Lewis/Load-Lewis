@@ -87,6 +87,7 @@ const portfolioProfile = {
     "Full stack product development",
     "React Native app development",
     "UI implementation and performance optimization",
+    "AI and ML development and analysis"
   ],
   funFacts: ["Loves anime", "Enjoys basketball", "Plays video games"],
 };
