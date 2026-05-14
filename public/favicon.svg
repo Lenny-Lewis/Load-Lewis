@@ -1,18 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
   <title id="title">Lennox Lewis favicon</title>
-  <desc id="desc">A dark rounded square with a gradient LL monogram.</desc>
+  <desc id="desc">A premium dark favicon with a metallic gold LL monogram.</desc>
   <defs>
-    <linearGradient id="accent" x1="12" y1="10" x2="52" y2="54" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#62e0ff" />
-      <stop offset="0.55" stop-color="#52aeff" />
-      <stop offset="1" stop-color="#fd5c79" />
+    <linearGradient id="gold" x1="16" y1="12" x2="48" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f8e7a6" />
+      <stop offset="0.42" stop-color="#d4af37" />
+      <stop offset="1" stop-color="#8f6a16" />
     </linearGradient>
-    <linearGradient id="edge" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#62e0ff" stop-opacity="0.85" />
-      <stop offset="1" stop-color="#fd5c79" stop-opacity="0.5" />
+    <linearGradient id="goldEdge" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f3dd8a" stop-opacity="0.95" />
+      <stop offset="0.5" stop-color="#d4af37" stop-opacity="0.8" />
+      <stop offset="1" stop-color="#6f5312" stop-opacity="0.75" />
     </linearGradient>
-    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="2.2" result="blur" />
+    <filter id="goldGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="1.8" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
@@ -20,8 +21,21 @@
     </filter>
   </defs>
 
-  <rect x="6" y="6" width="52" height="52" rx="16" fill="#0e0e10" />
-  <rect x="7" y="7" width="50" height="50" rx="15" fill="none" stroke="url(#edge)" stroke-width="1.5" />
-  <path d="M20 18v28h18" fill="none" stroke="url(#accent)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" />
-  <path d="M40 18v18h-8" fill="none" stroke="#d9ecff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="7" y="7" width="50" height="50" rx="16" fill="#101114" />
+  <rect x="8" y="8" width="48" height="48" rx="15" fill="none" stroke="url(#goldEdge)" stroke-width="1.5" />
+
+  <g fill="none" stroke-linecap="square" stroke-linejoin="miter">
+    <path
+      d="M22 18v28h12"
+      stroke="url(#gold)"
+      stroke-width="6"
+      filter="url(#goldGlow)"
+    />
+    <path
+      d="M38 18v22h8"
+      stroke="url(#gold)"
+      stroke-width="6"
+      filter="url(#goldGlow)"
+    />
+  </g>
 </svg>
