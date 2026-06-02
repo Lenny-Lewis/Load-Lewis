@@ -10,6 +10,7 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -25,6 +26,12 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Basic bot trap: real users should never touch this field.
+    if (honeypot.trim()) {
+      return;
+    }
+
     const trimmedForm = {
       name: form.name.trim(),
       email: form.email.trim(),
@@ -41,9 +48,19 @@ const Contact = () => {
     setLoading(true); // Show loading state
 
     try {
+      const serviceId = import.meta.env.VITE_APP_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error(
+          "EmailJS is not configured. Set the VITE_APP_EMAILJS_* environment variables."
+        );
+      }
+
       await emailjs.send(
-        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+        serviceId,
+        templateId,
         {
           name: trimmedForm.name,
           email: trimmedForm.email,
@@ -53,7 +70,7 @@ const Contact = () => {
           reply_to: trimmedForm.email,
           to_name: "Lennox",
         },
-        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+        publicKey
       );
 
       // Reset form and stop loading
@@ -115,6 +132,16 @@ const Contact = () => {
                   onSubmit={handleSubmit}
                   className="w-full flex flex-col gap-7"
                 >
+                  <input
+                    type="text"
+                    name="company"
+                    value={honeypot}
+                    onChange={(event) => setHoneypot(event.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="sr-only"
+                  />
                   <div>
                     <label htmlFor="name">Your name</label>
                     <input

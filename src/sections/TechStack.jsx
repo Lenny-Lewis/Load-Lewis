@@ -1,10 +1,13 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useMediaQuery } from "react-responsive";
 
 import TitleHeader from "../components/TitleHeader";
 import TechStackCard from "../components/TechStackCard";
 import { techStackIcons, techStackImgs } from "../constants";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const TechStack = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });

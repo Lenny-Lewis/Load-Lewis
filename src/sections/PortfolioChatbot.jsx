@@ -50,6 +50,7 @@ const PortfolioChatbot = () => {
   const [typedText, setTypedText] = useState("");
   const [typedIndex, setTypedIndex] = useState(0);
   const messagesRef = useRef(null);
+  const typingTimeoutRef = useRef(null);
 
   const quickPrompts = useMemo(() => suggestedPrompts, []);
   const insightCards = useMemo(
@@ -84,14 +85,20 @@ const PortfolioChatbot = () => {
       if (currentIndex >= currentPhrase.length) {
         window.clearInterval(typingInterval);
 
-        window.setTimeout(() => {
+        typingTimeoutRef.current = window.setTimeout(() => {
           setTypedText("");
           setTypedIndex((current) => (current + 1) % typedPhrases.length);
         }, 1400);
       }
     }, 55);
 
-    return () => window.clearInterval(typingInterval);
+    return () => {
+      window.clearInterval(typingInterval);
+      if (typingTimeoutRef.current) {
+        window.clearTimeout(typingTimeoutRef.current);
+        typingTimeoutRef.current = null;
+      }
+    };
   }, [typedIndex]);
 
   useEffect(() => {
