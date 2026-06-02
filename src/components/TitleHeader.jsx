@@ -1,6 +1,6 @@
 const TitleHeader = ({ title, sub }) => {
   return (
-    <div className="flex flex-col items-center gap-4 md:gap-5">
+    <div className="section-title flex flex-col items-center gap-4 md:gap-5">
       <div className="hero-badge">
         <div className="hero-badge-copy">{sub}</div>
       </div>

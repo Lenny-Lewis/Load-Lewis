@@ -15,6 +15,12 @@ body {
   font-family: "Mona Sans", sans-serif;
 }
 
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
 section {
   width: 100dvw;
 }
@@ -553,6 +559,122 @@ section {
 
   .chatbot-fab {
     @apply fixed bottom-6 right-5 z-[110] px-5 py-3 shadow-[0_12px_40px_rgba(98,224,255,0.22)];
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-text {
+    @apply text-[22px];
+    line-height: 1.16;
+  }
+
+  .hero-description {
+    @apply text-sm leading-6;
+  }
+
+  .hero-badge {
+    @apply text-[11px] px-2.5 py-1.5;
+  }
+
+  .navbar {
+    @apply py-4 px-4;
+
+    .logo {
+      @apply text-lg;
+    }
+
+    .contact-btn .inner,
+    .resume-btn .inner {
+      @apply px-4 py-2 text-xs;
+    }
+  }
+
+  .cta-button .text {
+    @apply text-xs;
+  }
+
+  .section-title h1 {
+    @apply text-[1.35rem] leading-tight;
+  }
+
+  .section-title .hero-badge-copy {
+    @apply gap-1.5 text-[11px];
+  }
+
+  .app-showcase .text-content h2 {
+    @apply text-lg leading-7;
+  }
+
+  .app-showcase .project-list-wrapper h2 {
+    @apply text-base leading-6;
+  }
+
+  .tech-card-content p {
+    @apply text-sm;
+  }
+
+  .counter-number {
+    @apply text-3xl;
+  }
+
+  .contact-quick-card h3 {
+    @apply text-sm;
+  }
+
+  .contact-quick-card .about-kicker {
+    @apply text-[10px] tracking-[0.18em];
+  }
+
+  .exp-card-wrapper h1 {
+    @apply text-2xl;
+  }
+
+  .exp-card-wrapper .text-lg {
+    @apply text-sm leading-6;
+  }
+
+  .chatbot-info h3,
+  .chatbot-panel h3 {
+    @apply text-xl leading-7;
+  }
+
+  .chatbot-copy {
+    @apply text-sm leading-6;
+  }
+
+  .chatbot-summary-card h4 {
+    @apply text-base;
+  }
+
+  .chatbot-summary-card p {
+    @apply text-xs leading-5;
+  }
+
+  .chatbot-chip,
+  .chatbot-toggle,
+  .chatbot-reset,
+  .chatbot-send {
+    @apply text-xs px-4 py-2.5;
+  }
+
+  .chatbot-message {
+    @apply text-sm leading-6;
+  }
+
+  .chatbot-badge {
+    @apply text-[10px];
+  }
+
+  .chatbot-form input {
+    @apply text-sm py-3.5 px-4;
+  }
+
+  .footer p {
+    @apply text-sm;
+  }
+
+  .footer .socials .icon {
+    @apply size-9;
   }
 }
 
