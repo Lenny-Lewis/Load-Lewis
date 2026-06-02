@@ -257,23 +257,27 @@ const socialImgs = [
   {
     name: "insta",
     imgPath: "/images/insta.png",
-    url: "https://www.instagram.com/thatboylewis?igsh=aTdxN3VqYW5qZG45"
+    url: "https://www.instagram.com/thatboylewis?igsh=aTdxN3VqYW5qZG45",
   },
   {
     name: "github",
     imgPath: "/images/github.png",
-    url: "https://github.com/Lenny-Lewis"
+    url: "https://github.com/Lenny-Lewis",
   },
   {
     name: "x",
     imgPath: "/images/x.png",
-    url: "https://x.com/thatboylewis"
-    
+    url: "https://x.com/thatboylewis",
+  },
+  {
+    name: "reddit",
+    imgPath: "/images/reddit.svg",
+    url: "https://www.reddit.com/u/thatkidlewis/s/n0V2SYZnQd",
   },
   {
     name: "linkedin",
     imgPath: "/images/linkedin.png",
-    url: "https://www.linkedin.com/in/lennox-lewis-975642359"
+    url: "https://www.linkedin.com/in/lennox-lewis-975642359",
   },
 ];
 
