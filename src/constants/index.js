@@ -271,7 +271,7 @@ const socialImgs = [
   },
   {
     name: "reddit",
-    imgPath: "/images/reddit.svg",
+    imgPath: "/images/reddit.jpg",
     url: "https://www.reddit.com/u/thatkidlewis/s/n0V2SYZnQd",
   },
   {

@@ -348,6 +348,10 @@ section {
       .github-icon img {
         filter: brightness(0) invert(1);
       }
+
+      .reddit-icon img {
+        filter: invert(1) grayscale(1) contrast(1.1);
+      }
     }
   }
 
