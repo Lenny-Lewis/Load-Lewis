@@ -17,7 +17,7 @@ body {
 
 @media (max-width: 768px) {
   html {
-    font-size: 15px;
+    font-size: 16px;
   }
 }
 
@@ -567,118 +567,190 @@ section {
 }
 
 @media (max-width: 768px) {
+  .padding-x,
+  .padding-x-lg,
+  .section-padding {
+    @apply px-5;
+  }
+
+  .section-padding {
+    @apply mt-16;
+  }
+
   .hero-text {
-    @apply text-[22px];
-    line-height: 1.16;
+    @apply text-[24px];
+    line-height: 1.14;
   }
 
   .hero-description {
-    @apply text-sm leading-6;
+    @apply text-base leading-7;
   }
 
   .hero-badge {
-    @apply text-[11px] px-2.5 py-1.5;
+    @apply text-xs px-3 py-1.5;
   }
 
   .navbar {
-    @apply py-4 px-4;
+    @apply py-4 px-5;
 
     .logo {
-      @apply text-lg;
+      @apply text-xl;
     }
 
     .contact-btn .inner,
     .resume-btn .inner {
-      @apply px-4 py-2 text-xs;
+      @apply px-4 py-2 text-sm;
     }
   }
 
   .cta-button .text {
-    @apply text-xs;
+    @apply text-sm;
   }
 
   .section-title h1 {
-    @apply text-[1.35rem] leading-tight;
+    @apply text-[1.6rem] leading-tight;
   }
 
   .section-title .hero-badge-copy {
-    @apply gap-1.5 text-[11px];
+    @apply gap-2 text-xs;
   }
 
   .app-showcase .text-content h2 {
-    @apply text-lg leading-7;
+    @apply text-xl leading-7;
   }
 
   .app-showcase .project-list-wrapper h2 {
-    @apply text-base leading-6;
+    @apply text-lg leading-7;
   }
 
   .tech-card-content p {
-    @apply text-sm;
+    @apply text-base;
   }
 
   .counter-number {
-    @apply text-3xl;
+    @apply text-4xl;
   }
 
   .contact-quick-card h3 {
-    @apply text-sm;
+    @apply text-base;
   }
 
   .contact-quick-card .about-kicker {
-    @apply text-[10px] tracking-[0.18em];
+    @apply text-xs tracking-[0.18em];
   }
 
   .exp-card-wrapper h1 {
-    @apply text-2xl;
+    @apply text-3xl;
   }
 
   .exp-card-wrapper .text-lg {
-    @apply text-sm leading-6;
+    @apply text-base leading-7;
   }
 
   .chatbot-info h3,
   .chatbot-panel h3 {
-    @apply text-xl leading-7;
+    @apply text-2xl leading-7;
   }
 
   .chatbot-copy {
-    @apply text-sm leading-6;
+    @apply text-base leading-7;
   }
 
   .chatbot-summary-card h4 {
-    @apply text-base;
+    @apply text-lg;
   }
 
   .chatbot-summary-card p {
-    @apply text-xs leading-5;
+    @apply text-sm leading-6;
   }
 
   .chatbot-chip,
   .chatbot-toggle,
   .chatbot-reset,
   .chatbot-send {
-    @apply text-xs px-4 py-2.5;
+    @apply text-sm px-4 py-2.5;
   }
 
   .chatbot-message {
-    @apply text-sm leading-6;
+    @apply text-base leading-7;
   }
 
   .chatbot-badge {
-    @apply text-[10px];
+    @apply text-[11px];
   }
 
   .chatbot-form input {
-    @apply text-sm py-3.5 px-4;
+    @apply text-base py-3.5 px-4;
   }
 
   .footer p {
-    @apply text-sm;
+    @apply text-base;
   }
 
   .footer .socials .icon {
     @apply size-9;
+  }
+
+  .hero-copy {
+    @apply gap-7;
+  }
+
+  .hero-3d-layout {
+    @apply top-20;
+  }
+
+  .hero-layout {
+    @apply mt-28;
+  }
+
+  .app-showcase {
+    @apply px-5 py-10;
+  }
+
+  .app-showcase .showcaselayout {
+    @apply gap-8;
+  }
+
+  .app-showcase .first-project-wrapper .text-content {
+    @apply mt-4 space-y-4;
+  }
+
+  .tech-grid {
+    @apply mt-12 gap-4;
+  }
+
+  .contact-quick-grid {
+    @apply gap-3;
+  }
+
+  .contact-quick-card,
+  .chatbot-info,
+  .chatbot-panel {
+    @apply p-5;
+  }
+
+  .chatbot-summary-grid {
+    @apply mt-6 gap-3;
+  }
+
+  .chatbot-tags {
+    @apply mt-6 gap-2.5;
+  }
+
+  .chatbot-shell {
+    @apply mt-6;
+  }
+
+  .chatbot-messages {
+    @apply p-4;
+  }
+
+  .chatbot-form {
+    @apply p-2.5 gap-2.5;
+  }
+
+  .footer {
+    @apply px-5;
   }
 }
 
