@@ -81,6 +81,7 @@ const portfolioProfile = {
     instagram: "https://www.instagram.com/thatboylewis?igsh=aTdxN3VqYW5qZG45",
     x: "https://x.com/thatboylewis",
     linkedin: "https://www.linkedin.com/in/lennox-lewis-975642359",
+    reddit: "https://www.reddit.com/u/thatkidlewis/s/n0V2SYZnQd",
   },
   services: [
     "Frontend web development",
