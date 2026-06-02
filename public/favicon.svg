@@ -1,19 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
   <title id="title">Lennox Lewis favicon</title>
-  <desc id="desc">A premium dark favicon with a metallic gold LL monogram.</desc>
+  <desc id="desc">A dark rounded favicon with a clean cool white LL monogram and subtle cyan accent.</desc>
   <defs>
-    <linearGradient id="gold" x1="16" y1="12" x2="48" y2="52" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#f8e7a6" />
-      <stop offset="0.42" stop-color="#d4af37" />
-      <stop offset="1" stop-color="#8f6a16" />
+    <linearGradient id="frame" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" />
+      <stop offset="0.55" stop-color="#d9ecff" />
+      <stop offset="1" stop-color="#839cb5" />
     </linearGradient>
-    <linearGradient id="goldEdge" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#f3dd8a" stop-opacity="0.95" />
-      <stop offset="0.5" stop-color="#d4af37" stop-opacity="0.8" />
-      <stop offset="1" stop-color="#6f5312" stop-opacity="0.75" />
+    <linearGradient id="monogram" x1="16" y1="14" x2="48" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" />
+      <stop offset="0.45" stop-color="#d9ecff" />
+      <stop offset="1" stop-color="#b4cde1" />
     </linearGradient>
-    <filter id="goldGlow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="1.8" result="blur" />
+    <radialGradient id="glow" cx="0.5" cy="0.34" r="0.72">
+      <stop offset="0" stop-color="#62e0ff" stop-opacity="0.22" />
+      <stop offset="0.55" stop-color="#62e0ff" stop-opacity="0.06" />
+      <stop offset="1" stop-color="#62e0ff" stop-opacity="0" />
+    </radialGradient>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="1.4" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
@@ -21,21 +26,15 @@
     </filter>
   </defs>
 
-  <rect x="7" y="7" width="50" height="50" rx="16" fill="#101114" />
-  <rect x="8" y="8" width="48" height="48" rx="15" fill="none" stroke="url(#goldEdge)" stroke-width="1.5" />
+  <rect width="64" height="64" rx="16" fill="#0e0e10" />
+  <rect width="64" height="64" rx="16" fill="url(#glow)" />
+  <rect x="8" y="8" width="48" height="48" rx="12.5" fill="none" stroke="url(#frame)" stroke-width="1.1" />
+  <rect x="11" y="11" width="42" height="42" rx="11" fill="#101114" stroke="#ffffff10" stroke-width="0.8" />
 
-  <g fill="none" stroke-linecap="square" stroke-linejoin="miter">
-    <path
-      d="M22 18v28h12"
-      stroke="url(#gold)"
-      stroke-width="6"
-      filter="url(#goldGlow)"
-    />
-    <path
-      d="M38 18v22h8"
-      stroke="url(#gold)"
-      stroke-width="6"
-      filter="url(#goldGlow)"
-    />
+  <g fill="none" stroke="url(#monogram)" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M22.5 18.5v27h10" stroke-width="4.1" />
+    <path d="M38.5 18.5v27h8" stroke-width="4.1" />
   </g>
+
+  <path d="M39.5 17.8h4.2" stroke="#62e0ff" stroke-width="1.2" stroke-linecap="round" opacity="0.65" />
 </svg>
