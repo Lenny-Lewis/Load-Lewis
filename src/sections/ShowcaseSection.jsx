@@ -10,35 +10,9 @@ const AppShowcase = () => {
   const rydeRef = useRef(null);
   const libraryRef = useRef(null);
   const ycDirectoryRef = useRef(null);
-  const graphicsRef = useRef(null);
-  const graphicsProjects = [
-    {
-      title: "Boss Dark Elegance",
-      category: "Featured Poster",
-      description:
-        "A bold, high-contrast composition designed to feel premium, cinematic, and brand-forward.",
-      tags: ["Typography", "Contrast", "Luxury Mood"],
-      image: "/images/Graphics%20Design/boss_dark_elegance.png",
-      alt: "Boss Dark Elegance graphic design",
-    },
-    {
-      title: "Crocks Poster",
-      category: "Campaign Visual",
-      description:
-        "A clean promotional poster built to communicate the message quickly while keeping the visual identity sharp.",
-      tags: ["Promotion", "Hierarchy", "Brand Layout"],
-      image: "/images/Graphics%20Design/Crocks%20Poster.png",
-      alt: "Crocks poster design",
-    },
-  ];
 
   useGSAP(() => {
-    const cards = [
-      rydeRef.current,
-      libraryRef.current,
-      ycDirectoryRef.current,
-      graphicsRef.current,
-    ].filter(Boolean);
+    const cards = [rydeRef.current, libraryRef.current, ycDirectoryRef.current].filter(Boolean);
 
     const trigger = ScrollTrigger.create({
       trigger: sectionRef.current,
@@ -124,43 +98,6 @@ const AppShowcase = () => {
               </div>
               <h2>YG Directory - A Startup Showcase App</h2>
             </div>
-          </div>
-        </div>
-
-        <div ref={graphicsRef} className="graphics-showcase">
-          <div className="graphics-header">
-            <div>
-              <p className="graphics-kicker">Graphics Design</p>
-              <h2>Visual storytelling with a clean, premium finish</h2>
-            </div>
-            <p className="graphics-copy">
-              Selected poster and promotional design work, presented as a
-              curated gallery with clear categories and short project notes.
-            </p>
-          </div>
-
-          <div className="graphics-grid">
-            {graphicsProjects.map((project) => (
-              <a
-                key={project.title}
-                className="graphics-card group"
-                href={project.image}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img src={project.image} alt={project.alt} />
-                <div className="graphics-content">
-                  <span>{project.category}</span>
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="graphics-tags">
-                    {project.tags.map((tag) => (
-                      <span key={tag}>{tag}</span>
-                    ))}
-                  </div>
-                </div>
-              </a>
-            ))}
           </div>
         </div>
       </div>

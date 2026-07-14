@@ -95,7 +95,7 @@ section {
     line-height: 1.12;
 
     h1 {
-      @apply relative;
+      @apply relative flex flex-wrap items-baseline;
       line-height: 1.12;
     }
 
@@ -104,11 +104,16 @@ section {
     }
 
     .slide {
-      @apply absolute px-2 md:px-5 overflow-hidden;
-      top: 50%;
+      @apply inline-flex px-2 md:px-5 overflow-hidden align-baseline;
       height: 1.2em;
-      transform: translateY(-50%);
       padding-top: 0.06em;
+      min-width: 9ch;
+      vertical-align: baseline;
+    }
+
+    .wrapper > span {
+      @apply whitespace-nowrap;
+      line-height: 1.12;
     }
   }
 
@@ -249,66 +254,6 @@ section {
       h2 {
         @apply text-base md:text-xl lg:text-2xl font-semibold mt-4 md:mt-5;
       }
-    }
-  }
-
-  .graphics-showcase {
-    @apply mt-12 pt-8 md:pt-10 border-t border-white/8;
-  }
-
-  .graphics-header {
-    @apply flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3 md:gap-5;
-  }
-
-  .graphics-kicker {
-    @apply uppercase tracking-[0.28em] text-[10px] md:text-xs text-white/45;
-  }
-
-  .graphics-header h2 {
-    @apply mt-2 text-xl md:text-2xl font-semibold max-w-2xl leading-tight;
-  }
-
-  .graphics-copy {
-    @apply text-white-50 text-sm md:text-base leading-6 max-w-lg;
-  }
-
-  .graphics-grid {
-    @apply mt-6 md:mt-7 mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-5xl;
-  }
-
-  .graphics-card {
-    @apply overflow-hidden rounded-[1.25rem] border border-white/8 bg-white/[0.02] shadow-[0_10px_28px_rgba(0,0,0,0.18)] transition-transform duration-300 hover:-translate-y-0.5 flex flex-col;
-
-    img {
-      @apply w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-[1.02];
-    }
-  }
-
-  .graphics-card-large {
-    @apply md:col-span-1 xl:col-span-1;
-  }
-
-  .graphics-content {
-    @apply p-4 md:p-5 flex flex-col gap-2;
-
-    span {
-      @apply text-[10px] md:text-[11px] uppercase tracking-[0.24em] text-white/45;
-    }
-
-    h3 {
-      @apply text-lg md:text-xl font-semibold text-white;
-    }
-
-    p {
-      @apply max-w-xl text-sm leading-6 text-white-50;
-    }
-  }
-
-  .graphics-tags {
-    @apply mt-1 flex flex-wrap gap-1.5;
-
-    span {
-      @apply rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[9px] md:text-[10px] uppercase tracking-[0.14em] text-white/70;
     }
   }
 
@@ -684,26 +629,6 @@ section {
     @apply text-lg leading-7;
   }
 
-  .graphics-showcase {
-    @apply mt-10 pt-6;
-  }
-
-  .graphics-header h2 {
-    @apply text-lg leading-7;
-  }
-
-  .graphics-copy {
-    @apply text-sm leading-6;
-  }
-
-  .graphics-grid {
-    @apply mt-5 gap-3 max-w-none;
-  }
-
-  .graphics-card {
-    @apply rounded-[1rem];
-  }
-
   .tech-card-content p {
     @apply text-base;
   }
@@ -799,14 +724,6 @@ section {
 
   .app-showcase .first-project-wrapper .text-content {
     @apply mt-4 space-y-4;
-  }
-
-  .graphics-showcase {
-    @apply pt-6;
-  }
-
-  .graphics-content p {
-    @apply text-xs leading-5;
   }
 
   .tech-grid {
