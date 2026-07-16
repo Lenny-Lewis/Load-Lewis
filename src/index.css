@@ -325,6 +325,100 @@ section {
     }
   }
 
+  .tech-stack-shell {
+    @apply relative isolate overflow-visible px-0 py-0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .tech-stack-shell::before,
+  .tech-stack-shell::after {
+    content: "";
+    position: absolute;
+    inset: auto;
+    pointer-events: none;
+  }
+
+  .tech-stack-shell::before {
+    display: none;
+  }
+
+  .tech-stack-shell::after {
+    display: none;
+  }
+
+  .tech-stack-grid {
+    @apply relative z-10 flex flex-col items-center gap-3 md:gap-4;
+  }
+
+  .tech-stack-orb {
+    @apply hidden;
+  }
+
+  .tech-stack-orb-left {
+    @apply left-[-6rem] top-[12%] h-72 w-72 bg-fuchsia-500/10;
+  }
+
+  .tech-stack-orb-right {
+    @apply right-[-4rem] top-10 h-64 w-64 bg-white/10;
+  }
+
+  .stack-row {
+    @apply flex flex-wrap items-center justify-center gap-2 md:gap-3;
+  }
+
+  .stack-card {
+    @apply relative flex h-[108px] w-[92px] flex-col items-center justify-center overflow-hidden rounded-[1.1rem] border border-white/10 bg-white/[0.035] text-white/80 backdrop-blur-md transition-all duration-500 ease-out hover:-translate-y-1 hover:bg-white/[0.06];
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 8px 24px rgba(0, 0, 0, 0.18);
+    transform-style: preserve-3d;
+    perspective: 900px;
+  }
+
+  .stack-card:hover {
+    transform: translateY(-6px) scale(1.1) rotateX(6deg) rotateZ(-2deg);
+    border-color: var(--stack-accent);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 0 0 1px var(--stack-accent),
+      0 16px 44px color-mix(in srgb, var(--stack-accent) 30%, transparent);
+  }
+
+  .stack-card-glow {
+    @apply pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300;
+    background:
+      radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--stack-accent) 42%, transparent), transparent 58%),
+      linear-gradient(180deg, color-mix(in srgb, var(--stack-accent) 14%, transparent), transparent 75%);
+  }
+
+  .stack-card:hover .stack-card-glow {
+    @apply opacity-100;
+  }
+
+  .stack-icon-wrap {
+    @apply relative z-10 flex h-14 w-14 items-center justify-center rounded-[1rem] border border-white/10 bg-black/35 overflow-hidden;
+  }
+
+  .stack-icon {
+    @apply h-10 w-10 object-contain grayscale brightness-75 opacity-55 transition-all duration-500 ease-out;
+    filter: grayscale(1) brightness(0.75) opacity(0.55);
+  }
+
+  .stack-card:hover .stack-icon {
+    @apply grayscale-0 opacity-100;
+    filter: grayscale(0) brightness(1) opacity(1);
+    transform: translateY(-1px) scale(1.08);
+  }
+
+  .stack-name {
+    @apply relative z-10 mt-2 px-1 text-[0.58rem] leading-tight text-center text-white/70 transition-colors duration-500 ease-out;
+  }
+
+  .stack-card:hover .stack-name {
+    @apply text-white;
+  }
+
   .tech-grid {
     @apply grid xl:grid-cols-5 md:grid-cols-3 grid-cols-1 xl:gap-16 md:gap-10 gap-5 mt-16;
   }

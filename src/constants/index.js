@@ -154,6 +154,269 @@ const techStackIcons = [
   },
 ];
 
+const stackAssetMap = {
+  Python: {
+    accent: "#3776AB",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+  },
+  JavaScript: {
+    accent: "#F7DF1E",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+  },
+  TypeScript: {
+    accent: "#3178C6",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+  },
+  C: {
+    accent: "#A8B9CC",
+    imageSrc: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+  },
+  "C++": {
+    accent: "#00599C",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+  },
+  Kotlin: {
+    accent: "#7F52FF",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg",
+  },
+  HTML: {
+    accent: "#E34F26",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+  },
+  CSS: {
+    accent: "#1572B6",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+  },
+  Bash: {
+    accent: "#4EAA25",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg",
+  },
+  React: {
+    accent: "#61DAFB",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  },
+  "Next.js": {
+    accent: "#FFFFFF",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+  },
+  Bootstrap: {
+    accent: "#7952B3",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
+  },
+  "Node.js": {
+    accent: "#339933",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+  },
+  Django: {
+    accent: "#092E20",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
+  },
+  Flask: {
+    accent: "#000000",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg",
+  },
+  FastAPI: {
+    accent: "#009688",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
+  },
+  TensorFlow: {
+    accent: "#FF6F00",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
+  },
+  PyTorch: {
+    accent: "#EE4C2C",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
+  },
+  "Scikit-learn": {
+    accent: "#F7931E",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg",
+  },
+  OpenCV: {
+    accent: "#5C3EE8",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg",
+  },
+  NumPy: {
+    accent: "#4D77CF",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg",
+  },
+  Tailwind: {
+    accent: "#38BDF8",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+  },
+  Pandas: {
+    accent: "#150458",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
+  },
+  MySQL: {
+    accent: "#4479A1",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+  },
+  PostgreSQL: {
+    accent: "#336791",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+  },
+  MongoDB: {
+    accent: "#47A248",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+  },
+  Firebase: {
+    accent: "#FFCA28",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+  },
+  Redis: {
+    accent: "#DC382D",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+  },
+  Docker: {
+    accent: "#2496ED",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+  },
+  Azure: {
+    accent: "#0078D4",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+  },
+  Git: {
+    accent: "#F05032",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+  },
+  GitHub: {
+    accent: "#FFFFFF",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+  },
+  Linux: {
+    accent: "#FCC624",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+  },
+  AWS: {
+    accent: "#FF9900",
+    imageSrc:
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Amazon_Web_Services_2025.svg",
+  },
+  "VS Code": {
+    accent: "#007ACC",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+  },
+  Vercel: {
+    accent: "#FFFFFF",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+  },
+  Jupyter: {
+    accent: "#F37626",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg",
+  },
+  Figma: {
+    accent: "#F24E1E",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+  },
+  Postman: {
+    accent: "#FF6C37",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
+  },
+  Photoshop: {
+    accent: "#31A8FF",
+    imageSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg",
+  },
+  "Hugging Face": {
+    accent: "#FFD21E",
+    imageSrc: "https://cdn.simpleicons.org/huggingface",
+  },
+  "MS Office": {
+    accent: "#D83B01",
+    imageSrc:
+      "https://upload.wikimedia.org/wikipedia/en/thumb/3/35/Microsoft_Office_Logo_%282019-present%29.svg/250px-Microsoft_Office_Logo_%282019-present%29.svg.png",
+  },
+};
+
+const techStackRows = [
+  [
+    "Python",
+    "JavaScript",
+    "TypeScript",
+    "C",
+    "C++",
+    "Kotlin",
+    "HTML",
+    "CSS",
+    "Bash",
+    "React",
+    "Next.js",
+    "Bootstrap",
+  ],
+  [
+    "Node.js",
+    "Django",
+    "Flask",
+    "FastAPI",
+    "TensorFlow",
+    "PyTorch",
+    "Scikit-learn",
+    "OpenCV",
+    "NumPy",
+    "Tailwind",
+  ],
+  [
+    "Pandas",
+    "MySQL",
+    "PostgreSQL",
+    "MongoDB",
+    "Firebase",
+    "Redis",
+    "Docker",
+    "Azure",
+  ],
+  ["Git", "GitHub", "Linux", "AWS", "VS Code", "Vercel"],
+  ["Jupyter", "Figma", "Postman", "Photoshop"],
+  ["Hugging Face", "MS Office"],
+].map((row) =>
+  row.map((name) => {
+    const asset = stackAssetMap[name] || {};
+
+    return {
+      name,
+      accent: asset.accent || "#8b5cf6",
+      imageSrc: asset.imageSrc,
+    };
+  })
+);
+
 const expCards = [
   {
     review: "Lennox brought creativity and technical expertise to the team, significantly improving our frontend performance. His work has been invaluable in delivering faster experiences.",
@@ -293,5 +556,6 @@ export {
   socialImgs,
   techStackIcons,
   techStackImgs,
+  techStackRows,
   navLinks,
 };
