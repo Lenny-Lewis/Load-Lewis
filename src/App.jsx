@@ -10,22 +10,27 @@ import FeatureCards from "./sections/FeatureCards";
 import PortfolioChatbot from "./sections/PortfolioChatbot";
 import Navbar from "./components/NavBar";
 import { Analytics } from "@vercel/analytics/react";
+import { useMediaQuery } from "react-responsive";
 
-const App = () => (
-  <>
-    <Navbar />
-    <Hero />
-    <ShowcaseSection />
-    <LogoShowcase />
-    <FeatureCards />
-    <Experience />
-    <TechStack />
-    <PortfolioChatbot />
-    <Testimonials />
-    <Contact />
-    <Footer />
-    <Analytics />
-  </>
-);
+const App = () => {
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+  return (
+    <>
+      <Navbar />
+      <Hero />
+      <ShowcaseSection />
+      <LogoShowcase />
+      <FeatureCards />
+      <Experience />
+      <TechStack />
+      {!isMobile && <PortfolioChatbot />}
+      <Testimonials />
+      <Contact />
+      <Footer />
+      <Analytics />
+    </>
+  );
+};
 
 export default App;

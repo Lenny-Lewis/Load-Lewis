@@ -32,7 +32,7 @@ const MobileRobotCard = () => (
     <img
       src={mobileRobotImage.src}
       alt={mobileRobotImage.alt}
-      className="h-full w-full object-cover object-center scale-[1.04]"
+      className="h-full w-full object-cover object-center scale-[1.04] brightness-90 contrast-110"
       loading="lazy"
       decoding="async"
     />

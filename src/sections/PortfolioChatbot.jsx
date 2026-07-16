@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { useMediaQuery } from "react-responsive";
 
 import TitleHeader from "../components/TitleHeader";
 import {
@@ -45,7 +44,6 @@ const itemVariants = {
 };
 
 const PortfolioChatbot = () => {
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const [isOpen, setIsOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState([assistantWelcome]);
@@ -54,10 +52,7 @@ const PortfolioChatbot = () => {
   const messagesRef = useRef(null);
   const typingTimeoutRef = useRef(null);
 
-  const quickPrompts = useMemo(
-    () => (isMobile ? suggestedPrompts.slice(0, 3) : suggestedPrompts),
-    [isMobile]
-  );
+  const quickPrompts = useMemo(() => suggestedPrompts, []);
   const insightCards = useMemo(
     () => [
       {
@@ -78,12 +73,6 @@ const PortfolioChatbot = () => {
     ],
     []
   );
-
-  useEffect(() => {
-    if (isMobile) {
-      setIsOpen(true);
-    }
-  }, [isMobile]);
 
   useEffect(() => {
     const currentPhrase = typedPhrases[typedIndex];
@@ -155,7 +144,6 @@ const PortfolioChatbot = () => {
         <div className="w-full md:px-10 px-5">
           <TitleHeader
             title="Ask About Lenny's Work"
-            badgeClassName="hidden md:block"
             sub={
               <>
                 <img
@@ -175,8 +163,8 @@ const PortfolioChatbot = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-          <motion.div
-              className="chatbot-info card-border hidden md:block"
+            <motion.div
+              className="chatbot-info card-border"
               variants={itemVariants}
               whileInView={{ y: [18, 0], opacity: [0, 1] }}
               viewport={{ once: true, amount: 0.25 }}
@@ -274,10 +262,7 @@ const PortfolioChatbot = () => {
                       {message.role === "assistant" &&
                         message.followUps?.length > 0 && (
                           <div className="chatbot-followups">
-                            {(isMobile
-                              ? message.followUps.slice(0, 2)
-                              : message.followUps
-                            ).map((followUp) => (
+                            {message.followUps.map((followUp) => (
                               <button
                                 key={`${message.role}-${index}-${followUp}`}
                                 type="button"
@@ -312,7 +297,7 @@ const PortfolioChatbot = () => {
 
       <motion.button
         type="button"
-        className="chatbot-fab hidden md:inline-flex"
+        className="chatbot-fab"
         onClick={() => {
           setIsOpen(true);
           document
