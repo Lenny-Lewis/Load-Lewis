@@ -5,6 +5,11 @@ import useInView from "../hooks/useInView";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
+const mobileRobotImage = {
+  src: "https://images.unsplash.com/photo-1535378620166-273708d44e4c?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=80&w=1400",
+  alt: "White humanoid robot standing in front of a dark background",
+};
+
 const LoadingState = ({ message }) => (
   <div className="relative flex h-full min-h-[320px] items-center justify-center overflow-hidden px-6">
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_12%,rgba(255,255,255,0.16),transparent_18%),radial-gradient(circle_at_50%_12%,rgba(255,255,255,0.08),transparent_28%),radial-gradient(circle_at_72%_25%,rgba(96,165,250,0.14),transparent_24%)]" />
@@ -16,6 +21,30 @@ const LoadingState = ({ message }) => (
           Loading 3D
         </p>
         <p className="text-sm text-white/65">{message}</p>
+      </div>
+    </div>
+  </div>
+);
+
+const MobileRobotCard = () => (
+  <div className="relative flex h-full min-h-[420px] overflow-hidden rounded-none">
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.18),transparent_24%),radial-gradient(circle_at_68%_26%,rgba(75,85,99,0.24),transparent_20%),linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.72))]" />
+    <img
+      src={mobileRobotImage.src}
+      alt={mobileRobotImage.alt}
+      className="h-full w-full object-cover object-center scale-[1.04]"
+      loading="lazy"
+      decoding="async"
+    />
+    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 p-6">
+      <div className="max-w-sm rounded-2xl border border-white/10 bg-black/35 px-4 py-3 backdrop-blur-sm">
+        <p className="text-[11px] uppercase tracking-[0.32em] text-white/50">
+          Mobile fallback
+        </p>
+        <p className="mt-1 text-sm text-white/85">
+          Static Unsplash robot image used here for faster rendering on phones.
+        </p>
       </div>
     </div>
   </div>
@@ -38,7 +67,9 @@ const SplineRobotCard = ({ scene }) => {
 
   return (
     <div ref={elementRef} className="relative h-full min-h-[420px] overflow-hidden">
-      {shouldLoadScene ? (
+      {isMobile ? (
+        <MobileRobotCard />
+      ) : shouldLoadScene ? (
         <Suspense
           fallback={<LoadingState message="Initializing the Spline scene." />}
         >
