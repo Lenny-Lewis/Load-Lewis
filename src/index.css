@@ -677,6 +677,10 @@ section {
     @apply text-sm px-4 py-2.5;
   }
 
+  .chatbot-chip {
+    @apply px-3 py-2 text-xs;
+  }
+
   .chatbot-message {
     @apply text-base leading-7;
   }
@@ -745,19 +749,35 @@ section {
   }
 
   .chatbot-tags {
-    @apply mt-6 gap-2.5;
+    @apply mt-5 gap-2;
   }
 
   .chatbot-shell {
-    @apply mt-6;
+    @apply mt-5;
   }
 
   .chatbot-messages {
-    @apply p-4;
+    @apply p-3 space-y-3 max-h-[20rem];
+  }
+
+  .chatbot-message {
+    @apply p-3;
+  }
+
+  .chatbot-message p {
+    @apply mt-2;
+  }
+
+  .chatbot-followups {
+    @apply mt-3 gap-1.5;
+  }
+
+  .chatbot-followup {
+    @apply px-3 py-2 text-[11px];
   }
 
   .chatbot-form {
-    @apply p-2.5 gap-2.5;
+    @apply p-2 gap-2;
   }
 
   .footer {
