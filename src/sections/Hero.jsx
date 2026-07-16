@@ -72,7 +72,7 @@ const Hero = () => {
           </div>
         </header>
 
-        <div className="relative min-h-[48vh] lg:min-h-screen">
+        <div className="hero-visual relative min-h-[48vh] lg:min-h-screen">
           <SplineRobotCard scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" />
         </div>
       </div>
