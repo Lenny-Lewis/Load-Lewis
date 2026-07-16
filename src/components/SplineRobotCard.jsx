@@ -36,17 +36,6 @@ const MobileRobotCard = () => (
       loading="lazy"
       decoding="async"
     />
-    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 p-6">
-      <div className="max-w-sm rounded-2xl border border-white/10 bg-black/35 px-4 py-3 backdrop-blur-sm">
-        <p className="text-[11px] uppercase tracking-[0.32em] text-white/50">
-          Mobile fallback
-        </p>
-        <p className="mt-1 text-sm text-white/85">
-          Static Unsplash robot image used here for faster rendering on phones.
-        </p>
-      </div>
-    </div>
   </div>
 );
 
