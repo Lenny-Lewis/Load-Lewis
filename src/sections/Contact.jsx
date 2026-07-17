@@ -17,6 +17,20 @@ const Contact = () => {
     message: "",
   });
 
+  const getSubmitErrorMessage = (error) => {
+    const errorText = `${error?.text || ""} ${error?.message || ""}`.toLowerCase();
+
+    if (errorText.includes("invalid grant")) {
+      return "Email delivery is temporarily unavailable. The Gmail account connected to EmailJS needs to be reconnected.";
+    }
+
+    if (errorText.includes("gmail")) {
+      return "Email delivery is temporarily unavailable. Please reconnect the Gmail account connected to EmailJS.";
+    }
+
+    return error?.text || "Message failed to send. Please try again.";
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (isSubmitted) setIsSubmitted(false);
@@ -84,9 +98,7 @@ const Contact = () => {
         error,
       });
       setIsSubmitted(false);
-      setSubmitError(
-        error?.text || "Message failed to send. Please try again."
-      );
+      setSubmitError(getSubmitErrorMessage(error));
     } finally {
       setLoading(false); // Always stop loading, even on error
     }
