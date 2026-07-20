@@ -31,7 +31,7 @@ const Hero = () => {
       <div className="pointer-events-none absolute left-1/4 top-20 h-96 w-96 -translate-x-1/2 rounded-full bg-white/18 blur-[120px]" />
 
       <div className="hero-reveal relative z-10 grid min-h-screen lg:grid-cols-[0.95fr_1.05fr]">
-        <header className="relative flex items-center justify-start px-6 py-12 sm:px-10 lg:px-12 lg:py-0 lg:pl-12 xl:pl-16">
+        <header className="relative flex items-start justify-start px-6 py-12 sm:px-10 lg:px-12 lg:pt-20 xl:pt-32 lg:pb-0 lg:pl-12 xl:pl-16">
           <div className="hero-copy max-w-[25rem] lg:max-w-[42rem] xl:max-w-[48rem]">
             <div className="hero-text">
               <h1>

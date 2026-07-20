@@ -62,7 +62,7 @@ const SplineRobotCard = ({ scene }) => {
             style={{
               width: "100%",
               height: "100%",
-              transform: "scale(1.08) translateY(1%)",
+              transform: "scale(1.15) translateY(-3%)",
               transformOrigin: "center center",
             }}
           />
