@@ -74,12 +74,12 @@ const AppShowcase = () => {
       
       <div className="w-full max-w-7xl mx-auto mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-5">
         <div className="flex w-full justify-between items-center">
-          <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-wide">
+          <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-wide">
             Featured Projects
           </h2>
           <Link 
             to="/work"
-            className="group flex items-center gap-2 text-white-50 hover:text-white transition-colors text-sm md:text-base font-semibold tracking-wider uppercase"
+            className="group flex items-center gap-2 text-white-50 hover:text-white transition-colors text-xs md:text-sm font-semibold tracking-wider uppercase"
           >
             View More 
             <span className="transform transition-transform group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
