@@ -6,8 +6,8 @@ import useInView from "../hooks/useInView";
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
 const mobileRobotImage = {
-  src: "/images/arcane-core.png",
-  alt: "A glowing futuristic arcane tech core floating in a cyberpunk city",
+  src: "/images/arcane-core-nobg.png",
+  alt: "A glowing futuristic arcane tech core",
 };
 
 const LoadingState = ({ message }) => (
