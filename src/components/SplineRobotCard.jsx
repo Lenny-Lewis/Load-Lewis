@@ -5,11 +5,6 @@ import useInView from "../hooks/useInView";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
-const mobileRobotImage = {
-  src: "/images/spline-robot-fallback.png",
-  alt: "A sleek humanoid robot glowing with electric blue and gold accents",
-};
-
 const LoadingState = ({ message }) => (
   <div className="relative flex h-full min-h-[320px] items-center justify-center overflow-hidden px-6">
     {/* Background glow and shadow */}
@@ -43,19 +38,6 @@ const LoadingState = ({ message }) => (
   </div>
 );
 
-const MobileRobotCard = () => (
-  <div className="relative flex h-full min-h-[420px] overflow-hidden rounded-none">
-    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.18),transparent_24%),radial-gradient(circle_at_68%_26%,rgba(75,85,99,0.24),transparent_20%),linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.72))]" />
-    <img
-      src={mobileRobotImage.src}
-      alt={mobileRobotImage.alt}
-      className="h-full w-full object-cover object-center scale-[1.04] brightness-90 contrast-110"
-      loading="lazy"
-      decoding="async"
-    />
-  </div>
-);
-
 const SplineRobotCard = ({ scene }) => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const { elementRef, isInView } = useInView({
@@ -72,9 +54,9 @@ const SplineRobotCard = ({ scene }) => {
   const shouldLoadScene = shouldHydrate && isInView && !isMobile;
 
   return (
-    <div ref={elementRef} className="relative h-full min-h-[420px] overflow-hidden">
+    <div ref={elementRef} className="relative h-full min-h-[420px] overflow-hidden rounded-3xl bg-black-200">
       {isMobile ? (
-        <MobileRobotCard />
+        <LoadingState message="The scene stays simplified on mobile to keep the page responsive." />
       ) : shouldLoadScene ? (
         <Suspense
           fallback={<LoadingState message="Initializing the Spline scene." />}
@@ -92,11 +74,7 @@ const SplineRobotCard = ({ scene }) => {
         </Suspense>
       ) : (
         <LoadingState
-          message={
-            isMobile
-              ? "The scene stays simplified on mobile to keep the page responsive."
-              : "The scene loads after the hero is in view."
-          }
+          message="The scene loads after the hero is in view."
         />
       )}
     </div>
