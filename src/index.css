@@ -492,15 +492,23 @@ section {
       @apply flex items-center justify-center gap-5;
 
       .icon {
-        @apply border border-black-50 bg-black-100 flex justify-center items-center rounded-xl size-10 md:size-12 cursor-pointer transition-all duration-500 hover:bg-black-50;
+        @apply flex justify-center items-center cursor-pointer transition-all duration-300 hover:scale-110 hover:-translate-y-1 shadow-[0_4px_14px_rgba(214,36,159,0.35)];
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.65rem;
+        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      }
+
+      @media (min-width: 768px) {
+        .icon {
+          width: 3rem;
+          height: 3rem;
+          border-radius: 0.85rem;
+        }
       }
 
       img {
-        @apply inline-block w-5 h-5 md:w-6 md:h-6 object-contain;
-      }
-
-      .github-icon img,
-      .reddit-icon img {
+        @apply inline-block w-5 h-5 md:w-[1.4rem] md:h-[1.4rem] object-contain;
         filter: brightness(0) invert(1);
       }
     }
