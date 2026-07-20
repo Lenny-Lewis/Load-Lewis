@@ -210,54 +210,6 @@ section {
     }
   }
 
-  .app-showcase {
-    @apply w-full mt-16 md:mt-20 px-4 md:px-20 py-8 md:py-20 flex items-center justify-center;
-
-    .showcaselayout {
-      @apply flex lg:flex-row flex-col gap-10 justify-between;
-    }
-
-    .first-project-wrapper {
-      @apply h-full flex flex-col justify-between lg:w-[60%];
-
-      .image-wrapper {
-        @apply lg:h-[70vh] md:h-[50vh] h-96 relative;
-
-        img {
-          @apply w-full h-full object-cover rounded-xl absolute inset-0;
-        }
-      }
-
-      .text-content {
-        @apply space-y-5 mt-5;
-
-        .badges {
-          @apply flex gap-2 mb-4;
-        }
-
-        h2 {
-          @apply text-xl md:text-3xl lg:text-4xl font-bold;
-        }
-      }
-    }
-
-    .project-list-wrapper {
-      @apply flex md:flex-row flex-col lg:flex-col gap-10 lg:w-[40%];
-
-      .image-wrapper {
-        @apply lg:h-[37vh] md:h-52 h-64 relative rounded-xl lg:px-5 2xl:px-12 py-0;
-      }
-
-      img {
-        @apply w-full h-full object-contain rounded-xl;
-      }
-
-      h2 {
-        @apply text-base md:text-xl lg:text-2xl font-semibold mt-4 md:mt-5;
-      }
-    }
-  }
-
   .cta-wrapper {
     @apply relative z-20 cursor-pointer;
   }

@@ -1,32 +1,42 @@
-import Testimonials from "./sections/Testimonials";
-import Footer from "./sections/Footer";
-import Contact from "./sections/Contact";
-import TechStack from "./sections/TechStack";
-import Experience from "./sections/Experience";
-import Hero from "./sections/Hero";
-import ShowcaseSection from "./sections/ShowcaseSection";
-import LogoShowcase from "./sections/LogoShowcase";
-import FeatureCards from "./sections/FeatureCards";
-import PortfolioChatbot from "./sections/PortfolioChatbot";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Navbar from "./components/NavBar";
+import Footer from "./sections/Footer";
+import HomePage from "./pages/HomePage";
+import WorkPage from "./pages/WorkPage";
 import { Analytics } from "@vercel/analytics/react";
-import { useMediaQuery } from "react-responsive";
+
+const ScrollToAnchor = () => {
+  const location = useLocation();
+  
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.slice(1));
+      if (element) {
+        // Use setTimeout to ensure DOM has painted before scrolling
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
+
+  return null;
+};
 
 const App = () => {
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-
   return (
     <>
+      <ScrollToAnchor />
       <Navbar />
-      <Hero />
-      <ShowcaseSection />
-      <LogoShowcase />
-      <FeatureCards />
-      <Experience />
-      <TechStack />
-      {!isMobile && <PortfolioChatbot />}
-      <Testimonials />
-      <Contact />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/work" element={<WorkPage />} />
+      </Routes>
+      
+      {/* Footer and Analytics remain on all pages */}
       <Footer />
       <Analytics />
     </>
