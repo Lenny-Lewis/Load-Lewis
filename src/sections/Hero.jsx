@@ -25,7 +25,7 @@ const Hero = () => {
     <section
       id="hero"
       ref={heroRef}
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#050505] pt-28 md:pt-36 lg:pt-40"
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#050505] pt-24"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.03),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent_15%,transparent_85%,rgba(255,255,255,0.02))]" />
       <div className="pointer-events-none absolute left-1/4 top-20 h-96 w-96 -translate-x-1/2 rounded-full bg-white/18 blur-[120px]" />
