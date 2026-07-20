@@ -881,7 +881,7 @@ section {
   }
 }
 
-@media (max-width: 1536px) {
+@media (min-width: 769px) and (max-width: 1536px) {
   .section-padding {
     margin-top: 5rem;
   }
@@ -976,7 +976,7 @@ section {
   }
 }
 
-@media (max-width: 1366px) {
+@media (min-width: 769px) and (max-width: 1366px) {
   .section-padding {
     margin-top: 4rem;
   }
