@@ -499,10 +499,10 @@ section {
         @apply inline-block w-5 h-5 md:w-6 md:h-6 object-contain;
       }
 
-      .github-icon img,
-      .reddit-icon img {
+      .github-icon img {
         filter: brightness(0) invert(1);
       }
+
     }
   }
 
@@ -806,8 +806,7 @@ section {
     @apply size-9;
   }
 
-  .footer .socials .github-icon img,
-  .footer .socials .reddit-icon img {
+  .footer .socials .github-icon img {
     filter: brightness(0) invert(1);
   }
 

@@ -519,27 +519,27 @@ const testimonials = [
 const socialImgs = [
   {
     name: "insta",
-    imgPath: "/images/insta.png",
+    imgPath: "/images/insta.svg",
     url: "https://www.instagram.com/thatboylewis?igsh=aTdxN3VqYW5qZG45",
   },
   {
     name: "github",
-    imgPath: "/images/github.png",
+    imgPath: "/images/github.svg",
     url: "https://github.com/Lenny-Lewis",
   },
   {
     name: "x",
-    imgPath: "/images/x.png",
+    imgPath: "/images/x.svg",
     url: "https://x.com/thatboylewis",
   },
   {
     name: "reddit",
-    imgPath: "/images/redditlogo.png",
+    imgPath: "/images/redditlogo.svg",
     url: "https://www.reddit.com/u/thatkidlewis/s/n0V2SYZnQd",
   },
   {
     name: "linkedin",
-    imgPath: "/images/linkedin.png",
+    imgPath: "/images/linkedin.svg",
     url: "https://www.linkedin.com/in/lennox-lewis-975642359",
   },
 ];
