@@ -368,12 +368,17 @@ section {
   }
 
   .stack-card {
-    @apply relative flex h-[108px] w-[92px] flex-col items-center justify-center overflow-hidden rounded-[1.1rem] border border-white/10 bg-white/[0.035] text-white/80 backdrop-blur-md transition-all duration-500 ease-out hover:-translate-y-1 hover:bg-white/[0.06];
+    @apply relative flex h-[108px] w-[92px] flex-col items-center justify-center overflow-hidden rounded-[1.1rem] border border-white/10 bg-white/[0.035] text-white/80 md:backdrop-blur-md transition-all duration-500 ease-out hover:-translate-y-1 hover:bg-white/[0.06];
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.04),
       0 8px 24px rgba(0, 0, 0, 0.18);
-    transform-style: preserve-3d;
-    perspective: 900px;
+    transform-style: flat;
+  }
+  @media (min-width: 768px) {
+    .stack-card {
+      transform-style: preserve-3d;
+      perspective: 900px;
+    }
   }
 
   .stack-card:hover {
@@ -727,6 +732,10 @@ section {
 
   .tech-card-content p {
     @apply text-base;
+  }
+
+  .stack-card:hover {
+    transform: translateY(-4px) scale(1.05) !important;
   }
 
   .counter-number {
