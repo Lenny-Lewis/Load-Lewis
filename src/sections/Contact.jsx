@@ -117,7 +117,7 @@ const Contact = () => {
           }
         />
         <div className="grid-12-cols mt-16">
-          <div className="xl:col-span-5">
+          <div className="lg:col-span-5">
             <div className="flex-center card-border rounded-xl p-10">
               <div className="w-full flex flex-col gap-8">
                 <div className="contact-quick-grid">
@@ -154,30 +154,32 @@ const Contact = () => {
                     aria-hidden="true"
                     className="sr-only"
                   />
-                  <div>
-                    <label htmlFor="name">Your name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      placeholder="What’s your good name?"
-                      required
-                    />
-                  </div>
+                  <div className="flex flex-col md:flex-row gap-7 w-full">
+                    <div className="flex-1">
+                      <label htmlFor="name">Your name</label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
+                        placeholder="What’s your good name?"
+                        required
+                      />
+                    </div>
 
-                  <div>
-                    <label htmlFor="email">Your Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      placeholder="What’s your email address?"
-                      required
-                    />
+                    <div className="flex-1">
+                      <label htmlFor="email">Your Email</label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        placeholder="What’s your email address?"
+                        required
+                      />
+                    </div>
                   </div>
 
                   <div>
@@ -222,7 +224,7 @@ const Contact = () => {
               </div>
             </div>
           </div>
-          <div className="xl:col-span-7 min-h-96">
+          <div className="lg:col-span-7 min-h-96">
             <div className="w-full h-full hover:cursor-grab rounded-3xl overflow-hidden">
               <EarthCanvas />
             </div>

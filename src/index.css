@@ -58,7 +58,7 @@ section {
   }
 
   .mt-responsive {
-    @apply xl:mt-20 md:mt-0 mt-40;
+    @apply lg:mt-20 md:mt-0 mt-40;
   }
 
   /* General Grids */
@@ -71,7 +71,7 @@ section {
   }
 
   .grid-3-cols {
-    @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
   }
 
   .grid-3-cols-md-tight {
@@ -79,15 +79,15 @@ section {
   }
 
   .grid-4-cols {
-    @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-7;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7;
   }
 
   .grid-12-cols {
-    @apply grid grid-cols-1 xl:grid-cols-12 gap-10;
+    @apply grid grid-cols-1 lg:grid-cols-12 gap-10;
   }
 
   .hero-layout {
-    @apply relative z-10 xl:mt-20 mt-32 md:h-dvh h-[80vh] flex xl:items-center items-start justify-center;
+    @apply relative z-10 lg:mt-20 mt-32 md:h-dvh h-[80vh] flex lg:items-center items-start justify-center;
   }
 
   .hero-text {
@@ -213,14 +213,14 @@ section {
     @apply w-full mt-16 md:mt-20 px-4 md:px-20 py-8 md:py-20 flex items-center justify-center;
 
     .showcaselayout {
-      @apply flex xl:flex-row flex-col gap-10 justify-between;
+      @apply flex lg:flex-row flex-col gap-10 justify-between;
     }
 
     .first-project-wrapper {
-      @apply h-full flex flex-col justify-between xl:w-[60%];
+      @apply h-full flex flex-col justify-between lg:w-[60%];
 
       .image-wrapper {
-        @apply xl:h-[70vh] md:h-[50vh] h-96 relative;
+        @apply lg:h-[70vh] md:h-[50vh] h-96 relative;
 
         img {
           @apply w-full h-full object-cover rounded-xl absolute inset-0;
@@ -241,10 +241,10 @@ section {
     }
 
     .project-list-wrapper {
-      @apply flex md:flex-row flex-col xl:flex-col gap-10 xl:w-[40%];
+      @apply flex md:flex-row flex-col lg:flex-col gap-10 lg:w-[40%];
 
       .image-wrapper {
-        @apply xl:h-[37vh] md:h-52 lg:h-72 h-64 relative rounded-xl xl:px-5 2xl:px-12 py-0;
+        @apply lg:h-[37vh] md:h-52 h-64 relative rounded-xl lg:px-5 2xl:px-12 py-0;
       }
 
       img {
@@ -427,7 +427,7 @@ section {
   }
 
   .tech-grid {
-    @apply grid xl:grid-cols-5 md:grid-cols-3 grid-cols-1 xl:gap-16 md:gap-10 gap-5 mt-16;
+    @apply grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-1 xl:gap-16 lg:gap-12 md:gap-10 gap-5 mt-16;
   }
 
   .tech-icon-wrapper {
@@ -436,12 +436,12 @@ section {
 
   form {
     label {
-      @apply block text-white-50 mb-2;
+      @apply block text-white-50 mb-2 text-[14px] md:text-[15px] font-medium tracking-wide;
     }
 
     input,
     textarea {
-      @apply w-full px-4 py-4 md:text-base text-sm placeholder:text-blue-50 bg-blue-100 rounded-md;
+      @apply w-full px-5 py-4 md:text-[15px] text-sm placeholder:text-blue-50 bg-blue-100 rounded-[8px] border border-white/5 focus:border-[#cda144]/80 focus:ring-1 focus:ring-[#cda144]/80 focus:outline-none transition-all duration-300 shadow-[inset_0_1px_3px_rgba(0,0,0,0.2)];
     }
 
     a {
@@ -507,7 +507,7 @@ section {
   }
 
   .chatbot-section {
-    @apply grid grid-cols-1 xl:grid-cols-[0.95fr_1.05fr] gap-6 items-start;
+    @apply grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start;
   }
 
   .chatbot-info,
