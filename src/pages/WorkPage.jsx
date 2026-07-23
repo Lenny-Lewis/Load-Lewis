@@ -34,7 +34,9 @@ const webProjects = [
     desc: "Corporate website and digital solutions platform.",
     img: "/images/zedos.png", 
     link: "http://zedostechnologies.co.ke/",
-    bg: "bg-[#282732]"
+    bg: "bg-[#FFE7EB]",
+    paddingClass: "p-0 sm:p-2 md:p-4 lg:p-6",
+    contain: true
   }
 ];
 
@@ -135,11 +137,11 @@ const WorkPage = () => {
                 rel="noreferrer"
                 className="framer-card-work group flex flex-col gap-5 block cursor-pointer"
               >
-                <div className={`${activeTab === 'graphics' ? 'w-[85%] mx-auto aspect-[3/4]' : 'w-full aspect-[4/3] rounded-3xl overflow-hidden'} relative flex items-center justify-center ${project.bg}`}>
+                <div className={`${activeTab === 'graphics' ? 'w-[85%] mx-auto aspect-[3/4]' : 'w-full aspect-[4/3] rounded-3xl overflow-hidden'} relative flex items-center justify-center ${project.bg} ${project.paddingClass || ''}`}>
                   <img
                     src={project.img}
                     alt={project.title}
-                    className={`w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${activeTab === 'graphics' ? 'object-contain group-hover:scale-105' : 'object-cover group-hover:scale-105'}`}
+                    className={`w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${activeTab === 'graphics' || project.contain ? 'object-contain group-hover:scale-105' : 'object-cover group-hover:scale-105'}`}
                     onError={(e) => {
                       e.target.onerror = null; 
                       e.target.src = "https://placehold.co/800x600/282732/d9ecff?text=Project+Preview";
