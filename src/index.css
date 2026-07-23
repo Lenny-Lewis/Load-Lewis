@@ -92,7 +92,7 @@ section {
   }
 
   .hero-text {
-    @apply flex flex-col justify-center md:text-[60px] text-[26px] font-semibold relative z-10 pointer-events-none;
+    @apply flex flex-col justify-center text-[26px] md:text-[40px] lg:text-[44px] xl:text-[56px] 2xl:text-[60px] font-semibold relative z-10 pointer-events-none;
     line-height: 1.12;
 
     h1 {
@@ -101,11 +101,11 @@ section {
     }
 
     img {
-      @apply size-8 md:size-10 object-contain;
+      @apply size-7 md:size-8 lg:size-9 xl:size-10 object-contain;
     }
 
     .slide {
-      @apply inline-flex px-2 md:px-5 overflow-hidden align-baseline;
+      @apply inline-flex px-2 md:px-4 lg:px-5 overflow-hidden align-baseline;
       height: 1.2em;
       padding-top: 0.06em;
       min-width: 9ch;
@@ -135,11 +135,11 @@ section {
   }
 
   .hero-copy {
-    @apply flex flex-col gap-6 max-w-xl xl:max-w-[34rem];
+    @apply flex flex-col gap-4 lg:gap-5 xl:gap-6 max-w-xl xl:max-w-[34rem];
   }
 
   .hero-description {
-    @apply text-white-50 text-sm md:text-lg relative z-10 leading-6 md:leading-8 max-w-lg pointer-events-none;
+    @apply text-white-50 text-sm md:text-base lg:text-lg relative z-10 leading-6 md:leading-7 lg:leading-8 max-w-lg pointer-events-none;
   }
 
   .hero-3d-layout {

@@ -30,9 +30,15 @@ const Hero = () => {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.03),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent_15%,transparent_85%,rgba(255,255,255,0.02))]" />
       <div className="pointer-events-none absolute left-1/4 top-20 h-96 w-96 -translate-x-1/2 rounded-full bg-white/18 blur-[120px]" />
 
-      <div className="hero-reveal relative z-10 grid min-h-screen lg:grid-cols-[0.95fr_1.05fr]">
-        <header className="relative flex items-start justify-start px-6 pt-4 pb-12 sm:px-10 sm:pt-8 sm:pb-12 lg:px-12 lg:pt-20 xl:pt-32 lg:pb-0 lg:pl-12 xl:pl-16">
-          <div className="hero-copy max-w-[25rem] lg:max-w-[42rem] xl:max-w-[48rem]">
+      <div className="hero-reveal relative z-10 grid min-h-screen lg:grid-cols-[1fr_1fr] xl:grid-cols-[0.95fr_1.05fr]">
+        <header className="relative flex items-center justify-start px-6 pt-24 pb-12 sm:px-10 sm:pt-28 sm:pb-12 lg:px-10 lg:pt-28 xl:pt-32 lg:pb-0 lg:pl-12 xl:pl-16">
+          <div className="hero-copy w-full max-w-[25rem] lg:max-w-[36rem] xl:max-w-[48rem]">
+            <p className="hero-description text-white/70">
+              Hi, I’m Lennox Lewis, a ML Engineer and Full Stack developer
+              based in Kenya building polished digital products for web and
+              mobile.
+            </p>
+
             <div className="hero-text">
               <h1>
                 Shaping
@@ -58,15 +64,9 @@ const Hero = () => {
               <h1>that Deliver Results</h1>
             </div>
 
-            <p className="hero-description max-w-[24rem] text-white/70">
-              Hi, I’m Lennox Lewis, a ML Engineer and Full Stack developer
-              based in Kenya building polished digital products for web and
-              mobile.
-            </p>
-
             <Button
               text="SEE MY WORK"
-              className="md:w-80 md:h-16 w-60 h-12"
+              className="lg:w-72 lg:h-14 xl:w-80 xl:h-16 w-60 h-12"
               id="counter"
             />
           </div>
