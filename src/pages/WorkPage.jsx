@@ -35,7 +35,7 @@ const webProjects = [
     img: "/images/zedos.png", 
     link: "http://zedostechnologies.co.ke/",
     bg: "bg-[#FFE7EB]",
-    paddingClass: "p-0 sm:p-2 md:p-4 lg:p-6",
+    paddingClass: "p-3 sm:p-4 md:p-4 lg:p-6",
     contain: true
   }
 ];
