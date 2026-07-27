@@ -46,6 +46,7 @@ const TechStack = () => {
                   <article
                     key={tech.name}
                     className="stack-card group"
+                    data-tech={tech.name}
                     style={{ "--stack-accent": tech.accent }}
                   >
                     <div className="stack-card-glow" />

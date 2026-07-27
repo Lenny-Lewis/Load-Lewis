@@ -459,170 +459,12 @@ section {
     }
   }
 
-  .chatbot-section {
-    @apply grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-6 items-start;
+  .whatsapp-fab {
+    @apply fixed bottom-6 right-5 z-[110] inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/15 bg-black-100 text-white shadow-[0_16px_40px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black;
   }
 
-  .chatbot-info,
-  .chatbot-panel {
-    @apply rounded-3xl p-6 md:p-10;
-  }
-
-  .chatbot-info {
-    @apply relative overflow-hidden;
-    background:
-      radial-gradient(circle at top right, rgba(98, 224, 255, 0.16), transparent 34%),
-      linear-gradient(180deg, rgba(28, 28, 33, 0.98) 0%, rgba(14, 14, 16, 1) 100%);
-  }
-
-  .chatbot-panel {
-    @apply bg-black-100 border border-white/8 shadow-[0_28px_80px_rgba(0,0,0,0.35)];
-  }
-
-  .chatbot-kicker {
-    @apply uppercase tracking-[0.3em] text-xs text-[#8ab2d6];
-  }
-
-  .chatbot-info h3,
-  .chatbot-panel h3 {
-    @apply text-2xl md:text-3xl font-semibold mt-4;
-  }
-
-  .chatbot-copy {
-    @apply mt-5 text-white-50 text-base md:text-lg leading-8;
-  }
-
-  .chatbot-typed {
-    @apply text-white;
-  }
-
-  .chatbot-caret {
-    @apply inline-block h-[1.1em] w-[2px] translate-y-1 bg-[#62e0ff] align-middle;
-    animation: chatbotCaretBlink 1s steps(1) infinite;
-  }
-
-  .chatbot-summary-grid {
-    @apply mt-8 grid grid-cols-1 md:grid-cols-3 gap-4;
-  }
-
-  .chatbot-summary-card {
-    @apply rounded-2xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-sm;
-  }
-
-  .chatbot-summary-card h4 {
-    @apply mt-3 text-xl font-semibold text-white;
-  }
-
-  .chatbot-summary-card p {
-    @apply mt-2 text-sm leading-6 text-white-50;
-  }
-
-  .chatbot-summary-label {
-    @apply uppercase tracking-[0.22em] text-[11px] text-[#9fd8ff];
-  }
-
-  .chatbot-tags {
-    @apply mt-8 flex flex-wrap gap-3;
-  }
-
-  .chatbot-chip {
-    @apply rounded-full border border-white/10 bg-white/5 px-4 py-3 text-sm text-white-50 transition-colors duration-300 hover:bg-white hover:text-black;
-  }
-
-  .chatbot-panel-header {
-    @apply flex flex-col md:flex-row md:items-center md:justify-between gap-4;
-  }
-
-  .chatbot-actions {
-    @apply flex items-center gap-3;
-  }
-
-  .chatbot-toggle,
-  .chatbot-reset,
-  .chatbot-send,
-  .chatbot-fab {
-    @apply rounded-full bg-white text-black font-semibold transition-transform duration-300 hover:scale-[1.02];
-  }
-
-  .chatbot-toggle:disabled,
-  .chatbot-send:disabled {
-    @apply cursor-not-allowed opacity-70;
-  }
-
-  .chatbot-toggle {
-    @apply px-5 py-3 text-sm;
-  }
-
-  .chatbot-reset {
-    @apply px-5 py-3 text-sm bg-transparent text-white border border-white/12 hover:bg-white/6;
-  }
-
-  .chatbot-shell {
-    @apply mt-8 overflow-hidden max-h-0 opacity-0 transition-all duration-500;
-  }
-
-  .chatbot-shell.open {
-    @apply max-h-[44rem] opacity-100;
-  }
-
-  .chatbot-messages {
-    @apply max-h-[24rem] overflow-y-auto rounded-[1.5rem] border border-white/8 bg-[linear-gradient(180deg,#111217_0%,#151926_100%)] p-4 md:p-5 space-y-4 shadow-inner;
-  }
-
-  .chatbot-message {
-    @apply rounded-2xl p-4 md:p-5 text-sm md:text-base leading-7;
-  }
-
-  .chatbot-message.assistant {
-    @apply max-w-[90%] bg-white/6 text-white border border-white/6;
-  }
-
-  .chatbot-message.user {
-    @apply ml-auto max-w-[85%] bg-[#62e0ff] text-black shadow-[0_14px_36px_rgba(98,224,255,0.18)];
-  }
-
-  .chatbot-badge {
-    @apply inline-flex rounded-full bg-black/20 px-2 py-1 text-[11px] uppercase tracking-[0.24em];
-  }
-
-  .chatbot-message.assistant .chatbot-badge {
-    @apply text-[#9fd8ff];
-  }
-
-  .chatbot-message.user .chatbot-badge {
-    @apply text-black/70;
-  }
-
-  .chatbot-message p {
-    @apply mt-3;
-  }
-
-  .chatbot-followups {
-    @apply mt-4 flex flex-wrap gap-2;
-  }
-
-  .chatbot-followup {
-    @apply rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-white-50 transition-colors duration-300 hover:bg-white hover:text-black;
-  }
-
-  .chatbot-form {
-    @apply mt-4 rounded-[1.5rem] border border-white/8 bg-white/[0.03] p-3 flex flex-col md:flex-row gap-3;
-  }
-
-  .chatbot-form input {
-    @apply flex-1 rounded-full border border-white/10 bg-[#171922] px-5 py-4 text-white placeholder:text-blue-50;
-  }
-
-  .chatbot-form input:disabled {
-    @apply opacity-70;
-  }
-
-  .chatbot-send {
-    @apply px-6 py-4 shadow-[0_12px_30px_rgba(255,255,255,0.14)];
-  }
-
-  .chatbot-fab {
-    @apply fixed bottom-6 right-5 z-[110] px-5 py-3 shadow-[0_12px_40px_rgba(98,224,255,0.22)];
+  .whatsapp-fab__icon {
+    @apply h-7 w-7 fill-current;
   }
 }
 
@@ -683,12 +525,36 @@ section {
     @apply text-lg leading-7;
   }
 
-  .tech-card-content p {
-    @apply text-base;
+  .tech-stack-shell {
+    @apply px-0;
+  }
+
+  .tech-stack-grid {
+    @apply grid grid-cols-3 gap-2.5;
+  }
+
+  .stack-row {
+    @apply contents;
+  }
+
+  .stack-card {
+    @apply h-auto w-auto min-h-[92px] rounded-[1rem] px-2 py-3;
   }
 
   .stack-card:hover {
-    transform: translateY(-4px) scale(1.05) !important;
+    transform: translateY(-3px) scale(1.02) !important;
+  }
+
+  .stack-icon-wrap {
+    @apply h-10 w-10 rounded-[0.85rem];
+  }
+
+  .stack-icon {
+    @apply h-6 w-6;
+  }
+
+  .stack-name {
+    @apply mt-1.5 text-[0.5rem] leading-tight;
   }
 
   .counter-number {
@@ -711,52 +577,20 @@ section {
     @apply text-base leading-7;
   }
 
-  .chatbot-info h3,
-  .chatbot-panel h3 {
-    @apply text-2xl leading-7;
-  }
-
-  .chatbot-copy {
-    @apply text-base leading-7;
-  }
-
-  .chatbot-summary-card h4 {
-    @apply text-lg;
-  }
-
-  .chatbot-summary-card p {
-    @apply text-sm leading-6;
-  }
-
-  .chatbot-chip,
-  .chatbot-toggle,
-  .chatbot-reset,
-  .chatbot-send {
-    @apply text-sm px-4 py-2.5;
-  }
-
-  .chatbot-chip {
-    @apply px-3 py-2 text-xs;
-  }
-
-  .chatbot-message {
-    @apply text-base leading-7;
-  }
-
-  .chatbot-badge {
-    @apply text-[11px];
-  }
-
-  .chatbot-form input {
-    @apply text-base py-3.5 px-4;
-  }
-
   .footer p {
     @apply text-base;
   }
 
   .footer .socials .icon {
     @apply size-9;
+  }
+
+  .whatsapp-fab {
+    @apply bottom-5 right-4 h-12 w-12;
+  }
+
+  .whatsapp-fab__icon {
+    @apply h-6 w-6;
   }
 
   .footer .socials .github-icon img {
@@ -793,48 +627,6 @@ section {
 
   .contact-quick-grid {
     @apply gap-3;
-  }
-
-  .contact-quick-card,
-  .chatbot-info,
-  .chatbot-panel {
-    @apply p-5;
-  }
-
-  .chatbot-summary-grid {
-    @apply mt-6 gap-3;
-  }
-
-  .chatbot-tags {
-    @apply mt-5 gap-2;
-  }
-
-  .chatbot-shell {
-    @apply mt-5;
-  }
-
-  .chatbot-messages {
-    @apply p-3 space-y-3 max-h-[20rem];
-  }
-
-  .chatbot-message {
-    @apply p-3;
-  }
-
-  .chatbot-message p {
-    @apply mt-2;
-  }
-
-  .chatbot-followups {
-    @apply mt-3 gap-1.5;
-  }
-
-  .chatbot-followup {
-    @apply px-3 py-2 text-[11px];
-  }
-
-  .chatbot-form {
-    @apply p-2 gap-2;
   }
 
   .footer {
@@ -893,43 +685,19 @@ section {
   }
 
   .tech-stack-grid {
-    gap: 0.65rem;
+    @apply gap-2.5;
   }
 
   .stack-card {
-    width: 84px;
-    height: 100px;
+    min-height: 96px;
   }
 
   .stack-icon-wrap {
-    width: 3rem;
-    height: 3rem;
+    @apply h-10 w-10;
   }
 
   .stack-icon {
-    width: 1.7rem;
-    height: 1.7rem;
-  }
-
-  .chatbot-section {
-    gap: 1.5rem;
-  }
-
-  .chatbot-info,
-  .chatbot-panel {
-    padding: 1.5rem;
-  }
-
-  .chatbot-summary-grid {
-    gap: 0.85rem;
-  }
-
-  .chatbot-shell {
-    margin-top: 1.5rem;
-  }
-
-  .chatbot-messages {
-    max-height: 20rem;
+    @apply h-6 w-6;
   }
 
   .footer {
@@ -1002,16 +770,6 @@ section {
     font-size: 0.5rem;
   }
 
-  .chatbot-info h3,
-  .chatbot-panel h3 {
-    font-size: 1.65rem;
-    line-height: 2.1rem;
-  }
-
-  .chatbot-messages {
-    max-height: 18rem;
-  }
-
   .contact-quick-card h3 {
     font-size: 1rem;
   }
@@ -1062,17 +820,6 @@ section {
   }
   87.5% {
     transform: translateY(-87.5%);
-  }
-}
-
-@keyframes chatbotCaretBlink {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  51%,
-  100% {
-    opacity: 0;
   }
 }
 

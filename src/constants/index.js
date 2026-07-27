@@ -12,10 +12,6 @@ const navLinks = [
     link: "/#skills",
   },
   {
-    name: "AI Chat",
-    link: "/#chatbot",
-  },
-  {
     name: "Contact",
     link: "/#contact",
   },
@@ -225,7 +221,7 @@ const stackAssetMap = {
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
   },
   Flask: {
-    accent: "#000000",
+    accent: "#E5E7EB",
     imageSrc:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg",
   },

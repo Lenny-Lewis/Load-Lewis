@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Navbar from "./components/NavBar";
+import WhatsAppFloatingButton from "./components/WhatsAppFloatingButton";
 import Footer from "./sections/Footer";
 import HomePage from "./pages/HomePage";
 import WorkPage from "./pages/WorkPage";
@@ -35,8 +36,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/work" element={<WorkPage />} />
       </Routes>
-      
-      {/* Footer and Analytics remain on all pages */}
+      <WhatsAppFloatingButton />
       <Footer />
       <Analytics />
     </>
