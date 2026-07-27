@@ -2,31 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <script>
-      (() => {
-        const href = `/favicon.png?v=${Date.now()}`;
-        document
-          .querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]')
-          .forEach((node) => node.remove());
-
-        const icon = document.createElement("link");
-        icon.rel = "icon";
-        icon.type = "image/png";
-        icon.sizes = "any";
-        icon.href = href;
-        document.head.appendChild(icon);
-
-        const shortcut = document.createElement("link");
-        shortcut.rel = "shortcut icon";
-        shortcut.href = href;
-        document.head.appendChild(shortcut);
-
-        const apple = document.createElement("link");
-        apple.rel = "apple-touch-icon";
-        apple.href = href;
-        document.head.appendChild(apple);
-      })();
-    </script>
+    <link rel="icon" href="/favicon.ico" />
     <meta name="theme-color" content="#0e0e10" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lennox Lewis | ML Engineer & Full Stack Developer</title>
