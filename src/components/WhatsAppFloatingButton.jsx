@@ -1,4 +1,4 @@
-const WHATSAPP_URL = "https://wa.me/254736163835";
+const WHATSAPP_URL = "https://wa.me/254115740615";
 
 const WhatsAppFloatingButton = () => {
   return (
