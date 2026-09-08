@@ -460,7 +460,7 @@ section {
   }
 
   .whatsapp-fab {
-    @apply fixed bottom-6 right-5 z-[110] inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/15 bg-black-100 text-white shadow-[0_16px_40px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black;
+    @apply fixed bottom-6 right-5 z-[110] inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_4px_14px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-105 hover:bg-[#20ba5a];
   }
 
   .whatsapp-fab__icon {
