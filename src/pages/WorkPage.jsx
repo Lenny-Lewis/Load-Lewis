@@ -8,7 +8,7 @@ const webProjects = [
     id: 1,
     title: "Mojito - Interactive GSAP Cocktails",
     desc: "An immersive 3D/GSAP animated cocktail website built with modern web animations and smooth transitions.",
-    img: "/images/Mojito-Website.png",
+    img: "/images/velvet_pour_framed.png",
     link: "https://gsap-cocktails-website-nine.vercel.app/",
     bg: "bg-[#0B1D13]"
   },
@@ -42,9 +42,7 @@ const webProjects = [
     desc: "Corporate website and digital solutions platform.",
     img: "/images/zedos.png", 
     link: "http://zedostechnologies.co.ke/",
-    bg: "bg-[#FFE7EB]",
-    paddingClass: "p-3 sm:p-4 md:p-4 lg:p-6",
-    contain: true
+    bg: "bg-[#FFE7EB]"
   }
 ];
 
@@ -145,19 +143,17 @@ const WorkPage = () => {
                 rel="noreferrer"
                 className="framer-card-work group flex flex-col gap-5 block cursor-pointer"
               >
-                <div className={`${activeTab === 'graphics' ? 'w-[85%] mx-auto aspect-[3/4]' : 'w-full aspect-[4/3] rounded-3xl overflow-hidden'} relative flex items-center justify-center ${project.bg} ${project.paddingClass || ''}`}>
+                <div className={`${activeTab === 'graphics' ? 'w-[85%] mx-auto aspect-[3/4] rounded-2xl overflow-hidden relative flex items-center justify-center bg-transparent' : `w-full aspect-[4/3] rounded-3xl overflow-hidden relative flex items-center justify-center ${project.bg || 'bg-[#141417]'}`}`}>
                   <img
                     src={project.img}
                     alt={project.title}
-                    className={`w-full h-full transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${activeTab === 'graphics' || project.contain ? 'object-contain group-hover:scale-105' : 'object-cover group-hover:scale-105'}`}
+                    className={`w-full h-full ${activeTab === 'graphics' ? 'object-contain group-hover:scale-105' : 'object-cover group-hover:scale-105'} transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]`}
                     onError={(e) => {
                       e.target.onerror = null; 
                       e.target.src = "https://placehold.co/800x600/282732/d9ecff?text=Project+Preview";
                     }}
                   />
-                  {activeTab !== 'graphics' && (
-                    <div className="absolute inset-0 border border-white/5 rounded-3xl pointer-events-none"></div>
-                  )}
+                  <div className="absolute inset-0 border border-white/5 rounded-3xl pointer-events-none"></div>
                 </div>
                 
                 <div className={`flex flex-col gap-2 px-2 ${activeTab === 'graphics' ? 'w-[85%] mx-auto' : 'w-full'}`}>

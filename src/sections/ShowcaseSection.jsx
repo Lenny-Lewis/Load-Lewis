@@ -12,7 +12,7 @@ const webProjects = [
     id: 1,
     title: "Mojito - Interactive GSAP Cocktails",
     desc: "An immersive 3D/GSAP animated cocktail website built with modern web animations and smooth transitions.",
-    img: "/images/Mojito-Website.png",
+    img: "/images/velvet_pour_framed.png",
     link: "https://gsap-cocktails-website-nine.vercel.app/",
     bg: "bg-[#0B1D13]"
   },
