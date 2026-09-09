@@ -6,6 +6,14 @@ import TitleHeader from "../components/TitleHeader";
 const webProjects = [
   {
     id: 1,
+    title: "ZED Gaming",
+    desc: "A cinematic gaming landing experience with bold typography, immersive visuals, and a metagame-inspired play economy.",
+    img: "/images/zed_gaming_framed.png",
+    link: "https://zed-gaming.vercel.app/",
+    bg: "bg-[#0A0612]"
+  },
+  {
+    id: 2,
     title: "Mojito - Interactive GSAP Cocktails",
     desc: "An immersive 3D/GSAP animated cocktail website built with modern web animations and smooth transitions.",
     img: "/images/velvet_pour_framed.png",
@@ -13,7 +21,7 @@ const webProjects = [
     bg: "bg-[#0B1D13]"
   },
   {
-    id: 2,
+    id: 3,
     title: "Ryde - On-Demand Rides",
     desc: "An app built with React Native, Expo, & TailwindCSS for a fast, user-friendly experience.",
     img: "/images/project1.png",
@@ -21,7 +29,7 @@ const webProjects = [
     bg: "bg-[#1C1C21]"
   },
   {
-    id: 3,
+    id: 4,
     title: "The Library Management Platform",
     desc: "A full-stack library platform for seamless book borrowing and tracking.",
     img: "/images/project2.png",
@@ -29,7 +37,7 @@ const webProjects = [
     bg: "bg-[#FFEFDB]"
   },
   {
-    id: 4,
+    id: 5,
     title: "YG Directory",
     desc: "A modern startup showcase application.",
     img: "/images/project3.png",
@@ -37,7 +45,7 @@ const webProjects = [
     bg: "bg-[#FFE7EB]"
   },
   {
-    id: 5,
+    id: 6,
     title: "Zedos Technologies",
     desc: "Corporate website and digital solutions platform.",
     img: "/images/zedos.png", 
