@@ -28,6 +28,9 @@ const ScrollToAnchor = () => {
 };
 
 const App = () => {
+  const location = useLocation();
+  const isWorkPage = location.pathname === "/work";
+
   return (
     <>
       <ScrollToAnchor />
@@ -37,7 +40,7 @@ const App = () => {
         <Route path="/work" element={<WorkPage />} />
       </Routes>
       <WhatsAppFloatingButton />
-      <Footer />
+      {!isWorkPage && <Footer />}
       <Analytics />
     </>
   );

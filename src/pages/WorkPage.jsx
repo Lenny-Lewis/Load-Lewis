@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
-import TitleHeader from "../components/TitleHeader";
+import { StackedCircularFooter } from "@/components/ui/stacked-circular-footer";
 
 const webProjects = [
   {
@@ -102,7 +102,7 @@ const WorkPage = () => {
   else if (activeTab === "graphics") displayedProjects = graphicProjects;
 
   return (
-    <div className="w-full min-h-screen bg-[#050505] text-white pt-32 pb-20 overflow-x-hidden">
+    <div className="w-full min-h-screen bg-[#050505] text-white pt-32 overflow-x-hidden">
       <section ref={containerRef} className="w-full flex-col-center section-padding">
         
         <div className="w-full max-w-7xl mx-auto mb-16 flex flex-col gap-10">
@@ -185,24 +185,7 @@ const WorkPage = () => {
         </div>
       </section>
 
-      {/* Quick Links Section */}
-      <section className="w-full max-w-7xl mx-auto section-padding mt-32 border-t border-white/10 pt-20">
-        <h3 className="text-3xl font-bold mb-10">Quick Links</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Link to="/" className="group p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-[#cda144]/50 transition-colors">
-            <h4 className="text-xl font-bold text-white group-hover:text-[#cda144] transition-colors">Home Page</h4>
-            <p className="text-white-50 mt-2">Return to the main landing page.</p>
-          </Link>
-          <Link to="/#experience" className="group p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-[#cda144]/50 transition-colors">
-            <h4 className="text-xl font-bold text-white group-hover:text-[#cda144] transition-colors">Experience</h4>
-            <p className="text-white-50 mt-2">View my professional work history.</p>
-          </Link>
-          <Link to="/#contact" className="group p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-[#cda144]/50 transition-colors">
-            <h4 className="text-xl font-bold text-white group-hover:text-[#cda144] transition-colors">Contact Me</h4>
-            <p className="text-white-50 mt-2">Let's build something amazing together.</p>
-          </Link>
-        </div>
-      </section>
+      <StackedCircularFooter />
     </div>
   );
 };
