@@ -8,7 +8,7 @@ const webProjects = [
     id: 1,
     title: "ZED Gaming",
     desc: "A cinematic gaming landing experience with bold typography, immersive visuals, and a metagame-inspired play economy.",
-    img: "/images/zed_gaming_framed.png",
+    img: "/images/zed-gaming-project.jpeg",
     link: "https://zed-gaming.vercel.app/",
     bg: "bg-[#0A0612]"
   },
