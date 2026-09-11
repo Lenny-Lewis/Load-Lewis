@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Loader = ({ primaryColor = "#ffffff", primaryLight = "#d9ecff", maskBg = "#000000" }) => {
+const Loader = ({ primaryColor = "#d9ecff", primaryLight = "#ffffff", maskBg = "#000000" }) => {
   const loaderCss = `
     .loader-3d {
       --duration: 3s;
