@@ -973,3 +973,110 @@ section {
 .card:hover::before {
   opacity: 1;
 }
+
+/* BoxLoader 3D Isometric Animation Styles */
+.boxes {
+  --size: 32px;
+  --duration: 800ms;
+  height: calc(var(--size) * 2);
+  width: calc(var(--size) * 3);
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+}
+
+.boxes .box {
+  width: var(--size);
+  height: var(--size);
+  top: 0;
+  left: 0;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.boxes .box-1 {
+  animation: box1 var(--duration) linear infinite;
+}
+
+.boxes .box-2 {
+  animation: box2 var(--duration) linear infinite;
+}
+
+.boxes .box-3 {
+  animation: box3 var(--duration) linear infinite;
+}
+
+.boxes .box-4 {
+  animation: box4 var(--duration) linear infinite;
+}
+
+.boxes .box .face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.boxes .box .face-front {
+  transform: rotateY(0deg) translateZ(calc(var(--size) / 2));
+  background: #cda144;
+}
+
+.boxes .box .face-right {
+  transform: rotateY(90deg) translateZ(calc(var(--size) / 2));
+  background: #a67c2e;
+}
+
+.boxes .box .face-top {
+  transform: rotateX(90deg) translateZ(calc(var(--size) / 2));
+  background: #e6c875;
+}
+
+.boxes .box .face-back {
+  transform: rotateY(180deg) translateZ(calc(var(--size) / 2));
+  background: #876220;
+}
+
+@keyframes box1 {
+  0%, 50% {
+    transform: translate(100%, 0);
+  }
+  100% {
+    transform: translate(200%, 0);
+  }
+}
+
+@keyframes box2 {
+  0% {
+    transform: translate(0, 100%);
+  }
+  50% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(100%, 0);
+  }
+}
+
+@keyframes box3 {
+  0%, 50% {
+    transform: translate(100%, 100%);
+  }
+  100% {
+    transform: translate(0, 100%);
+  }
+}
+
+@keyframes box4 {
+  0% {
+    transform: translate(200%, 0);
+  }
+  50% {
+    transform: translate(200%, 100%);
+  }
+  100% {
+    transform: translate(100%, 100%);
+  }
+}
+
