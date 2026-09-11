@@ -2,26 +2,10 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
 import useInView from "../hooks/useInView";
+import ComputersCanvas from "./Computers";
 import Loader from "./ui/3d-box-loader-animation";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
-
-const VideoLoadingState = () => (
-  <div className="relative flex h-full min-h-[360px] w-full items-center justify-center overflow-hidden bg-black px-4">
-    {/* Video Display Container */}
-    <div className="relative flex w-full max-w-lg items-center justify-center overflow-hidden rounded-2xl bg-black">
-      <video
-        src="/Loading animation 6.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        className="h-full w-full object-contain bg-black pointer-events-none"
-      />
-    </div>
-  </div>
-);
 
 const BoxLoadingState = () => (
   <div className="relative flex h-full min-h-[420px] w-full items-center justify-center overflow-hidden bg-black px-4 z-10">
@@ -52,7 +36,9 @@ const SplineRobotCard = ({ scene }) => {
   return (
     <div ref={elementRef} className="relative h-full min-h-[420px] overflow-hidden bg-black">
       {isMobile ? (
-        <VideoLoadingState />
+        <div className="h-full min-h-[360px] w-full">
+          <ComputersCanvas />
+        </div>
       ) : shouldLoadScene ? (
         <div className="relative h-full w-full">
           {!isSplineLoaded && (
