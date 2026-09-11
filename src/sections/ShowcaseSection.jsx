@@ -12,7 +12,7 @@ const webProjects = [
     id: 1,
     title: "ZED Gaming",
     desc: "A cinematic gaming landing experience with bold typography, immersive visuals, and a metagame-inspired play economy.",
-    img: "/images/zed-gaming-project.jpeg",
+    img: "/images/zed_gaming_mockup.png",
     link: "https://zed-gaming.vercel.app/",
     bg: "bg-[#0A0612]"
   },
@@ -20,7 +20,7 @@ const webProjects = [
     id: 2,
     title: "Mojito - Interactive GSAP Cocktails",
     desc: "An immersive 3D/GSAP animated cocktail website built with modern web animations and smooth transitions.",
-    img: "/images/velvet_pour_framed.png",
+    img: "/images/Cocktail_Mojito.png",
     link: "https://gsap-cocktails-website-nine.vercel.app/",
     bg: "bg-[#0B1D13]"
   },
@@ -33,12 +33,12 @@ const webProjects = [
     bg: "bg-[#1C1C21]"
   },
   {
-    id: 4,
-    title: "The Library Management Platform",
-    desc: "A full-stack library platform for seamless book borrowing and tracking.",
-    img: "/images/project2.png",
-    link: "https://potter-library.vercel.app/",
-    bg: "bg-[#FFEFDB]"
+    id: 6,
+    title: "Zedos Technologies",
+    desc: "Corporate website and digital solutions platform.",
+    img: "/images/zedos_hero_template.png", 
+    link: "http://zedostechnologies.co.ke/",
+    bg: "bg-[#FFE7EB]"
   }
 ];
 
