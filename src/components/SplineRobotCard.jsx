@@ -11,7 +11,7 @@ const VideoLoadingState = () => (
     {/* Video Display Container */}
     <div className="relative flex w-full max-w-lg items-center justify-center overflow-hidden rounded-2xl bg-black">
       <video
-        src="/Loading animation 5.mp4"
+        src="/Loading animation 6.mp4"
         autoPlay
         loop
         muted
