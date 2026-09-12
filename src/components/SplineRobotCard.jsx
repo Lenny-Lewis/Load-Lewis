@@ -36,7 +36,7 @@ const SplineRobotCard = ({ scene }) => {
   return (
     <div ref={elementRef} className="relative h-full min-h-[420px] overflow-hidden bg-black">
       {isMobile ? (
-        <div className="h-full min-h-[360px] w-full">
+        <div className="h-full min-h-[360px] w-full" style={{ touchAction: "pan-y" }}>
           <ComputersCanvas />
         </div>
       ) : shouldLoadScene ? (

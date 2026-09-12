@@ -1,8 +1,11 @@
-import React, { Suspense, useEffect, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import React, { Suspense, useEffect, useRef, useState } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
 import CanvasLoader from "../Loader";
+
+const AXIS_LOCK_THRESHOLD = 10;
+const TOUCH_ROTATE_SPEED = 0.005;
 
 const Computers = ({ isMobile }) => {
   const computer = useGLTF("/desktop_pc/scene.gltf");
@@ -29,6 +32,107 @@ const Computers = ({ isMobile }) => {
   );
 };
 
+// Touch: horizontal rotates only; vertical stays free for page scroll.
+const ScrollSafeOrbitControls = () => {
+  const controlsRef = useRef(null);
+  const { gl, invalidate } = useThree();
+
+  useEffect(() => {
+    const el = gl.domElement;
+    const applyPanY = () => {
+      el.style.touchAction = "pan-y";
+    };
+    applyPanY();
+
+    let axis = null;
+    let rotating = false;
+    let startX = 0;
+    let startY = 0;
+    let lastX = 0;
+
+    const onPointerDownCapture = (event) => {
+      if (event.pointerType !== "touch") return;
+
+      // Run before OrbitControls so it never captures the pointer on touch.
+      if (controlsRef.current) {
+        controlsRef.current.enabled = false;
+      }
+
+      startX = lastX = event.clientX;
+      startY = event.clientY;
+      axis = null;
+      rotating = false;
+      applyPanY();
+    };
+
+    const onPointerMove = (event) => {
+      if (event.pointerType !== "touch") return;
+
+      const controls = controlsRef.current;
+      if (!controls) return;
+
+      const dx = event.clientX - startX;
+      const dy = event.clientY - startY;
+
+      if (axis === null) {
+        if (
+          Math.abs(dx) < AXIS_LOCK_THRESHOLD &&
+          Math.abs(dy) < AXIS_LOCK_THRESHOLD
+        ) {
+          return;
+        }
+        axis = Math.abs(dx) > Math.abs(dy) ? "h" : "v";
+        rotating = axis === "h";
+      }
+
+      if (!rotating) return;
+
+      const deltaX = event.clientX - lastX;
+      lastX = event.clientX;
+      controls.setAzimuthalAngle(
+        controls.getAzimuthalAngle() - deltaX * TOUCH_ROTATE_SPEED
+      );
+      controls.update();
+      invalidate();
+    };
+
+    const onPointerUp = (event) => {
+      if (event.pointerType !== "touch") return;
+
+      axis = null;
+      rotating = false;
+      if (controlsRef.current) {
+        controlsRef.current.enabled = true;
+      }
+      applyPanY();
+    };
+
+    el.addEventListener("pointerdown", onPointerDownCapture, { capture: true });
+    el.addEventListener("pointermove", onPointerMove, { passive: true });
+    el.addEventListener("pointerup", onPointerUp);
+    el.addEventListener("pointercancel", onPointerUp);
+
+    return () => {
+      el.removeEventListener("pointerdown", onPointerDownCapture, {
+        capture: true,
+      });
+      el.removeEventListener("pointermove", onPointerMove);
+      el.removeEventListener("pointerup", onPointerUp);
+      el.removeEventListener("pointercancel", onPointerUp);
+    };
+  }, [gl, invalidate]);
+
+  return (
+    <OrbitControls
+      ref={controlsRef}
+      enableZoom={false}
+      enablePan={false}
+      maxPolarAngle={Math.PI / 2}
+      minPolarAngle={Math.PI / 2}
+    />
+  );
+};
+
 const ComputersCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -44,7 +148,7 @@ const ComputersCanvas = () => {
       setIsMobile(event.matches);
     };
 
-    // Add the callback function as a listener for changes to the media query
+    // Add the callback function as a listener for the media query
     mediaQuery.addEventListener("change", handleMediaQueryChange);
 
     // Remove the listener when the component is unmounted
@@ -56,19 +160,18 @@ const ComputersCanvas = () => {
   return (
     <Canvas
       className="h-full w-full"
-      style={{ width: "100%", height: "100%" }}
+      style={{ width: "100%", height: "100%", touchAction: "pan-y" }}
       frameloop='demand'
       shadows
       dpr={[1, 2]}
       camera={{ position: [20, 3, 5], fov: 25 }}
       gl={{ preserveDrawingBuffer: true }}
+      onCreated={({ gl }) => {
+        gl.domElement.style.touchAction = "pan-y";
+      }}
     >
       <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls
-          enableZoom={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
-        />
+        <ScrollSafeOrbitControls />
         <Computers isMobile={isMobile} />
       </Suspense>
 
