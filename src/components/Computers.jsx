@@ -5,7 +5,6 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
 const AXIS_LOCK_THRESHOLD = 10;
-const TOUCH_ROTATE_SPEED = 0.005;
 
 const Computers = ({ isMobile }) => {
   const computer = useGLTF("/desktop_pc/scene.gltf");
@@ -39,13 +38,19 @@ const ScrollSafeOrbitControls = () => {
 
   useEffect(() => {
     const el = gl.domElement;
+
     const applyPanY = () => {
-      el.style.touchAction = "pan-y";
+      if (el.style.touchAction !== "pan-y") {
+        el.style.touchAction = "pan-y";
+      }
     };
     applyPanY();
 
+    // OrbitControls.connect() sets touch-action: none — keep pan-y sticky.
+    const styleObserver = new MutationObserver(applyPanY);
+    styleObserver.observe(el, { attributes: true, attributeFilter: ["style"] });
+
     let axis = null;
-    let rotating = false;
     let startX = 0;
     let startY = 0;
     let lastX = 0;
@@ -61,7 +66,6 @@ const ScrollSafeOrbitControls = () => {
       startX = lastX = event.clientX;
       startY = event.clientY;
       axis = null;
-      rotating = false;
       applyPanY();
     };
 
@@ -81,18 +85,23 @@ const ScrollSafeOrbitControls = () => {
         ) {
           return;
         }
+        // Only claim the gesture when horizontal dominates.
         axis = Math.abs(dx) > Math.abs(dy) ? "h" : "v";
-        rotating = axis === "h";
       }
 
-      if (!rotating) return;
+      // Vertical (or scroll-dominant) → never rotate; let pan-y scroll the page.
+      if (axis !== "h") return;
+
+      // Horizontal rotate only — block browser back-swipe / competing gestures.
+      event.preventDefault();
 
       const deltaX = event.clientX - lastX;
       lastX = event.clientX;
-      controls.setAzimuthalAngle(
-        controls.getAzimuthalAngle() - deltaX * TOUCH_ROTATE_SPEED
-      );
-      controls.update();
+      if (deltaX === 0) return;
+
+      // Match OrbitControls native speed: rotateLeft(2π * Δx / clientHeight).
+      const angle = (2 * Math.PI * deltaX) / el.clientHeight;
+      controls.setAzimuthalAngle(controls.getAzimuthalAngle() - angle);
       invalidate();
     };
 
@@ -100,7 +109,6 @@ const ScrollSafeOrbitControls = () => {
       if (event.pointerType !== "touch") return;
 
       axis = null;
-      rotating = false;
       if (controlsRef.current) {
         controlsRef.current.enabled = true;
       }
@@ -108,11 +116,13 @@ const ScrollSafeOrbitControls = () => {
     };
 
     el.addEventListener("pointerdown", onPointerDownCapture, { capture: true });
-    el.addEventListener("pointermove", onPointerMove, { passive: true });
+    // Non-passive so we can preventDefault only after locking to horizontal.
+    el.addEventListener("pointermove", onPointerMove, { passive: false });
     el.addEventListener("pointerup", onPointerUp);
     el.addEventListener("pointercancel", onPointerUp);
 
     return () => {
+      styleObserver.disconnect();
       el.removeEventListener("pointerdown", onPointerDownCapture, {
         capture: true,
       });
@@ -127,6 +137,7 @@ const ScrollSafeOrbitControls = () => {
       ref={controlsRef}
       enableZoom={false}
       enablePan={false}
+      enableDamping={false}
       maxPolarAngle={Math.PI / 2}
       minPolarAngle={Math.PI / 2}
     />
