@@ -46,7 +46,10 @@ const ScrollSafeOrbitControls = () => {
     };
     applyPanY();
 
-    // OrbitControls.connect() sets touch-action: none — keep pan-y sticky.
+    // OrbitControls.connect(gl.domElement) sets touch-action: none on the
+    // canvas — keep pan-y sticky. (domElement prop below avoids the R3F
+    // wrapper / events.connected, which would leave an ancestor at none and
+    // defeat pan-y via CSS touch-action intersection.)
     const styleObserver = new MutationObserver(applyPanY);
     styleObserver.observe(el, { attributes: true, attributeFilter: ["style"] });
 
@@ -135,6 +138,9 @@ const ScrollSafeOrbitControls = () => {
   return (
     <OrbitControls
       ref={controlsRef}
+      // Bind to the canvas, not R3F's events.connected wrapper, so
+      // touch-action: none from connect() stays on the element we re-set to pan-y.
+      domElement={gl.domElement}
       enableZoom={false}
       enablePan={false}
       enableDamping={false}
