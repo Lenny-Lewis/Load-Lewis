@@ -22,10 +22,10 @@ const webProjects = [
   },
   {
     id: 3,
-    title: "Ryde - On-Demand Rides",
-    desc: "An app built with React Native, Expo, & TailwindCSS for a fast, user-friendly experience.",
-    img: "/images/project1.png",
-    link: "https://ryde-gamma.vercel.app/",
+    title: "Latte Have",
+    desc: "A modern landing page for a coffee shop.",
+    img: "/images/Latte_Project.png",
+    link: "https://traditional-checklist-769919.framer.app/",
     bg: "bg-[#1C1C21]"
   },
   {
