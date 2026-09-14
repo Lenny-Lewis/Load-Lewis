@@ -30,10 +30,10 @@ const webProjects = [
   },
   {
     id: 4,
-    title: "The Library Management Platform",
-    desc: "A full-stack library platform for seamless book borrowing and tracking.",
-    img: "/images/project2.png",
-    link: "https://potter-library.vercel.app/",
+    title: "Ageincy",
+    desc: "A modern UI service platform for a startup.",
+    img: "/images/agenicy_project.png",
+    link: "https://compassionate-time-092074.framer.app/",
     bg: "bg-[#FFEFDB]"
   },
   {
