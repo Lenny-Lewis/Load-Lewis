@@ -25,12 +25,12 @@ const webProjects = [
     bg: "bg-[#0B1D13]"
   },
   {
-    id: 3,
-    title: "Ryde - On-Demand Rides",
-    desc: "An app built with React Native, Expo, & TailwindCSS for a fast, user-friendly experience.",
-    img: "/images/project1.png",
-    link: "https://ryde-gamma.vercel.app/",
-    bg: "bg-[#1C1C21]"
+    id: 7,
+    title: "Pawello",
+    desc: "A modern landing page for a pet care service.",
+    img: "/images/Pawello_Project.png", 
+    link: "https://tedious-backgrounds-421163.framer.app/",
+    bg: "bg-[#FFE7EB]"
   },
   {
     id: 6,

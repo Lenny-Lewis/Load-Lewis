@@ -51,6 +51,14 @@ const webProjects = [
     img: "/images/zedos_hero_template.png", 
     link: "http://zedostechnologies.co.ke/",
     bg: "bg-[#FFE7EB]"
+  },
+  {
+    id: 7,
+    title: "Pawello",
+    desc: "A modern landing page for a pet care service.",
+    img: "/images/Pawello_Project.png", 
+    link: "https://tedious-backgrounds-421163.framer.app/",
+    bg: "bg-[#FFE7EB]"
   }
 ];
 
