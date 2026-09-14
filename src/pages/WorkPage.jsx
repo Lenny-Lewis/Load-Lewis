@@ -38,10 +38,10 @@ const webProjects = [
   },
   {
     id: 5,
-    title: "YG Directory",
-    desc: "A modern startup showcase application.",
-    img: "/images/project3.png",
-    link: "https://yg-directory.vercel.app/",
+    title: "Recueil",
+    desc: "Find your scent one bottle at a time.",
+    img: "/images/Recueil_Perfume.png",
+    link: "https://alert-apartment-762464.framer.app/",
     bg: "bg-[#FFE7EB]"
   },
   {
