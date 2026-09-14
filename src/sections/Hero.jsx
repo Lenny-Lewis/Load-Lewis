@@ -57,7 +57,7 @@ const Hero = () => {
 
             <p className="hero-description max-w-[24rem] text-white/70">
               Hi, I’m Lennox Lewis, a ML Engineer and Full Stack developer
-              based in Kenya building polished digital products for web and
+               building polished digital products for web and
               mobile.
             </p>
 
