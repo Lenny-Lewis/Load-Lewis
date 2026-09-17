@@ -9,6 +9,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 const webProjects = [
   {
+    id: 8,
+    title: "Vanguard",
+    desc: "Design, disrupt and conquer",
+    img: "/images/Vanguard_Project.png", 
+    link: "https://vanguard-zeta-ruddy.vercel.app/",
+    bg: "bg-[#FFE7EB]"
+  },
+  {
     id: 9,
     title: "ConSentinel",
     desc: "A secuirty platform for a startup.",
@@ -30,14 +38,6 @@ const webProjects = [
     desc: "A modern landing page for a pet care service.",
     img: "/images/Pawello_Project.png", 
     link: "https://tedious-backgrounds-421163.framer.app/",
-    bg: "bg-[#FFE7EB]"
-  },
-  {
-    id: 8,
-    title: "Vanguard",
-    desc: "Design, disrupt and conquer",
-    img: "/images/Vanguard_Project.png", 
-    link: "https://vanguard-zeta-ruddy.vercel.app/",
     bg: "bg-[#FFE7EB]"
   }
 ];
