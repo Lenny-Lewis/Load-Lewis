@@ -17,21 +17,25 @@ const socialLinks = [
     label: "Instagram",
     href: "https://www.instagram.com/thatboylewis?igsh=aTdxN3VqYW5qZG45",
     Icon: Icons.instagram,
+    className: "text-[#FF0069]",
   },
   {
     label: "X",
     href: "https://x.com/thatboylewis",
     Icon: Icons.twitter,
+    className: "text-white",
   },
   {
     label: "GitHub",
     href: "https://github.com/Lenny-Lewis",
     Icon: Icons.gitHub,
+    className: "text-white",
   },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/lennox-lewis-975642359",
     Icon: Icons.linkedin,
+    className: "text-[#0A66C2]",
   },
 ];
 
@@ -62,13 +66,13 @@ function StackedCircularFooter() {
           </nav>
 
           <div className="mb-8 flex space-x-4">
-            {socialLinks.map(({ label, href, Icon }) => (
+            {socialLinks.map(({ label, href, Icon, className }) => (
               <Button
                 key={label}
                 asChild
                 variant="outline"
                 size="icon"
-                className="rounded-full border-white/15 text-white hover:text-primary hover:border-primary/40"
+                className={`rounded-full border-white/15 text-white hover:border-primary/40 ${className}`}
               >
                 <a href={href} target="_blank" rel="noopener noreferrer">
                   <Icon className="h-4 w-4" />

@@ -433,14 +433,6 @@ section {
       img {
         @apply inline-block;
       }
-
-      .github-icon img {
-        filter: brightness(0) invert(1);
-      }
-
-      .reddit-icon img {
-        filter: brightness(0) invert(1);
-      }
     }
   }
 
@@ -480,10 +472,6 @@ section {
 
       img {
         @apply inline-block w-5 h-5 md:w-6 md:h-6 object-contain;
-      }
-
-      .github-icon img {
-        filter: brightness(0) invert(1);
       }
 
     }
@@ -621,10 +609,6 @@ section {
 
   .whatsapp-fab__icon {
     @apply h-6 w-6;
-  }
-
-  .footer .socials .github-icon img {
-    filter: brightness(0) invert(1);
   }
 
   .hero-copy {

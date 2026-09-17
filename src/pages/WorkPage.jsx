@@ -1,7 +1,9 @@
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
-import { StackedCircularFooter } from "@/components/ui/stacked-circular-footer";
+import { Footer } from "@/components/ui/modem-animated-footer";
+import { Icons } from "@/components/ui/icons";
+import { Mail, Code2 } from "lucide-react";
 
 const webProjects = [
   {
@@ -225,7 +227,48 @@ const WorkPage = () => {
         </div>
       </section>
 
-      <StackedCircularFooter />
+      <Footer
+        brandName="Lennox Lewis"
+        brandDescription="Full-Stack & 3D Web Developer crafting high-performance, immersive digital experiences."
+        creatorName="Lennox Lewis"
+        creatorUrl="https://www.lennoxlewis.co.ke/"
+        brandIcon={<Code2 className="w-8 sm:w-10 md:w-14 h-8 sm:h-10 md:h-14 text-background drop-shadow-lg" />}
+        socialLinks={[
+          {
+            icon: <Icons.instagram className="w-5 h-5 text-[#FF0069]" />,
+            href: "https://www.instagram.com/thatboylewis",
+            label: "Instagram",
+            className: "text-[#FF0069]",
+          },
+          {
+            icon: <Icons.gitHub className="w-5 h-5 text-white fill-current" />,
+            href: "https://github.com/Lenny-Lewis",
+            label: "GitHub",
+          },
+          {
+            icon: <Icons.twitter className="w-5 h-5 text-white fill-current" />,
+            href: "https://x.com/thatboylewis",
+            label: "Twitter",
+          },
+          {
+            icon: <Icons.linkedin className="w-5 h-5 text-[#0A66C2] fill-current" />,
+            href: "https://www.linkedin.com/in/lennox-lewis-975642359",
+            label: "LinkedIn",
+            className: "text-[#0A66C2]",
+          },
+          {
+            icon: <Mail className="w-5 h-5 text-white" />,
+            href: "mailto:lennoxlewis.dev@gmail.com",
+            label: "Email",
+          },
+        ]}
+        navLinks={[
+          { label: "Home", href: "/" },
+          { label: "Work", href: "/#work" },
+          { label: "Experience", href: "/#experience" },
+          { label: "Contact", href: "/#contact" },
+        ]}
+      />
     </div>
   );
 };
