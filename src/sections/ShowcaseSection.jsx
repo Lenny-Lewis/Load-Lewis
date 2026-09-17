@@ -9,12 +9,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 const webProjects = [
   {
-    id: 1,
-    title: "ZED Gaming",
-    desc: "A cinematic gaming landing experience with bold typography, immersive visuals, and a metagame-inspired play economy.",
-    img: "/images/zed_gaming_mockup.png",
-    link: "https://zed-gaming.vercel.app/",
-    bg: "bg-[#0A0612]"
+    id: 9,
+    title: "ConSentinel",
+    desc: "A secuirty platform for a startup.",
+    img: "/images/ConSentinel.png", 
+    link: "https://con-sentinel.vercel.app/",
+    bg: "bg-[#FFE7EB]"
   },
   {
     id: 2,

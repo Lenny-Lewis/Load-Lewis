@@ -67,6 +67,30 @@ const webProjects = [
     img: "/images/Vanguard_Project.png", 
     link: "https://vanguard-zeta-ruddy.vercel.app/",
     bg: "bg-[#FFE7EB]"
+  },
+  {
+    id: 9,
+    title: "ConSentinel",
+    desc: "A secuirty platform for a startup.",
+    img: "/images/ConSentinel.png", 
+    link: "https://con-sentinel.vercel.app/",
+    bg: "bg-[#FFE7EB]"
+  },
+  {
+    id: 10,
+    title: "NHM",
+    desc: "A museum showcase for past and present artifacts.",
+    img: "/images/Neo_Museum-1.png", 
+    link: "https://nhm-xi.vercel.app/",
+    bg: "bg-[#FFE7EB]"
+  },
+  {
+    id: 11,
+    title: "Lithos",
+    desc: "A geology and mineralogy showcase.",
+    img: "/images/Lithos_Project.png", 
+    link: "https://lithos-blush.vercel.app/",
+    bg: "bg-[#FFE7EB]"
   }
 ];
 
