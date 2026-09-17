@@ -12,7 +12,7 @@ const webProjects = [
     id: 8,
     title: "Vanguard",
     desc: "Design, disrupt and conquer",
-    img: "/images/Vanguard_Project.png", 
+    img: "/images/Vanguard.webp", 
     link: "https://vanguard-zeta-ruddy.vercel.app/",
     bg: "bg-[#FFE7EB]"
   },

@@ -66,7 +66,7 @@ const webProjects = [
     id: 8,
     title: "Vanguard",
     desc: "Design, disrupt and conquer",
-    img: "/images/Vanguard_Project.png", 
+    img: "/images/Vanguard.webp", 
     link: "https://vanguard-zeta-ruddy.vercel.app/",
     bg: "bg-[#FFE7EB]"
   },
@@ -90,7 +90,7 @@ const webProjects = [
     id: 11,
     title: "Lithos",
     desc: "A geology and mineralogy showcase.",
-    img: "/images/Lithos_Project.png", 
+    img: "/images/Lithos.webp", 
     link: "https://lithos-blush.vercel.app/",
     bg: "bg-[#FFE7EB]"
   }
