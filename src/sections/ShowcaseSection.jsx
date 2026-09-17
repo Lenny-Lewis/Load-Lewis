@@ -33,11 +33,11 @@ const webProjects = [
     bg: "bg-[#FFE7EB]"
   },
   {
-    id: 6,
-    title: "Zedos Technologies",
-    desc: "Corporate website and digital solutions platform.",
-    img: "/images/zedos_hero_template.png", 
-    link: "http://zedostechnologies.co.ke/",
+    id: 8,
+    title: "Vanguard",
+    desc: "Design, disrupt and conquer",
+    img: "/images/Vanguard_Project.png", 
+    link: "https://vanguard-zeta-ruddy.vercel.app/",
     bg: "bg-[#FFE7EB]"
   }
 ];
