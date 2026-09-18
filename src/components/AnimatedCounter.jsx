@@ -1,55 +1,29 @@
-import { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/all";
-
 import { counterItems } from "../constants";
-
-gsap.registerPlugin(ScrollTrigger);
+import { CountUp } from "./ui/count-up";
 
 const AnimatedCounter = () => {
-  const counterRef = useRef(null);
-  const countersRef = useRef([]);
-
-  useGSAP(() => {
-    countersRef.current.forEach((counter, index) => {
-      const numberElement = counter.querySelector(".counter-number");
-      const item = counterItems[index];
-
-      // Set initial value to 0
-      gsap.set(numberElement, { innerText: "0" });
-
-      // Create the counting animation
-      gsap.to(numberElement, {
-        innerText: item.value,
-        duration: 2.5,
-        ease: "power2.out",
-        snap: { innerText: 1 }, // Ensures whole numbers
-        scrollTrigger: {
-          trigger: "#counter",
-          start: "top center",
-        },
-        // Add the suffix after counting is complete
-        onComplete: () => {
-          numberElement.textContent = `${item.value}${item.suffix}`;
-        },
-      });
-    }, counterRef);
-  }, []);
-
   return (
-    <div id="counter" ref={counterRef} className="padding-x-lg xl:mt-0 mt-32">
+    <div id="counter" className="padding-x-lg xl:mt-0 mt-32">
       <div className="mx-auto grid-4-cols">
         {counterItems.map((item, index) => (
           <div
             key={index}
-            ref={(el) => el && (countersRef.current[index] = el)}
-            className="bg-zinc-900 rounded-lg p-10 flex flex-col justify-center"
+            className="flex min-h-48 flex-col justify-between rounded-lg bg-zinc-900 p-7 sm:p-10"
           >
-            <div className="counter-number text-white-50 text-5xl font-bold mb-2">
-              0 {item.suffix}
+            <div className="flex items-baseline gap-1 text-white-50">
+              <CountUp
+                to={item.value}
+                duration={2.5}
+                digitEffect="blur"
+                className="counter-number text-5xl font-bold leading-none tabular-nums"
+              />
+              <span className="text-3xl font-bold leading-none sm:text-4xl">
+                {item.suffix}
+              </span>
             </div>
-            <div className="text-white-50 text-lg">{item.label}</div>
+            <div className="mt-6 text-lg leading-tight text-white-50">
+              {item.label}
+            </div>
           </div>
         ))}
       </div>
