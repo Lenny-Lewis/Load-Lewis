@@ -50,7 +50,9 @@ const webProjects = [
     id: 6,
     title: "Zedos Technologies",
     desc: "Corporate website and digital solutions platform.",
-    img: "/images/zedos_technologies_portfolio.png", 
+    img: "/images/zed-os.mp4",
+    mediaType: "video",
+    poster: "/images/zedos_technologies_portfolio.png",
     link: "http://zedostechnologies.co.ke/",
     bg: "bg-[#FFE7EB]"
   },
@@ -194,15 +196,28 @@ const WorkPage = () => {
                 className="framer-card-work group flex flex-col gap-5 block cursor-pointer"
               >
                 <div className={`${activeTab === 'graphics' ? 'w-[85%] mx-auto aspect-[3/4] rounded-2xl overflow-hidden relative flex items-center justify-center bg-transparent' : `w-full aspect-[4/3] rounded-3xl overflow-hidden relative flex items-center justify-center ${project.bg || 'bg-[#141417]'}`}`}>
-                  <img
-                    src={project.img}
-                    alt={project.title}
-                    className={`w-full h-full ${activeTab === 'graphics' ? 'object-contain group-hover:scale-105' : 'object-cover group-hover:scale-105'} transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]`}
-                    onError={(e) => {
-                      e.target.onerror = null; 
-                      e.target.src = "https://placehold.co/800x600/282732/d9ecff?text=Project+Preview";
-                    }}
-                  />
+                  {project.mediaType === "video" ? (
+                    <video
+                      src={project.img}
+                      poster={project.poster}
+                      aria-label={`${project.title} preview`}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                    />
+                  ) : (
+                    <img
+                      src={project.img}
+                      alt={project.title}
+                      className={`w-full h-full ${activeTab === 'graphics' ? 'object-contain group-hover:scale-105' : 'object-cover group-hover:scale-105'} transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]`}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://placehold.co/800x600/282732/d9ecff?text=Project+Preview";
+                      }}
+                    />
+                  )}
                   <div className="absolute inset-0 border border-white/5 rounded-3xl pointer-events-none"></div>
                 </div>
                 
