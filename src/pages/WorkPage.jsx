@@ -50,7 +50,7 @@ const webProjects = [
     id: 6,
     title: "Zedos Technologies",
     desc: "Corporate website and digital solutions platform.",
-    img: "/images/zed-os.webp", 
+    img: "/images/zedos_technologies_portfolio.png", 
     link: "http://zedostechnologies.co.ke/",
     bg: "bg-[#FFE7EB]"
   },
