@@ -9,6 +9,13 @@ const AXIS_LOCK_THRESHOLD = 10;
 const Computers = ({ isMobile }) => {
   const computer = useGLTF("/desktop_pc/scene.gltf");
 
+  useEffect(() => {
+    if (computer?.scene) {
+      window.__HERO_3D_READY__ = true;
+      window.dispatchEvent(new CustomEvent("hero-3d-ready"));
+    }
+  }, [computer]);
+
   return (
     <mesh>
       <hemisphereLight intensity={0.15} groundColor='black' />

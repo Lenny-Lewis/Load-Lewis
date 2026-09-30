@@ -1,12 +1,20 @@
-import React, { Suspense, useRef, useMemo } from "react";
+import React, { Suspense, useRef, useMemo, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF, Stars, Sparkles } from "@react-three/drei";
+import { useMediaQuery } from "react-responsive";
 
 import CanvasLoader from "../Loader";
 import useInView from "../hooks/useInView";
 
 const Earth = () => {
   const earth = useGLTF("./planet/scene.gltf");
+
+  useEffect(() => {
+    if (earth?.scene) {
+      window.__CONTACT_3D_READY__ = true;
+      window.dispatchEvent(new CustomEvent("contact-3d-ready"));
+    }
+  }, [earth]);
 
   return (
     <primitive object={earth.scene} scale={2.5} position-y={0} rotation-y={0} />
@@ -49,14 +57,17 @@ const ShootingStar = ({ speed = 30 }) => {
 };
 
 const EarthCanvas = () => {
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const { elementRef, isInView } = useInView({
     rootMargin: "200px 0px",
     threshold: 0.05,
   });
 
+  const shouldRender = isMobile || isInView;
+
   return (
     <div ref={elementRef} className="w-full h-full min-h-[350px] relative bg-black">
-      {isInView ? (
+      {shouldRender ? (
         <Canvas
           shadows
           frameloop="always"

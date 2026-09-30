@@ -1,22 +1,25 @@
 import { useEffect, useState, useRef } from "react";
+import { useMediaQuery } from "react-responsive";
 
-// Exact glyph pool from Locomotive LISA (app.js)
+// Exact glyph pool from Locomotive LISA
 const GLYPHS = "!@#$%&+=qertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM\\/{}[][-_()<>?".split("");
 
-// Exact progressive morph sequence matching Locomotive LISA
-const BLOCK_1_PHRASES = [
-  "Digital",
-  "Digital-First",
-  "Creative Technologist",
-  "Full-Stack & 3D Web",
-  "Lennox Lewis",
+// Block 1 sequence with interspersed code snippets and creative tech statements
+const BLOCK_1_ITEMS = [
+  { text: "Digital", code: "// init: webgl2_render_context" },
+  { text: "const engine = new WebGL();", code: "// gl_FragColor = vec4(col, 1.0)" },
+  { text: "Creative Technologist", code: "// model.forward(latent_vectors)" },
+  { text: "mesh.rotation.y += delta;", code: "// vertices: 142,840 • 60 FPS" },
+  { text: "Lennox Lewis", code: "// Creative Technologist © 2026" },
 ];
 
-const BLOCK_2_PHRASES = [
-  "Based",
-  "Based in",
-  "Based in Nairobi",
-  "Based in Nairobi, Kenya",
+// Block 2 sequence (no 'Based in Kenya', authentic creative engineering phrases & code)
+const BLOCK_2_ITEMS = [
+  { text: "Building", code: "// status: compiling_geometry" },
+  { text: "shader.compile(gl_FragColor);", code: "// PBR_roughness: 0.18" },
+  { text: "Interactive 3D & AI", code: "// Three.js • Spline • PyTorch" },
+  { text: "y = softmax(Q @ K.T) @ V", code: "// attention_heads: 16 • dim: 1024" },
+  { text: "Next-Gen Digital Craft", code: "// [ 3D RUNTIME SYNCHRONIZED ]" },
 ];
 
 const SPLINE_ASSETS = [
@@ -25,27 +28,30 @@ const SPLINE_ASSETS = [
 ];
 
 const Preloader = ({ onComplete }) => {
-  const [b1Index, setB1Index] = useState(0);
-  const [b2Index, setB2Index] = useState(0);
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const [b1Chars, setB1Chars] = useState(() =>
-    BLOCK_1_PHRASES[0].split("").map(() => "")
+    BLOCK_1_ITEMS[0].text.split("").map(() => "")
   );
   const [b1Opacity, setB1Opacity] = useState(() =>
-    BLOCK_1_PHRASES[0].split("").map(() => 0)
+    BLOCK_1_ITEMS[0].text.split("").map(() => 0)
   );
+  const [b1Code, setB1Code] = useState(BLOCK_1_ITEMS[0].code);
 
   const [b2Chars, setB2Chars] = useState(() =>
-    BLOCK_2_PHRASES[0].split("").map(() => "")
+    BLOCK_2_ITEMS[0].text.split("").map(() => "")
   );
   const [b2Opacity, setB2Opacity] = useState(() =>
-    BLOCK_2_PHRASES[0].split("").map(() => 0)
+    BLOCK_2_ITEMS[0].text.split("").map(() => 0)
   );
+  const [b2Code, setB2Code] = useState(BLOCK_2_ITEMS[0].code);
 
   const [showLogo, setShowLogo] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
+  // 3D Readiness tracking for both elements
   const heroReadyRef = useRef(false);
+  const contactReadyRef = useRef(false);
   const isFinishedRef = useRef(false);
   const timeoutsRef = useRef([]);
 
@@ -55,7 +61,7 @@ const Preloader = ({ onComplete }) => {
     return id;
   };
 
-  // Pre-warm 3D assets in browser cache
+  // Pre-fetch 3D assets in browser cache
   useEffect(() => {
     SPLINE_ASSETS.forEach((url) => {
       try {
@@ -64,44 +70,50 @@ const Preloader = ({ onComplete }) => {
     });
   }, []);
 
-  // Listen for 3D readiness from hero Spline / ThreeJS canvas
+  // Listen for 3D readiness events for both 3D elements
   useEffect(() => {
     const handleHeroReady = () => {
       heroReadyRef.current = true;
     };
+    const handleContactReady = () => {
+      contactReadyRef.current = true;
+    };
 
     if (typeof window !== "undefined") {
-      if (window.__HERO_3D_READY__) {
-        handleHeroReady();
-      } else {
-        window.addEventListener("hero-3d-ready", handleHeroReady, { once: true });
-      }
+      if (window.__HERO_3D_READY__) heroReadyRef.current = true;
+      if (window.__CONTACT_3D_READY__) contactReadyRef.current = true;
+
+      window.addEventListener("hero-3d-ready", handleHeroReady);
+      window.addEventListener("contact-3d-ready", handleContactReady);
     }
 
     return () => {
       if (typeof window !== "undefined") {
         window.removeEventListener("hero-3d-ready", handleHeroReady);
+        window.removeEventListener("contact-3d-ready", handleContactReady);
       }
     };
   }, []);
 
   // Locomotive glyph scramble helper for a single phrase
-  const animatePhrase = (targetText, setChars, setOpacity, onDone, isAnchor = false) => {
-    const chars = targetText.split("");
+  const animatePhrase = (targetItem, setChars, setOpacity, setCode, onDone, isAnchor = false) => {
+    const chars = targetItem.text.split("");
     const r = 5; // 5 cycles
     const s = 16; // 16ms tick
     const o = 12; // 12ms stagger
 
-    // 1. Initial State: set length & 0 opacity
+    // Update the companion code comment
+    setCode(targetItem.code);
+
+    // Initial state
     setChars(chars.map(() => ""));
     setOpacity(chars.map(() => 0));
 
-    // 2. Scramble Entrance
+    // Scramble entrance
     chars.forEach((char, idx) => {
       const charDelay = idx * o;
 
       addTimeout(() => {
-        // Reveal opacity
         setOpacity((prev) => {
           const arr = [...prev];
           arr[idx] = 1;
@@ -117,7 +129,6 @@ const Preloader = ({ onComplete }) => {
           return;
         }
 
-        // 5 random glyph permutations
         for (let b = 0; b < r; b++) {
           addTimeout(() => {
             setChars((prev) => {
@@ -128,7 +139,6 @@ const Preloader = ({ onComplete }) => {
           }, b * s);
         }
 
-        // Lock in real character
         addTimeout(() => {
           setChars((prev) => {
             const arr = [...prev];
@@ -140,9 +150,9 @@ const Preloader = ({ onComplete }) => {
     });
 
     const entranceDuration = chars.length * o + r * s;
-    const holdDuration = isAnchor ? 1400 : 380; // Anchor line holds longer
+    const holdDuration = isAnchor ? 1500 : 420;
 
-    // 3. If anchor line, don't scramble out immediately; wait for exit
+    // Anchor lines hold without scrambling out
     if (isAnchor) {
       addTimeout(() => {
         onDone?.();
@@ -150,7 +160,7 @@ const Preloader = ({ onComplete }) => {
       return;
     }
 
-    // 4. Scramble Out (Locomotive exit phase)
+    // Scramble out
     addTimeout(() => {
       chars.forEach((char, idx) => {
         const exitDelay = idx * 8;
@@ -187,26 +197,25 @@ const Preloader = ({ onComplete }) => {
 
   // Master Orchestration Sequence
   useEffect(() => {
-    // 0. Fade out logo at 0.3s as text begins
+    // Fade out logo at 0.35s as text begins
     addTimeout(() => {
       setShowLogo(false);
     }, 450);
 
     // Sequence Block 1
     const runBlock1 = (step) => {
-      if (step >= BLOCK_1_PHRASES.length) return;
-      const isAnchor = step === BLOCK_1_PHRASES.length - 1;
-      setB1Index(step);
+      if (step >= BLOCK_1_ITEMS.length) return;
+      const isAnchor = step === BLOCK_1_ITEMS.length - 1;
 
       animatePhrase(
-        BLOCK_1_PHRASES[step],
+        BLOCK_1_ITEMS[step],
         setB1Chars,
         setB1Opacity,
+        setB1Code,
         () => {
           if (!isAnchor) {
             runBlock1(step + 1);
           } else {
-            // Block 1 anchor reached
             checkAllReady();
           }
         },
@@ -214,21 +223,20 @@ const Preloader = ({ onComplete }) => {
       );
     };
 
-    // Sequence Block 2 (starts with 0.15s offset)
+    // Sequence Block 2 (offset by 0.18s)
     const runBlock2 = (step) => {
-      if (step >= BLOCK_2_PHRASES.length) return;
-      const isAnchor = step === BLOCK_2_PHRASES.length - 1;
-      setB2Index(step);
+      if (step >= BLOCK_2_ITEMS.length) return;
+      const isAnchor = step === BLOCK_2_ITEMS.length - 1;
 
       animatePhrase(
-        BLOCK_2_PHRASES[step],
+        BLOCK_2_ITEMS[step],
         setB2Chars,
         setB2Opacity,
+        setB2Code,
         () => {
           if (!isAnchor) {
             runBlock2(step + 1);
           } else {
-            // Block 2 anchor reached
             checkAllReady();
           }
         },
@@ -236,24 +244,22 @@ const Preloader = ({ onComplete }) => {
       );
     };
 
-    // Launch both blocks
     addTimeout(() => runBlock1(0), 200);
     addTimeout(() => runBlock2(0), 400);
 
-    // Coordinate exit when both anchor lines are displayed & 3D is ready
+    // Coordinate exit: on mobile requires BOTH 3D elements to render!
     let anchorCount = 0;
     const checkAllReady = () => {
       anchorCount++;
       if (anchorCount >= 2) {
-        // Wait for 3D ready or fallback timeout
-        const wait3D = () => {
+        const executeCurtainLift = () => {
           if (isFinishedRef.current) return;
           isFinishedRef.current = true;
 
-          // Scramble both anchor lines out before veil lifts
           const r = 5;
           const s = 16;
 
+          // Scramble anchor characters out
           [setB1Chars, setB2Chars].forEach((setChars) => {
             for (let y = 0; y < r; y++) {
               addTimeout(() => {
@@ -264,7 +270,7 @@ const Preloader = ({ onComplete }) => {
             }
           });
 
-          // Curtain dissolve (Locomotive cubic-bezier ease)
+          // Dissolve curtain with Locomotive's cubic-bezier ease
           addTimeout(() => {
             setIsFadingOut(true);
             addTimeout(() => {
@@ -273,25 +279,29 @@ const Preloader = ({ onComplete }) => {
           }, r * s + 80);
         };
 
-        if (heroReadyRef.current) {
-          addTimeout(wait3D, 500);
-        } else {
-          // Poll every 100ms or timeout after 4s
-          const maxTime = Date.now() + 3500;
-          const poll = setInterval(() => {
-            if (heroReadyRef.current || Date.now() > maxTime) {
-              clearInterval(poll);
-              wait3D();
-            }
-          }, 100);
-        }
+        const maxWaitTime = Date.now() + 5500; // safety fallback timeout
+
+        const checkReadiness = () => {
+          // On mobile, require BOTH 3D elements to have rendered!
+          const areElementsReady = isMobile
+            ? (heroReadyRef.current && contactReadyRef.current)
+            : heroReadyRef.current;
+
+          if (areElementsReady || Date.now() > maxWaitTime) {
+            executeCurtainLift();
+          } else {
+            setTimeout(checkReadiness, 100);
+          }
+        };
+
+        checkReadiness();
       }
     };
 
     return () => {
       timeoutsRef.current.forEach(clearTimeout);
     };
-  }, [onComplete]);
+  }, [isMobile, onComplete]);
 
   return (
     <aside
@@ -304,7 +314,7 @@ const Preloader = ({ onComplete }) => {
       }}
     >
       <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-        {/* Brand Logo that appears at the very beginning and dissolves */}
+        {/* Brand Logo that appears at the start and dissolves */}
         <div
           className={`absolute flex items-center justify-center transition-all duration-700 ease-out pointer-events-none ${
             showLogo ? "opacity-100 scale-100" : "opacity-0 scale-95"
@@ -330,11 +340,15 @@ const Preloader = ({ onComplete }) => {
                 </span>
               ))}
             </h2>
+            {/* Companion Code Snippet */}
+            <p className="font-mono text-[11px] sm:text-xs text-white/40 tracking-wider mt-1 transition-opacity duration-200">
+              {b1Code}
+            </p>
           </div>
 
           {/* Bottom-Right Quadrant: Block 2 */}
           <div className="col-span-4 md:col-start-6 md:col-end-13 row-start-2 row-end-3 self-start pt-3 sm:pt-5">
-            <p className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight font-sans text-white/70 leading-tight min-h-[1.25em]">
+            <div className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight font-sans text-white/70 leading-tight min-h-[1.25em]">
               {b2Chars.map((char, i) => (
                 <span
                   key={i}
@@ -344,6 +358,10 @@ const Preloader = ({ onComplete }) => {
                   {char || "\u00A0"}
                 </span>
               ))}
+            </div>
+            {/* Companion Code Snippet */}
+            <p className="font-mono text-[11px] sm:text-xs text-[#cda144]/60 tracking-wider mt-1 transition-opacity duration-200">
+              {b2Code}
             </p>
           </div>
         </div>
