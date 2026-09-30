@@ -14,14 +14,13 @@ const SPLINE_ASSETS = [
 ];
 
 const Preloader = ({ onComplete }) => {
-  // State storing the currently visible character for each position
   const [chars, setChars] = useState(() =>
     LINES.map((line) => line.split("").map(() => ""))
   );
   const [opacities, setOpacities] = useState(() =>
     LINES.map((line) => line.split("").map(() => 0))
   );
-  const [isCurtainFading, setIsCurtainFading] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
 
   const startTimeRef = useRef(Date.now());
   const heroLoadedRef = useRef(false);
@@ -66,8 +65,7 @@ const Preloader = ({ onComplete }) => {
     };
   }, []);
 
-  // Exact Locomotive LISA character scramble algorithm
-  // r = 5 cycles, s = 16ms tick, o = 10ms char stagger, d = line stagger
+  // Character scramble animation on entrance
   useEffect(() => {
     const r = 5; // number of random glyph flips
     const s = 16; // ms between flips
@@ -95,14 +93,12 @@ const Preloader = ({ onComplete }) => {
         const startAt = lineIdx * lineDelay + charIdx * o + 150;
 
         addTimeout(() => {
-          // Reveal opacity
           setOpacities((prev) => {
             const next = prev.map((l) => [...l]);
             next[lineIdx][charIdx] = 1;
             return next;
           });
 
-          // Run Locomotive's 5 cycle glyph shuffle
           for (let b = 0; b < r; b++) {
             addTimeout(() => {
               setChars((prev) => {
@@ -113,7 +109,6 @@ const Preloader = ({ onComplete }) => {
             }, b * s);
           }
 
-          // Lock in real character
           addTimeout(() => {
             setChars((prev) => {
               const next = prev.map((l) => [...l]);
@@ -130,10 +125,10 @@ const Preloader = ({ onComplete }) => {
     };
   }, []);
 
-  // Coordinate dismissal with 3D ready state
+  // Release preloader once 3D is ready
   useEffect(() => {
-    const minDuration = 2200; // minimum display time
-    const maxDuration = 4800; // fallback timeout
+    const minDuration = 2200; // minimum display time (ms)
+    const maxDuration = 4800; // fallback timeout (ms)
 
     const checkReady = setInterval(() => {
       const elapsed = Date.now() - startTimeRef.current;
@@ -143,14 +138,14 @@ const Preloader = ({ onComplete }) => {
         isDoneRef.current = true;
         clearInterval(checkReady);
 
-        // Scramble out (Locomotive exit sequence)
+        // Scramble out before curtain lifts
         const r = 5;
         const s = 16;
         const o = 10;
 
         LINES.forEach((line, lineIdx) => {
           line.split("").forEach((_, charIdx) => {
-            const exitStart = lineIdx * 100 + charIdx * o;
+            const exitStart = lineIdx * 90 + charIdx * o;
 
             addTimeout(() => {
               for (let y = 0; y < r; y++) {
@@ -174,13 +169,13 @@ const Preloader = ({ onComplete }) => {
           });
         });
 
-        // Trigger black curtain lift
+        // Lift black curtain
         addTimeout(() => {
-          setIsCurtainFading(true);
+          setIsExiting(true);
           addTimeout(() => {
             onComplete?.();
           }, 900);
-        }, 300);
+        }, 320);
       }
     }, 100);
 
@@ -190,15 +185,15 @@ const Preloader = ({ onComplete }) => {
   return (
     <aside
       aria-label="Site preloader"
-      className={`fixed inset-0 z-[99999] flex items-center justify-center bg-black px-6 select-none transition-opacity duration-[900ms] ${
-        isCurtainFading ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
+      className={`fixed inset-0 z-[99999] flex items-center justify-center bg-black select-none transition-opacity duration-[900ms] ${
+        isExiting ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
       }`}
       style={{
         transitionTimingFunction: "cubic-bezier(0.215, 0.61, 0.355, 1)",
       }}
     >
-      {/* Exact Locomotive central typography */}
-      <div className="flex flex-col items-center justify-center text-center space-y-2 sm:space-y-3 font-sans">
+      {/* Strictly the central text on pure black background */}
+      <div className="flex flex-col items-center justify-center text-center space-y-2 sm:space-y-3 font-sans px-4">
         <div className="text-3xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white leading-tight">
           {LINES[0].split("").map((_, i) => (
             <span
