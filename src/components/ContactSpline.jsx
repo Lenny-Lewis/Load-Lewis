@@ -43,7 +43,11 @@ const ContactSpline = ({
         <Suspense fallback={null}>
           <Spline
             scene={scene}
-            onLoad={() => setIsLoaded(true)}
+            onLoad={() => {
+              setIsLoaded(true);
+              window.__CONTACT_3D_READY__ = true;
+              window.dispatchEvent(new CustomEvent("contact-3d-ready"));
+            }}
             className="w-full h-full"
             style={{
               width: "100%",

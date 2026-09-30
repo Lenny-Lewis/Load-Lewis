@@ -23,14 +23,27 @@ const SplineRobotCard = ({ scene }) => {
   const [isSplineLoaded, setIsSplineLoaded] = useState(false);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setShouldHydrate(true), 180);
+    const timer = window.setTimeout(() => setShouldHydrate(true), 100);
     return () => window.clearTimeout(timer);
   }, []);
 
-  const shouldLoadScene = shouldHydrate && isInView && !isMobile;
+  // For mobile devices, dispatch ready event once canvas is mounted
+  useEffect(() => {
+    if (isMobile) {
+      const timer = window.setTimeout(() => {
+        window.__HERO_3D_READY__ = true;
+        window.dispatchEvent(new CustomEvent("hero-3d-ready"));
+      }, 500);
+      return () => window.clearTimeout(timer);
+    }
+  }, [isMobile]);
+
+  const shouldLoadScene = shouldHydrate && (isInView || true) && !isMobile;
 
   const handleSplineLoad = () => {
     setIsSplineLoaded(true);
+    window.__HERO_3D_READY__ = true;
+    window.dispatchEvent(new CustomEvent("hero-3d-ready"));
   };
 
   return (

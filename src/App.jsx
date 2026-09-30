@@ -1,10 +1,11 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./components/NavBar";
 import WhatsAppFloatingButton from "./components/WhatsAppFloatingButton";
 import Footer from "./sections/Footer";
 import HomePage from "./pages/HomePage";
 import WorkPage from "./pages/WorkPage";
+import Preloader from "./components/Preloader";
 import { Analytics } from "@vercel/analytics/react";
 
 const ScrollToAnchor = () => {
@@ -30,9 +31,32 @@ const ScrollToAnchor = () => {
 const App = () => {
   const location = useLocation();
   const isWorkPage = location.pathname === "/work";
+  const [showPreloader, setShowPreloader] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !sessionStorage.getItem("hasSeenPreloader");
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    if (showPreloader) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showPreloader]);
+
+  const handlePreloaderComplete = () => {
+    setShowPreloader(false);
+    sessionStorage.setItem("hasSeenPreloader", "true");
+  };
 
   return (
     <>
+      {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
       <ScrollToAnchor />
       <Navbar />
       <Routes>
@@ -47,3 +71,4 @@ const App = () => {
 };
 
 export default App;
+
