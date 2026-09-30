@@ -3,7 +3,7 @@ import emailjs from "@emailjs/browser";
 
 import TitleHeader from "../components/TitleHeader";
 import { resumeLinks } from "../constants";
-import EarthCanvas from "../canvas/Earth";
+import ContactSpline from "../components/ContactSpline";
 
 const Contact = () => {
   const formRef = useRef(null);
@@ -225,8 +225,8 @@ const Contact = () => {
             </div>
           </div>
           <div className="lg:col-span-7 min-h-96">
-            <div className="w-full h-full hover:cursor-grab rounded-3xl overflow-hidden">
-              <EarthCanvas />
+            <div className="w-full h-full rounded-3xl overflow-hidden">
+              <ContactSpline />
             </div>
           </div>
         </div>
