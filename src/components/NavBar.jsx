@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { navLinks, resumeLinks } from "../constants";
+import HoverTextSlide from "./ui/HoverTextSlide";
 
 const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -35,8 +36,8 @@ const NavBar = () => {
         className="fixed top-8 left-1/2 -translate-x-1/2 z-[100]"
       >
         <div className="flex items-center justify-between w-64 bg-[#111] border border-white/10 rounded-full pl-5 pr-2 py-2 shadow-2xl relative">
-          <Link to="/" className="text-white font-bold text-lg">
-            Lennox Lewis
+          <Link to="/" className="group text-white font-bold text-lg inline-flex items-center">
+            <HoverTextSlide text="Lennox Lewis" />
           </Link>
           
           <motion.button 
@@ -67,18 +68,18 @@ const NavBar = () => {
                 <Link 
                   to="/"
                   onClick={() => setIsMenuOpen(false)}
-                  className="px-4 py-2 text-sm text-white-50 hover:text-white hover:bg-white/5 rounded-xl transition-colors font-medium"
+                  className="group px-4 py-2 text-sm text-white-50 hover:text-white rounded-xl transition-colors font-medium flex items-center"
                 >
-                  Home
+                  <HoverTextSlide text="Home" />
                 </Link>
                 {navLinks.map(({ link, name }) => (
                   <Link 
                     key={name}
                     to={link}
                     onClick={() => setIsMenuOpen(false)}
-                    className="px-4 py-2 text-sm text-white-50 hover:text-white hover:bg-white/5 rounded-xl transition-colors font-medium"
+                    className="group px-4 py-2 text-sm text-white-50 hover:text-white rounded-xl transition-colors font-medium flex items-center"
                   >
-                    {name}
+                    <HoverTextSlide text={name} />
                   </Link>
                 ))}
               </motion.div>
@@ -92,8 +93,8 @@ const NavBar = () => {
   return (
     <header className={`navbar ${scrolled ? "scrolled" : "not-scrolled"}`}>
       <div className="inner">
-        <Link to="/#hero" className="logo">
-          Lennox Lewis
+        <Link to="/#hero" className="logo group">
+          <HoverTextSlide text="Lennox Lewis" />
         </Link>
 
         <nav className="desktop">
@@ -101,8 +102,7 @@ const NavBar = () => {
             {navLinks.map(({ link, name }) => (
               <li key={name} className="group">
                 <Link to={link}>
-                  <span>{name}</span>
-                  <span className="underline" />
+                  <HoverTextSlide text={name} />
                 </Link>
               </li>
             ))}
@@ -116,13 +116,13 @@ const NavBar = () => {
             className="resume-btn group"
           >
             <div className="inner">
-              <span>Download Resume</span>
+              <HoverTextSlide text="Download Resume" />
             </div>
           </a>
 
           <Link to="/#contact" className="contact-btn group">
             <div className="inner">
-              <span>Contact me</span>
+              <HoverTextSlide text="Contact me" />
             </div>
           </Link>
         </div>

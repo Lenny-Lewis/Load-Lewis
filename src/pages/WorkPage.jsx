@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Footer } from "@/components/ui/modem-animated-footer";
 import { Icons } from "@/components/ui/icons";
 import { Mail, Code2 } from "lucide-react";
+import HoverTextSlide from "@/components/ui/HoverTextSlide";
 
 const webProjects = [
   {
@@ -155,7 +156,7 @@ const WorkPage = () => {
             className="group flex items-center gap-2 text-white-50 hover:text-[#cda144] transition-colors w-fit text-sm font-semibold tracking-wider uppercase"
           >
             <span className="transform transition-transform group-hover:-translate-x-1">←</span>
-            Back to Home
+            <HoverTextSlide text="Back to Home" />
           </Link>
           
           <div className="flex flex-col gap-6 mt-4 md:mt-12">
@@ -171,15 +172,15 @@ const WorkPage = () => {
           <div className="flex flex-wrap gap-4 md:gap-8 border-b border-white/10 pb-4 mt-8">
             <button 
               onClick={() => setActiveTab("other")}
-              className={`text-lg md:text-xl font-medium transition-colors ${activeTab === 'other' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
+              className={`group text-lg md:text-xl font-medium transition-colors ${activeTab === 'other' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
             >
-              Other Projects
+              <HoverTextSlide text="Other Projects" />
             </button>
             <button 
               onClick={() => setActiveTab("graphics")}
-              className={`text-lg md:text-xl font-medium transition-colors ${activeTab === 'graphics' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
+              className={`group text-lg md:text-xl font-medium transition-colors ${activeTab === 'graphics' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
             >
-              Graphics Design
+              <HoverTextSlide text="Graphics Design" />
             </button>
           </div>
         </div>

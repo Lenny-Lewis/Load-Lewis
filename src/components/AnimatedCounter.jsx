@@ -1,5 +1,5 @@
 import { counterItems } from "../constants";
-import { CountUp } from "./ui/count-up";
+import { SlotMachineNumber } from "./ui/SlotReel";
 
 const AnimatedCounter = () => {
   return (
@@ -10,17 +10,12 @@ const AnimatedCounter = () => {
             key={index}
             className="flex min-h-48 flex-col justify-between rounded-lg bg-zinc-900 p-7 sm:p-10"
           >
-            <div className="flex items-baseline gap-1 text-white-50">
-              <CountUp
-                to={item.value}
-                duration={2.5}
-                digitEffect="blur"
-                className="counter-number text-5xl font-bold leading-none tabular-nums"
-              />
-              <span className="text-3xl font-bold leading-none sm:text-4xl">
-                {item.suffix}
-              </span>
-            </div>
+            <SlotMachineNumber
+              value={item.value}
+              suffix={item.suffix}
+              className="counter-number text-5xl font-bold leading-none text-white-50"
+              suffixClassName="text-3xl font-bold leading-none sm:text-4xl"
+            />
             <div className="mt-6 text-lg leading-tight text-white-50">
               {item.label}
             </div>
