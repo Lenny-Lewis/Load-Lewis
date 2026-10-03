@@ -113,6 +113,20 @@ const graphicProjects = [
     desc: "High-end brand aesthetic concept.",
     img: "/images/graphics_design/boss_dark_elegance.png",
     bg: "bg-transparent"
+  },
+  {
+    id: 'g3',
+    title: "Zara Perfume",
+    desc: "Explode view zara!!",
+    img: "/images/graphics_design/Zara_Perfume.jpeg",
+    bg: "bg-transparent"
+  },
+  {
+    id: 'g4',
+    title: "Wild Winter",
+    desc: "Arcade Premium Winter Game Poster",
+    img: "/images/graphics_design/Gaming_Poster.jpeg",
+    bg: "bg-transparent"
   }
 ];
 
@@ -174,7 +188,7 @@ const WorkPage = () => {
               onClick={() => setActiveTab("other")}
               className={`group text-lg md:text-xl font-medium transition-colors ${activeTab === 'other' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
             >
-              <HoverTextSlide text="Other Projects" />
+              <HoverTextSlide text="All Projects" />
             </button>
             <button 
               onClick={() => setActiveTab("graphics")}
