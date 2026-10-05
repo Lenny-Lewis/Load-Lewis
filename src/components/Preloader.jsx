@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useMediaQuery } from "react-responsive";
+import ShapeLoader from "./ui/ShapeLoader";
 
 // Exact glyph pool from Locomotive LISA
 const GLYPHS = "!@#$%&+=qertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM\\/{}[][-_()<>?".split("");
@@ -28,8 +28,6 @@ const SPLINE_ASSETS = [
 ];
 
 const Preloader = ({ onComplete }) => {
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-
   const [b1Chars, setB1Chars] = useState(() =>
     BLOCK_1_ITEMS[0].text.split("").map(() => "")
   );
@@ -48,6 +46,8 @@ const Preloader = ({ onComplete }) => {
 
   const [showLogo, setShowLogo] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  // Drives the ShapeLoader; cleared when the curtain lifts.
+  const [assetsReady, setAssetsReady] = useState(false);
 
   // 3D Readiness tracking for both elements
   const heroReadyRef = useRef(false);
@@ -256,6 +256,9 @@ const Preloader = ({ onComplete }) => {
           if (isFinishedRef.current) return;
           isFinishedRef.current = true;
 
+          // Every 3D asset has reported in — the loader has done its job.
+          setAssetsReady(true);
+
           const r = 5;
           const s = 16;
 
@@ -279,15 +282,17 @@ const Preloader = ({ onComplete }) => {
           }, r * s + 80);
         };
 
-        const maxWaitTime = Date.now() + 5500; // safety fallback timeout
+        const maxWaitTime = Date.now() + 8000; // safety fallback timeout
 
         const checkReadiness = () => {
-          // On mobile, require BOTH 3D elements to have rendered!
-          const areElementsReady = isMobile
-            ? (heroReadyRef.current && contactReadyRef.current)
-            : heroReadyRef.current;
+          // The curtain only lifts once EVERY 3D asset has reported ready.
+          // Previously desktop only waited on the hero scene; now both the hero
+          // and contact scenes gate completion on every breakpoint, so the
+          // animation genuinely finishes only when all 3D assets are loaded.
+          const areElementsReady = heroReadyRef.current && contactReadyRef.current;
+          const timedOut = Date.now() > maxWaitTime;
 
-          if (areElementsReady || Date.now() > maxWaitTime) {
+          if (areElementsReady || timedOut) {
             executeCurtainLift();
           } else {
             setTimeout(checkReadiness, 100);
@@ -301,7 +306,7 @@ const Preloader = ({ onComplete }) => {
     return () => {
       timeoutsRef.current.forEach(clearTimeout);
     };
-  }, [isMobile, onComplete]);
+  }, [onComplete]);
 
   return (
     <aside
@@ -314,6 +319,20 @@ const Preloader = ({ onComplete }) => {
       }}
     >
       <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+        {/* Asset-load indicator. Visible while the 3D scenes are still
+            streaming in; fades out the moment every asset reports ready,
+            just before the curtain dissolves. */}
+        <div
+          className={`absolute bottom-8 left-1/2 -translate-x-1/2 sm:bottom-12 pointer-events-none transition-all duration-700 ease-out ${
+            assetsReady ? "opacity-0 scale-95" : "opacity-100 scale-100"
+          }`}
+        >
+          <ShapeLoader />
+          <p className="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-white/30">
+            Loading 3D assets
+          </p>
+        </div>
+
         {/* Brand Logo that appears at the start and dissolves */}
         <div
           className={`absolute flex items-center justify-center transition-all duration-700 ease-out pointer-events-none ${
