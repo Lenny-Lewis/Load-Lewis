@@ -12,8 +12,20 @@
  *   - container max-width: the site-wide `max-w-7xl` (1280px), matching the
  *     header and footer rather than introducing a second width token
  *   - 1 column mobile, 2 columns from md up
- *   - card frame: aspect-[3/2] with object-cover, so every piece fills its
- *     frame identically and crops from the centre
+ *   - card frame: `aspect-[4/3]` with `object-cover`, so every mockup fills its
+ *     cell edge to edge with no letterbox gaps.
+ *
+ * Why 4/3 and not 3/2: these mockups are overwhelmingly 4/3 (Mojito, Pawello,
+ * Latte, Agenicy and Recueil are all exactly 1600x1200 / 1920x1440). At 3/2 the
+ * taller box forced `object-cover` to trim 9-17% off the top and bottom, which
+ * sliced straight through the mockups' own embedded navbars. Matching the
+ * dominant source ratio at 4/3 reduces that to ~0-2% for most projects.
+ *
+ * A few outliers remain and will always lose a sliver, since one fixed frame
+ * cannot fit every export: ZED Gaming is 1.25 and loses ~6% top/bottom, Vanguard
+ * and Lithos 1.35 and NHM 1.3675 lose ~1-2.5% off the sides. `object-cover`
+ * is kept deliberately: a filled grid reads better than letterboxed bands, and
+ * the crop is confined to mockup margins rather than the artwork itself.
  *   - gap: `gap-5` (20px), consistent at every breakpoint
  *
  * `cardClassName` carries the reveal hook, because the two call sites drive
@@ -39,7 +51,7 @@ const ProjectGrid = ({
           className={`${cardClassName} group flex flex-col gap-5 block cursor-pointer`}
         >
           <div
-            className={`w-full aspect-[3/2] rounded-3xl overflow-hidden relative flex items-center justify-center ${
+            className={`w-full aspect-[4/3] rounded-3xl overflow-hidden relative flex items-center justify-center ${
               project.bg || "bg-[#141417]"
             }`}
           >
@@ -52,7 +64,7 @@ const ProjectGrid = ({
                 muted
                 loop
                 playsInline
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
               />
             ) : (
               <img
@@ -60,7 +72,7 @@ const ProjectGrid = ({
                 alt={project.title}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src =
