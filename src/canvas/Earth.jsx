@@ -106,15 +106,12 @@ const EarthCanvas = () => {
           </Suspense>
         </Canvas>
       ) : (
-        <div className="w-full h-full flex items-center justify-center text-white/40 text-xs">
-          Loading 3D Scene...
-        </div>
+        <div className="w-full h-full" aria-label="Loading" role="status" />
       )}
     </div>
   );
 };
 
 export default EarthCanvas;
-
 
 

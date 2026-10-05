@@ -63,6 +63,10 @@ const Preloader = ({ onComplete }) => {
 
   // Pre-fetch 3D assets in browser cache
   useEffect(() => {
+    // Mobile renders Three.js scenes instead of Spline, so don't compete with
+    // the loader for bandwidth by prefetching desktop-only scenes.
+    if (window.matchMedia("(max-width: 767px)").matches) return;
+
     SPLINE_ASSETS.forEach((url) => {
       try {
         fetch(url, { mode: "cors", cache: "force-cache" }).catch(() => {});
@@ -190,8 +194,18 @@ const Preloader = ({ onComplete }) => {
       );
     };
 
-    addTimeout(() => runBlock1(0), 1600);
-    addTimeout(() => runBlock2(0), 1800);
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    if (isMobile) {
+      // The text blocks are hidden on mobile. Skip their React updates and
+      // proceed directly to readiness checks without changing the shape loop.
+      addTimeout(() => {
+        checkAllReady();
+        checkAllReady();
+      }, 1600);
+    } else {
+      addTimeout(() => runBlock1(0), 1600);
+      addTimeout(() => runBlock2(0), 1800);
+    }
 
     // Coordinate exit: on mobile requires BOTH 3D elements to render!
     let anchorCount = 0;
@@ -270,9 +284,6 @@ const Preloader = ({ onComplete }) => {
           }`}
         >
           <ShapeLoader className="md:hidden" />
-          <p className="mt-5 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-white/30 md:absolute md:mt-0 md:top-[calc(100%+1.25rem)] md:inset-x-0">
-            Loading 3D assets
-          </p>
         </div>
 
         {/* Brand Logo that appears at the start and dissolves.

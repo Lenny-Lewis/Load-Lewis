@@ -34,8 +34,7 @@ const ContactSpline = ({
       {/* Loading placeholder */}
       {!isLoaded && (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 z-10 transition-opacity duration-500">
-          <div className="w-10 h-10 border-2 border-white/20 border-t-white rounded-full animate-spin mb-3" />
-          <p className="text-white/40 text-xs font-medium tracking-wider uppercase">Loading 3D Scene...</p>
+          <div className="w-10 h-10 border-2 border-white/20 border-t-white rounded-full animate-spin" />
         </div>
       )}
 
