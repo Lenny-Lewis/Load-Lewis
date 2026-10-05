@@ -6,6 +6,7 @@ import { Icons } from "@/components/ui/icons";
 import { Mail, Code2 } from "lucide-react";
 import HoverTextSlide from "@/components/ui/HoverTextSlide";
 import GraphicDesignGrid from "@/components/GraphicDesignGrid";
+import ProjectGrid from "@/components/ProjectGrid";
 
 const webProjects = [
   {
@@ -278,61 +279,21 @@ const WorkPage = () => {
             )}
           </div>
         ) : (
-        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 lg:gap-16">
-          {displayedProjects.length > 0 ? (
-            displayedProjects.map((project) => (
-              <a
-                key={project.id}
-                href={project.link || "#"}
-                target={project.link ? "_blank" : "_self"}
-                rel="noreferrer"
-                className="framer-card-work group flex flex-col gap-5 block cursor-pointer"
-              >
-                <div className={`w-full aspect-[4/3] rounded-3xl overflow-hidden relative flex items-center justify-center ${project.bg || 'bg-[#141417]'}`}>
-                  {project.mediaType === "video" ? (
-                    <video
-                      src={project.img}
-                      poster={project.poster}
-                      aria-label={`${project.title} preview`}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                    />
-                  ) : (
-                    <img
-                      src={project.img}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = "https://placehold.co/800x600/282732/d9ecff?text=Project+Preview";
-                      }}
-                    />
-                  )}
-                  <div className="absolute inset-0 border border-white/5 rounded-3xl pointer-events-none"></div>
-                </div>
-                
-                <div className="flex flex-col gap-2 px-2 w-full">
-                  <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#cda144] transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  {project.desc && (
-                    <p className="text-white-50 text-sm md:text-base leading-relaxed">
-                      {project.desc}
-                    </p>
-                  )}
-                </div>
-              </a>
-            ))
-          ) : (
-            <div className="col-span-1 md:col-span-2 py-20 flex flex-col items-center justify-center border border-white/5 rounded-3xl bg-white/5">
-              <h3 className="text-2xl font-bold text-white-50">Coming Soon</h3>
-              <p className="text-white/40 mt-2">Exciting new machine learning projects are in the works.</p>
-            </div>
-          )}
-        </div>
+          <div className="w-full max-w-7xl mx-auto">
+            {displayedProjects.length > 0 ? (
+              <ProjectGrid
+                projects={displayedProjects}
+                cardClassName="framer-card-work"
+              />
+            ) : (
+              <div className="py-20 flex flex-col items-center justify-center border border-white/5 rounded-3xl bg-white/5">
+                <h3 className="text-2xl font-bold text-white-50">Coming Soon</h3>
+                <p className="text-white/40 mt-2">
+                  Exciting new machine learning projects are in the works.
+                </p>
+              </div>
+            )}
+          </div>
         )}
       </section>
 

@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Link } from "react-router-dom";
 import TitleHeader from "../components/TitleHeader";
+import ProjectGrid from "../components/ProjectGrid";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -95,41 +96,9 @@ const AppShowcase = () => {
         </div>
       </div>
       
-      {/* Grid Content */}
-      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 mt-6">
-        {webProjects.map((project) => (
-          <a
-            key={project.id}
-            href={project.link || "#"}
-            target={project.link ? "_blank" : "_self"}
-            rel="noreferrer"
-            className="framer-card group flex flex-col gap-5 block cursor-pointer"
-          >
-            <div className={`w-full aspect-[4/3] rounded-3xl overflow-hidden relative flex items-center justify-center ${project.bg}`}>
-              <img
-                src={project.img}
-                alt={project.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                onError={(e) => {
-                  e.target.onerror = null; 
-                  e.target.src = "https://placehold.co/800x600/282732/d9ecff?text=Project+Preview";
-                }}
-              />
-              <div className="absolute inset-0 border border-white/5 rounded-3xl pointer-events-none"></div>
-            </div>
-            
-            <div className="flex flex-col gap-2 px-2">
-              <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#cda144] transition-colors duration-300">
-                {project.title}
-              </h3>
-              {project.desc && (
-                <p className="text-white-50 text-sm md:text-base leading-relaxed">
-                  {project.desc}
-                </p>
-              )}
-            </div>
-          </a>
-        ))}
+      {/* Grid Content — sizing lives in the shared ProjectGrid */}
+      <div className="w-full max-w-7xl mx-auto mt-6">
+        <ProjectGrid projects={webProjects} />
       </div>
     </section>
   );
