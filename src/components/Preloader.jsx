@@ -95,12 +95,15 @@ const Preloader = ({ onComplete }) => {
     };
   }, []);
 
-  // Locomotive glyph scramble helper for a single phrase
+  // Scramble a whole phrase per frame instead of scheduling a timer and React
+  // update for every glyph. This keeps the visual effect while limiting the
+  // preloader to a handful of updates per phase.
   const animatePhrase = (targetItem, setChars, setOpacity, setCode, onDone, isAnchor = false) => {
     const chars = targetItem.text.split("");
-    const r = 5; // 5 cycles
-    const s = 16; // 16ms tick
-    const o = 12; // 12ms stagger
+    const scrambleFrames = 5;
+    const frameDuration = 80;
+    const entranceDuration = 500;
+    const exitDuration = 500;
 
     // Update the companion code comment
     setCode(targetItem.code);
@@ -109,89 +112,32 @@ const Preloader = ({ onComplete }) => {
     setChars(chars.map(() => ""));
     setOpacity(chars.map(() => 0));
 
-    // Scramble entrance
-    chars.forEach((char, idx) => {
-      const charDelay = idx * o;
+    const showScrambleFrame = () => {
+      setChars(chars.map((char) => char === " " ? "\u00A0" : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]));
+      setOpacity(chars.map(() => 1));
+    };
+    for (let frame = 0; frame < scrambleFrames; frame += 1) {
+      addTimeout(showScrambleFrame, frame * frameDuration);
+    }
+    addTimeout(() => setChars(chars.map((char) => char === " " ? "\u00A0" : char)), entranceDuration);
 
-      addTimeout(() => {
-        setOpacity((prev) => {
-          const arr = [...prev];
-          arr[idx] = 1;
-          return arr;
-        });
-
-        if (char === " ") {
-          setChars((prev) => {
-            const arr = [...prev];
-            arr[idx] = "\u00A0";
-            return arr;
-          });
-          return;
-        }
-
-        for (let b = 0; b < r; b++) {
-          addTimeout(() => {
-            setChars((prev) => {
-              const arr = [...prev];
-              arr[idx] = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-              return arr;
-            });
-          }, b * s);
-        }
-
-        addTimeout(() => {
-          setChars((prev) => {
-            const arr = [...prev];
-            arr[idx] = char;
-            return arr;
-          });
-        }, r * s);
-      }, charDelay);
-    });
-
-    const entranceDuration = chars.length * o + r * s;
     const holdDuration = isAnchor ? 1500 : 420;
 
     // Anchor lines hold without scrambling out
     if (isAnchor) {
-      addTimeout(() => {
-        onDone?.();
-      }, entranceDuration + holdDuration);
+      addTimeout(() => onDone?.(), entranceDuration + holdDuration);
       return;
     }
 
     // Scramble out
     addTimeout(() => {
-      chars.forEach((char, idx) => {
-        const exitDelay = idx * 8;
-
-        addTimeout(() => {
-          if (char !== " ") {
-            for (let y = 0; y < r; y++) {
-              addTimeout(() => {
-                setChars((prev) => {
-                  const arr = [...prev];
-                  arr[idx] = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-                  return arr;
-                });
-              }, y * s);
-            }
-          }
-
-          addTimeout(() => {
-            setOpacity((prev) => {
-              const arr = [...prev];
-              arr[idx] = 0;
-              return arr;
-            });
-          }, r * s);
-        }, exitDelay);
-      });
-
-      const exitDuration = chars.length * 8 + r * s;
+      for (let frame = 0; frame < scrambleFrames; frame += 1) {
+        addTimeout(showScrambleFrame, frame * frameDuration);
+      }
       addTimeout(() => {
+        setOpacity(chars.map(() => 0));
         onDone?.();
-      }, exitDuration + 50);
+      }, exitDuration);
     }, entranceDuration + holdDuration);
   };
 
@@ -259,17 +205,12 @@ const Preloader = ({ onComplete }) => {
           // Every 3D asset has reported in — the loader has done its job.
           setAssetsReady(true);
 
-          const r = 5;
-          const s = 16;
-
           // Scramble anchor characters out
           [setB1Chars, setB2Chars].forEach((setChars) => {
-            for (let y = 0; y < r; y++) {
+            for (let frame = 0; frame < 5; frame += 1) {
               addTimeout(() => {
-                setChars((prev) =>
-                  prev.map(() => GLYPHS[Math.floor(Math.random() * GLYPHS.length)])
-                );
-              }, y * s);
+                setChars((prev) => prev.map((char) => char === "\u00A0" ? char : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]));
+              }, frame * 80);
             }
           });
 
@@ -279,7 +220,7 @@ const Preloader = ({ onComplete }) => {
             addTimeout(() => {
               onComplete?.();
             }, 900);
-          }, r * s + 80);
+          }, 480);
         };
 
         const maxWaitTime = Date.now() + 8000; // safety fallback timeout

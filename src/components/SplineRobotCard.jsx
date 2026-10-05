@@ -38,7 +38,7 @@ const SplineRobotCard = ({ scene }) => {
     }
   }, [isMobile]);
 
-  const shouldLoadScene = shouldHydrate && (isInView || true) && !isMobile;
+  const shouldLoadScene = shouldHydrate && isInView && !isMobile;
 
   const handleSplineLoad = () => {
     setIsSplineLoaded(true);
@@ -83,6 +83,5 @@ const SplineRobotCard = ({ scene }) => {
 };
 
 export default SplineRobotCard;
-
 
 

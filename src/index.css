@@ -843,6 +843,36 @@ section {
    The keyframes only define the motion; the dash values that make a stroke
    progressively reveal live in .shape-loader below.
    ------------------------------------------------------------------------ */
+.box-loader {
+  --box-loader-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 64px;
+  height: 64px;
+}
+
+.box-loader span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--box-loader-color);
+  animation: box-loader-pulse 1s ease-in-out infinite;
+}
+
+.box-loader span:nth-child(2) { animation-delay: 120ms; }
+.box-loader span:nth-child(3) { animation-delay: 240ms; }
+
+@keyframes box-loader-pulse {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-7px); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .box-loader span { animation: none; opacity: 0.75; }
+}
+
 @keyframes pathTriangle {
   33% { stroke-dashoffset: 74; }
   66% { stroke-dashoffset: 147; }
@@ -1194,4 +1224,3 @@ section {
     transform: translate(100%, 100%);
   }
 }
-
