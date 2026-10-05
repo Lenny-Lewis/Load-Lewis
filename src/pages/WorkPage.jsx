@@ -5,6 +5,7 @@ import { Footer } from "@/components/ui/modem-animated-footer";
 import { Icons } from "@/components/ui/icons";
 import { Mail, Code2 } from "lucide-react";
 import HoverTextSlide from "@/components/ui/HoverTextSlide";
+import GraphicDesignGrid from "@/components/GraphicDesignGrid";
 
 const webProjects = [
   {
@@ -99,34 +100,94 @@ const webProjects = [
   }
 ];
 
+/**
+ * Graphics Design pieces.
+ *
+ * `width`/`height` are the intrinsic pixel dimensions of the ORIGINAL asset —
+ * they let the browser reserve the frame before load and render the lightbox at
+ * the true ratio. `thumb` drives the grid frame, `full` drives the expanded
+ * view; both are WebP derivatives generated from the originals (originals are
+ * left untouched on disk). `thumbW`/`fullW` are the real widths of those
+ * derivatives and feed the srcset `w` descriptors — hardcoding them caused the
+ * browser to pick the wrong candidate.
+ */
 const graphicProjects = [
   {
-    id: 'g1',
+    id: "g1",
     title: "Crocks Poster",
     desc: "Promotional digital poster design.",
-    img: "/images/graphics_design/crocks_poster.png",
-    bg: "bg-transparent"
+    width: 7547,
+    height: 10691,
+    thumb: "/images/graphics_design/crocks_poster_thumb.webp",
+    full: "/images/graphics_design/crocks_poster_full.webp",
+    thumbW: 706,
+    fullW: 1553
   },
   {
-    id: 'g2',
+    id: "g2",
     title: "Boss Dark Elegance",
     desc: "High-end brand aesthetic concept.",
-    img: "/images/graphics_design/boss_dark_elegance.png",
-    bg: "bg-transparent"
+    width: 1340,
+    height: 1675,
+    thumb: "/images/graphics_design/boss_dark_elegance_thumb.webp",
+    full: "/images/graphics_design/boss_dark_elegance_full.webp",
+    thumbW: 800,
+    fullW: 1760
   },
   {
-    id: 'g3',
+    id: "g3",
     title: "Zara Perfume",
     desc: "Explode view zara!!",
-    img: "/images/graphics_design/Zara_Perfume.jpeg",
-    bg: "bg-transparent"
+    width: 1214,
+    height: 1295,
+    thumb: "/images/graphics_design/Zara_Perfume_thumb.webp",
+    full: "/images/graphics_design/Zara_Perfume_full.webp",
+    thumbW: 937,
+    fullW: 2062
   },
   {
-    id: 'g4',
+    id: "g4",
     title: "Wild Winter",
     desc: "Arcade Premium Winter Game Poster",
-    img: "/images/graphics_design/Gaming_Poster.jpeg",
-    bg: "bg-transparent"
+    width: 1122,
+    height: 1402,
+    thumb: "/images/graphics_design/Gaming_Poster_thumb.webp",
+    full: "/images/graphics_design/Gaming_Poster_full.webp",
+    thumbW: 800,
+    fullW: 1761
+  },
+  {
+    id: "g5",
+    title: "DualSense Precision in Blue",
+    desc: "PlayStation controller product ad.",
+    width: 1122,
+    height: 1402,
+    thumb: "/images/graphics_design/dualsense_precision_blue_thumb.webp",
+    full: "/images/graphics_design/dualsense_precision_blue_full.webp",
+    thumbW: 800,
+    fullW: 1122
+  },
+  {
+    id: "g6",
+    title: "Impossible Angle",
+    desc: "Nike running campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/impossible_angle_thumb.webp",
+    full: "/images/graphics_design/impossible_angle_full.webp",
+    thumbW: 667,
+    fullW: 1024
+  },
+  {
+    id: "g7",
+    title: "Muskalam Fragrance",
+    desc: "Luxury oud fragrance brand ad.",
+    width: 1086,
+    height: 1448,
+    thumb: "/images/graphics_design/muskalam_fragrance_thumb.webp",
+    full: "/images/graphics_design/muskalam_fragrance_full.webp",
+    thumbW: 750,
+    fullW: 1086
   }
 ];
 
@@ -140,6 +201,11 @@ const WorkPage = () => {
   }, []);
 
   useEffect(() => {
+    // The Graphics Design tab renders its own Framer Motion `whileInView`
+    // reveal, so GSAP only drives the web-projects cards here. Running both on
+    // the same nodes would have them fighting over `transform`/`opacity`.
+    if (activeTab !== "other") return;
+
     const cards = gsap.utils.toArray(".framer-card-work");
     
     gsap.fromTo(
@@ -156,9 +222,9 @@ const WorkPage = () => {
     );
   }, [activeTab]);
 
-  let displayedProjects = [];
-  if (activeTab === "other") displayedProjects = webProjects;
-  else if (activeTab === "graphics") displayedProjects = graphicProjects;
+  // The Graphics Design tab has its own grid + lightbox component, so this
+  // list only backs the web-projects tab.
+  const displayedProjects = activeTab === "other" ? webProjects : [];
 
   return (
     <div className="w-full min-h-screen bg-[#050505] text-white pt-32 overflow-x-hidden">
@@ -200,7 +266,19 @@ const WorkPage = () => {
         </div>
         
         {/* Grid Content */}
-        <div className={`w-full max-w-7xl mx-auto grid ${activeTab === 'graphics' ? 'grid-cols-2' : 'grid-cols-1 md:grid-cols-2'} gap-4 md:gap-10 lg:gap-16`}>
+        {activeTab === "graphics" ? (
+          <div className="w-full max-w-7xl mx-auto">
+            {graphicProjects.length > 0 ? (
+              <GraphicDesignGrid projects={graphicProjects} />
+            ) : (
+              <div className="py-20 flex flex-col items-center justify-center border border-white/5 rounded-3xl bg-white/5">
+                <h3 className="text-2xl font-bold text-white-50">Coming Soon</h3>
+                <p className="text-white/40 mt-2">Exciting new graphic design projects are in the works.</p>
+              </div>
+            )}
+          </div>
+        ) : (
+        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 lg:gap-16">
           {displayedProjects.length > 0 ? (
             displayedProjects.map((project) => (
               <a
@@ -210,7 +288,7 @@ const WorkPage = () => {
                 rel="noreferrer"
                 className="framer-card-work group flex flex-col gap-5 block cursor-pointer"
               >
-                <div className={`${activeTab === 'graphics' ? 'w-[85%] mx-auto aspect-[3/4] rounded-2xl overflow-hidden relative flex items-center justify-center bg-transparent' : `w-full aspect-[4/3] rounded-3xl overflow-hidden relative flex items-center justify-center ${project.bg || 'bg-[#141417]'}`}`}>
+                <div className={`w-full aspect-[4/3] rounded-3xl overflow-hidden relative flex items-center justify-center ${project.bg || 'bg-[#141417]'}`}>
                   {project.mediaType === "video" ? (
                     <video
                       src={project.img}
@@ -226,7 +304,7 @@ const WorkPage = () => {
                     <img
                       src={project.img}
                       alt={project.title}
-                      className={`w-full h-full ${activeTab === 'graphics' ? 'object-contain group-hover:scale-105' : 'object-cover group-hover:scale-105'} transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.src = "https://placehold.co/800x600/282732/d9ecff?text=Project+Preview";
@@ -236,7 +314,7 @@ const WorkPage = () => {
                   <div className="absolute inset-0 border border-white/5 rounded-3xl pointer-events-none"></div>
                 </div>
                 
-                <div className={`flex flex-col gap-2 px-2 ${activeTab === 'graphics' ? 'w-[85%] mx-auto' : 'w-full'}`}>
+                <div className="flex flex-col gap-2 px-2 w-full">
                   <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#cda144] transition-colors duration-300">
                     {project.title}
                   </h3>
@@ -255,6 +333,7 @@ const WorkPage = () => {
             </div>
           )}
         </div>
+        )}
       </section>
 
       <Footer
