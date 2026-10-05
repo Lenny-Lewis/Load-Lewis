@@ -143,10 +143,10 @@ const Preloader = ({ onComplete }) => {
 
   // Master Orchestration Sequence
   useEffect(() => {
-    // Fade out logo at 0.35s as text begins
+    // Let the brand mark have its own opening beat before the text sequence.
     addTimeout(() => {
       setShowLogo(false);
-    }, 450);
+    }, 800);
 
     // Sequence Block 1
     const runBlock1 = (step) => {
@@ -190,8 +190,8 @@ const Preloader = ({ onComplete }) => {
       );
     };
 
-    addTimeout(() => runBlock1(0), 200);
-    addTimeout(() => runBlock2(0), 400);
+    addTimeout(() => runBlock1(0), 1600);
+    addTimeout(() => runBlock2(0), 1800);
 
     // Coordinate exit: on mobile requires BOTH 3D elements to render!
     let anchorCount = 0;
@@ -269,7 +269,7 @@ const Preloader = ({ onComplete }) => {
             assetsReady ? "opacity-0 md:scale-95" : "opacity-100 md:scale-100"
           }`}
         >
-          <ShapeLoader />
+          <ShapeLoader className="md:hidden" />
           <p className="mt-5 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-white/30 md:absolute md:mt-0 md:top-[calc(100%+1.25rem)] md:inset-x-0">
             Loading 3D assets
           </p>
