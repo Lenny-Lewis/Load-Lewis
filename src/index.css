@@ -877,7 +877,7 @@ section {
 .shape-loader {
   --shape-size: 40px;
   --shape-stroke: rgba(255, 255, 255, 0.85);
-  --shape-accent: #cda144;
+  --shape-dot: #ff4d4f;
 }
 
 .shape-loader__item {
@@ -898,12 +898,21 @@ section {
   stroke-linejoin: round;
 }
 
-/* Each shape is an outlined path whose stroke is fully "hidden" via
-   stroke-dashoffset, then revealed by its keyframe animation. Duration and
-   timing are declared in the SAME rule as the name: setting `animation-name`
-   separately from an `animation` shorthand elsewhere resets the duration to
-   its initial value, which left the shapes static. */
-.shape-loader__item svg > * {
+/* The travelling dot is a separate element from the outline, so it must NOT
+   inherit the dash-reveal animation. Scoping to .shape-loader__shape keeps the
+   two independent. */
+.shape-loader__dot {
+  fill: var(--shape-dot);
+  stroke: none;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--shape-dot) 70%, transparent));
+}
+
+/* Each outline is fully "hidden" via stroke-dashoffset, then revealed by its
+   keyframe animation. Duration and timing are declared in the SAME rule as the
+   name: setting `animation-name` separately from an `animation` shorthand
+   elsewhere resets the duration to its initial value, which left the shapes
+   static. */
+.shape-loader__shape {
   transform-box: fill-box;
   transform-origin: center;
   animation-duration: 4s;
@@ -912,21 +921,21 @@ section {
 }
 
 /* circle — circumference of r=32 is ~201; 275 clears the stroke caps */
-.shape-loader__item:nth-child(1) svg > * {
+.shape-loader__item:nth-child(1) .shape-loader__shape {
   animation-name: pathCircle;
   stroke-dasharray: 275;
   stroke-dashoffset: 275;
 }
 
 /* triangle — perimeter of the 86x80 viewBox polygon */
-.shape-loader__item--triangle svg > * {
+.shape-loader__item--triangle .shape-loader__shape {
   animation-name: pathTriangle;
   stroke-dasharray: 221;
   stroke-dashoffset: 221;
 }
 
 /* square — perimeter of a 64x64 rect is 256 */
-.shape-loader__item:nth-child(3) svg > * {
+.shape-loader__item:nth-child(3) .shape-loader__shape {
   animation-name: pathRect;
   stroke-dasharray: 256;
   stroke-dashoffset: 256;
@@ -934,22 +943,28 @@ section {
 
 @media (max-width: 768px) {
   .shape-loader {
-    --shape-size: 30px;
+    --shape-size: 34px;
   }
 }
 
-/* Respect reduced motion: show the shapes statically, fully drawn.
-   These selectors deliberately repeat the per-shape specificity (the
-   `:first-child` / `:nth-child(3)` variants are more specific than a plain
-   `.shape-loader__item svg > *`, so a lower-specificity override here would
-   silently lose the cascade and leave the shapes animating). */
+/* Respect reduced motion: shapes render statically and fully drawn, and the
+   travelling dots are removed (an orbiting dot is exactly the kind of looping
+   movement this setting is meant to suppress).
+
+   These selectors deliberately REPEAT the per-shape specificity. The
+   `:nth-child(1)` / `--triangle` variants above are more specific than a bare
+   `.shape-loader__shape`, so a lower-specificity override here silently loses
+   the cascade and the shapes keep animating. */
 @media (prefers-reduced-motion: reduce) {
-  .shape-loader__item svg > *,
-  .shape-loader__item:first-child svg > *,
-  .shape-loader__item--triangle svg > *,
-  .shape-loader__item:nth-child(3) svg > * {
+  .shape-loader__shape,
+  .shape-loader__item:nth-child(1) .shape-loader__shape,
+  .shape-loader__item--triangle .shape-loader__shape,
+  .shape-loader__item:nth-child(3) .shape-loader__shape {
     animation-name: none;
     stroke-dashoffset: 0;
+  }
+  .shape-loader__dot {
+    display: none;
   }
 }
 

@@ -319,23 +319,25 @@ const Preloader = ({ onComplete }) => {
       }}
     >
       <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-        {/* Asset-load indicator. Visible while the 3D scenes are still
-            streaming in; fades out the moment every asset reports ready,
-            just before the curtain dissolves. */}
+        {/* Asset-load indicator.
+            Mobile: centred on its own — the scramble-text blocks are hidden at
+            this breakpoint so the loader owns the screen while 3D streams in.
+            Desktop: kept at the foot of the curtain, under the text blocks. */}
         <div
-          className={`absolute bottom-8 left-1/2 -translate-x-1/2 sm:bottom-12 pointer-events-none transition-all duration-700 ease-out ${
-            assetsReady ? "opacity-0 scale-95" : "opacity-100 scale-100"
+          className={`absolute inset-0 flex flex-col items-center justify-center pointer-events-none transition-opacity duration-700 ease-out md:inset-x-auto md:inset-y-auto md:bottom-12 md:left-1/2 md:flex-row md:-translate-x-1/2 ${
+            assetsReady ? "opacity-0 md:scale-95" : "opacity-100 md:scale-100"
           }`}
         >
           <ShapeLoader />
-          <p className="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-white/30">
+          <p className="mt-5 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-white/30 md:absolute md:mt-0 md:top-[calc(100%+1.25rem)] md:inset-x-0">
             Loading 3D assets
           </p>
         </div>
 
-        {/* Brand Logo that appears at the start and dissolves */}
+        {/* Brand Logo that appears at the start and dissolves.
+            Hidden on mobile, where the shape loader is the sole focal point. */}
         <div
-          className={`absolute flex items-center justify-center transition-all duration-700 ease-out pointer-events-none ${
+          className={`absolute hidden md:flex items-center justify-center transition-all duration-700 ease-out pointer-events-none ${
             showLogo ? "opacity-100 scale-100" : "opacity-0 scale-95"
           }`}
         >
@@ -344,8 +346,10 @@ const Preloader = ({ onComplete }) => {
           </div>
         </div>
 
-        {/* Exact Locomotive 12-Column Asymmetric Grid Layout */}
-        <div className="absolute inset-0 w-full h-full grid grid-cols-4 md:grid-cols-12 grid-rows-2 px-6 sm:px-12 md:px-16 pointer-events-none">
+        {/* Exact Locomotive 12-Column Asymmetric Grid Layout.
+            Hidden on mobile: the shape loader is centred there instead, and
+            two competing focal points on a small screen read as noise. */}
+        <div className="absolute inset-0 w-full h-full hidden md:grid grid-cols-4 md:grid-cols-12 grid-rows-2 px-6 sm:px-12 md:px-16 pointer-events-none">
           {/* Top-Right Quadrant: Block 1 */}
           <div className="col-span-4 md:col-start-5 md:col-end-13 row-start-1 row-end-2 self-end pb-3 sm:pb-5">
             <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight font-sans text-white leading-tight min-h-[1.25em]">
