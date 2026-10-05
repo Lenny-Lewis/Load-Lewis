@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { navLinks, resumeLinks } from "../constants";
 import HoverTextSlide from "./ui/HoverTextSlide";
+import MorphDotsIcon from "./ui/MorphDotsIcon";
+import SwoopWord from "./ui/SwoopWord";
 
 const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -41,24 +43,22 @@ const NavBar = () => {
           </Link>
           
           <motion.button 
+            type="button"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="flex items-center justify-center w-10 h-10 rounded-full bg-white text-black transition-colors"
-            aria-label="Quick Links Menu"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="quick-links-menu"
           >
-            <motion.svg 
-              animate={{ rotate: isMenuOpen ? 90 : 0 }}
-              transition={{ type: "spring", stiffness: 200, damping: 15 }}
-              width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
-            >
-              <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-            </motion.svg>
+            <MorphDotsIcon open={isMenuOpen} />
           </motion.button>
 
           <AnimatePresence>
             {isMenuOpen && (
               <motion.div 
+                id="quick-links-menu"
                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -70,16 +70,16 @@ const NavBar = () => {
                   onClick={() => setIsMenuOpen(false)}
                   className="group px-4 py-2 text-sm text-white-50 hover:text-white rounded-xl transition-colors font-medium flex items-center"
                 >
-                  <HoverTextSlide text="Home" />
+                  <SwoopWord word="Home" index={0} />
                 </Link>
-                {navLinks.map(({ link, name }) => (
+                {navLinks.map(({ link, name }, index) => (
                   <Link 
                     key={name}
                     to={link}
                     onClick={() => setIsMenuOpen(false)}
                     className="group px-4 py-2 text-sm text-white-50 hover:text-white rounded-xl transition-colors font-medium flex items-center"
                   >
-                    <HoverTextSlide text={name} />
+                    <SwoopWord word={name} index={index + 1} />
                   </Link>
                 ))}
               </motion.div>
