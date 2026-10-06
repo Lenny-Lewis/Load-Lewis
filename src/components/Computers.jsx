@@ -1,11 +1,11 @@
-import { memo, Suspense, useEffect, useRef } from "react";
+import { memo, Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import usePageVisible from "../hooks/usePageVisible";
 
 const AXIS_LOCK_THRESHOLD = 10;
 
-const Computers = memo(function Computers({ onLoaded }) {
+const Computers = memo(function Computers({ onLoaded, isMobile }) {
   // Meshopt decoder support is already enabled by Drei's useGLTF defaults.
   const computer = useGLTF("/desktop_pc/scene-optimized.glb");
 
@@ -21,12 +21,14 @@ const Computers = memo(function Computers({ onLoaded }) {
         angle={0.12}
         penumbra={1}
         intensity={1}
+        castShadow
+        shadow-mapSize={1024}
       />
       <pointLight intensity={1} />
       <primitive
         object={computer.scene}
-        scale={0.7}
-        position={[0, -3, -2.2]}
+        scale={isMobile ? 0.7 : 0.75}
+        position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
         rotation={[-0.01, -0.2, -0.1]}
       />
     </mesh>
@@ -154,22 +156,32 @@ const ScrollSafeOrbitControls = () => {
 
 const ComputersCanvas = ({ onLoaded }) => {
   const pageVisible = usePageVisible();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    const update = () => setIsMobile(mediaQuery.matches);
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+
   return (
     <Canvas
       className="h-full w-full"
       style={{ width: "100%", height: "100%", touchAction: "pan-y" }}
       frameloop={pageVisible ? "demand" : "never"}
-      // Mid-tier mobile profile: cap pixel ratio and skip costly shadow maps.
-      dpr={[1, 1.5]}
+      shadows
+      dpr={[1, 2]}
       camera={{ position: [20, 3, 5], fov: 25 }}
-      gl={{ antialias: false, preserveDrawingBuffer: false, powerPreference: "low-power" }}
+      gl={{ preserveDrawingBuffer: true }}
       onCreated={({ gl }) => {
         gl.domElement.style.touchAction = "pan-y";
       }}
     >
       <Suspense fallback={null}>
         <ScrollSafeOrbitControls />
-        <Computers onLoaded={onLoaded} />
+        <Computers onLoaded={onLoaded} isMobile={isMobile} />
       </Suspense>
     </Canvas>
   );
