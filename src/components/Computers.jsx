@@ -1,17 +1,20 @@
-import { memo, Suspense, useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
-import usePageVisible from "../hooks/usePageVisible";
+import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+
+import CanvasLoader from "../Loader";
 
 const AXIS_LOCK_THRESHOLD = 10;
 
-const Computers = memo(function Computers({ onLoaded, isMobile }) {
-  // Meshopt decoder support is already enabled by Drei's useGLTF defaults.
-  const computer = useGLTF("/desktop_pc/scene-optimized.glb");
+const Computers = ({ isMobile }) => {
+  const computer = useGLTF("/desktop_pc/scene.gltf");
 
   useEffect(() => {
-    if (computer?.scene) onLoaded?.();
-  }, [computer, onLoaded]);
+    if (computer?.scene) {
+      window.__HERO_3D_READY__ = true;
+      window.dispatchEvent(new CustomEvent("hero-3d-ready"));
+    }
+  }, [computer]);
 
   return (
     <mesh>
@@ -33,7 +36,7 @@ const Computers = memo(function Computers({ onLoaded, isMobile }) {
       />
     </mesh>
   );
-});
+};
 
 // Touch: horizontal rotates only; vertical stays free for page scroll.
 const ScrollSafeOrbitControls = () => {
@@ -154,23 +157,35 @@ const ScrollSafeOrbitControls = () => {
   );
 };
 
-const ComputersCanvas = ({ onLoaded }) => {
-  const pageVisible = usePageVisible();
+const ComputersCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Add a listener for changes to the screen size
     const mediaQuery = window.matchMedia("(max-width: 768px)");
-    const update = () => setIsMobile(mediaQuery.matches);
-    update();
-    mediaQuery.addEventListener("change", update);
-    return () => mediaQuery.removeEventListener("change", update);
+
+    // Set the initial value of the `isMobile` state variable
+    setIsMobile(mediaQuery.matches);
+
+    // Define a callback function to handle changes to the media query
+    const handleMediaQueryChange = (event) => {
+      setIsMobile(event.matches);
+    };
+
+    // Add the callback function as a listener for the media query
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    // Remove the listener when the component is unmounted
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
   }, []);
 
   return (
     <Canvas
       className="h-full w-full"
       style={{ width: "100%", height: "100%", touchAction: "pan-y" }}
-      frameloop={pageVisible ? "demand" : "never"}
+      frameloop='demand'
       shadows
       dpr={[1, 2]}
       camera={{ position: [20, 3, 5], fov: 25 }}
@@ -179,12 +194,14 @@ const ComputersCanvas = ({ onLoaded }) => {
         gl.domElement.style.touchAction = "pan-y";
       }}
     >
-      <Suspense fallback={null}>
+      <Suspense fallback={<CanvasLoader />}>
         <ScrollSafeOrbitControls />
-        <Computers onLoaded={onLoaded} isMobile={isMobile} />
+        <Computers isMobile={isMobile} />
       </Suspense>
+
+      <Preload all />
     </Canvas>
   );
 };
 
-export default memo(ComputersCanvas);
+export default ComputersCanvas;
