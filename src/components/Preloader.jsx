@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import ShapeLoader from "./ui/ShapeLoader";
+import GreetingPreloader from "./ui/components-preloaders-greetings";
 
 // Exact glyph pool from Locomotive LISA
 const GLYPHS = "!@#$%&+=qertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM\\/{}[][-_()<>?".split("");
@@ -44,7 +45,6 @@ const Preloader = ({ onComplete }) => {
   );
   const [b2Code, setB2Code] = useState(BLOCK_2_ITEMS[0].code);
 
-  const [showLogo, setShowLogo] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   // Drives the ShapeLoader; cleared when the curtain lifts.
   const [assetsReady, setAssetsReady] = useState(false);
@@ -147,11 +147,6 @@ const Preloader = ({ onComplete }) => {
 
   // Master Orchestration Sequence
   useEffect(() => {
-    // Let the brand mark have its own opening beat before the text sequence.
-    addTimeout(() => {
-      setShowLogo(false);
-    }, 800);
-
     // Sequence Block 1
     const runBlock1 = (step) => {
       if (step >= BLOCK_1_ITEMS.length) return;
@@ -286,22 +281,15 @@ const Preloader = ({ onComplete }) => {
           <ShapeLoader className="md:hidden" />
         </div>
 
-        {/* Brand Logo that appears at the start and dissolves.
-            Hidden on mobile, where the shape loader is the sole focal point. */}
-        <div
-          className={`absolute hidden md:flex items-center justify-center transition-all duration-700 ease-out pointer-events-none ${
-            showLogo ? "opacity-100 scale-100" : "opacity-0 scale-95"
-          }`}
-        >
-          <div className="text-2xl sm:text-3xl font-bold tracking-[0.2em] uppercase font-sans text-white/90">
-            LENNOX LEWIS®
-          </div>
+        {/* Desktop greeting animation stays centered while the 3D scenes load. */}
+        <div className="absolute inset-0 hidden items-center justify-center md:flex">
+          <GreetingPreloader intervalMs={300} />
         </div>
 
         {/* Exact Locomotive 12-Column Asymmetric Grid Layout.
             Hidden on mobile: the shape loader is centred there instead, and
             two competing focal points on a small screen read as noise. */}
-        <div className="absolute inset-0 w-full h-full hidden md:grid grid-cols-4 md:grid-cols-12 grid-rows-2 px-6 sm:px-12 md:px-16 pointer-events-none">
+        <div className="absolute inset-0 hidden w-full h-full grid-cols-4 grid-rows-2 px-6 pointer-events-none">
           {/* Top-Right Quadrant: Block 1 */}
           <div className="col-span-4 md:col-start-5 md:col-end-13 row-start-1 row-end-2 self-end pb-3 sm:pb-5">
             <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight font-sans text-white leading-tight min-h-[1.25em]">
