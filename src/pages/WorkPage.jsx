@@ -189,6 +189,17 @@ const graphicProjects = [
     full: "/images/graphics_design/muskalam_fragrance_full.webp",
     thumbW: 750,
     fullW: 1086
+  },
+  {
+    id: "g8",
+    title: "Customer Service Week",
+    desc: "Customer Service Week promotional poster.",
+    width: 2160,
+    height: 2700,
+    thumb: "/images/graphics_design/customer_service_week_thumb.webp",
+    full: "/images/graphics_design/customer_service_week_full.webp",
+    thumbW: 800,
+    fullW: 1760
   }
 ];
 
