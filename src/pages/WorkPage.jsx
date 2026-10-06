@@ -192,8 +192,8 @@ const graphicProjects = [
   },
   {
     id: "g8",
-    title: "Customer Service Week",
-    desc: "Customer Service Week promotional poster.",
+    title: "Villagio Customer Service",
+    desc: "Villagio company customer service week poster.",
     width: 2160,
     height: 2700,
     thumb: "/images/graphics_design/customer_service_week_thumb.webp",
