@@ -340,6 +340,10 @@ const stackAssetMap = {
     imageSrc:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
   },
+  Framer: {
+    accent: "#FFFFFF",
+    imageSrc: "/images/logos/framer.svg",
+  },
   Postman: {
     accent: "#FF6C37",
     imageSrc:
@@ -401,6 +405,7 @@ const techStackRows = [
   ["Git", "GitHub", "Linux", "AWS", "VS Code", "Vercel"],
   ["Jupyter", "Figma", "Postman", "Photoshop"],
   ["Hugging Face", "MS Office"],
+  ["Framer"],
 ].map((row) =>
   row.map((name) => {
     const asset = stackAssetMap[name] || {};

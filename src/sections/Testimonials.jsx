@@ -1,6 +1,14 @@
 import { testimonials } from "../constants";
 import TitleHeader from "../components/TitleHeader";
-import GlowCard from "../components/GlowCard";
+import ScrollReelTestimonials from "../components/ui/scroll-reel-testimonials";
+
+const reelTestimonials = testimonials.map((testimonial) => ({
+  quote: testimonial.review ?? testimonial.quote ?? "",
+  author: testimonial.name ?? testimonial.author ?? "",
+  image: testimonial.imgPath,
+  alt: `Portrait of ${testimonial.name}`,
+  mentions: testimonial.mentions,
+}));
 
 const Testimonials = () => {
   return (
@@ -11,20 +19,8 @@ const Testimonials = () => {
           sub="⭐️ Customer feedback highlights"
         />
 
-        <div className="xl:columns-2 2xl:columns-3 md:columns-2 columns-1 mt-16">
-          {testimonials.map((testimonial, index) => (
-            <GlowCard card={testimonial} key={index} index={index}>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 shrink-0">
-                  <img src={testimonial.imgPath} alt={testimonial.name} className="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <p className="font-bold">{testimonial.name}</p>
-                  <p className="text-white-50">{testimonial.mentions}</p>
-                </div>
-              </div>
-            </GlowCard>
-          ))}
+        <div className="mt-16 flex justify-center">
+          <ScrollReelTestimonials testimonials={reelTestimonials} className="mx-auto" />
         </div>
       </div>
     </section>
