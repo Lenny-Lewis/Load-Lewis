@@ -472,6 +472,9 @@ const expLogos = [
   },
 ];
 
+const testimonialAvatar = (seed) =>
+  `https://api.dicebear.com/10.x/adventurer/svg?seed=${encodeURIComponent(seed)}`;
+
 const testimonials = [
   {
     name: "Kevin Katami, CEO at Villagio",
@@ -479,8 +482,8 @@ const testimonials = [
     rating: 5,
     review:
       "We came to Lennox with almost no time for our Customer Service Week poster. He got the point straight away and sent back something clear and ready to use. Huge help.",
-    imgPath: "/avatars/KevinKatami.svg",
-    imageAlt: "Kevin Katami initials avatar",
+    imgPath: testimonialAvatar("Kevin Katami"),
+    imageAlt: "Avatar for Kevin Katami",
   },
   {
     name: "Wade Warren",
@@ -488,7 +491,7 @@ const testimonials = [
     rating: 4,
     review:
       "Pawello feels friendly the second it opens. The orange and the dog imagery are so freaking cool together. I’d give a couple of sections a bit more breathing room, but the page has loads of personality.",
-    imgPath: "/avatars/WadeWarren.svg",
+    imgPath: testimonialAvatar("Wade Warren"),
     imageAlt: "Avatar for Wade Warren",
   },
   {
@@ -497,7 +500,7 @@ const testimonials = [
     rating: 5,
     review:
       "Recueil just feels right for a fragrance brand. The bottle gets space to be the star, and the cool colors do a lot without shouting at you. Really lovely work.",
-    imgPath: "/avatars/GuyHawkins.svg",
+    imgPath: testimonialAvatar("Guy Hawkins"),
     imageAlt: "Avatar for Guy Hawkins",
   },
   {
@@ -506,7 +509,7 @@ const testimonials = [
     rating: 4,
     review:
       "ZED Gaming has that big, high-energy first impression you want. I took a second to find where to go next, but once I did, the whole thing felt like a proper gaming world.",
-    imgPath: "/avatars/MarvinMcKinney.svg",
+    imgPath: testimonialAvatar("Marvin McKinney"),
     imageAlt: "Avatar for Marvin McKinney",
   },
   {
@@ -515,7 +518,7 @@ const testimonials = [
     rating: 3,
     review:
       "The lime green headphones really pop on the Beats poster. The tiny feature labels at the bottom got a little lost for me on mobile, but the main idea lands instantly.",
-    imgPath: "/avatars/FloydMiles.svg",
+    imgPath: testimonialAvatar("Floyd Miles"),
     imageAlt: "Avatar for Floyd Miles",
   },
   {
@@ -524,7 +527,7 @@ const testimonials = [
     rating: 4,
     review:
       "Seeing the iPhone Duo open in someone’s hands sold me on the concept right away. The smaller feature copy could be easier to read, but the overall poster is sharp.",
-    imgPath: "/avatars/AlbertFlores.svg",
+    imgPath: testimonialAvatar("Albert Flores"),
     imageAlt: "Avatar for Albert Flores",
   },
   {
@@ -533,7 +536,7 @@ const testimonials = [
     rating: 5,
     review:
       "The new layout made everything easier to find. I was a little nervous about changing the old site, but Lennox kept me in the loop and the result feels like us.",
-    imgPath: "/avatars/EstherHoward.svg",
+    imgPath: testimonialAvatar("Esther Howard"),
     imageAlt: "Avatar for Esther Howard",
   },
   {
@@ -542,7 +545,7 @@ const testimonials = [
     rating: 3,
     review:
       "The product pages look great and the mobile version is much easier to use. A couple of details took an extra round to get right, but Lennox listened and fixed them.",
-    imgPath: "/avatars/EcommerceClient.svg",
+    imgPath: testimonialAvatar("Sana Sheikh"),
     imageAlt: "Avatar for Sana Sheikh",
   },
   {
@@ -551,8 +554,8 @@ const testimonials = [
     rating: 4,
     review:
       "The poster got attention straight away — wow, the product lighting was so freaking cool. I’d make the small print a touch bigger, but the whole thing came together really well.",
-    imgPath: "/avatars/DanielKim.svg",
-    imageAlt: "Initials avatar for Daniel Kim",
+    imgPath: testimonialAvatar("Daniel Kim"),
+    imageAlt: "Avatar for Daniel Kim",
   },
 ];
 
