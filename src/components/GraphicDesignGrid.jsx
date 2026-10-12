@@ -94,8 +94,6 @@ const GraphicDesignGrid = ({ projects }) => {
             >
               <img
                 src={project.thumb}
-                srcSet={`${project.thumb} ${project.thumbW}w, ${project.full} ${project.fullW}w`}
-                sizes="(min-width: 1280px) 290px, (min-width: 1024px) 24vw, (min-width: 768px) 32vw, 46vw"
                 width={project.width}
                 height={project.height}
                 alt={project.title}

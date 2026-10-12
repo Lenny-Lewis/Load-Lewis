@@ -114,23 +114,18 @@ const webProjects = [
  *
  * `width`/`height` are the intrinsic pixel dimensions of the ORIGINAL asset —
  * they let the browser reserve the frame before load and render the lightbox at
- * the true ratio. `thumb` drives the grid frame, `full` drives the expanded
- * view; both are WebP derivatives generated from the originals (originals are
- * left untouched on disk). `thumbW`/`fullW` are the real widths of those
- * derivatives and feed the srcset `w` descriptors — hardcoding them caused the
- * browser to pick the wrong candidate.
+ * the true ratio. `thumb` drives the grid frame and `full` drives the expanded
+ * view.
  */
 const graphicProjects = [
   {
     id: "g1",
     title: "Crocks Poster",
     desc: "Promotional digital poster design.",
-    width: 7547,
-    height: 10691,
-    thumb: "/images/graphics_design/crocks_poster_thumb.webp",
-    full: "/images/graphics_design/crocks_poster_full.webp",
-    thumbW: 706,
-    fullW: 1553
+    width: 5647,
+    height: 8000,
+    thumb: "/images/graphics_design/signed/crocks_poster_signed.png",
+    full: "/images/graphics_design/signed/crocks_poster_signed.png"
   },
   {
     id: "g2",
@@ -138,10 +133,8 @@ const graphicProjects = [
     desc: "High-end brand aesthetic concept.",
     width: 1340,
     height: 1675,
-    thumb: "/images/graphics_design/boss_dark_elegance_thumb.webp",
-    full: "/images/graphics_design/boss_dark_elegance_full.webp",
-    thumbW: 800,
-    fullW: 1760
+    thumb: "/images/graphics_design/signed/boss_dark_elegance_signed.png",
+    full: "/images/graphics_design/signed/boss_dark_elegance_signed.png"
   },
   {
     id: "g3",
@@ -149,10 +142,8 @@ const graphicProjects = [
     desc: "Explode view zara!!",
     width: 1214,
     height: 1295,
-    thumb: "/images/graphics_design/Zara_Perfume_thumb.webp",
-    full: "/images/graphics_design/Zara_Perfume_full.webp",
-    thumbW: 937,
-    fullW: 2062
+    thumb: "/images/graphics_design/signed/Zara_Perfume_signed.jpg",
+    full: "/images/graphics_design/signed/Zara_Perfume_signed.jpg"
   },
   {
     id: "g4",
@@ -160,10 +151,8 @@ const graphicProjects = [
     desc: "Arcade Premium Winter Game Poster",
     width: 1122,
     height: 1402,
-    thumb: "/images/graphics_design/Gaming_Poster_thumb.webp",
-    full: "/images/graphics_design/Gaming_Poster_full.webp",
-    thumbW: 800,
-    fullW: 1761
+    thumb: "/images/graphics_design/signed/Gaming_Poster_signed.jpg",
+    full: "/images/graphics_design/signed/Gaming_Poster_signed.jpg"
   },
   {
     id: "g5",
@@ -171,10 +160,8 @@ const graphicProjects = [
     desc: "PlayStation controller product ad.",
     width: 1122,
     height: 1402,
-    thumb: "/images/graphics_design/dualsense_precision_blue_thumb.webp",
-    full: "/images/graphics_design/dualsense_precision_blue_full.webp",
-    thumbW: 800,
-    fullW: 1122
+    thumb: "/images/graphics_design/signed/DualSense_Precision_in_Blue_signed.png",
+    full: "/images/graphics_design/signed/DualSense_Precision_in_Blue_signed.png"
   },
   {
     id: "g6",
@@ -182,10 +169,8 @@ const graphicProjects = [
     desc: "Nike running campaign poster.",
     width: 1024,
     height: 1536,
-    thumb: "/images/graphics_design/impossible_angle_thumb.webp",
-    full: "/images/graphics_design/impossible_angle_full.webp",
-    thumbW: 667,
-    fullW: 1024
+    thumb: "/images/graphics_design/signed/Impossible_Angle__Defy_Perspective_signed.png",
+    full: "/images/graphics_design/signed/Impossible_Angle__Defy_Perspective_signed.png"
   },
   {
     id: "g7",
@@ -193,10 +178,8 @@ const graphicProjects = [
     desc: "Luxury oud fragrance brand ad.",
     width: 1086,
     height: 1448,
-    thumb: "/images/graphics_design/muskalam_fragrance_thumb.webp",
-    full: "/images/graphics_design/muskalam_fragrance_full.webp",
-    thumbW: 750,
-    fullW: 1086
+    thumb: "/images/graphics_design/signed/Muskalam_Luxury_Fragrance_Ad_signed.png",
+    full: "/images/graphics_design/signed/Muskalam_Luxury_Fragrance_Ad_signed.png"
   },
   {
     id: "g8",
@@ -204,10 +187,8 @@ const graphicProjects = [
     desc: "Villagio company customer service week poster.",
     width: 2160,
     height: 2700,
-    thumb: "/images/graphics_design/customer_service_week_thumb.webp",
-    full: "/images/graphics_design/customer_service_week_full.webp",
-    thumbW: 800,
-    fullW: 1760
+    thumb: "/images/graphics_design/signed/Customer_Service_Week_1080x1350_signed.png",
+    full: "/images/graphics_design/signed/Customer_Service_Week_1080x1350_signed.png"
   },
   {
     id: "g9",
@@ -215,10 +196,8 @@ const graphicProjects = [
     desc: "Wireless headphones product poster.",
     width: 1024,
     height: 1536,
-    thumb: "/images/graphics_design/beatsbydre_thumb.webp",
-    full: "/images/graphics_design/beatsbydre_full.webp",
-    thumbW: 667,
-    fullW: 1024
+    thumb: "/images/graphics_design/signed/BeatsbyDre_signed.jpg",
+    full: "/images/graphics_design/signed/BeatsbyDre_signed.jpg"
   },
   {
     id: "g10",
@@ -226,10 +205,8 @@ const graphicProjects = [
     desc: "Foldable phone concept poster.",
     width: 1024,
     height: 1536,
-    thumb: "/images/graphics_design/iphone_duo_thumb.webp",
-    full: "/images/graphics_design/iphone_duo_full.webp",
-    thumbW: 667,
-    fullW: 1024
+    thumb: "/images/graphics_design/signed/iPhoneDuo_signed.jpg",
+    full: "/images/graphics_design/signed/iPhoneDuo_signed.jpg"
   }
 ];
 
