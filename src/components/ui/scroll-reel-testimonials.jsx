@@ -27,7 +27,7 @@ function PlaceholderCell() {
   );
 }
 
-function Featured({ src, alt }) {
+function Featured({ src, alt, active }) {
   return (
     <div
       className="relative shrink-0 overflow-hidden rounded-xl bg-muted dark:ring-1 dark:ring-white/10"
@@ -36,7 +36,7 @@ function Featured({ src, alt }) {
       <img
         src={src}
         alt={alt ?? ""}
-        loading="lazy"
+        loading={active ? "eager" : "lazy"}
         className="absolute inset-0 h-full w-full object-cover object-[center_30%]"
       />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[2] bg-white mix-blend-saturation" />
@@ -94,9 +94,10 @@ export function ScrollReelTestimonials({ testimonials = [], charStaggerMs = 6, c
 
   React.useEffect(() => {
     const raf = requestAnimationFrame(() => requestAnimationFrame(() => setMounted(true)));
+    const pendingTimeouts = timeouts.current;
     return () => {
       cancelAnimationFrame(raf);
-      timeouts.current.forEach(clearTimeout);
+      pendingTimeouts.forEach(clearTimeout);
     };
   }, []);
 
@@ -188,7 +189,7 @@ export function ScrollReelTestimonials({ testimonials = [], charStaggerMs = 6, c
               {column === "middle"
                 ? middleItems.map((item, i) =>
                     item.type === "featured" ? (
-                      <Featured key={i} src={testimonials[item.i].image} alt={testimonials[item.i].alt} />
+                      <Featured key={i} src={testimonials[item.i].image} alt={testimonials[item.i].alt} active={item.i === index} />
                     ) : <PlaceholderCell key={i} />
                   )
                 : Array.from({ length: sideCellCount }).map((_, i) => <PlaceholderCell key={i} />)}

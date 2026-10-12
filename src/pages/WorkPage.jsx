@@ -10,36 +10,12 @@ import ProjectGrid from "@/components/ProjectGrid";
 
 const webProjects = [
   {
-    id: 1,
-    title: "ZED Gaming",
-    desc: "A cinematic gaming landing experience with bold typography, immersive visuals, and a metagame-inspired play economy.",
-    img: "/images/zed_gaming_mockup.png",
-    link: "https://zed-gaming.vercel.app/",
-    bg: "bg-[#0A0612]"
-  },
-  {
-    id: 2,
-    title: "Mojito - Interactive GSAP Cocktails",
-    desc: "An immersive 3D/GSAP animated cocktail website built with modern web animations and smooth transitions.",
-    img: "/images/Cocktail_Mojito.png",
-    link: "https://gsap-cocktails-website-nine.vercel.app/",
-    bg: "bg-[#0B1D13]"
-  },
-  {
-    id: 3,
-    title: "Latte Have",
-    desc: "A modern landing page for a coffee shop.",
-    img: "/images/Latte_Project.png",
-    link: "https://traditional-checklist-769919.framer.app/",
-    bg: "bg-[#1C1C21]"
-  },
-  {
-    id: 4,
-    title: "Ageincy",
-    desc: "A modern UI service platform for a startup.",
-    img: "/images/agenicy_project.png",
-    link: "https://compassionate-time-092074.framer.app/",
-    bg: "bg-[#FFEFDB]"
+    id: 12,
+    title: "Sham Project",
+    desc: "An editorial creative-studio template with bold typography and a monochrome visual direction.",
+    img: "/images/ShamProject.avif",
+    link: "https://victorious-actions-723983.framer.app/",
+    bg: "bg-[#E8E8E8]"
   },
   {
     id: 5,
@@ -50,14 +26,20 @@ const webProjects = [
     bg: "bg-[#FFE7EB]"
   },
   {
-    id: 6,
-    title: "Zedos Technologies",
-    desc: "Corporate website and digital solutions platform.",
-    img: "/images/zed-os.mp4",
-    mediaType: "video",
-    poster: "/images/zedos_technologies_portfolio.png",
-    link: "http://zedostechnologies.co.ke/",
-    bg: "bg-[#FFE7EB]"
+    id: 4,
+    title: "Ageincy",
+    desc: "A modern UI service platform for a startup.",
+    img: "/images/agenicy_project.png",
+    link: "https://compassionate-time-092074.framer.app/",
+    bg: "bg-[#FFEFDB]"
+  },
+  {
+    id: 3,
+    title: "Latte Have",
+    desc: "A modern landing page for a coffee shop.",
+    img: "/images/Latte_Project.png",
+    link: "https://traditional-checklist-769919.framer.app/",
+    bg: "bg-[#1C1C21]"
   },
   {
     id: 7,
@@ -68,26 +50,10 @@ const webProjects = [
     bg: "bg-[#FFE7EB]"
   },
   {
-    id: 8,
-    title: "Vanguard",
-    desc: "Design, disrupt and conquer",
-    img: "/images/Vanguard.webp", 
-    link: "https://vanguard-zeta-ruddy.vercel.app/",
-    bg: "bg-[#FFE7EB]"
-  },
-  {
-    id: 9,
-    title: "ConSentinel",
-    desc: "A secuirty platform for a startup.",
-    img: "/images/ConSentinel.png", 
-    link: "https://con-sentinel.vercel.app/",
-    bg: "bg-[#FFE7EB]"
-  },
-  {
     id: 10,
     title: "NHM",
     desc: "A museum showcase for past and present artifacts.",
-    img: "/images/Neo_Museum-1.png", 
+    img: "/images/Neo_Museum-1.png",
     link: "https://nhm-xi.vercel.app/",
     bg: "bg-[#FFE7EB]"
   },
@@ -95,8 +61,50 @@ const webProjects = [
     id: 11,
     title: "Lithos",
     desc: "A geology and mineralogy showcase.",
-    img: "/images/Lithos.webp", 
+    img: "/images/Lithos.webp",
     link: "https://lithos-blush.vercel.app/",
+    bg: "bg-[#FFE7EB]"
+  },
+  {
+    id: 2,
+    title: "Mojito - Interactive GSAP Cocktails",
+    desc: "An immersive 3D/GSAP animated cocktail website built with modern web animations and smooth transitions.",
+    img: "/images/Cocktail_Mojito.png",
+    link: "https://gsap-cocktails-website-nine.vercel.app/",
+    bg: "bg-[#0B1D13]"
+  },
+  {
+    id: 8,
+    title: "Vanguard",
+    desc: "Design, disrupt and conquer",
+    img: "/images/Vanguard.webp",
+    link: "https://vanguard-zeta-ruddy.vercel.app/",
+    bg: "bg-[#FFE7EB]"
+  },
+  {
+    id: 1,
+    title: "ZED Gaming",
+    desc: "A cinematic gaming landing experience with bold typography, immersive visuals, and a metagame-inspired play economy.",
+    img: "/images/zed_gaming_mockup.png",
+    link: "https://zed-gaming.vercel.app/",
+    bg: "bg-[#0A0612]"
+  },
+  {
+    id: 9,
+    title: "ConSentinel",
+    desc: "A security platform for a startup.",
+    img: "/images/ConSentinel.png",
+    link: "https://con-sentinel.vercel.app/",
+    bg: "bg-[#FFE7EB]"
+  },
+  {
+    id: 6,
+    title: "Zedos Technologies",
+    desc: "Corporate website and digital solutions platform.",
+    img: "/images/zed-os.mp4",
+    mediaType: "video",
+    poster: "/images/zedos_technologies_portfolio.png",
+    link: "http://zedostechnologies.co.ke/",
     bg: "bg-[#FFE7EB]"
   }
 ];

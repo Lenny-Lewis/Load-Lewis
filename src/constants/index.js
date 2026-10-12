@@ -474,46 +474,58 @@ const expLogos = [
 
 const testimonials = [
   {
-    name: "Esther Howard",
-    mentions: "@estherhoward",
+    name: "Kevin Katami, CEO at Villagio",
+    mentions: "Villagio · Customer Service Week poster",
+    rating: 5,
     review:
-      "I can’t say enough good things about Lennox. He was able to take our complex project requirements and turn them into a seamless, functional website. His problem-solving abilities are outstanding.",
-    imgPath: "/avatars/EstherHoward.svg",
+      "We came to Lennox with almost no time for our Customer Service Week poster. He got the point straight away and sent back something clear and ready to use. Huge help.",
+    imgPath: "/avatars/KevinKatami.svg",
+    imageAlt: "Kevin Katami initials avatar",
   },
   {
     name: "Wade Warren",
-    mentions: "@wadewarren",
+    mentions: "Pet care landing page",
+    rating: 4,
     review:
-      "Working with Lennox was a fantastic experience. He transformed our outdated website into a modern, user-friendly platform. His attention to detail and commitment to quality are unmatched. Highly recommend him for any web dev projects.",
+      "Pawello feels friendly the second it opens. The orange and the dog imagery are so freaking cool together. I’d give a couple of sections a bit more breathing room, but the page has loads of personality.",
     imgPath: "/avatars/WadeWarren.svg",
+    imageAlt: "Avatar for Wade Warren",
   },
   {
     name: "Guy Hawkins",
-    mentions: "@guyhawkins",
+    mentions: "Fragrance website concept",
+    rating: 5,
     review:
-      "Collaborating with Lennox was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Lennox's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Lennox is the ideal partner.",
+      "Recueil just feels right for a fragrance brand. The bottle gets space to be the star, and the cool colors do a lot without shouting at you. Really lovely work.",
     imgPath: "/avatars/GuyHawkins.svg",
+    imageAlt: "Avatar for Guy Hawkins",
   },
   {
     name: "Marvin McKinney",
-    mentions: "@marvinmckinney",
+    mentions: "Gaming landing page",
+    rating: 4,
     review:
-      "Lennox was a pleasure to work with. He turned our outdated website into a fresh, intuitive platform that’s both modern and easy to navigate. Fantastic work overall.",
+      "ZED Gaming has that big, high-energy first impression you want. I took a second to find where to go next, but once I did, the whole thing felt like a proper gaming world.",
     imgPath: "/avatars/MarvinMcKinney.svg",
+    imageAlt: "Avatar for Marvin McKinney",
   },
   {
     name: "Floyd Miles",
-    mentions: "@floydmiles",
+    mentions: "Headphones poster concept",
+    rating: 3,
     review:
-      "Lennox’s expertise in web development is truly impressive. He delivered a robust and scalable solution for our e-commerce site, and our online sales have significantly increased since the launch. He’s a true professional!",
+      "The lime green headphones really pop on the Beats poster. The tiny feature labels at the bottom got a little lost for me on mobile, but the main idea lands instantly.",
     imgPath: "/avatars/FloydMiles.svg",
+    imageAlt: "Avatar for Floyd Miles",
   },
   {
     name: "Albert Flores",
-    mentions: "@albertflores",
+    mentions: "Foldable phone poster concept",
+    rating: 4,
     review:
-      "Lennox was a pleasure to work with. He understood our requirements perfectly and delivered a website that exceeded our expectations. His skills in both frontend and backend dev are top-notch.",
+      "Seeing the iPhone Duo open in someone’s hands sold me on the concept right away. The smaller feature copy could be easier to read, but the overall poster is sharp.",
     imgPath: "/avatars/AlbertFlores.svg",
+    imageAlt: "Avatar for Albert Flores",
   },
 ];
 

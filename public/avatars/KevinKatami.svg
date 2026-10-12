@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="title">
+  <title id="title">Kevin Katami initials</title>
+  <rect width="400" height="400" rx="56" fill="#202127"/>
+  <circle cx="200" cy="200" r="151" fill="#30323a" stroke="#cda144" stroke-width="3"/>
+  <text x="200" y="219" text-anchor="middle" dominant-baseline="middle" fill="#f7f5ef" font-family="Arial, Helvetica, sans-serif" font-size="112" font-weight="600" letter-spacing="-12">KK</text>
+</svg>
