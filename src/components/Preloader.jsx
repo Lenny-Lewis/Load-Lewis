@@ -186,9 +186,19 @@ const Preloader = ({ onComplete, waitForScenes = true }) => {
       <div
         ref={logoRef}
         aria-hidden="true"
-        className="absolute inset-0 flex items-center justify-center text-[clamp(1.5rem,4vw,2.75rem)] font-medium tracking-[-0.05em] opacity-0"
+        className="absolute inset-0 flex items-center justify-center text-[clamp(1.5rem,4vw,2.75rem)] opacity-0"
       >
-        Lennox Lewis
+        <div className="loader-wordmark">
+          <svg className="loader-wordmark__monogram" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="38" height="38" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M13 11.5V28H26.5" stroke="currentColor" strokeWidth="1.5" />
+          </svg>
+          <svg className="loader-wordmark__stars" viewBox="0 0 49 32" fill="none" aria-hidden="true">
+            <path d="M15 1V31M0 16H30M4.5 5.5L25.5 26.5M25.5 5.5L4.5 26.5" stroke="currentColor" strokeWidth="1.3" />
+            <path d="M39 5V27M28 16H49M31.5 8.5L46.5 23.5M46.5 8.5L31.5 23.5" stroke="currentColor" strokeWidth="1.2" />
+          </svg>
+          <span className="loader-wordmark__name">Lennox Lewis</span>
+        </div>
       </div>
 
       <div className="pointer-events-none absolute inset-0 grid grid-cols-4 grid-rows-2 gap-x-3 px-[clamp(1.25rem,4vw,3.5rem)] text-[clamp(0.95rem,2vw,2rem)] leading-[1.2] min-[1200px]:grid-cols-12">

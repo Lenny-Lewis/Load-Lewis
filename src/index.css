@@ -1,5 +1,36 @@
 @import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap");
 @import "tailwindcss";
+
+.loader-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.08em;
+  color: #f5f5f5;
+  font-size: clamp(2.75rem, 5vw, 3.5rem);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.loader-wordmark__monogram {
+  width: 0.82em;
+  height: 0.82em;
+  flex: none;
+}
+
+.loader-wordmark__stars {
+  width: 1.02em;
+  height: 0.7em;
+  flex: none;
+}
+
+.loader-wordmark__name {
+  margin-left: 0.04em;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  word-spacing: 0.12em;
+}
 
 @keyframes scroll-reel-char-rise {
   to {
