@@ -1,103 +1,103 @@
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { motion as Motion, useInView, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
-/**
- * Single digit reel — a vertical 0–9 strip masked to one digit,
- * racing through digits then crawling to a stop on `digit`.
- */
-const SlotReelDigit = ({
-  digit,
-  reelIndex,
-  spinCycles = 14,
-  duration = 5.5,
-  stagger = 0.45,
-  active,
-}) => {
-  const totalSteps = spinCycles * 10 + digit;
-  const stripLength = totalSteps + 1;
-  const reelDuration = duration + reelIndex * 0.85;
+const REEL_LENGTH = 8;
+const ROLL_DURATION = 2;
+const STAGGER_DELAY = 0.1;
+const BLUR = 6;
 
-  // Cover most distance early, then crawl the last stretch onto the winning digit
-  const yKeyframes = [
-    "0em",
-    `-${totalSteps * 0.5}em`,
-    `-${totalSteps * 0.78}em`,
-    `-${totalSteps * 0.93}em`,
-    `-${totalSteps * 0.985}em`,
-    `-${totalSteps}em`,
-  ];
+// A stable mix gives each reel a different starting strip and changes it on
+// replay without generating random values during React rendering.
+const mixedDigit = (target, reelIndex, replay, position) => {
+  let seed = (target + 1) * 17 + (reelIndex + 1) * 29 + (replay + 1) * 47 + position * 41;
+  seed = Math.imul(seed ^ (seed >>> 3), 2654435761);
+  return (seed >>> 0) % 10;
+};
+
+const SlotReelDigit = ({ digit, reelIndex, replay, active }) => {
+  const reverse = reelIndex % 2 === 1;
+  const strip = Array.from({ length: REEL_LENGTH }, (_, index) =>
+    mixedDigit(digit, reelIndex, replay, index)
+  );
+  strip[reverse ? 0 : REEL_LENGTH - 1] = digit;
+
+  const startY = reverse ? `-${REEL_LENGTH - 1}em` : "0em";
+  const endY = reverse ? "0em" : `-${REEL_LENGTH - 1}em`;
 
   return (
     <span
-      className="relative inline-block h-[1em] w-[1ch] overflow-hidden leading-none align-baseline"
+      className="relative inline-block h-[1em] w-[1ch] overflow-hidden align-baseline leading-none"
       style={{ fontVariantNumeric: "tabular-nums" }}
-      aria-hidden="true"
     >
-      <motion.span
-        className="absolute top-0 left-0 flex w-full flex-col will-change-transform"
-        initial={{ y: "0em", filter: "blur(0px)" }}
+      <Motion.span
+        className="absolute left-0 top-0 flex w-full flex-col will-change-transform"
+        initial={{ y: startY, filter: "blur(0px)" }}
         animate={
           active
             ? {
-                y: yKeyframes,
-                filter: ["blur(0px)", "blur(8px)", "blur(6px)", "blur(3px)", "blur(0px)"],
+                y: endY,
+                filter: ["blur(0px)", `blur(${BLUR}px)`, `blur(${BLUR}px)`, "blur(0px)"],
               }
-            : { y: "0em", filter: "blur(0px)" }
+            : { y: startY, filter: "blur(0px)" }
         }
         transition={{
-          delay: reelIndex * stagger,
           y: {
-            duration: reelDuration,
-            // Fast race → lingering crawl onto the final digit
-            times: [0, 0.18, 0.4, 0.65, 0.85, 1],
-            ease: ["easeOut", "easeOut", "easeOut", "easeOut", "easeOut"],
+            duration: ROLL_DURATION,
+            delay: reelIndex * STAGGER_DELAY,
+            ease: [0.25, 0.46, 0.45, 0.94],
           },
           filter: {
-            duration: reelDuration,
-            // Heavy blur while racing; clear only in the final crawl
-            times: [0, 0.06, 0.45, 0.78, 1],
-            ease: ["easeIn", "linear", "easeOut", "easeOut"],
+            duration: ROLL_DURATION,
+            delay: reelIndex * STAGGER_DELAY,
+            times: [0, 0.2, 0.8, 1],
+            ease: "easeOut",
           },
         }}
       >
-        {Array.from({ length: stripLength }, (_, i) => (
+        {strip.map((number, index) => (
           <span
-            key={i}
+            key={index}
             className="flex h-[1em] w-full shrink-0 items-center justify-center leading-none"
           >
-            {i % 10}
+            {number}
           </span>
         ))}
-      </motion.span>
+      </Motion.span>
     </span>
   );
 };
 
 /**
- * Slot-machine number: each digit is an independent reel.
- * Suffix (+, %, etc.) stays static and fades in after the last reel settles.
+ * Digits roll in alternating directions as the counter enters view. Clicking
+ * the number resets each strip and replays the same two-second animation.
  */
 export const SlotMachineNumber = ({
   value,
   suffix,
+  label,
   className = "",
   suffixClassName = "",
-  spinCycles = 14,
-  duration = 5.5,
-  stagger = 0.45,
 }) => {
   const ref = useRef(null);
+  const replayTimer = useRef(null);
   const shouldReduceMotion = useReducedMotion();
   const isInView = useInView(ref, { once: true, amount: 0.4 });
+  const [active, setActive] = useState(false);
+  const [replay, setReplay] = useState(0);
+  const digits = String(value).split("").filter((char) => /\d/.test(char)).map(Number);
 
-  const digits = String(value)
-    .split("")
-    .filter((c) => /\d/.test(c))
-    .map(Number);
+  useEffect(() => {
+    if (isInView) setActive(true);
+  }, [isInView]);
 
-  const lastReelIndex = Math.max(digits.length - 1, 0);
-  const settleTime =
-    duration + lastReelIndex * 0.85 + lastReelIndex * stagger;
+  useEffect(() => () => window.clearTimeout(replayTimer.current), []);
+
+  const handleReplay = () => {
+    window.clearTimeout(replayTimer.current);
+    setActive(false);
+    setReplay((current) => current + 1);
+    replayTimer.current = window.setTimeout(() => setActive(true), 50);
+  };
 
   if (shouldReduceMotion) {
     return (
@@ -109,40 +109,30 @@ export const SlotMachineNumber = ({
   }
 
   return (
-    <span
+    <button
       ref={ref}
-      className={`inline-flex items-baseline gap-1 ${className}`}
-      aria-label={`${value}${suffix ?? ""}`}
+      type="button"
+      onClick={handleReplay}
+      aria-label={`${value}${suffix ?? ""} ${label ?? ""}. Replay number animation`.trim()}
+      className={`inline-flex cursor-pointer appearance-none items-baseline gap-1 border-0 bg-transparent p-0 text-left focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cda144] ${className}`}
     >
-      <span className="inline-flex items-baseline leading-none tabular-nums">
-        {digits.map((digit, i) => (
+      <span aria-hidden="true" className="inline-flex items-baseline leading-none tabular-nums">
+        {digits.map((digit, index) => (
           <SlotReelDigit
-            key={`${i}-${digit}`}
+            key={`${index}-${digit}-${replay}`}
             digit={digit}
-            reelIndex={i}
-            spinCycles={spinCycles}
-            duration={duration}
-            stagger={stagger}
-            active={isInView}
+            reelIndex={index}
+            replay={replay}
+            active={active}
           />
         ))}
       </span>
-
       {suffix != null && (
-        <motion.span
-          className={suffixClassName}
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{
-            duration: 0.4,
-            delay: settleTime,
-            ease: "easeOut",
-          }}
-        >
+        <span aria-hidden="true" className={suffixClassName}>
           {suffix}
-        </motion.span>
+        </span>
       )}
-    </span>
+    </button>
   );
 };
 

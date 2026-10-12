@@ -13,6 +13,7 @@ const AnimatedCounter = () => {
             <SlotMachineNumber
               value={item.value}
               suffix={item.suffix}
+              label={item.label}
               className="counter-number text-5xl font-bold leading-none text-white-50"
               suffixClassName="text-3xl font-bold leading-none sm:text-4xl"
             />
