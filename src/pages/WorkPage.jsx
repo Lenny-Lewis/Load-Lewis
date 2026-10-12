@@ -200,6 +200,28 @@ const graphicProjects = [
     full: "/images/graphics_design/customer_service_week_full.webp",
     thumbW: 800,
     fullW: 1760
+  },
+  {
+    id: "g9",
+    title: "Beats by Dre",
+    desc: "Wireless headphones product poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/beatsbydre_thumb.webp",
+    full: "/images/graphics_design/beatsbydre_full.webp",
+    thumbW: 667,
+    fullW: 1024
+  },
+  {
+    id: "g10",
+    title: "iPhone Duo",
+    desc: "Foldable phone concept poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/iphone_duo_thumb.webp",
+    full: "/images/graphics_design/iphone_duo_full.webp",
+    thumbW: 667,
+    fullW: 1024
   }
 ];
 
