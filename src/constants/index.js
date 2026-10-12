@@ -527,6 +527,33 @@ const testimonials = [
     imgPath: "/avatars/AlbertFlores.svg",
     imageAlt: "Avatar for Albert Flores",
   },
+  {
+    name: "Esther Howard",
+    mentions: "Business website redesign",
+    rating: 5,
+    review:
+      "The new layout made everything easier to find. I was a little nervous about changing the old site, but Lennox kept me in the loop and the result feels like us.",
+    imgPath: "/avatars/EstherHoward.svg",
+    imageAlt: "Avatar for Esther Howard",
+  },
+  {
+    name: "Sana Sheikh",
+    mentions: "Online store concept",
+    rating: 3,
+    review:
+      "The product pages look great and the mobile version is much easier to use. A couple of details took an extra round to get right, but Lennox listened and fixed them.",
+    imgPath: "/avatars/EcommerceClient.svg",
+    imageAlt: "Avatar for Sana Sheikh",
+  },
+  {
+    name: "Daniel Kim",
+    mentions: "Brand campaign poster",
+    rating: 4,
+    review:
+      "The poster got attention straight away — wow, the product lighting was so freaking cool. I’d make the small print a touch bigger, but the whole thing came together really well.",
+    imgPath: "/avatars/DanielKim.svg",
+    imageAlt: "Initials avatar for Daniel Kim",
+  },
 ];
 
 const socialImgs = [

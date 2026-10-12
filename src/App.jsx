@@ -5,6 +5,7 @@ import WhatsAppFloatingButton from "./components/WhatsAppFloatingButton";
 import Footer from "./sections/Footer";
 import HomePage from "./pages/HomePage";
 import WorkPage from "./pages/WorkPage";
+import CommentsPage from "./pages/CommentsPage";
 import Preloader from "./components/Preloader";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -31,6 +32,7 @@ const ScrollToAnchor = () => {
 const App = () => {
   const location = useLocation();
   const isWorkPage = location.pathname === "/work";
+  const isCommentsPage = location.pathname === "/comments";
   const [showPreloader, setShowPreloader] = useState(() => {
     if (typeof window !== "undefined") {
       return !sessionStorage.getItem("hasSeenPreloader");
@@ -58,17 +60,17 @@ const App = () => {
     <>
       {showPreloader && <Preloader onComplete={handlePreloaderComplete} waitForScenes={!isWorkPage} />}
       <ScrollToAnchor />
-      <Navbar />
+      {!isCommentsPage && <Navbar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/work" element={<WorkPage />} />
+        <Route path="/comments" element={<CommentsPage />} />
       </Routes>
-      <WhatsAppFloatingButton />
-      {!isWorkPage && <Footer />}
+      {!isCommentsPage && <WhatsAppFloatingButton />}
+      {!isWorkPage && !isCommentsPage && <Footer />}
       <Analytics />
     </>
   );
 };
 
 export default App;
-
