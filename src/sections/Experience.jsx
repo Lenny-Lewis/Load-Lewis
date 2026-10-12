@@ -10,6 +10,31 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
   useGSAP(() => {
+    const updateTimelineGradient = () => {
+      const line = document.querySelector(".experience-line");
+      const lineBounds = line?.getBoundingClientRect();
+      if (!lineBounds?.height) return;
+
+      const colorStops = gsap.utils
+        .toArray(".exp-card-wrapper")
+        .map((card) => {
+          const logo = card.querySelector(".timeline-logo");
+          const logoBounds = logo.getBoundingClientRect();
+          const position = gsap.utils.clamp(
+            0,
+            100,
+            ((logoBounds.top + logoBounds.height / 2 - lineBounds.top) /
+              lineBounds.height) *
+              100
+          );
+          return `${card.dataset.lineColor} ${position}%`;
+        });
+
+      line.style.background = `linear-gradient(to bottom, ${colorStops.join(", ")})`;
+    };
+
+    updateTimelineGradient();
+
     // Loop through each timeline card and animate them in
     // as the user scrolls to each card
     gsap.utils.toArray(".timeline-card").forEach((card) => {
@@ -36,29 +61,16 @@ const Experience = () => {
       });
     });
 
-    // Animate the timeline height as the user scrolls
-    // from the top of the timeline to 70% down the screen
-    // The timeline height should scale down from 1 to 0
-    // as the user scrolls up the screen
     gsap.to(".timeline", {
-      // Set the origin of the animation to the bottom of the timeline
+      scaleY: 0,
       transformOrigin: "bottom bottom",
-      // Animate the timeline height over 1 second
-      ease: "power1.inOut",
-      // Trigger the animation when the timeline is at the top of the screen
-      // and end it when the timeline is at 70% down the screen
+      ease: "none",
       scrollTrigger: {
-        trigger: ".timeline",
+        trigger: ".experience-timeline",
         start: "top center",
-        end: "70% center",
-        // Update the animation as the user scrolls
-        onUpdate: (self) => {
-          // Scale the timeline height as the user scrolls
-          // from 1 to 0 as the user scrolls up the screen
-          gsap.to(".timeline", {
-            scaleY: 1 - self.progress,
-          });
-        },
+        end: "bottom center",
+        scrub: true,
+        onRefresh: updateTimelineGradient,
       },
     });
 
@@ -105,9 +117,17 @@ const Experience = () => {
           }
         />
         <div className="mt-32 relative">
-          <div className="relative z-50 lg:space-y-32 space-y-10">
+          <div className="timeline-wrapper">
+            <div className="timeline" />
+            <div className="gradient-line experience-line w-1 h-full" />
+          </div>
+          <div className="experience-timeline relative z-50 lg:space-y-32 space-y-10">
             {expCards.map((card) => (
-              <div key={card.title} className="exp-card-wrapper">
+              <div
+                key={card.title}
+                className="exp-card-wrapper"
+                data-line-color={card.lineColor}
+              >
                 <div className="lg:w-2/6">
                   <GlowCard card={card}>
                     <div className={card.companyName ? "flex items-center gap-4" : ""}>
@@ -126,10 +146,6 @@ const Experience = () => {
                 </div>
                 <div className="lg:w-4/6">
                   <div className="flex items-start">
-                    <div className="timeline-wrapper">
-                      <div className="timeline" />
-                      <div className="gradient-line w-1 h-full" />
-                    </div>
                     <div className="expText flex lg:gap-20 md:gap-10 gap-5 relative z-20">
                       <div className="timeline-logo">
                         <img src={card.logoPath} alt="logo" />

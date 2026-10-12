@@ -421,6 +421,7 @@ const techStackRows = [
 const expCards = [
   {
     review: "Lennox brought creativity and technical expertise to the team, significantly improving our frontend performance. His work has been invaluable in delivering faster experiences.",
+    lineColor: "#673DE6",
     imgPath: "/images/exp1.png",
     logoPath: "/images/logo1.png",
     title: "Frontend Developer",
@@ -433,6 +434,7 @@ const expCards = [
   },
   {
     review: "Lennox’s contributions to Docker's web applications have been outstanding. He approaches challenges with a problem-solving mindset.",
+    lineColor: "#F02E65",
     imgPath: "/images/exp2.png",
     logoPath: "/images/logo2.png",
     title: "Full Stack Developer",
@@ -445,6 +447,7 @@ const expCards = [
   },
   {
     review: "Lennox’s work on Appwrite’s mobile app brought a high level of quality and efficiency. He delivered solutions that enhanced our mobile experience & meet our product goals.",
+    lineColor: "#2496ED",
     imgPath: "/images/exp3.png",
     logoPath: "/images/logo3.png",
     title: "React Native Developer",
@@ -456,12 +459,28 @@ const expCards = [
     ],
   },
   {
+    review: "Leading development at Zed OS Technologies.",
+    lineColor: "#F15A24",
+    imgPath: "/images/zed-os.png",
+    imageClassName: "md:size-20 size-10 object-contain",
+    companyName: "Zed OS Technologies",
+    logoPath: "/images/zed-os.png",
+    title: "Lead Developer",
+    date: "Present",
+    responsibilities: [
+      "Lead development at Zed OS Technologies.",
+      "Led development of a project management system.",
+      "Created a database and data warehouse system.",
+    ],
+  },
+  {
     review: "Supported research teams at KEMRI through data analysis and machine learning work.",
+    lineColor: "#08A8D5",
     imgPath: "/images/kemri-logo.png",
     imageClassName: "md:size-20 size-10 object-contain",
     companyName: "kemri",
     logoPath: "/images/kemri-logo.png",
-    title: "Data Analyst | Machine Learning Engineer — KEMRI",
+    title: "Data Analyst — KEMRI",
     date: "May - August 2026",
     responsibilities: [
       "Analyzed research data to identify patterns and support evidence-based findings.",
