@@ -455,6 +455,20 @@ const expCards = [
       "Coordinated with the product team to implement features based on feedback.",
     ],
   },
+  {
+    review: "Supported research teams at KEMRI through data analysis and machine learning work.",
+    imgPath: "/images/kemri-logo.png",
+    imageClassName: "md:size-20 size-10 object-contain",
+    companyName: "kemri",
+    logoPath: "/images/kemri-logo.png",
+    title: "Data Analyst | Machine Learning Engineer — KEMRI",
+    date: "May - August 2026",
+    responsibilities: [
+      "Analyzed research data to identify patterns and support evidence-based findings.",
+      "Applied machine learning methods to explore data and develop predictive insights.",
+      "Prepared and validated datasets for analysis and machine learning workflows.",
+    ],
+  },
 ];
 
 const expLogos = [

@@ -110,8 +110,17 @@ const Experience = () => {
               <div key={card.title} className="exp-card-wrapper">
                 <div className="lg:w-2/6">
                   <GlowCard card={card}>
-                    <div>
-                      <img src={card.imgPath} alt="exp-img" />
+                    <div className={card.companyName ? "flex items-center gap-4" : ""}>
+                      <img
+                        src={card.imgPath}
+                        alt="exp-img"
+                        className={card.imageClassName}
+                      />
+                      {card.companyName && (
+                        <span className="font-semibold text-3xl">
+                          {card.companyName}
+                        </span>
+                      )}
                     </div>
                   </GlowCard>
                 </div>
