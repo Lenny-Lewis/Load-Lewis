@@ -56,7 +56,7 @@ const App = () => {
 
   return (
     <>
-      {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
+      {showPreloader && <Preloader onComplete={handlePreloaderComplete} waitForScenes={!isWorkPage} />}
       <ScrollToAnchor />
       <Navbar />
       <Routes>

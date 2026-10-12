@@ -1,26 +1,23 @@
-import { useEffect, useState, useRef } from "react";
-import ShapeLoader from "./ui/ShapeLoader";
-import GreetingPreloader from "./ui/components-preloaders-greetings";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 
-// Exact glyph pool from Locomotive LISA
-const GLYPHS = "!@#$%&+=qertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM\\/{}[][-_()<>?".split("");
-
-// Block 1 sequence with interspersed code snippets and creative tech statements
-const BLOCK_1_ITEMS = [
-  { text: "Digital", code: "// init: webgl2_render_context" },
-  { text: "const engine = new WebGL();", code: "// gl_FragColor = vec4(col, 1.0)" },
-  { text: "Creative Technologist", code: "// model.forward(latent_vectors)" },
-  { text: "mesh.rotation.y += delta;", code: "// vertices: 142,840 • 60 FPS" },
-  { text: "Lennox Lewis", code: "// Creative Technologist © 2026" },
+const GLYPHS = "!@#$%&+=qertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM\\/{}][-_()<>?";
+const TOP_LINES = [
+  "Digital",
+  "Digital Craft",
+  "Digital Craft & Code",
+  "Digital Craft & Code",
+  "Creative Technologist",
+  "Creative Technologist",
 ];
-
-// Block 2 sequence (no 'Based in Kenya', authentic creative engineering phrases & code)
-const BLOCK_2_ITEMS = [
-  { text: "Building", code: "// status: compiling_geometry" },
-  { text: "shader.compile(gl_FragColor);", code: "// PBR_roughness: 0.18" },
-  { text: "Interactive 3D & AI", code: "// Three.js • Spline • PyTorch" },
-  { text: "y = softmax(Q @ K.T) @ V", code: "// attention_heads: 16 • dim: 1024" },
-  { text: "Next-Gen Digital Craft", code: "// [ 3D RUNTIME SYNCHRONIZED ]" },
+const BOTTOM_LINES = [
+  "Made",
+  "Made by",
+  "Made by Lennox",
+  "Made by Lennox",
+  "Made by Lennox Lewis",
+  "Made by Lennox Lewis",
+  "Made by Lennox Lewis",
 ];
 
 const SPLINE_ASSETS = [
@@ -28,306 +25,181 @@ const SPLINE_ASSETS = [
   "https://prod.spline.design/qgLe0tGeLUHJysaL/scene.splinecode",
 ];
 
-const Preloader = ({ onComplete }) => {
-  const [b1Chars, setB1Chars] = useState(() =>
-    BLOCK_1_ITEMS[0].text.split("").map(() => "")
-  );
-  const [b1Opacity, setB1Opacity] = useState(() =>
-    BLOCK_1_ITEMS[0].text.split("").map(() => 0)
-  );
-  const [b1Code, setB1Code] = useState(BLOCK_1_ITEMS[0].code);
+const ScrambleLines = ({ lines, className }) => (
+  <div className={className} data-scramble-block aria-hidden="true">
+    {lines.map((line, lineIndex) => (
+      <div key={`${line}-${lineIndex}`} data-scramble-line className="whitespace-nowrap">
+        {Array.from(line).map((char, charIndex) => (
+          <span
+            key={charIndex}
+            data-scramble-char
+            data-target={char}
+            className="inline-block opacity-0"
+          >
+            {char === " " ? "\u00a0" : char}
+          </span>
+        ))}
+      </div>
+    ))}
+  </div>
+);
 
-  const [b2Chars, setB2Chars] = useState(() =>
-    BLOCK_2_ITEMS[0].text.split("").map(() => "")
-  );
-  const [b2Opacity, setB2Opacity] = useState(() =>
-    BLOCK_2_ITEMS[0].text.split("").map(() => 0)
-  );
-  const [b2Code, setB2Code] = useState(BLOCK_2_ITEMS[0].code);
-
+const Preloader = ({ onComplete, waitForScenes = true }) => {
+  const rootRef = useRef(null);
+  const logoRef = useRef(null);
   const [isFadingOut, setIsFadingOut] = useState(false);
-  // Drives the ShapeLoader; cleared when the curtain lifts.
-  const [assetsReady, setAssetsReady] = useState(false);
 
-  // 3D Readiness tracking for both elements
-  const heroReadyRef = useRef(false);
-  const contactReadyRef = useRef(false);
-  const isFinishedRef = useRef(false);
-  const timeoutsRef = useRef([]);
-
-  const addTimeout = (fn, delay) => {
-    const id = setTimeout(fn, delay);
-    timeoutsRef.current.push(id);
-    return id;
-  };
-
-  // Pre-fetch 3D assets in browser cache
   useEffect(() => {
-    // Mobile renders Three.js scenes instead of Spline, so don't compete with
-    // the loader for bandwidth by prefetching desktop-only scenes.
-    if (window.matchMedia("(max-width: 767px)").matches) return;
-
+    if (!waitForScenes || window.matchMedia("(max-width: 767px)").matches) return;
     SPLINE_ASSETS.forEach((url) => {
-      try {
-        fetch(url, { mode: "cors", cache: "force-cache" }).catch(() => {});
-      } catch (err) {}
+      fetch(url, { mode: "cors", cache: "force-cache" }).catch(() => {});
     });
-  }, []);
+  }, [waitForScenes]);
 
-  // Listen for 3D readiness events for both 3D elements
   useEffect(() => {
-    const handleHeroReady = () => {
-      heroReadyRef.current = true;
+    const root = rootRef.current;
+    const logo = logoRef.current;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const timers = new Set();
+    let timeline;
+    let finished = false;
+    let started = false;
+    let logoShown = false;
+    let heroReady = Boolean(window.__HERO_3D_READY__);
+    let contactReady = Boolean(window.__CONTACT_3D_READY__);
+
+    const schedule = (callback, delay) => {
+      const id = window.setTimeout(() => {
+        timers.delete(id);
+        callback();
+      }, delay);
+      timers.add(id);
     };
-    const handleContactReady = () => {
-      contactReadyRef.current = true;
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      setIsFadingOut(true);
+      schedule(() => onComplete?.(), 900);
     };
 
-    if (typeof window !== "undefined") {
-      if (window.__HERO_3D_READY__) heroReadyRef.current = true;
-      if (window.__CONTACT_3D_READY__) contactReadyRef.current = true;
-
-      window.addEventListener("hero-3d-ready", handleHeroReady);
-      window.addEventListener("contact-3d-ready", handleContactReady);
-    }
-
-    return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("hero-3d-ready", handleHeroReady);
-        window.removeEventListener("contact-3d-ready", handleContactReady);
+    // LISA's character effect uses five random glyphs at 16 ms intervals.
+    const scramble = (element) => {
+      const target = element.dataset.target;
+      if (target === " ") return;
+      for (let frame = 0; frame < 5; frame += 1) {
+        schedule(() => {
+          element.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+        }, frame * 16);
       }
+      schedule(() => {
+        element.textContent = target;
+      }, 80);
     };
-  }, []);
 
-  // Scramble a whole phrase per frame instead of scheduling a timer and React
-  // update for every glyph. This keeps the visual effect while limiting the
-  // preloader to a handful of updates per phase.
-  const animatePhrase = (targetItem, setChars, setOpacity, setCode, onDone, isAnchor = false) => {
-    const chars = targetItem.text.split("");
-    const scrambleFrames = 5;
-    const frameDuration = 80;
-    const entranceDuration = 500;
-    const exitDuration = 500;
+    const startSequence = () => {
+      if (started) return;
+      started = true;
 
-    // Update the companion code comment
-    setCode(targetItem.code);
-
-    // Initial state
-    setChars(chars.map(() => ""));
-    setOpacity(chars.map(() => 0));
-
-    const showScrambleFrame = () => {
-      setChars(chars.map((char) => char === " " ? "\u00A0" : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]));
-      setOpacity(chars.map(() => 1));
-    };
-    for (let frame = 0; frame < scrambleFrames; frame += 1) {
-      addTimeout(showScrambleFrame, frame * frameDuration);
-    }
-    addTimeout(() => setChars(chars.map((char) => char === " " ? "\u00A0" : char)), entranceDuration);
-
-    const holdDuration = isAnchor ? 1500 : 420;
-
-    // Anchor lines hold without scrambling out
-    if (isAnchor) {
-      addTimeout(() => onDone?.(), entranceDuration + holdDuration);
-      return;
-    }
-
-    // Scramble out
-    addTimeout(() => {
-      for (let frame = 0; frame < scrambleFrames; frame += 1) {
-        addTimeout(showScrambleFrame, frame * frameDuration);
+      if (reduceMotion) {
+        schedule(finish, 500);
+        return;
       }
-      addTimeout(() => {
-        setOpacity(chars.map(() => 0));
-        onDone?.();
-      }, exitDuration);
-    }, entranceDuration + holdDuration);
-  };
 
-  // Master Orchestration Sequence
-  useEffect(() => {
-    // Sequence Block 1
-    const runBlock1 = (step) => {
-      if (step >= BLOCK_1_ITEMS.length) return;
-      const isAnchor = step === BLOCK_1_ITEMS.length - 1;
+      timeline = gsap.timeline({ onComplete: finish });
+      timeline.to(logo, { opacity: 0, duration: 0.2, ease: "power2.out" }, 0);
 
-      animatePhrase(
-        BLOCK_1_ITEMS[step],
-        setB1Chars,
-        setB1Opacity,
-        setB1Code,
-        () => {
-          if (!isAnchor) {
-            runBlock1(step + 1);
-          } else {
-            checkAllReady();
-          }
-        },
-        isAnchor
-      );
-    };
+      const blocks = root.querySelectorAll("[data-scramble-block]");
+      blocks.forEach((block, blockIndex) => {
+        const lines = block.querySelectorAll("[data-scramble-line]");
+        let charIndex = 0;
 
-    // Sequence Block 2 (offset by 0.18s)
-    const runBlock2 = (step) => {
-      if (step >= BLOCK_2_ITEMS.length) return;
-      const isAnchor = step === BLOCK_2_ITEMS.length - 1;
+        lines.forEach((line, lineIndex) => {
+          const lastLine = lineIndex === lines.length - 1;
+          line.querySelectorAll("[data-scramble-char]").forEach((char) => {
+            const enterAt = blockIndex * 0.25 + charIndex * 0.01;
+            const exitAt = enterAt + 0.5 + (lastLine ? 1 : 0);
 
-      animatePhrase(
-        BLOCK_2_ITEMS[step],
-        setB2Chars,
-        setB2Opacity,
-        setB2Code,
-        () => {
-          if (!isAnchor) {
-            runBlock2(step + 1);
-          } else {
-            checkAllReady();
-          }
-        },
-        isAnchor
-      );
-    };
-
-    const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    if (isMobile) {
-      // The text blocks are hidden on mobile. Skip their React updates and
-      // proceed directly to readiness checks without changing the shape loop.
-      addTimeout(() => {
-        checkAllReady();
-        checkAllReady();
-      }, 1600);
-    } else {
-      addTimeout(() => runBlock1(0), 1600);
-      addTimeout(() => runBlock2(0), 1800);
-    }
-
-    // Coordinate exit: on mobile requires BOTH 3D elements to render!
-    let anchorCount = 0;
-    const checkAllReady = () => {
-      anchorCount++;
-      if (anchorCount >= 2) {
-        const executeCurtainLift = () => {
-          if (isFinishedRef.current) return;
-          isFinishedRef.current = true;
-
-          // Every 3D asset has reported in — the loader has done its job.
-          setAssetsReady(true);
-
-          // Scramble anchor characters out
-          [setB1Chars, setB2Chars].forEach((setChars) => {
-            for (let frame = 0; frame < 5; frame += 1) {
-              addTimeout(() => {
-                setChars((prev) => prev.map((char) => char === "\u00A0" ? char : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]));
-              }, frame * 80);
-            }
+            timeline.set(char, { opacity: 1 }, enterAt);
+            timeline.call(() => scramble(char), [], enterAt);
+            timeline.call(() => scramble(char), [], exitAt);
+            timeline.set(char, { opacity: 0 }, exitAt + 0.08);
+            charIndex += 1;
           });
+        });
+      });
+    };
 
-          // Dissolve curtain with Locomotive's cubic-bezier ease
-          addTimeout(() => {
-            setIsFadingOut(true);
-            addTimeout(() => {
-              onComplete?.();
-            }, 900);
-          }, 480);
-        };
-
-        const maxWaitTime = Date.now() + 8000; // safety fallback timeout
-
-        const checkReadiness = () => {
-          // The curtain only lifts once EVERY 3D asset has reported ready.
-          // Previously desktop only waited on the hero scene; now both the hero
-          // and contact scenes gate completion on every breakpoint, so the
-          // animation genuinely finishes only when all 3D assets are loaded.
-          const areElementsReady = heroReadyRef.current && contactReadyRef.current;
-          const timedOut = Date.now() > maxWaitTime;
-
-          if (areElementsReady || timedOut) {
-            executeCurtainLift();
-          } else {
-            setTimeout(checkReadiness, 100);
-          }
-        };
-
-        checkReadiness();
+    const checkReady = () => {
+      if (logoShown && (!waitForScenes || (heroReady && contactReady))) {
+        startSequence();
       }
     };
+    const onHeroReady = () => {
+      heroReady = true;
+      checkReady();
+    };
+    const onContactReady = () => {
+      contactReady = true;
+      checkReady();
+    };
+
+    window.addEventListener("hero-3d-ready", onHeroReady);
+    window.addEventListener("contact-3d-ready", onContactReady);
+
+    // The logo remains visible while the scenes load; a timeout ensures the
+    // introduction still runs when a remote 3D asset cannot report readiness.
+    if (reduceMotion) {
+      gsap.set(logo, { opacity: 1, scale: 1 });
+    } else {
+      gsap.fromTo(
+        logo,
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 0.9, delay: 0.3, ease: "power2.out" }
+      );
+    }
+    schedule(() => {
+      logoShown = true;
+      checkReady();
+    }, 1200);
+    if (waitForScenes) schedule(startSequence, 8000);
 
     return () => {
-      timeoutsRef.current.forEach(clearTimeout);
+      window.removeEventListener("hero-3d-ready", onHeroReady);
+      window.removeEventListener("contact-3d-ready", onContactReady);
+      timers.forEach(window.clearTimeout);
+      timeline?.kill();
+      gsap.killTweensOf(logo);
     };
-  }, [onComplete]);
+  }, [onComplete, waitForScenes]);
 
   return (
     <aside
-      aria-label="Site preloader"
-      className={`fixed inset-0 z-[99999] bg-black text-white select-none transition-opacity duration-[900ms] pointer-events-auto ${
-        isFadingOut ? "opacity-0 pointer-events-none" : "opacity-100"
+      ref={rootRef}
+      role="status"
+      aria-label="Loading portfolio"
+      className={`fixed inset-0 z-[99999] select-none overflow-hidden bg-black text-white transition-opacity duration-[900ms] motion-reduce:duration-0 ${
+        isFadingOut ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
-      style={{
-        transitionTimingFunction: "cubic-bezier(0.215, 0.61, 0.355, 1)",
-      }}
+      style={{ transitionTimingFunction: "cubic-bezier(0.215, 0.61, 0.355, 1)" }}
     >
-      <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-        {/* Asset-load indicator.
-            Mobile: centred on its own — the scramble-text blocks are hidden at
-            this breakpoint so the loader owns the screen while 3D streams in.
-            Desktop: kept at the foot of the curtain, under the text blocks. */}
-        <div
-          className={`absolute inset-0 flex flex-col items-center justify-center pointer-events-none transition-opacity duration-700 ease-out md:inset-x-auto md:inset-y-auto md:bottom-12 md:left-1/2 md:flex-row md:-translate-x-1/2 ${
-            assetsReady ? "opacity-0 md:scale-95" : "opacity-100 md:scale-100"
-          }`}
-        >
-          <ShapeLoader className="md:hidden" />
-        </div>
+      <div
+        ref={logoRef}
+        aria-hidden="true"
+        className="absolute inset-0 flex items-center justify-center text-[clamp(1.5rem,4vw,2.75rem)] font-medium tracking-[-0.05em] opacity-0"
+      >
+        Lennox Lewis
+      </div>
 
-        {/* Desktop greeting animation stays centered while the 3D scenes load. */}
-        <div className="absolute inset-0 hidden items-center justify-center md:flex">
-          <GreetingPreloader intervalMs={300} />
-        </div>
-
-        {/* Exact Locomotive 12-Column Asymmetric Grid Layout.
-            Hidden on mobile: the shape loader is centred there instead, and
-            two competing focal points on a small screen read as noise. */}
-        <div className="absolute inset-0 hidden w-full h-full grid-cols-4 grid-rows-2 px-6 pointer-events-none">
-          {/* Top-Right Quadrant: Block 1 */}
-          <div className="col-span-4 md:col-start-5 md:col-end-13 row-start-1 row-end-2 self-end pb-3 sm:pb-5">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight font-sans text-white leading-tight min-h-[1.25em]">
-              {b1Chars.map((char, i) => (
-                <span
-                  key={i}
-                  className="inline-block transition-opacity duration-75"
-                  style={{ opacity: b1Opacity[i] }}
-                >
-                  {char || "\u00A0"}
-                </span>
-              ))}
-            </h2>
-            {/* Companion Code Snippet */}
-            <p className="font-mono text-[11px] sm:text-xs text-white/40 tracking-wider mt-1 transition-opacity duration-200">
-              {b1Code}
-            </p>
-          </div>
-
-          {/* Bottom-Right Quadrant: Block 2 */}
-          <div className="col-span-4 md:col-start-6 md:col-end-13 row-start-2 row-end-3 self-start pt-3 sm:pt-5">
-            <div className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight font-sans text-white/70 leading-tight min-h-[1.25em]">
-              {b2Chars.map((char, i) => (
-                <span
-                  key={i}
-                  className="inline-block transition-opacity duration-75"
-                  style={{ opacity: b2Opacity[i] }}
-                >
-                  {char || "\u00A0"}
-                </span>
-              ))}
-            </div>
-            {/* Companion Code Snippet */}
-            <p className="font-mono text-[11px] sm:text-xs text-[#cda144]/60 tracking-wider mt-1 transition-opacity duration-200">
-              {b2Code}
-            </p>
-          </div>
-        </div>
+      <div className="pointer-events-none absolute inset-0 grid grid-cols-4 grid-rows-2 gap-x-3 px-[clamp(1.25rem,4vw,3.5rem)] text-[clamp(0.95rem,2vw,2rem)] leading-[1.2] min-[1200px]:grid-cols-12">
+        <ScrambleLines
+          lines={TOP_LINES}
+          className="col-span-4 row-start-1 self-end pb-3 min-[1200px]:col-start-5 min-[1200px]:col-end-13"
+        />
+        <ScrambleLines
+          lines={BOTTOM_LINES}
+          className="col-start-2 col-end-5 row-start-2 flex flex-col-reverse self-start pt-3 min-[700px]:col-start-3 min-[1200px]:col-start-6 min-[1200px]:col-end-13"
+        />
       </div>
     </aside>
   );
