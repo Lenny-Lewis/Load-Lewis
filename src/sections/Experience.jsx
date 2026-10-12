@@ -74,6 +74,24 @@ const Experience = () => {
       },
     });
 
+    gsap.utils.toArray(".timeline-logo").forEach((logo) => {
+      gsap.fromTo(
+        logo,
+        { autoAlpha: 0, scale: 0.8 },
+        {
+          autoAlpha: 1,
+          scale: 1,
+          duration: 0.25,
+          ease: "power1.out",
+          scrollTrigger: {
+            trigger: logo,
+            start: "center center",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    });
+
     // Loop through each expText element and animate them in
     // as the user scrolls to each text element
     gsap.utils.toArray(".expText").forEach((text) => {
@@ -137,7 +155,10 @@ const Experience = () => {
                         className={card.imageClassName}
                       />
                       {card.companyName && (
-                        <span className="font-semibold text-3xl">
+                        <span
+                          className={card.companyNameClassName || "font-semibold text-3xl"}
+                          style={{ color: card.lineColor }}
+                        >
                           {card.companyName}
                         </span>
                       )}
@@ -148,10 +169,12 @@ const Experience = () => {
                   <div className="flex items-start">
                     <div className="expText flex lg:gap-20 md:gap-10 gap-5 relative z-20">
                       <div className="timeline-logo">
-                        <img src={card.logoPath} alt="logo" />
+                        <img src={card.logoPath} alt="logo" className={card.logoClassName} />
                       </div>
                       <div>
-                        <h1 className="font-semibold text-3xl">{card.title}</h1>
+                        <h1 className="font-semibold text-3xl" style={{ color: card.lineColor }}>
+                          {card.title}
+                        </h1>
                         <p className="my-5 text-white-50">
                           🗓️&nbsp;{card.date}
                         </p>
