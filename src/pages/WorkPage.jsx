@@ -119,31 +119,40 @@ const webProjects = [
  */
 const graphicProjects = [
   {
-    id: "g1",
-    title: "Crocks Poster",
-    desc: "Promotional digital poster design.",
-    width: 5647,
-    height: 8000,
-    thumb: "/images/graphics_design/signed/crocks_poster_signed.png",
-    full: "/images/graphics_design/signed/crocks_poster_signed.png"
+    id: "g9",
+    title: "Beats by Dre",
+    desc: "Wireless headphones product poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/BeatsbyDre_signed.jpg",
+    full: "/images/graphics_design/signed/BeatsbyDre_signed.jpg"
   },
   {
-    id: "g2",
-    title: "Boss Dark Elegance",
-    desc: "High-end brand aesthetic concept.",
-    width: 1340,
-    height: 1675,
-    thumb: "/images/graphics_design/signed/boss_dark_elegance_signed.png",
-    full: "/images/graphics_design/signed/boss_dark_elegance_signed.png"
+    id: "g10",
+    title: "iPhone Duo",
+    desc: "Foldable phone concept poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/iPhoneDuo_signed.jpg",
+    full: "/images/graphics_design/signed/iPhoneDuo_signed.jpg"
   },
   {
-    id: "g3",
-    title: "Zara Perfume",
-    desc: "Explode view zara!!",
-    width: 1214,
-    height: 1295,
-    thumb: "/images/graphics_design/signed/Zara_Perfume_signed.jpg",
-    full: "/images/graphics_design/signed/Zara_Perfume_signed.jpg"
+    id: "g6",
+    title: "Impossible Angle",
+    desc: "Nike running campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/Impossible_Angle__Defy_Perspective_signed.png",
+    full: "/images/graphics_design/signed/Impossible_Angle__Defy_Perspective_signed.png"
+  },
+  {
+    id: "g11",
+    title: "Ferrari: Born to Dominate",
+    desc: "High-performance automotive campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/ferrari_signed.png",
+    full: "/images/graphics_design/signed/ferrari_signed.png"
   },
   {
     id: "g4",
@@ -164,15 +173,6 @@ const graphicProjects = [
     full: "/images/graphics_design/signed/DualSense_Precision_in_Blue_signed.png"
   },
   {
-    id: "g6",
-    title: "Impossible Angle",
-    desc: "Nike running campaign poster.",
-    width: 1024,
-    height: 1536,
-    thumb: "/images/graphics_design/signed/Impossible_Angle__Defy_Perspective_signed.png",
-    full: "/images/graphics_design/signed/Impossible_Angle__Defy_Perspective_signed.png"
-  },
-  {
     id: "g7",
     title: "Muskalam Fragrance",
     desc: "Luxury oud fragrance brand ad.",
@@ -182,6 +182,51 @@ const graphicProjects = [
     full: "/images/graphics_design/signed/Muskalam_Luxury_Fragrance_Ad_signed.png"
   },
   {
+    id: "g12",
+    title: "Rolex: Timeless by Nature",
+    desc: "Luxury watch campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/rolex_signed.png",
+    full: "/images/graphics_design/signed/rolex_signed.png"
+  },
+  {
+    id: "g13",
+    title: "Naviforce Watch",
+    desc: "Dramatic product campaign for a Naviforce watch.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/naviforce_signed.png",
+    full: "/images/graphics_design/signed/naviforce_signed.png"
+  },
+  {
+    id: "g2",
+    title: "Boss Dark Elegance",
+    desc: "High-end brand aesthetic concept.",
+    width: 1340,
+    height: 1675,
+    thumb: "/images/graphics_design/signed/boss_dark_elegance_signed.png",
+    full: "/images/graphics_design/signed/boss_dark_elegance_signed.png"
+  },
+  {
+    id: "g3",
+    title: "Zara Perfume",
+    desc: "Explode view zara!!",
+    width: 1214,
+    height: 1295,
+    thumb: "/images/graphics_design/signed/Zara_Perfume_signed.jpg",
+    full: "/images/graphics_design/signed/Zara_Perfume_signed.jpg"
+  },
+  {
+    id: "g1",
+    title: "Crocks Poster",
+    desc: "Promotional digital poster design.",
+    width: 5647,
+    height: 8000,
+    thumb: "/images/graphics_design/signed/crocks_poster_signed.png",
+    full: "/images/graphics_design/signed/crocks_poster_signed.png"
+  },
+  {
     id: "g8",
     title: "Villagio Customer Service",
     desc: "Villagio company customer service week poster.",
@@ -189,24 +234,6 @@ const graphicProjects = [
     height: 2700,
     thumb: "/images/graphics_design/signed/Customer_Service_Week_1080x1350_signed.png",
     full: "/images/graphics_design/signed/Customer_Service_Week_1080x1350_signed.png"
-  },
-  {
-    id: "g9",
-    title: "Beats by Dre",
-    desc: "Wireless headphones product poster.",
-    width: 1024,
-    height: 1536,
-    thumb: "/images/graphics_design/signed/BeatsbyDre_signed.jpg",
-    full: "/images/graphics_design/signed/BeatsbyDre_signed.jpg"
-  },
-  {
-    id: "g10",
-    title: "iPhone Duo",
-    desc: "Foldable phone concept poster.",
-    width: 1024,
-    height: 1536,
-    thumb: "/images/graphics_design/signed/iPhoneDuo_signed.jpg",
-    full: "/images/graphics_design/signed/iPhoneDuo_signed.jpg"
   }
 ];
 
