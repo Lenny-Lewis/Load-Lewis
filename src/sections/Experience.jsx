@@ -28,10 +28,21 @@ const Experience = () => {
           );
           return { color: card.dataset.lineColor, position };
         });
+      const lastCard = cards.at(-1);
+      const lastFrame = lastCard?.querySelector(".timeline-card");
+      const lastFrameBounds = lastFrame?.getBoundingClientRect();
+      const endPosition = lastFrameBounds
+        ? gsap.utils.clamp(
+            0,
+            100,
+            ((lastFrameBounds.bottom - lineBounds.top) / lineBounds.height) * 100
+          )
+        : 100;
+      const lastColor = colorStops.at(-1)?.color || "transparent";
 
       line.style.background = `linear-gradient(to bottom, ${colorStops
         .map(({ color, position }) => `${color} ${position}%`)
-        .join(", ")}, transparent ${colorStops.at(-1)?.position ?? 100}%)`;
+        .join(", ")}, ${lastColor} ${endPosition}%, transparent ${endPosition}%)`;
     };
 
     updateTimelineGradient();
