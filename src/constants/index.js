@@ -493,22 +493,6 @@ const expCards = [
     ],
   },
   {
-    review: "Founded and lead engineering at Zed OS Technologies, a Kisumu-based company delivering software, data analytics, and AI solutions to clients.",
-    lineColor: "#F15A24",
-    imgPath: "/images/zed-os.png",
-    imageClassName: "md:size-20 size-10 object-contain",
-    companyName: "Zed OS Technologies",
-    logoPath: "/images/zed-os.png",
-    title: "Founder & Lead Developer",
-    date: "Present",
-    responsibilities: [
-      "Lead a development team building full-stack web products on the MERN stack and TypeScript, from architecture through deployment on Vercel and Render.",
-      "Designed and shipped a research, thesis, and project management system that streamlines submissions, supervision, and tracking for university users.",
-      "Built a database and data warehouse system that consolidates data sources for reporting and analytics.",
-      "Deliver client projects end to end, including e-commerce builds with M-Pesa payment integration.",
-    ],
-  },
-  {
     review: "Supported KEMRI research teams with data analysis and machine learning to turn raw research data into evidence-based findings.",
     lineColor: "#08A8D5",
     imgPath: "/images/kemri-logo.png",

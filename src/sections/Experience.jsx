@@ -15,9 +15,8 @@ const Experience = () => {
       const lineBounds = line?.getBoundingClientRect();
       if (!lineBounds?.height) return;
 
-      const colorStops = gsap.utils
-        .toArray(".exp-card-wrapper")
-        .map((card) => {
+      const cards = gsap.utils.toArray(".exp-card-wrapper");
+      const colorStops = cards.map((card) => {
           const logo = card.querySelector(".timeline-logo");
           const logoBounds = logo.getBoundingClientRect();
           const position = gsap.utils.clamp(
@@ -27,10 +26,12 @@ const Experience = () => {
               lineBounds.height) *
               100
           );
-          return `${card.dataset.lineColor} ${position}%`;
+          return { color: card.dataset.lineColor, position };
         });
 
-      line.style.background = `linear-gradient(to bottom, ${colorStops.join(", ")})`;
+      line.style.background = `linear-gradient(to bottom, ${colorStops
+        .map(({ color, position }) => `${color} ${position}%`)
+        .join(", ")}, transparent ${colorStops.at(-1)?.position ?? 100}%)`;
     };
 
     updateTimelineGradient();

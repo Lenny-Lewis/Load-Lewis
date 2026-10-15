@@ -227,6 +227,24 @@ const graphicProjects = [
     full: "/images/graphics_design/signed/crocks_poster_signed.png"
   },
   {
+    id: "g14",
+    title: "Crocs Campaign",
+    desc: "Lifestyle campaign poster for Crocs footwear.",
+    width: 736,
+    height: 1104,
+    thumb: "/images/graphics_design/signed/Crocks_Poster.jpeg",
+    full: "/images/graphics_design/signed/Crocks_Poster.jpeg"
+  },
+  {
+    id: "g15",
+    title: "Wireless Earbuds",
+    desc: "Product campaign poster for next-generation wireless earbuds.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/Pods.jpeg",
+    full: "/images/graphics_design/signed/Pods.jpeg"
+  },
+  {
     id: "g8",
     title: "Villagio Customer Service",
     desc: "Villagio company customer service week poster.",
