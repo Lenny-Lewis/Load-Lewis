@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
+import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Footer } from "@/components/ui/modem-animated-footer";
 import { Icons } from "@/components/ui/icons";
@@ -7,6 +8,7 @@ import { Mail, Code2 } from "lucide-react";
 import HoverTextSlide from "@/components/ui/HoverTextSlide";
 import GraphicDesignGrid from "@/components/GraphicDesignGrid";
 import ProjectGrid from "@/components/ProjectGrid";
+import WorkNavPill from "./WorkNavPill";
 
 const webProjects = [
   {
@@ -255,9 +257,44 @@ const graphicProjects = [
   }
 ];
 
+const WorkIntroWords = ({ text, ready, delay, stagger }) => {
+  const reduceMotion = useReducedMotion();
+  if (reduceMotion) return text;
+
+  const words = text.split(" ");
+  return words.map((word, index) => (
+    <span key={index}>
+      <motion.span
+        initial={{ opacity: 0, filter: "blur(10px)", y: 10 }}
+        animate={ready ? { opacity: 1, filter: "blur(0px)", y: 0 } : { opacity: 0, filter: "blur(10px)", y: 10 }}
+        transition={{ duration: 0.7, delay: delay + index * stagger, ease: [0.22, 1, 0.36, 1] }}
+        className="inline-block"
+      >
+        {word}
+      </motion.span>
+      {index < words.length - 1 ? " " : null}
+    </span>
+  ));
+};
+
 const WorkPage = () => {
   const containerRef = useRef(null);
   const [activeTab, setActiveTab] = useState("other"); // 'other', 'graphics'
+  const [introReady, setIntroReady] = useState(false);
+
+  useEffect(() => {
+    const root = document.getElementById("root");
+    const showIntro = () => {
+      if (!root?.querySelector('aside[aria-label="Loading portfolio"]')) {
+        setIntroReady(true);
+        observer.disconnect();
+      }
+    };
+    const observer = new MutationObserver(showIntro);
+    if (root) observer.observe(root, { childList: true });
+    showIntro();
+    return () => observer.disconnect();
+  }, []);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -292,6 +329,7 @@ const WorkPage = () => {
 
   return (
     <div className="w-full min-h-screen bg-[#050505] text-white pt-32 overflow-x-hidden">
+      <WorkNavPill />
       <section ref={containerRef} className="w-full flex-col-center section-padding">
         
         <div className="w-full max-w-7xl mx-auto mb-16 flex flex-col gap-10">
@@ -305,10 +343,10 @@ const WorkPage = () => {
           
           <div className="flex flex-col gap-6 mt-4 md:mt-12">
             <h1 className="text-5xl md:text-6xl lg:text-[5.5rem] font-bold tracking-tighter leading-none text-white">
-              My Brightest Creations
+              <WorkIntroWords text="My Brightest Creations" ready={introReady} delay={0.1} stagger={0.1} />
             </h1>
             <p className="text-white-50 text-lg md:text-xl max-w-2xl leading-relaxed">
-              A showcase of my latest projects, highlighting thoughtful design, clear strategy, and impactful results.
+              <WorkIntroWords text="A showcase of my latest projects, highlighting thoughtful design, clear strategy, and impactful results." ready={introReady} delay={0.35} stagger={0.05} />
             </p>
           </div>
           
