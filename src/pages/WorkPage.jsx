@@ -121,6 +121,33 @@ const webProjects = [
  */
 const graphicProjects = [
   {
+    id: "g18",
+    title: "Iconic by Design",
+    desc: "Nike Air Jordan lifestyle campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/Iconic_By_Design_signed.png",
+    full: "/images/graphics_design/signed/Iconic_By_Design_signed.png"
+  },
+  {
+    id: "g17",
+    title: "Step Into a Bigger World",
+    desc: "Adidas comfort footwear campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/Step_Into_a_Bigger_World_signed.png",
+    full: "/images/graphics_design/signed/Step_Into_a_Bigger_World_signed.png"
+  },
+  {
+    id: "g16",
+    title: "Mashujaa Day",
+    desc: "Commemorative Mashujaa Day celebration poster.",
+    width: 1121,
+    height: 1403,
+    thumb: "/images/graphics_design/signed/Mashujaa_day Poster.jpeg",
+    full: "/images/graphics_design/signed/Mashujaa_day Poster.jpeg"
+  },
+  {
     id: "g9",
     title: "Beats by Dre",
     desc: "Wireless headphones product poster.",
