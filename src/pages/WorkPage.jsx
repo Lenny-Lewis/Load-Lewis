@@ -320,6 +320,13 @@ const graphicProjects = [
   }
 ];
 
+const workTabs = [
+  { id: "web", label: "Web Apps" },
+  { id: "mobile", label: "Mobile Apps" },
+  { id: "graphics", label: "Graphics Design" },
+  { id: "current", label: "Current Projects" },
+];
+
 const WorkIntroWords = ({ text, ready, delay, stagger }) => {
   const reduceMotion = useReducedMotion();
   if (reduceMotion) return text;
@@ -457,31 +464,18 @@ const WorkPage = () => {
           </div>
           
           {/* Tabs */}
-          <div className="flex flex-wrap gap-4 md:gap-8 border-b border-white/10 pb-4 mt-8">
-            <button 
-              onClick={() => setActiveTab("web")}
-              className={`group text-lg md:text-xl font-medium transition-colors ${activeTab === 'web' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
-            >
-              <HoverTextSlide text="Web Apps" />
-            </button>
-            <button
-              onClick={() => setActiveTab("mobile")}
-              className={`group text-lg md:text-xl font-medium transition-colors ${activeTab === 'mobile' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
-            >
-              <HoverTextSlide text="Mobile Apps" />
-            </button>
-            <button 
-              onClick={() => setActiveTab("graphics")}
-              className={`group text-lg md:text-xl font-medium transition-colors ${activeTab === 'graphics' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
-            >
-              <HoverTextSlide text="Graphics Design" />
-            </button>
-            <button
-              onClick={() => setActiveTab("current")}
-              className={`group text-lg md:text-xl font-medium transition-colors ${activeTab === 'current' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
-            >
-              <HoverTextSlide text="Current Projects" />
-            </button>
+          <div role="group" aria-label="Project categories" className="mt-8 grid grid-cols-2 gap-2 sm:gap-3 md:flex md:flex-wrap md:gap-8 md:border-b md:border-white/10 md:pb-4">
+            {workTabs.map(({ id, label }) => (
+              <button
+                key={id}
+                type="button"
+                aria-pressed={activeTab === id}
+                onClick={() => setActiveTab(id)}
+                className={`group min-h-12 rounded-xl border px-2 py-3 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cda144] sm:text-base md:min-h-0 md:rounded-none md:border-0 md:px-0 md:py-0 md:text-xl ${activeTab === id ? 'border-[#cda144]/50 bg-[#cda144]/15 text-white md:border-b-2 md:border-[#cda144] md:bg-transparent md:pb-2 md:-mb-[18px]' : 'border-white/10 bg-white/5 text-white-50 hover:bg-white/10 hover:text-white md:bg-transparent md:pb-2 md:-mb-[18px] md:hover:bg-transparent'}`}
+              >
+                <HoverTextSlide text={label} />
+              </button>
+            ))}
           </div>
         </div>
         
