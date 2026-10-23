@@ -121,6 +121,51 @@ const webProjects = [
  */
 const graphicProjects = [
   {
+    id: "g23",
+    title: "Naturally Ahead",
+    desc: "Adidas footwear campaign poster.",
+    width: 1101,
+    height: 1428,
+    thumb: "/images/graphics_design/signed/adidas_ahead_signed.png",
+    full: "/images/graphics_design/signed/adidas_ahead_signed.png"
+  },
+  {
+    id: "g22",
+    title: "Classics Live Longer",
+    desc: "Adidas Classics footwear campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/adidas_classics_signed.png",
+    full: "/images/graphics_design/signed/adidas_classics_signed.png"
+  },
+  {
+    id: "g21",
+    title: "Bigger Moves Same Energy",
+    desc: "Flow Pushers footwear campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/flowpushers_signed.png",
+    full: "/images/graphics_design/signed/flowpushers_signed.png"
+  },
+  {
+    id: "g20",
+    title: "Elevate Your Game",
+    desc: "Nike basketball footwear campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/nike_elevate_signed.png",
+    full: "/images/graphics_design/signed/nike_elevate_signed.png"
+  },
+  {
+    id: "g19",
+    title: "Nike SB Blazer Low",
+    desc: "Nike skate footwear campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/nike_sb_signed.png",
+    full: "/images/graphics_design/signed/nike_sb_signed.png"
+  },
+  {
     id: "g18",
     title: "Iconic by Design",
     desc: "Nike Air Jordan lifestyle campaign poster.",
@@ -256,15 +301,6 @@ const graphicProjects = [
     full: "/images/graphics_design/signed/boss_dark_elegance_signed.png"
   },
   {
-    id: "g3",
-    title: "Zara Perfume",
-    desc: "Explode view zara!!",
-    width: 1214,
-    height: 1295,
-    thumb: "/images/graphics_design/signed/Zara_Perfume_signed.jpg",
-    full: "/images/graphics_design/signed/Zara_Perfume_signed.jpg"
-  },
-  {
     id: "g1",
     title: "Crocks Poster",
     desc: "Promotional digital poster design.",
@@ -306,7 +342,7 @@ const WorkIntroWords = ({ text, ready, delay, stagger }) => {
 
 const WorkPage = () => {
   const containerRef = useRef(null);
-  const [activeTab, setActiveTab] = useState("other"); // 'other', 'graphics'
+  const [activeTab, setActiveTab] = useState("web");
   const [introReady, setIntroReady] = useState(false);
 
   useEffect(() => {
@@ -332,7 +368,7 @@ const WorkPage = () => {
     // The Graphics Design tab renders its own Framer Motion `whileInView`
     // reveal, so GSAP only drives the web-projects cards here. Running both on
     // the same nodes would have them fighting over `transform`/`opacity`.
-    if (activeTab !== "other") return;
+    if (activeTab !== "web") return;
 
     const cards = gsap.utils.toArray(".framer-card-work");
     
@@ -349,10 +385,6 @@ const WorkPage = () => {
       }
     );
   }, [activeTab]);
-
-  // The Graphics Design tab has its own grid + lightbox component, so this
-  // list only backs the web-projects tab.
-  const displayedProjects = activeTab === "other" ? webProjects : [];
 
   return (
     <div className="w-full min-h-screen bg-[#050505] text-white pt-32 overflow-x-hidden">
@@ -380,16 +412,28 @@ const WorkPage = () => {
           {/* Tabs */}
           <div className="flex flex-wrap gap-4 md:gap-8 border-b border-white/10 pb-4 mt-8">
             <button 
-              onClick={() => setActiveTab("other")}
-              className={`group text-lg md:text-xl font-medium transition-colors ${activeTab === 'other' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
+              onClick={() => setActiveTab("web")}
+              className={`group text-lg md:text-xl font-medium transition-colors ${activeTab === 'web' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
             >
-              <HoverTextSlide text="All Projects" />
+              <HoverTextSlide text="Web Apps" />
+            </button>
+            <button
+              onClick={() => setActiveTab("mobile")}
+              className={`group text-lg md:text-xl font-medium transition-colors ${activeTab === 'mobile' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
+            >
+              <HoverTextSlide text="Mobile Apps" />
             </button>
             <button 
               onClick={() => setActiveTab("graphics")}
               className={`group text-lg md:text-xl font-medium transition-colors ${activeTab === 'graphics' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
             >
               <HoverTextSlide text="Graphics Design" />
+            </button>
+            <button
+              onClick={() => setActiveTab("current")}
+              className={`group text-lg md:text-xl font-medium transition-colors ${activeTab === 'current' ? 'text-white border-b-2 border-[#cda144] pb-2 -mb-[18px]' : 'text-white-50 hover:text-white pb-2 -mb-[18px]'}`}
+            >
+              <HoverTextSlide text="Current Projects" />
             </button>
           </div>
         </div>
@@ -406,21 +450,33 @@ const WorkPage = () => {
               </div>
             )}
           </div>
-        ) : (
+        ) : activeTab === "web" ? (
           <div className="w-full max-w-7xl mx-auto">
-            {displayedProjects.length > 0 ? (
-              <ProjectGrid
-                projects={displayedProjects}
-                cardClassName="framer-card-work"
-              />
-            ) : (
-              <div className="py-20 flex flex-col items-center justify-center border border-white/5 rounded-3xl bg-white/5">
-                <h3 className="text-2xl font-bold text-white-50">Coming Soon</h3>
-                <p className="text-white/40 mt-2">
-                  Exciting new machine learning projects are in the works.
-                </p>
+            <ProjectGrid projects={webProjects} cardClassName="framer-card-work" />
+          </div>
+        ) : activeTab === "current" ? (
+          <div className="w-full max-w-7xl mx-auto grid grid-cols-1 gap-5 md:grid-cols-2">
+            <figure className="flex flex-col gap-5">
+              <div className="w-full aspect-[20/17] rounded-3xl overflow-hidden bg-[#c9d0ed]">
+                <img
+                  src="/images/roam-project-template.png"
+                  alt="Roam travel app screens"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-contain"
+                />
               </div>
-            )}
+              <figcaption className="px-2">
+                <h3 className="text-xl md:text-2xl font-bold text-white">Roam</h3>
+                <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
+                  A modern travel app for discovering destinations and booking stays.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+        ) : (
+          <div className="w-full max-w-7xl mx-auto py-20 flex items-center justify-center border border-white/5 rounded-3xl bg-white/5">
+            <h2 className="text-2xl font-bold text-white-50">Mobile Apps</h2>
           </div>
         )}
       </section>
