@@ -202,7 +202,7 @@ export function ScrollReelTestimonials({ testimonials = [], charStaggerMs = 6, c
         <div className="flex flex-col gap-[9px]">
           <div className="mb-1 flex items-center gap-1" aria-label="5 out of 5 stars">
             {Array.from({ length: 5 }, (_, i) => (
-              <img key={i} src="/images/star.png" alt="" aria-hidden="true" className="size-5" />
+              <img key={i} src="/images/ui/star.png" alt="" aria-hidden="true" className="size-5" />
             ))}
           </div>
           <svg className="block h-12 w-12 text-muted-foreground/40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

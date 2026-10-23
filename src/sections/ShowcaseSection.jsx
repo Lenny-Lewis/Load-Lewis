@@ -13,7 +13,7 @@ const webProjects = [
     id: 8,
     title: "Vanguard",
     desc: "Design, disrupt and conquer",
-    img: "/images/Vanguard.webp", 
+    img: "/images/projects/web/Vanguard.webp",
     link: "https://vanguard-zeta-ruddy.vercel.app/",
     bg: "bg-[#FFE7EB]"
   },
@@ -21,7 +21,7 @@ const webProjects = [
     id: 9,
     title: "ConSentinel",
     desc: "A secuirty platform for a startup.",
-    img: "/images/ConSentinel.png", 
+    img: "/images/projects/web/ConSentinel.png",
     link: "https://con-sentinel.vercel.app/",
     bg: "bg-[#FFE7EB]"
   },
@@ -29,7 +29,7 @@ const webProjects = [
     id: 2,
     title: "Mojito - Interactive GSAP Cocktails",
     desc: "An immersive 3D/GSAP animated cocktail website built with modern web animations and smooth transitions.",
-    img: "/images/Cocktail_Mojito.png",
+    img: "/images/projects/web/Cocktail_Mojito.png",
     link: "https://gsap-cocktails-website-nine.vercel.app/",
     bg: "bg-[#0B1D13]"
   },
@@ -37,7 +37,7 @@ const webProjects = [
     id: 7,
     title: "Pawello",
     desc: "A modern landing page for a pet care service.",
-    img: "/images/Pawello_Project.png", 
+    img: "/images/projects/web/Pawello_Project.png",
     link: "https://tedious-backgrounds-421163.framer.app/",
     bg: "bg-[#FFE7EB]"
   }

@@ -111,7 +111,7 @@ const Contact = () => {
           title="Get in Touch – Let’s Connect"
           sub={
             <>
-              <img src="/images/contact.png" alt="" aria-hidden="true" />
+              <img src="/images/contact/contact.png" alt="" aria-hidden="true" />
               <span>Have questions or ideas? Let&apos;s talk!</span>
             </>
           }
@@ -206,7 +206,7 @@ const Contact = () => {
                           : "Send Message"}
                       </p>
                       <div className="arrow-wrapper">
-                        <img src="/images/arrow-down.svg" alt="arrow" />
+                        <img src="/images/ui/arrow-down.svg" alt="arrow" />
                       </div>
                     </div>
                   </button>

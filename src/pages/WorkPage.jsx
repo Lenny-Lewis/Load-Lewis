@@ -15,7 +15,7 @@ const webProjects = [
     id: 12,
     title: "Sham Project",
     desc: "An editorial creative-studio template with bold typography and a monochrome visual direction.",
-    img: "/images/ShamProject.avif",
+    img: "/images/projects/web/ShamProject.avif",
     link: "https://victorious-actions-723983.framer.app/",
     bg: "bg-[#E8E8E8]"
   },
@@ -23,7 +23,7 @@ const webProjects = [
     id: 5,
     title: "Recueil",
     desc: "Find your scent one bottle at a time.",
-    img: "/images/Recueil_Perfume.png",
+    img: "/images/projects/web/Recueil_Perfume.png",
     link: "https://alert-apartment-762464.framer.app/",
     bg: "bg-[#FFE7EB]"
   },
@@ -31,7 +31,7 @@ const webProjects = [
     id: 4,
     title: "Ageincy",
     desc: "A modern UI service platform for a startup.",
-    img: "/images/agenicy_project.png",
+    img: "/images/projects/web/agenicy_project.png",
     link: "https://compassionate-time-092074.framer.app/",
     bg: "bg-[#FFEFDB]"
   },
@@ -39,7 +39,7 @@ const webProjects = [
     id: 3,
     title: "Latte Have",
     desc: "A modern landing page for a coffee shop.",
-    img: "/images/Latte_Project.png",
+    img: "/images/projects/web/Latte_Project.png",
     link: "https://traditional-checklist-769919.framer.app/",
     bg: "bg-[#1C1C21]"
   },
@@ -47,7 +47,7 @@ const webProjects = [
     id: 7,
     title: "Pawello",
     desc: "A modern landing page for a pet care service.",
-    img: "/images/Pawello_Project.png", 
+    img: "/images/projects/web/Pawello_Project.png",
     link: "https://tedious-backgrounds-421163.framer.app/",
     bg: "bg-[#FFE7EB]"
   },
@@ -55,7 +55,7 @@ const webProjects = [
     id: 10,
     title: "NHM",
     desc: "A museum showcase for past and present artifacts.",
-    img: "/images/Neo_Museum-1.png",
+    img: "/images/projects/web/Neo_Museum-1.png",
     link: "https://nhm-xi.vercel.app/",
     bg: "bg-[#FFE7EB]"
   },
@@ -63,7 +63,7 @@ const webProjects = [
     id: 11,
     title: "Lithos",
     desc: "A geology and mineralogy showcase.",
-    img: "/images/Lithos.webp",
+    img: "/images/projects/web/Lithos.webp",
     link: "https://lithos-blush.vercel.app/",
     bg: "bg-[#FFE7EB]"
   },
@@ -71,7 +71,7 @@ const webProjects = [
     id: 2,
     title: "Mojito - Interactive GSAP Cocktails",
     desc: "An immersive 3D/GSAP animated cocktail website built with modern web animations and smooth transitions.",
-    img: "/images/Cocktail_Mojito.png",
+    img: "/images/projects/web/Cocktail_Mojito.png",
     link: "https://gsap-cocktails-website-nine.vercel.app/",
     bg: "bg-[#0B1D13]"
   },
@@ -79,7 +79,7 @@ const webProjects = [
     id: 8,
     title: "Vanguard",
     desc: "Design, disrupt and conquer",
-    img: "/images/Vanguard.webp",
+    img: "/images/projects/web/Vanguard.webp",
     link: "https://vanguard-zeta-ruddy.vercel.app/",
     bg: "bg-[#FFE7EB]"
   },
@@ -87,7 +87,7 @@ const webProjects = [
     id: 1,
     title: "ZED Gaming",
     desc: "A cinematic gaming landing experience with bold typography, immersive visuals, and a metagame-inspired play economy.",
-    img: "/images/zed_gaming_mockup.png",
+    img: "/images/projects/web/zed_gaming_mockup.png",
     link: "https://zed-gaming.vercel.app/",
     bg: "bg-[#0A0612]"
   },
@@ -95,7 +95,7 @@ const webProjects = [
     id: 9,
     title: "ConSentinel",
     desc: "A security platform for a startup.",
-    img: "/images/ConSentinel.png",
+    img: "/images/projects/web/ConSentinel.png",
     link: "https://con-sentinel.vercel.app/",
     bg: "bg-[#FFE7EB]"
   },
@@ -103,9 +103,9 @@ const webProjects = [
     id: 6,
     title: "Zedos Technologies",
     desc: "Corporate website and digital solutions platform.",
-    img: "/images/zed-os.mp4",
+    img: "/images/projects/web/zed-os.mp4",
     mediaType: "video",
-    poster: "/images/zedos_technologies_portfolio.png",
+    poster: "/images/projects/web/zedos_technologies_portfolio.png",
     link: "http://zedostechnologies.co.ke/",
     bg: "bg-[#FFE7EB]"
   }
@@ -500,7 +500,7 @@ const WorkPage = () => {
             <figure className="group flex flex-col gap-5">
               <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#c9d0ed]">
                 <img
-                  src="/images/roam-project-template.png"
+                  src="/images/projects/current/roam-project-template.png"
                   alt="Roam travel app screens"
                   loading="lazy"
                   decoding="async"
@@ -525,7 +525,7 @@ const WorkPage = () => {
               >
                 <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#25292b]">
                   <img
-                    src="/images/ksu-rtms-project-template.png"
+                    src="/images/projects/current/ksu-rtms-project-template.png"
                     alt="Kisii University project management system preview"
                     loading="lazy"
                     decoding="async"
@@ -552,7 +552,7 @@ const WorkPage = () => {
               >
                 <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#d8d8d8] flex items-center justify-center">
                   <img
-                    src="/images/Cindi_Project.png"
+                    src="/images/projects/current/Cindi_Project.png"
                     alt="Cindi project preview"
                     loading="lazy"
                     decoding="async"

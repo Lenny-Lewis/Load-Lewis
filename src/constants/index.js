@@ -18,14 +18,14 @@ const navLinks = [
 ];
 
 const words = [
-  { text: "Ideas", imgPath: "/images/ideas.svg" },
-  { text: "Views", imgPath: "/images/concepts.svg" },
-  { text: "Design", imgPath: "/images/designs.svg" },
-  { text: "Code", imgPath: "/images/code.svg" },
-  { text: "Ideas", imgPath: "/images/ideas.svg" },
-  { text: "Views", imgPath: "/images/concepts.svg" },
-  { text: "Design", imgPath: "/images/designs.svg" },
-  { text: "Code", imgPath: "/images/code.svg" },
+  { text: "Ideas", imgPath: "/images/hero/ideas.svg" },
+  { text: "Views", imgPath: "/images/hero/concepts.svg" },
+  { text: "Design", imgPath: "/images/hero/designs.svg" },
+  { text: "Code", imgPath: "/images/hero/code.svg" },
+  { text: "Ideas", imgPath: "/images/hero/ideas.svg" },
+  { text: "Views", imgPath: "/images/hero/concepts.svg" },
+  { text: "Design", imgPath: "/images/hero/designs.svg" },
+  { text: "Code", imgPath: "/images/hero/code.svg" },
 ];
 
 const counterItems = [
@@ -42,111 +42,55 @@ const resumeLinks = {
 
 const logoIconsList = [
   {
-    imgPath: "/images/logos/company-logo-1.png",
+    imgPath: "/images/brands/company-logo-1.png",
   },
   {
-    imgPath: "/images/logos/company-logo-2.png",
+    imgPath: "/images/brands/company-logo-2.png",
   },
   {
-    imgPath: "/images/logos/company-logo-3.png",
+    imgPath: "/images/brands/company-logo-3.png",
   },
   {
-    imgPath: "/images/logos/company-logo-4.png",
+    imgPath: "/images/brands/company-logo-4.png",
   },
   {
-    imgPath: "/images/logos/company-logo-5.png",
+    imgPath: "/images/brands/company-logo-5.png",
   },
   {
-    imgPath: "/images/logos/company-logo-6.png",
+    imgPath: "/images/brands/company-logo-6.png",
   },
   {
-    imgPath: "/images/logos/company-logo-7.png",
+    imgPath: "/images/brands/company-logo-7.png",
   },
   {
-    imgPath: "/images/logos/company-logo-8.png",
+    imgPath: "/images/brands/company-logo-8.png",
   },
   {
-    imgPath: "/images/logos/company-logo-9.png",
+    imgPath: "/images/brands/company-logo-9.png",
   },
   {
-    imgPath: "/images/logos/company-logo-10.png",
+    imgPath: "/images/brands/company-logo-10.png",
   },
   {
-    imgPath: "/images/logos/company-logo-11.png",
+    imgPath: "/images/brands/company-logo-11.png",
   },
 ];
 
 const abilities = [
   {
-    imgPath: "/images/seo.png",
+    imgPath: "/images/services/seo.png",
     title: "Quality Focus",
     desc: "Delivering high-quality results while maintaining attention to every detail.",
   },
   {
-    imgPath: "/images/chat.png",
+    imgPath: "/images/services/chat.png",
     title: "Reliable Communication",
     desc: "Keeping you updated at every step to ensure transparency and clarity.",
   },
   {
-    imgPath: "/images/time.png",
+    imgPath: "/images/services/time.png",
     title: "On-Time Delivery",
     desc: "Making sure projects are completed on schedule, with quality & attention to detail.",
-  },
-];
-
-const techStackImgs = [
-  {
-    name: "React Developer",
-    imgPath: "/images/logos/react.png",
-  },
-  {
-    name: "Python Developer",
-    imgPath: "/images/logos/python.svg",
-  },
-  {
-    name: "Backend Developer",
-    imgPath: "/images/logos/node.png",
-  },
-  {
-    name: "Interactive Developer",
-    imgPath: "/images/logos/three.png",
-  },
-  {
-    name: "Project Manager",
-    imgPath: "/images/logos/git.svg",
-  },
-];
-
-const techStackIcons = [
-  {
-    name: "React Developer",
-    modelPath: "/models/react_logo-transformed.glb",
-    scale: 1,
-    rotation: [0, 0, 0],
-  },
-  {
-    name: "Python Developer",
-    modelPath: "/models/python-transformed.glb",
-    scale: 0.8,
-    rotation: [0, 0, 0],
-  },
-  {
-    name: "Backend Developer",
-    modelPath: "/models/node-transformed.glb",
-    scale: 5,
-    rotation: [0, -Math.PI / 2, 0],
-  },
-  {
-    name: "Interactive Developer",
-    modelPath: "/models/three.js-transformed.glb",
-    scale: 0.05,
-    rotation: [0, 0, 0],
-  },
-  {
-    name: "Project Manager",
-    modelPath: "/models/git-svg-transformed.glb",
-    scale: 0.05,
-    rotation: [0, -Math.PI / 4, 0],
   },
 ];
 
@@ -342,7 +286,7 @@ const stackAssetMap = {
   },
   Framer: {
     accent: "#FFFFFF",
-    imageSrc: "/images/logos/framer.svg",
+    imageSrc: "/images/tech/framer.svg",
   },
   Postman: {
     accent: "#FF6C37",
@@ -422,8 +366,8 @@ const expCards = [
   {
     review: "Lennox brought creativity and technical expertise to the team, significantly improving our frontend performance. His work has been invaluable in delivering faster experiences.",
     lineColor: "#673DE6",
-    imgPath: "/images/exp1.png",
-    logoPath: "/images/logo1.png",
+    imgPath: "/images/experience/exp1.png",
+    logoPath: "/images/experience/logo1.png",
     title: "Frontend Developer",
     date: "January 2023 - Present",
     responsibilities: [
@@ -435,8 +379,8 @@ const expCards = [
   {
     review: "Lennox’s contributions to Docker's web applications have been outstanding. He approaches challenges with a problem-solving mindset.",
     lineColor: "#F02E65",
-    imgPath: "/images/exp2.png",
-    logoPath: "/images/logo2.png",
+    imgPath: "/images/experience/exp2.png",
+    logoPath: "/images/experience/logo2.png",
     title: "Full Stack Developer",
     date: "June 2024 - Present",
     responsibilities: [
@@ -448,12 +392,12 @@ const expCards = [
   {
     review: "Design brand and marketing visuals in Adobe Photoshop that give products and businesses a consistent, professional look.",
     lineColor: "#31A8FF",
-    imgPath: "/images/photo-shop.png",
+    imgPath: "/images/experience/photo-shop.png",
     imageClassName: "md:size-20 size-10 rounded-full object-contain",
     logoClassName: "rounded-full object-contain",
     companyName: "Photoshop",
     companyNameClassName: "font-sans font-semibold text-3xl text-[#31A8FF]",
-    logoPath: "/images/photo-shop.png",
+    logoPath: "/images/experience/photo-shop.png",
     title: "Graphic Designer",
     date: "December 2024 - Present",
     responsibilities: [
@@ -466,11 +410,11 @@ const expCards = [
   {
     review: "Building AI-powered systems, from predictive models to an agentic assistant, that turn data into practical tools.",
     lineColor: "#8B5CF6",
-    imgPath: "/images/microsofy.png",
+    imgPath: "/images/experience/microsofy.png",
     imageClassName: "md:size-20 size-10 rounded-full object-contain",
     logoClassName: "rounded-full object-contain",
     companyName: "Microsoft",
-    logoPath: "/images/microsofy.png",
+    logoPath: "/images/experience/microsofy.png",
     title: "AI / Machine Learning Engineer",
     date: "December 2024 - Present",
     responsibilities: [
@@ -482,8 +426,8 @@ const expCards = [
   {
     review: "Lennox’s work on Appwrite’s mobile app brought a high level of quality and efficiency. He delivered solutions that enhanced our mobile experience & meet our product goals.",
     lineColor: "#2496ED",
-    imgPath: "/images/exp3.png",
-    logoPath: "/images/logo3.png",
+    imgPath: "/images/experience/exp3.png",
+    logoPath: "/images/experience/logo3.png",
     title: "React Native Developer",
     date: "March 2025 - Present",
     responsibilities: [
@@ -495,10 +439,10 @@ const expCards = [
   {
     review: "Supported KEMRI research teams with data analysis and machine learning to turn raw research data into evidence-based findings.",
     lineColor: "#08A8D5",
-    imgPath: "/images/kemri-logo.png",
+    imgPath: "/images/experience/kemri-logo.png",
     imageClassName: "md:size-20 size-10 object-contain",
     companyName: "kemri",
-    logoPath: "/images/kemri-logo.png",
+    logoPath: "/images/experience/kemri-logo.png",
     title: "Data Analyst — KEMRI",
     date: "May - August 2026",
     responsibilities: [
@@ -507,21 +451,6 @@ const expCards = [
       "Built and evaluated machine learning models to generate predictive insights for research teams.",
       "Communicated results to researchers through clear summaries and visualizations.",
     ],
-  },
-];
-
-const expLogos = [
-  {
-    name: "logo1",
-    imgPath: "/images/logo1.png",
-  },
-  {
-    name: "logo2",
-    imgPath: "/images/logo2.png",
-  },
-  {
-    name: "logo3",
-    imgPath: "/images/logo3.png",
   },
 ];
 
@@ -615,27 +544,27 @@ const testimonials = [
 const socialImgs = [
   {
     name: "insta",
-    imgPath: "/images/insta.svg",
+    imgPath: "/images/social/insta.svg",
     url: "https://www.instagram.com/thatboylewis?igsh=aTdxN3VqYW5qZG45",
   },
   {
     name: "github",
-    imgPath: "/images/github.svg",
+    imgPath: "/images/social/github.svg",
     url: "https://github.com/Lenny-Lewis",
   },
   {
     name: "x",
-    imgPath: "/images/x.svg",
+    imgPath: "/images/social/x.svg",
     url: "https://x.com/thatboylewis",
   },
   {
     name: "reddit",
-    imgPath: "/images/redditlogo.svg",
+    imgPath: "/images/social/redditlogo.svg",
     url: "https://www.reddit.com/u/thatkidlewis/s/n0V2SYZnQd",
   },
   {
     name: "linkedin",
-    imgPath: "/images/linkedin.svg",
+    imgPath: "/images/social/linkedin.svg",
     url: "https://www.linkedin.com/in/lennox-lewis-975642359",
   },
 ];
@@ -646,12 +575,9 @@ export {
   logoIconsList,
   counterItems,
   expCards,
-  expLogos,
   testimonials,
   resumeLinks,
   socialImgs,
-  techStackIcons,
-  techStackImgs,
   techStackRows,
   navLinks,
 };

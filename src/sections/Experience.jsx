@@ -141,7 +141,7 @@ const Experience = () => {
           title="Professional Work Experience"
           sub={
             <>
-              <img src="/images/workoverview.png" alt="" aria-hidden="true" />
+              <img src="/images/experience/workoverview.png" alt="" aria-hidden="true" />
               <span>My Career Overview</span>
             </>
           }

@@ -6,7 +6,7 @@ const RatingStars = ({ rating = 5, className = "", sizeClassName = "size-5" }) =
       {Array.from({ length: 5 }, (_, index) => (
         <img
           key={index}
-          src="/images/star.png"
+          src="/images/ui/star.png"
           alt=""
           aria-hidden="true"
           className={`${sizeClassName} ${index < value ? "opacity-100" : "opacity-25"}`}

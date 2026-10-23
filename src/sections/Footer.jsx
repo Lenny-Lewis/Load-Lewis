@@ -34,7 +34,7 @@ const Footer = () => {
             © {new Date().getFullYear()} Lennox Lewis. All rights reserved.
           </p>
           <img
-            src="/images/mysignature.png"
+            src="/images/branding/mysignature.png"
             alt="Lennox Lewis signature"
             loading="lazy"
             className="mt-2 h-12 w-24 self-center object-contain md:self-end"
