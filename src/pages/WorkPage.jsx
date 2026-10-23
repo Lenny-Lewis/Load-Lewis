@@ -121,6 +121,42 @@ const webProjects = [
  */
 const graphicProjects = [
   {
+    id: "g11",
+    title: "Ferrari: Born to Dominate",
+    desc: "High-performance automotive campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/ferrari_signed.png",
+    full: "/images/graphics_design/signed/ferrari_signed.png"
+  },
+  {
+    id: "g7",
+    title: "Muskalam Fragrance",
+    desc: "Luxury oud fragrance brand ad.",
+    width: 1086,
+    height: 1448,
+    thumb: "/images/graphics_design/signed/Muskalam_Luxury_Fragrance_Ad_signed.png",
+    full: "/images/graphics_design/signed/Muskalam_Luxury_Fragrance_Ad_signed.png"
+  },
+  {
+    id: "g18",
+    title: "Iconic by Design",
+    desc: "Nike Air Jordan lifestyle campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/Iconic_By_Design_signed.png",
+    full: "/images/graphics_design/signed/Iconic_By_Design_signed.png"
+  },
+  {
+    id: "g5",
+    title: "DualSense Precision in Blue",
+    desc: "PlayStation controller product ad.",
+    width: 1122,
+    height: 1402,
+    thumb: "/images/graphics_design/signed/DualSense_Precision_in_Blue_signed.png",
+    full: "/images/graphics_design/signed/DualSense_Precision_in_Blue_signed.png"
+  },
+  {
     id: "g23",
     title: "Naturally Ahead",
     desc: "Adidas footwear campaign poster.",
@@ -130,22 +166,13 @@ const graphicProjects = [
     full: "/images/graphics_design/signed/adidas_ahead_signed.png"
   },
   {
-    id: "g22",
-    title: "Classics Live Longer",
-    desc: "Adidas Classics footwear campaign poster.",
+    id: "g12",
+    title: "Rolex: Timeless by Nature",
+    desc: "Luxury watch campaign poster.",
     width: 1024,
     height: 1536,
-    thumb: "/images/graphics_design/signed/adidas_classics_signed.png",
-    full: "/images/graphics_design/signed/adidas_classics_signed.png"
-  },
-  {
-    id: "g21",
-    title: "Bigger Moves Same Energy",
-    desc: "Flow Pushers footwear campaign poster.",
-    width: 1024,
-    height: 1536,
-    thumb: "/images/graphics_design/signed/flowpushers_signed.png",
-    full: "/images/graphics_design/signed/flowpushers_signed.png"
+    thumb: "/images/graphics_design/signed/rolex_signed.png",
+    full: "/images/graphics_design/signed/rolex_signed.png"
   },
   {
     id: "g20",
@@ -157,22 +184,13 @@ const graphicProjects = [
     full: "/images/graphics_design/signed/nike_elevate_signed.png"
   },
   {
-    id: "g19",
-    title: "Nike SB Blazer Low",
-    desc: "Nike skate footwear campaign poster.",
+    id: "g9",
+    title: "Beats by Dre",
+    desc: "Wireless headphones product poster.",
     width: 1024,
     height: 1536,
-    thumb: "/images/graphics_design/signed/nike_sb_signed.png",
-    full: "/images/graphics_design/signed/nike_sb_signed.png"
-  },
-  {
-    id: "g18",
-    title: "Iconic by Design",
-    desc: "Nike Air Jordan lifestyle campaign poster.",
-    width: 1024,
-    height: 1536,
-    thumb: "/images/graphics_design/signed/Iconic_By_Design_signed.png",
-    full: "/images/graphics_design/signed/Iconic_By_Design_signed.png"
+    thumb: "/images/graphics_design/signed/BeatsbyDre_signed.jpg",
+    full: "/images/graphics_design/signed/BeatsbyDre_signed.jpg"
   },
   {
     id: "g17",
@@ -193,13 +211,13 @@ const graphicProjects = [
     full: "/images/graphics_design/signed/Mashujaa_day Poster.jpeg"
   },
   {
-    id: "g9",
-    title: "Beats by Dre",
-    desc: "Wireless headphones product poster.",
+    id: "g22",
+    title: "Classics Live Longer",
+    desc: "Adidas Classics footwear campaign poster.",
     width: 1024,
     height: 1536,
-    thumb: "/images/graphics_design/signed/BeatsbyDre_signed.jpg",
-    full: "/images/graphics_design/signed/BeatsbyDre_signed.jpg"
+    thumb: "/images/graphics_design/signed/adidas_classics_signed.png",
+    full: "/images/graphics_design/signed/adidas_classics_signed.png"
   },
   {
     id: "g10",
@@ -211,40 +229,13 @@ const graphicProjects = [
     full: "/images/graphics_design/signed/iPhoneDuo_signed.jpg"
   },
   {
-    id: "g6",
-    title: "Impossible Angle",
-    desc: "Nike running campaign poster.",
+    id: "g21",
+    title: "Bigger Moves Same Energy",
+    desc: "Flow Pushers footwear campaign poster.",
     width: 1024,
     height: 1536,
-    thumb: "/images/graphics_design/signed/Impossible_Angle__Defy_Perspective_signed.png",
-    full: "/images/graphics_design/signed/Impossible_Angle__Defy_Perspective_signed.png"
-  },
-  {
-    id: "g14",
-    title: "Crocs Campaign",
-    desc: "Lifestyle campaign poster for Crocs footwear.",
-    width: 736,
-    height: 1104,
-    thumb: "/images/graphics_design/signed/Crocks_Poster.jpeg",
-    full: "/images/graphics_design/signed/Crocks_Poster.jpeg"
-  },
-  {
-    id: "g15",
-    title: "Wireless Earbuds",
-    desc: "Product campaign poster for next-generation wireless earbuds.",
-    width: 1024,
-    height: 1536,
-    thumb: "/images/graphics_design/signed/Pods.jpeg",
-    full: "/images/graphics_design/signed/Pods.jpeg"
-  },
-  {
-    id: "g11",
-    title: "Ferrari: Born to Dominate",
-    desc: "High-performance automotive campaign poster.",
-    width: 1024,
-    height: 1536,
-    thumb: "/images/graphics_design/signed/ferrari_signed.png",
-    full: "/images/graphics_design/signed/ferrari_signed.png"
+    thumb: "/images/graphics_design/signed/flowpushers_signed.png",
+    full: "/images/graphics_design/signed/flowpushers_signed.png"
   },
   {
     id: "g4",
@@ -256,40 +247,31 @@ const graphicProjects = [
     full: "/images/graphics_design/signed/Gaming_Poster_signed.jpg"
   },
   {
-    id: "g5",
-    title: "DualSense Precision in Blue",
-    desc: "PlayStation controller product ad.",
-    width: 1122,
-    height: 1402,
-    thumb: "/images/graphics_design/signed/DualSense_Precision_in_Blue_signed.png",
-    full: "/images/graphics_design/signed/DualSense_Precision_in_Blue_signed.png"
-  },
-  {
-    id: "g7",
-    title: "Muskalam Fragrance",
-    desc: "Luxury oud fragrance brand ad.",
-    width: 1086,
-    height: 1448,
-    thumb: "/images/graphics_design/signed/Muskalam_Luxury_Fragrance_Ad_signed.png",
-    full: "/images/graphics_design/signed/Muskalam_Luxury_Fragrance_Ad_signed.png"
-  },
-  {
-    id: "g12",
-    title: "Rolex: Timeless by Nature",
-    desc: "Luxury watch campaign poster.",
+    id: "g19",
+    title: "Nike SB Blazer Low",
+    desc: "Nike skate footwear campaign poster.",
     width: 1024,
     height: 1536,
-    thumb: "/images/graphics_design/signed/rolex_signed.png",
-    full: "/images/graphics_design/signed/rolex_signed.png"
+    thumb: "/images/graphics_design/signed/nike_sb_signed.png",
+    full: "/images/graphics_design/signed/nike_sb_signed.png"
   },
   {
-    id: "g13",
-    title: "Naviforce Watch",
-    desc: "Dramatic product campaign for a Naviforce watch.",
+    id: "g15",
+    title: "Wireless Earbuds",
+    desc: "Product campaign poster for next-generation wireless earbuds.",
     width: 1024,
     height: 1536,
-    thumb: "/images/graphics_design/signed/naviforce_signed.png",
-    full: "/images/graphics_design/signed/naviforce_signed.png"
+    thumb: "/images/graphics_design/signed/Pods.jpeg",
+    full: "/images/graphics_design/signed/Pods.jpeg"
+  },
+  {
+    id: "g6",
+    title: "Impossible Angle",
+    desc: "Nike running campaign poster.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/Impossible_Angle__Defy_Perspective_signed.png",
+    full: "/images/graphics_design/signed/Impossible_Angle__Defy_Perspective_signed.png"
   },
   {
     id: "g2",
@@ -299,6 +281,24 @@ const graphicProjects = [
     height: 1675,
     thumb: "/images/graphics_design/signed/boss_dark_elegance_signed.png",
     full: "/images/graphics_design/signed/boss_dark_elegance_signed.png"
+  },
+  {
+    id: "g14",
+    title: "Crocs Campaign",
+    desc: "Lifestyle campaign poster for Crocs footwear.",
+    width: 736,
+    height: 1104,
+    thumb: "/images/graphics_design/signed/Crocks_Poster.jpeg",
+    full: "/images/graphics_design/signed/Crocks_Poster.jpeg"
+  },
+  {
+    id: "g13",
+    title: "Naviforce Watch",
+    desc: "Dramatic product campaign for a Naviforce watch.",
+    width: 1024,
+    height: 1536,
+    thumb: "/images/graphics_design/signed/naviforce_signed.png",
+    full: "/images/graphics_design/signed/naviforce_signed.png"
   },
   {
     id: "g1",
