@@ -88,6 +88,9 @@ const ScrollSafeOrbitControls = () => {
 
       if (controlsRef.current) {
         controlsRef.current.enabled = false;
+        // Native OrbitControls pauses auto-rotation while a drag is active.
+        // Do the same so it never competes with the user's horizontal input.
+        controlsRef.current.autoRotate = false;
       }
 
       startX = lastX = event.clientX;
@@ -132,6 +135,7 @@ const ScrollSafeOrbitControls = () => {
       axis = null;
       if (controlsRef.current) {
         controlsRef.current.enabled = true;
+        controlsRef.current.autoRotate = true;
       }
       applyPanY();
     };
