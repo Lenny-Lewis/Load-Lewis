@@ -117,8 +117,6 @@ const ScrollSafeOrbitControls = () => {
 
       if (axis !== "h") return;
 
-      event.preventDefault();
-
       const deltaX = event.clientX - lastX;
       lastX = event.clientX;
       if (deltaX === 0) return;
@@ -139,7 +137,9 @@ const ScrollSafeOrbitControls = () => {
     };
 
     el.addEventListener("pointerdown", onPointerDownCapture, { capture: true });
-    el.addEventListener("pointermove", onPointerMove, { passive: false });
+    // `touch-action: pan-y` handles gesture ownership in CSS. A passive
+    // listener lets vertical scrolling stay entirely on the compositor thread.
+    el.addEventListener("pointermove", onPointerMove, { passive: true });
     el.addEventListener("pointerup", onPointerUp);
     el.addEventListener("pointercancel", onPointerUp);
 
