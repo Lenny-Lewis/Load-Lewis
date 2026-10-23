@@ -14,7 +14,7 @@ const CommentsPage = () => {
     <main className="min-h-screen px-5 pb-24 pt-24 md:px-10 md:pt-28">
       <div className="mx-auto w-full max-w-6xl">
         <Button asChild variant="ghost" className="-ml-3 text-white/70 hover:text-white">
-          <Link to="/#testimonials">
+          <Link to="/#feedback">
             <ChevronLeft className="me-1 opacity-70" size={16} aria-hidden="true" />
             Back
           </Link>
