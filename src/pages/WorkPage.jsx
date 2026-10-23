@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Footer } from "@/components/ui/modem-animated-footer";
 import { Icons } from "@/components/ui/icons";
-import { Mail, Code2 } from "lucide-react";
+import { Mail, Code2, Zap } from "lucide-react";
 import HoverTextSlide from "@/components/ui/HoverTextSlide";
 import GraphicDesignGrid from "@/components/GraphicDesignGrid";
 import ProjectGrid from "@/components/ProjectGrid";
@@ -340,6 +340,53 @@ const WorkIntroWords = ({ text, ready, delay, stagger }) => {
   ));
 };
 
+const ProjectProgressOverlay = ({ project, progress }) => {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/10 backdrop-blur-[2px]">
+      <div
+        role="progressbar"
+        aria-label={`${project} progress`}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={progress}
+        className="flex flex-col items-center"
+      >
+        <div className="flex flex-col items-center">
+          <div className="h-2 w-9 rounded-t-md border border-b-0 border-white/70 bg-white/30 backdrop-blur-lg" />
+          <div className="relative h-32 w-20 rounded-2xl border-2 border-white/70 bg-white/15 p-1.5 shadow-[0_12px_30px_rgba(0,0,0,0.35)] backdrop-blur-lg">
+            <div className="relative h-full w-full overflow-hidden rounded-xl bg-black/20">
+              <motion.div
+                initial={reduceMotion ? false : { height: 0 }}
+                animate={{ height: `${progress}%` }}
+                transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-x-0 bottom-0 overflow-hidden rounded-b-xl bg-gradient-to-t from-[#0b8f5a] via-[#22c55e] to-[#86efac] shadow-[0_0_24px_rgba(34,197,94,0.55)]"
+              >
+                <motion.div
+                  animate={reduceMotion ? undefined : { opacity: [0.35, 0.9, 0.35] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute inset-0 bg-white/25"
+                />
+              </motion.div>
+              <motion.div
+                animate={reduceMotion ? undefined : { opacity: [1, 0.55, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <Zap className="h-8 w-8 fill-white text-white drop-shadow-lg" aria-hidden="true" />
+              </motion.div>
+              <span className="absolute inset-x-0 bottom-1 z-10 text-center text-xl font-black tabular-nums text-white" style={{ textShadow: "0 2px 6px rgba(0,0,0,0.9)" }}>
+                {progress}%
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const WorkPage = () => {
   const containerRef = useRef(null);
   const [activeTab, setActiveTab] = useState("web");
@@ -457,7 +504,7 @@ const WorkPage = () => {
         ) : activeTab === "current" ? (
           <div className="w-full max-w-7xl mx-auto grid grid-cols-1 gap-5 md:grid-cols-2">
             <figure className="group flex flex-col gap-5">
-              <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#c9d0ed]">
+              <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#c9d0ed]">
                 <img
                   src="/images/roam-project-template.png"
                   alt="Roam travel app screens"
@@ -465,6 +512,7 @@ const WorkPage = () => {
                   decoding="async"
                   className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
+                <ProjectProgressOverlay project="Roam" progress={28} />
               </div>
               <figcaption className="px-2">
                 <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#cda144] transition-colors duration-300">Roam</h3>
@@ -481,7 +529,7 @@ const WorkPage = () => {
                 aria-label="View KSU RTMS on GitHub"
                 className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cda144]"
               >
-                <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#25292b]">
+                <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#25292b]">
                   <img
                     src="/images/ksu-rtms-project-template.png"
                     alt="Kisii University project management system preview"
@@ -490,6 +538,7 @@ const WorkPage = () => {
                     className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
                     style={{ maskImage: "linear-gradient(to bottom, transparent 6%, black 13%, black 87%, transparent 94%)" }}
                   />
+                  <ProjectProgressOverlay project="KSU RTMS" progress={88} />
                 </div>
               </a>
               <figcaption className="px-2">
@@ -507,7 +556,7 @@ const WorkPage = () => {
                 aria-label="View Cindi on GitHub"
                 className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cda144]"
               >
-                <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#d8d8d8] flex items-center justify-center">
+                <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#d8d8d8] flex items-center justify-center">
                   <img
                     src="/images/Cindi_Project.png"
                     alt="Cindi project preview"
@@ -517,6 +566,7 @@ const WorkPage = () => {
                     height="258"
                     className="w-full max-w-[397px] h-auto [clip-path:inset(10px_12px)] group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
                   />
+                  <ProjectProgressOverlay project="Cindi" progress={12} />
                 </div>
               </a>
               <figcaption className="px-2">
@@ -528,8 +578,10 @@ const WorkPage = () => {
             </figure>
           </div>
         ) : (
-          <div className="w-full max-w-7xl mx-auto py-20 flex items-center justify-center border border-white/5 rounded-3xl bg-white/5">
-            <h2 className="text-2xl font-bold text-white-50">Mobile Apps</h2>
+          <div className="w-full max-w-7xl mx-auto py-20 px-6 flex items-center justify-center">
+            <h2 className="text-center text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-white">
+              <WorkIntroWords text="Coming soon, hey I am excited too!!" ready={introReady} delay={0.1} stagger={0.1} />
+            </h2>
           </div>
         )}
       </section>
