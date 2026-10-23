@@ -530,7 +530,7 @@ const testimonialAvatar = (seed) =>
 
 const testimonials = [
   {
-    name: "Kevin Katami, CEO at Villagio",
+    name: "Kevin Katami, personnel at Villagio",
     mentions: "Villagio · Customer Service Week poster",
     rating: 5,
     review:
