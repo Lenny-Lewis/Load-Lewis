@@ -456,20 +456,73 @@ const WorkPage = () => {
           </div>
         ) : activeTab === "current" ? (
           <div className="w-full max-w-7xl mx-auto grid grid-cols-1 gap-5 md:grid-cols-2">
-            <figure className="flex flex-col gap-5">
+            <figure className="group flex flex-col gap-5">
               <div className="w-full aspect-[20/17] rounded-3xl overflow-hidden bg-[#c9d0ed]">
                 <img
                   src="/images/roam-project-template.png"
                   alt="Roam travel app screens"
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
                 />
               </div>
               <figcaption className="px-2">
-                <h3 className="text-xl md:text-2xl font-bold text-white">Roam</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#cda144] transition-colors duration-300">Roam</h3>
                 <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
                   A modern travel app for discovering destinations and booking stays.
+                </p>
+              </figcaption>
+            </figure>
+            <figure className="group flex flex-col gap-5">
+              <a
+                href="https://github.com/Lenny-Lewis/KSU-RTMS"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View KSU RTMS on GitHub"
+                className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cda144]"
+              >
+                <div className="w-full aspect-[20/17] rounded-3xl overflow-hidden bg-[#25292b]">
+                  <img
+                    src="/images/ksu-rtms-project-template.png"
+                    alt="Kisii University project management system preview"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                    style={{ maskImage: "linear-gradient(to bottom, transparent 11%, black 18%, black 82%, transparent 89%)" }}
+                  />
+                </div>
+              </a>
+              <figcaption className="px-2">
+                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#cda144] transition-colors duration-300">KSU RTMS</h3>
+                <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
+                  A project management system for Kisii University.
+                </p>
+              </figcaption>
+            </figure>
+            <figure className="group flex flex-col gap-5">
+              <a
+                href="https://github.com/Lenny-Lewis/Cindi"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View Cindi on GitHub"
+                className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cda144]"
+              >
+                <div className="w-full aspect-[20/17] rounded-3xl overflow-hidden bg-[#d8d8d8] flex items-center justify-center">
+                  <img
+                    src="/images/Cindi_Project.png"
+                    alt="Cindi project preview"
+                    loading="lazy"
+                    decoding="async"
+                    width="397"
+                    height="258"
+                    className="w-full max-w-[397px] h-auto [clip-path:inset(10px_12px)] group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  />
+                </div>
+              </a>
+              <figcaption className="px-2">
+                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#cda144] transition-colors duration-300">Cindi</h3>
+                <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
+                  An agentic, modern AI assistant — a female Jarvis.
                 </p>
               </figcaption>
             </figure>
