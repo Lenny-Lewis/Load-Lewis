@@ -457,7 +457,7 @@ const WorkPage = () => {
         ) : activeTab === "current" ? (
           <div className="w-full max-w-7xl mx-auto grid grid-cols-1 gap-5 md:grid-cols-2">
             <figure className="group flex flex-col gap-5">
-              <div className="w-full aspect-[20/17] rounded-3xl overflow-hidden bg-[#c9d0ed]">
+              <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#c9d0ed]">
                 <img
                   src="/images/roam-project-template.png"
                   alt="Roam travel app screens"
@@ -481,14 +481,14 @@ const WorkPage = () => {
                 aria-label="View KSU RTMS on GitHub"
                 className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cda144]"
               >
-                <div className="w-full aspect-[20/17] rounded-3xl overflow-hidden bg-[#25292b]">
+                <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#25292b]">
                   <img
                     src="/images/ksu-rtms-project-template.png"
                     alt="Kisii University project management system preview"
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                    style={{ maskImage: "linear-gradient(to bottom, transparent 11%, black 18%, black 82%, transparent 89%)" }}
+                    style={{ maskImage: "linear-gradient(to bottom, transparent 6%, black 13%, black 87%, transparent 94%)" }}
                   />
                 </div>
               </a>
@@ -507,7 +507,7 @@ const WorkPage = () => {
                 aria-label="View Cindi on GitHub"
                 className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cda144]"
               >
-                <div className="w-full aspect-[20/17] rounded-3xl overflow-hidden bg-[#d8d8d8] flex items-center justify-center">
+                <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#d8d8d8] flex items-center justify-center">
                   <img
                     src="/images/Cindi_Project.png"
                     alt="Cindi project preview"
