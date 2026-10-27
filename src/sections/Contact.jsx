@@ -3,7 +3,7 @@ import emailjs from "@emailjs/browser";
 
 import TitleHeader from "../components/TitleHeader";
 import { resumeLinks } from "../constants";
-import ContactSpline from "../components/ContactSpline";
+import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
 
 const Contact = () => {
   const formRef = useRef(null);
@@ -226,7 +226,7 @@ const Contact = () => {
           </div>
           <div className="lg:col-span-7 min-h-96">
             <div className="w-full h-full rounded-3xl overflow-hidden">
-              <ContactSpline />
+              <RotatingEarth className="h-full min-h-[350px] sm:min-h-[460px] md:min-h-[520px]" />
             </div>
           </div>
         </div>

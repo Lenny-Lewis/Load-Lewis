@@ -22,7 +22,6 @@ const BOTTOM_LINES = [
 
 const SPLINE_ASSETS = [
   "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode",
-  "https://prod.spline.design/qgLe0tGeLUHJysaL/scene.splinecode",
 ];
 
 const ScrambleLines = ({ lines, className }) => (
