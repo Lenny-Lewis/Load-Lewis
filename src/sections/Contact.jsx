@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 
 import TitleHeader from "../components/TitleHeader";
-import { resumeLinks } from "../constants";
 import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
 
 const Contact = () => {
@@ -117,32 +116,13 @@ const Contact = () => {
           }
         />
         <div className="grid-12-cols mt-16">
-          <div className="lg:col-span-5">
-            <div className="flex-center card-border rounded-xl p-10">
+          <div className="lg:col-span-5 mt-8 lg:mt-12">
+            <div className="contact-form-card flex-center card-border rounded-xl p-10">
               <div className="w-full flex flex-col gap-8">
-                <div className="contact-quick-grid">
-                  <div className="contact-quick-card">
-                    <p className="about-kicker">Response Time</p>
-                    <h3>Within 24-48 Hours</h3>
-                  </div>
-                  <div className="contact-quick-card">
-                    <p className="about-kicker">Location</p>
-                    <h3>Kenya</h3>
-                  </div>
-                  <a
-                    href={resumeLinks.cv}
-                    download
-                    className="contact-quick-card contact-download"
-                  >
-                    <p className="about-kicker">Resume & CV</p>
-                    <h3>Download Profile</h3>
-                  </a>
-                </div>
-
                 <form
                   ref={formRef}
                   onSubmit={handleSubmit}
-                  className="w-full flex flex-col gap-7"
+                  className="contact-form w-full flex flex-col gap-7"
                 >
                   <input
                     type="text"
@@ -196,7 +176,7 @@ const Contact = () => {
                   </div>
 
                   <button type="submit" disabled={loading}>
-                    <div className="cta-button group">
+                    <div className="cta-button contact-form-cta group">
                       <div className="bg-circle" />
                       <p className="text">
                         {loading
