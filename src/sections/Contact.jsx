@@ -1,10 +1,13 @@
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { useMediaQuery } from "react-responsive";
 
 import TitleHeader from "../components/TitleHeader";
 import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
+import EarthCanvas from "../canvas/Earth";
 
 const Contact = () => {
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -206,7 +209,11 @@ const Contact = () => {
           </div>
           <div className="lg:col-span-7 min-h-96">
             <div className="w-full h-full rounded-3xl overflow-hidden">
-              <RotatingEarth className="h-full min-h-[350px] sm:min-h-[460px] md:min-h-[520px]" />
+              {isMobile ? (
+                <EarthCanvas />
+              ) : (
+                <RotatingEarth className="h-full min-h-[350px] sm:min-h-[460px] md:min-h-[520px]" />
+              )}
             </div>
           </div>
         </div>
