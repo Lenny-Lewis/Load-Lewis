@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 .loader-wordmark {
@@ -33,6 +35,7 @@
 }
 
 :root {
+  --font-article: "Archivo", "Inter", sans-serif;
   --gradient: radial-gradient(circle, #e5e5e5 0%, #fff 100%);
   --background: #050505;
   --foreground: #ffffff;
@@ -54,7 +57,8 @@
 html,
 body {
   width: 100dvw;
-  overflow-x: hidden;
+  /* clip keeps horizontal overflow contained without breaking position:sticky */
+  overflow-x: clip;
   background-color: black;
   color: white;
   scroll-behavior: smooth;
@@ -72,8 +76,49 @@ section {
   scroll-margin-top: 6rem;
 }
 
+.article-detail-page,
+.article-footer {
+  font-family: var(--font-article), Archivo, sans-serif;
+}
+
+/* Override global `section { width: 100dvw }` so body copy stays in the left column */
+.article-detail-page section {
+  width: 100%;
+  max-width: 100%;
+}
+
+.article-newsletter,
+.article-newsletter * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.article-newsletter__input {
+  caret-color: #faf7f3;
+  box-shadow: none !important;
+}
+
+/* Kill browser autofill yellow / cream wash on newsletter email field */
+.article-newsletter__input:-webkit-autofill,
+.article-newsletter__input:-webkit-autofill:hover,
+.article-newsletter__input:-webkit-autofill:focus,
+.article-newsletter__input:-webkit-autofill:active {
+  -webkit-text-fill-color: #faf7f3 !important;
+  caret-color: #faf7f3;
+  transition: background-color 99999s ease-out;
+  box-shadow: 0 0 0 1000px #111 inset !important;
+  border-bottom-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.article-newsletter input:focus,
+.article-newsletter button:focus {
+  outline: none;
+  --tw-ring-color: transparent;
+  --tw-ring-shadow: 0 0 0 0 transparent;
+}
+
 @theme {
   --font-sans: "Mona Sans", sans-serif;
+  --font-article: "Archivo", "Inter", sans-serif;
   --color-white-50: #d9ecff;
   --color-black-50: #1c1c21;
   --color-black-100: #0e0e10;
