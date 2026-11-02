@@ -101,12 +101,10 @@ const webProjects = [
   {
     id: 6,
     title: "Zedos Technologies",
-    desc: "Corporate website and digital solutions platform.",
-    img: "/images/projects/web/zed-os.mp4",
-    mediaType: "video",
-    poster: "/images/projects/web/zedos_technologies_portfolio.png",
-    link: "http://zedostechnologies.co.ke/",
-    bg: "bg-[#FFE7EB]"
+    desc: "AI & ML, digital systems and smart operations for East African teams, with an interactive 3D hero.",
+    img: "/images/projects/web/zedos_technologies_showcase.png",
+    link: "https://zedostechnologies.co.ke/",
+    bg: "bg-[#0A0A0C]"
   }
 ];
 
