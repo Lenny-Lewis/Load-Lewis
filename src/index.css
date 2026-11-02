@@ -1576,6 +1576,29 @@ section {
   pointer-events: none;
 }
 
+/* Glassy bar behind the header once the hero is left (matches Vanguard:
+   black 85% -> 55% -> transparent with a light backdrop blur). */
+.header {
+  padding-bottom: var(--gap, 1.5em);
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.55) 50%, transparent);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.header.is--glass::before {
+  opacity: 1;
+}
+
 .header .container.is--full {
   max-width: 100%;
   padding-left: var(--container-padding, 2em);
@@ -1696,6 +1719,27 @@ section {
 }
 
 .menu-button-icon {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+/* Close button inside the open menu (the header's button sits under the menu) */
+.menu-close-btn {
+  position: absolute;
+  top: var(--gap, 1.5em);
+  right: var(--container-padding, 2em);
+  z-index: 5;
+  pointer-events: auto;
+}
+
+.menu-close-btn .p-large {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.4em;
+  margin: 0;
+}
+
+.menu-close-icon {
   width: 1.1em;
   height: 1.1em;
 }

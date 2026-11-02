@@ -37,6 +37,36 @@ export function Component({
   // We need a ref for the parent container to scope GSAP
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // Glassy header background (as on Vanguard): off over the hero, on once the
+  // hero has scrolled up past the header. Pages without a #hero fall back to
+  // "scrolled at least one screen height".
+  const [isPastHero, setIsPastHero] = useState(false);
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const hero = document.getElementById("hero");
+      const header = containerRef.current?.querySelector(".header");
+      const headerBottom = header?.getBoundingClientRect().bottom ?? 0;
+      setIsPastHero(
+        hero
+          ? hero.getBoundingClientRect().bottom <= headerBottom
+          : window.scrollY >= window.innerHeight
+      );
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
 
   // Initial Setup & Hover Effects
   useEffect(() => {
@@ -122,54 +152,66 @@ export function Component({
     };
   }, [items]);
 
-  // Menu Open/Close Animation Effect
+  // Menu Open/Close Animation
+  // One timeline is built for opening; closing plays the same timeline in
+  // reverse, so every step of the open animation is undone in reverse order.
+  const menuTl = useRef<gsap.core.Timeline | null>(null);
+
   useEffect(() => {
     if (!containerRef.current) return;
 
     const ctx = gsap.context(() => {
-      const navWrap = containerRef.current!.querySelector(".nav-overlay-wrapper");
-      const menu = containerRef.current!.querySelector(".menu-content");
-      const overlay = containerRef.current!.querySelector(".overlay");
-      const bgPanels = containerRef.current!.querySelectorAll(".backdrop-layer");
-      const menuLinks = containerRef.current!.querySelectorAll(".nav-link");
-      const fadeTargets = containerRef.current!.querySelectorAll("[data-menu-fade]");
+      const root = containerRef.current!;
+      const navWrap = root.querySelector(".nav-overlay-wrapper");
+      const menu = root.querySelector(".menu-content");
+      const overlay = root.querySelector(".overlay");
+      const bgPanels = root.querySelectorAll(".backdrop-layer");
+      const menuLinks = root.querySelectorAll(".nav-link");
+      const fadeTargets = root.querySelectorAll("[data-menu-fade]");
+      const innerClose = root.querySelector(".menu-close-btn");
 
-      const menuButton = containerRef.current!.querySelector(".nav-close-btn");
-      const menuButtonTexts = menuButton?.querySelectorAll("p");
-      const menuButtonIcon = menuButton?.querySelector(".menu-button-icon");
+      const menuButton = root.querySelector(".nav-close-btn");
+      const menuButtonTexts = menuButton ? Array.from(menuButton.querySelectorAll("p")) : [];
+      const menuButtonIcon = menuButton?.querySelector(".menu-button-icon") ?? null;
 
-      const tl = gsap.timeline();
+      const tl = gsap.timeline({
+        paused: true,
+        onReverseComplete: () => navWrap?.setAttribute("data-nav", "closed"),
+      });
 
-      if (isMenuOpen) {
-        // OPEN
-        if (navWrap) navWrap.setAttribute("data-nav", "open");
-
-        tl.set(navWrap, { display: "block" })
-          .set(menu, { xPercent: 0 }, "<")
-          // Animate Button Text Swapping if it exists
-          .fromTo(menuButtonTexts, { yPercent: 0 }, { yPercent: -100, stagger: 0.2 })
-          .fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 315 }, "<")
-          .fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1 }, "<")
-          .fromTo(bgPanels, { xPercent: 101 }, { xPercent: 0, stagger: 0.12, duration: 0.575 }, "<")
-          .fromTo(menuLinks, { yPercent: 140, rotate: 10 }, { yPercent: 0, rotate: 0, stagger: 0.05 }, "<+=0.35");
-
-        if (fadeTargets.length) {
-          tl.fromTo(fadeTargets, { autoAlpha: 0, yPercent: 50 }, { autoAlpha: 1, yPercent: 0, stagger: 0.04, clearProps: "all" }, "<+=0.2");
-        }
-      } else {
-        // CLOSE
-        if (navWrap) navWrap.setAttribute("data-nav", "closed");
-
-        tl.to(overlay, { autoAlpha: 0 })
-          .to(menu, { xPercent: 120 }, "<")
-          // Animate Button Text and Icon Back
-          .to(menuButtonTexts, { yPercent: 0 }, "<")
-          .to(menuButtonIcon, { rotate: 0 }, "<")
-          .set(navWrap, { display: "none" });
+      tl.set(navWrap, { display: "block" })
+        .set(menu, { xPercent: 0 }, "<");
+      if (menuButtonTexts.length) tl.fromTo(menuButtonTexts, { yPercent: 0 }, { yPercent: -100, stagger: 0.2 });
+      if (menuButtonIcon) tl.fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 315 }, "<");
+      tl.fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1 }, "<")
+        .fromTo(bgPanels, { xPercent: 101 }, { xPercent: 0, stagger: 0.12, duration: 0.575 }, "<")
+        .fromTo(menuLinks, { yPercent: 140, rotate: 10 }, { yPercent: 0, rotate: 0, stagger: 0.05 }, "<+=0.35");
+      if (fadeTargets.length) {
+        tl.fromTo(fadeTargets, { autoAlpha: 0, yPercent: 50 }, { autoAlpha: 1, yPercent: 0, stagger: 0.04 }, "<+=0.2");
       }
+      if (innerClose) {
+        tl.fromTo(innerClose, { autoAlpha: 0, yPercent: -40 }, { autoAlpha: 1, yPercent: 0, duration: 0.5 }, "<");
+      }
+
+      menuTl.current = tl;
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => {
+      menuTl.current = null;
+      ctx.revert();
+    };
+  }, [items]);
+
+  useEffect(() => {
+    const tl = menuTl.current;
+    const navWrap = containerRef.current?.querySelector(".nav-overlay-wrapper");
+    if (!tl) return;
+    if (isMenuOpen) {
+      navWrap?.setAttribute("data-nav", "open");
+      tl.play();
+    } else if (tl.progress() > 0) {
+      tl.reverse();
+    }
   }, [isMenuOpen]);
 
   // Prevent background scroll when open
@@ -199,7 +241,7 @@ export function Component({
   return (
     <div ref={containerRef} className="sterling-gate-nav">
       <div className="site-header-wrapper">
-        <header className="header">
+        <header className={`header${isPastHero ? " is--glass" : ""}`}>
           <div className="container is--full">
             <nav className="nav-row" aria-label="Main Navigation">
               {brandHref?.startsWith("/") ? (
@@ -212,11 +254,6 @@ export function Component({
                 </a>
               )}
               <div className="nav-row__right">
-                {/* Clean Menu Indicator (Arrow Removed) */}
-                <div className="nav-toggle-label" onClick={toggleMenu} style={{ cursor: "pointer", pointerEvents: "auto" }}>
-                  <span className="toggle-text">click me</span>
-                </div>
-
                 {/* Menu Button */}
                 <button
                   type="button"
@@ -276,6 +313,14 @@ export function Component({
         <div data-nav="closed" className="nav-overlay-wrapper">
           <div className="overlay" onClick={closeMenu}></div>
           <nav className="menu-content" aria-label="Kinetic Navigation Menu">
+            <button type="button" className="nav-close-btn menu-close-btn" onClick={closeMenu} aria-label="Close menu">
+              <span className="p-large">Close</span>
+              <span className="icon-wrap" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none" className="menu-close-icon">
+                  <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </span>
+            </button>
             <div className="menu-bg">
               <div className="backdrop-layer first"></div>
               <div className="backdrop-layer second"></div>
