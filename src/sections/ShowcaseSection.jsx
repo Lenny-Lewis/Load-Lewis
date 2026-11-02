@@ -81,7 +81,7 @@ const AppShowcase = () => {
   return (
     <section id="work" ref={sectionRef} className="w-full flex-col-center section-padding pb-20">
       
-      <div className="w-full max-w-7xl mx-auto mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-5">
+      <div className="w-full max-w-[1176px] mx-auto mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-5">
         <div className="flex w-full justify-between items-center">
           <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-wide">
             Featured Projects
@@ -97,7 +97,7 @@ const AppShowcase = () => {
       </div>
       
       {/* Grid Content — sizing lives in the shared ProjectGrid */}
-      <div className="w-full max-w-7xl mx-auto mt-6">
+      <div className="w-full max-w-[1176px] mx-auto mt-6">
         <ProjectGrid projects={webProjects} />
       </div>
     </section>

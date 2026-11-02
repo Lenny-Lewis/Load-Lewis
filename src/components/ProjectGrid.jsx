@@ -7,6 +7,21 @@
  * `gap-4 md:gap-10 lg:gap-16`, and only Work handled video). Centralising the
  * sizing means the next change lands in one place and can't diverge again.
  *
+ * Sizing follows majd-portfolio.framer.website's "Featured Projects" cards:
+ *   - 1 column below 810px, 2 columns from 810px, 16px gap
+ *   - image frame: 4:3 (not Majd's 1.45) because nearly all project shots are
+ *     4:3 — a matching frame lets object-cover fill the card with nothing
+ *     cropped. Export new project images at 4:3 (e.g. 1600x1200); any other
+ *     shape gets trimmed to fit. 20px corners, 10px between image and text
+ *   - title 28px → 30px (810px+) → 32px (1280px+), medium weight, -0.02em
+ *   - description 16px, 1.4 line height
+ *   - hover: the whole card frame grows slightly (zooming the image inside the
+ *     frame would crop its edges)
+ * With a 1176px container this gives two ~580px cards, as on that site.
+ *
+ * Earlier notes (kept for context; the crop trade-offs below no longer apply
+ * now that images are contained rather than cropped):
+ *
  * Layout (kept deliberately separate from the graphic-design grid, which is a
  * portrait poster layout and must stay 4/5):
  *   - container max-width: the site-wide `max-w-7xl` (1280px), matching the
@@ -41,17 +56,17 @@ const ProjectGrid = ({
   if (!projects || projects.length === 0) return null;
 
   return (
-    <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2">
+    <div className="mx-auto grid w-full max-w-[1176px] grid-cols-1 gap-4 min-[810px]:grid-cols-2">
       {projects.map((project) => (
         <a
           key={project.id}
           href={project.link || "#"}
           target={project.link ? "_blank" : "_self"}
           rel="noreferrer"
-          className={`${cardClassName} group flex flex-col gap-5 block cursor-pointer`}
+          className={`${cardClassName} group flex flex-col gap-2.5 cursor-pointer`}
         >
           <div
-            className={`w-full aspect-[4/3] rounded-3xl overflow-hidden relative flex items-center justify-center ${
+            className={`w-full aspect-[4/3] rounded-[20px] overflow-hidden relative flex items-center justify-center transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.02] ${
               project.bg || "bg-[#141417]"
             }`}
           >
@@ -64,7 +79,7 @@ const ProjectGrid = ({
                 muted
                 loop
                 playsInline
-                className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                className="h-full w-full object-cover"
               />
             ) : (
               <img
@@ -72,7 +87,7 @@ const ProjectGrid = ({
                 alt={project.title}
                 loading="lazy"
                 decoding="async"
-                className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                className="h-full w-full object-cover"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src =
@@ -80,15 +95,15 @@ const ProjectGrid = ({
                 }}
               />
             )}
-            <div className="absolute inset-0 border border-white/5 rounded-3xl pointer-events-none" />
+            <div className="absolute inset-0 border border-white/5 rounded-[20px] pointer-events-none" />
           </div>
 
-          <div className="flex flex-col gap-2 px-2">
-            <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#cda144] transition-colors duration-300">
+          <div className="flex flex-col gap-1">
+            <h3 className="text-[28px] min-[810px]:text-[30px] xl:text-[32px] font-medium leading-[1.2] tracking-[-0.02em] text-white group-hover:text-[#cda144] transition-colors duration-300">
               {project.title}
             </h3>
             {project.desc && (
-              <p className="text-white-50 text-sm md:text-base leading-relaxed">
+              <p className="text-white-50 text-base leading-[1.4]">
                 {project.desc}
               </p>
             )}

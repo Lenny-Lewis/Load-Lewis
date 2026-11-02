@@ -8,6 +8,7 @@ import WorkPage from "./pages/WorkPage";
 import CommentsPage from "./pages/CommentsPage";
 import ArticleDetailPage from "./pages/ArticleDetailPage";
 import Preloader from "./components/Preloader";
+import { PersistentSplineHost } from "./components/PersistentSpline";
 import { Analytics } from "@vercel/analytics/react";
 
 const ScrollToAnchor = () => {
@@ -58,14 +59,12 @@ const App = () => {
   const isCommentsPage = location.pathname === "/comments";
   const isArticlePage = location.pathname.startsWith("/article");
   const isHomePage = location.pathname === "/";
-  // First visit in this session plays the full intro; repeat visits get the
-  // quick logo-only version.
-  const [showPreloader, setShowPreloader] = useState(true);
-  const [isQuickPreload] = useState(() => {
+  // The intro plays once per browser session; reloads skip it.
+  const [showPreloader, setShowPreloader] = useState(() => {
     try {
-      return sessionStorage.getItem("hasSeenPreloader") === "true";
+      return sessionStorage.getItem("hasSeenPreloader") !== "true";
     } catch {
-      return false;
+      return true;
     }
   });
 
@@ -91,7 +90,9 @@ const App = () => {
 
   return (
     <>
-      {showPreloader && <Preloader onComplete={handlePreloaderComplete} waitForScenes={isHomePage} quick={isQuickPreload} />}
+      {showPreloader && <Preloader onComplete={handlePreloaderComplete} waitForScenes={isHomePage} />}
+      {/* Hero Spline scene, kept alive across route changes */}
+      <PersistentSplineHost />
       <ScrollToAnchor />
       {!isCommentsPage && <Navbar />}
       <Routes>
