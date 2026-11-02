@@ -1,0 +1,8 @@
+Voiceover (Piper TTS, LJ Speech voice — public domain), start times:
+0.20s  Meet Lennox Lewis.
+2.00s  Three D websites that move with you.
+4.80s  Projects built to stand out.
+7.60s  A career built on shipping.
+9.45s  And ideas worth reading.
+11.35s Start your project, at lennox lewis dot co dot K E.
+Music: original beat composed in code (music.py), 128 BPM — royalty-free.

@@ -185,7 +185,9 @@ const EarthCanvas = () => {
         <Canvas
           style={{ touchAction: "pan-y" }}
           shadows
-          frameloop="always"
+          // Mobile mounts this early (the preloader waits for it), so only
+          // animate while it's near the screen or it lags the whole page.
+          frameloop={isInView ? "always" : "never"}
           dpr={[1, 2]}
           gl={{ preserveDrawingBuffer: true }}
           onCreated={({ gl }) => {
