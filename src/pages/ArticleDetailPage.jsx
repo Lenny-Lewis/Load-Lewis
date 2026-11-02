@@ -3,7 +3,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { ArrowLeft, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { articles, moreArticlesInspo } from "../data/articles";
-import ArticleFooter from "../components/ArticleFooter";
+import SiteHalftoneFooter from "../components/SiteHalftoneFooter";
 import ArticleNavPill from "../components/ArticleNavPill";
 
 const NewsletterCard = ({ email, setEmail, subscribed, onSubmit }) => (
@@ -304,7 +304,7 @@ const ArticleDetailPage = () => {
         </div>
       </main>
 
-      <ArticleFooter />
+      <SiteHalftoneFooter />
     </div>
   );
 };
