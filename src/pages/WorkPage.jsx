@@ -7,7 +7,7 @@ import { Zap } from "lucide-react";
 import HoverTextSlide from "@/components/ui/HoverTextSlide";
 import GraphicDesignGrid from "@/components/GraphicDesignGrid";
 import ProjectGrid from "@/components/ProjectGrid";
-import WorkNavPill from "./WorkNavPill";
+import SiteNavPill from "@/components/SiteNavPill";
 
 const webProjects = [
   {
@@ -439,7 +439,7 @@ const WorkPage = () => {
 
   return (
     <div className="w-full min-h-screen bg-[#050505] text-white pt-32 overflow-x-hidden">
-      <WorkNavPill />
+      <SiteNavPill label="Work page navigation" />
       <section ref={containerRef} className="w-full flex-col-center section-padding">
         
         <div className="w-full max-w-7xl mx-auto mb-16 flex flex-col gap-10">

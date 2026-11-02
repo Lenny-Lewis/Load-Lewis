@@ -13,7 +13,8 @@ const portfolioNavItems = [
 const NavBar = () => {
   const location = useLocation();
   const isWorkPage = location.pathname === "/work";
-  const isArticlePage = location.pathname.startsWith("/article");
+  const isArticlePage =
+    location.pathname.startsWith("/article") || location.pathname === "/thoughts";
 
   // Work and article pages mount their own dedicated nav pills
   if (isWorkPage || isArticlePage) {

@@ -29,7 +29,7 @@ const Thoughts = () => {
                 src={article.image}
                 alt={article.title}
                 loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 brightness-90 group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
               />
 
               {/* Gradient overlay for contrast */}
@@ -73,7 +73,7 @@ const Thoughts = () => {
             {/* Bottom Button matching inspo */}
             <div className="pt-6 text-left relative z-10">
               <Link
-                to="/work"
+                to="/thoughts"
                 className="inline-flex items-center gap-2 text-xs sm:text-sm text-neutral-300 hover:text-white transition-colors duration-200 group/btn"
               >
                 <span>View All Work</span>

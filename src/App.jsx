@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage";
 import WorkPage from "./pages/WorkPage";
 import CommentsPage from "./pages/CommentsPage";
 import ArticleDetailPage from "./pages/ArticleDetailPage";
+import ThoughtsPage from "./pages/ThoughtsPage";
 import Preloader from "./components/Preloader";
 import { PersistentSplineHost } from "./components/PersistentSpline";
 import { Analytics } from "@vercel/analytics/react";
@@ -57,7 +58,9 @@ const App = () => {
   const location = useLocation();
   const isWorkPage = location.pathname === "/work";
   const isCommentsPage = location.pathname === "/comments";
-  const isArticlePage = location.pathname.startsWith("/article");
+  // Article pages and the all-articles page share the article layout (own nav pill + footer).
+  const isArticlePage =
+    location.pathname.startsWith("/article") || location.pathname === "/thoughts";
   const isHomePage = location.pathname === "/";
   // The intro plays once per browser session; reloads skip it.
   const [showPreloader, setShowPreloader] = useState(() => {
@@ -99,6 +102,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/work" element={<WorkPage />} />
         <Route path="/comments" element={<CommentsPage />} />
+        <Route path="/thoughts" element={<ThoughtsPage />} />
         <Route path="/article/:slug" element={<ArticleDetailPage />} />
       </Routes>
       {!isCommentsPage && !isArticlePage && <WhatsAppFloatingButton />}

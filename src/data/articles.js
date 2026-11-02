@@ -1,4 +1,82 @@
+/**
+ * Article content.
+ *
+ * Rich text in `paragraphs`, `bullets`, `outro` and `tip`: wrap words in
+ * **double asterisks** to bold them (rendered as highlighted white text).
+ * Optional per section:
+ *   quote: { text, author }  – pull-quote shown after the section
+ *   tip: "..."               – a "Tip:" callout
+ * Newest article first: the home "Thoughts" section shows the first two.
+ */
 export const articles = [
+  {
+    id: "why-motion-and-3d-make-portfolios-memorable",
+    slug: "why-motion-and-3d-make-portfolios-memorable",
+    title: "Why Motion and 3D Make Portfolios Memorable",
+    subtitle: "Motion and real-time 3D turn a portfolio from a list of projects into an experience people remember — when they are used with restraint, purpose, and an eye on performance.",
+    date: "Nov 2, 2026",
+    readTime: "6 min read",
+    tag: "Motion & 3D",
+    cardDesc: "How purposeful animation and real-time 3D turn a portfolio into an experience people remember.",
+    image: "/images/thoughts/motion-and-3d.webp",
+    sections: [
+      {
+        heading: "Attention Is Earned in Seconds",
+        paragraphs: [
+          "A recruiter or client opening your portfolio is usually comparing it with a dozen others. Static pages blur together; a site that **moves with intent** gives people a reason to stay. Motion guides the eye to what matters first, and a well-placed 3D scene signals **craft, confidence, and technical range** before a single line of copy is read."
+        ],
+        quote: { text: "Animation is not the art of drawings that move but the art of movements that are drawn.", author: "Norman McLaren" }
+      },
+      {
+        heading: "Motion as a Storytelling Tool",
+        paragraphs: [
+          "Good motion is choreography, not decoration. Every transition should answer a question for the visitor:"
+        ],
+        bullets: [
+          "Where should I look first?",
+          "What changed, and what caused it?",
+          "What can I interact with?"
+        ],
+        outro: "Scroll-driven reveals, staggered text and gentle easing let a page **unfold like a story** instead of arriving all at once.",
+        quote: { text: "Design is not just what it looks like and feels like. Design is how it works.", author: "Steve Jobs" }
+      },
+      {
+        heading: "Real-Time 3D Shows What You Can Build",
+        paragraphs: [
+          "Tools like **Three.js, React Three Fiber and Spline** make it possible to put interactive 3D straight into the browser. A scene that reacts to the cursor or to scrolling proves something a screenshot cannot: that you can **ship complex, interactive work** that runs smoothly for real users."
+        ],
+        tip: "Give every 3D scene a job. A model that reacts to the visitor reads as skill; a model that just spins reads as filler.",
+        quote: { text: "The details are not the details. They make the design.", author: "Charles Eames" }
+      },
+      {
+        heading: "Performance Is Part of the Experience",
+        paragraphs: [
+          "The most beautiful scene fails if it stutters. Heavy assets, unoptimised textures and animations that fight the main thread are **the fastest way to lose a visitor**. Treat performance as a design constraint from day one:"
+        ],
+        bullets: [
+          "Animate only transform and opacity wherever possible",
+          "Lazy-load 3D scenes and keep them alive across routes",
+          "Pause rendering when a scene is off-screen",
+          "Respect prefers-reduced-motion for every effect"
+        ],
+        outro: "Smoothness reads as quality. A site that stays at **60 frames per second** feels expensive, even when the visuals are simple.",
+        quote: { text: "Fast is my favourite feature.", author: "Larry Page" }
+      },
+      {
+        heading: "Restraint Is the Real Skill",
+        paragraphs: [
+          "When everything moves, nothing stands out. The portfolios people remember use motion and 3D in **a few deliberate moments** — a hero that comes alive, a reveal that rewards scrolling, a detail that responds to touch — and let the rest of the page stay calm and readable."
+        ],
+        quote: { text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci" }
+      },
+      {
+        heading: "Bringing It Together",
+        paragraphs: [
+          "Motion and 3D are at their best when they serve the work instead of competing with it. Start with a clear story, add movement where it **clarifies or delights**, keep performance non-negotiable, and your portfolio stops being a list of projects — it becomes **an experience people remember**."
+        ]
+      }
+    ]
+  },
   {
     id: "building-trust-through-clear-design",
     slug: "building-trust-through-clear-design",
@@ -128,7 +206,7 @@ export const articles = [
     readTime: "6 min read",
     tag: "Brand Systems",
     cardDesc: "A look at the workflows that keep branding consistent across every touchpoint.",
-    image: "/images/thoughts/First%20one.avif",
+    image: "/images/thoughts/brand-systems.webp",
     sections: [
       {
         heading: "Cohesion Over Uniformity",
@@ -182,33 +260,5 @@ export const articles = [
         outro: "When technical innovation is paired with world-class digital craft, products become category-defining."
       }
     ]
-  }
-];
-
-// The exact 3 cards specified in the "More Articles" inspo screenshot:
-export const moreArticlesInspo = [
-  {
-    id: "the-role-of-art-direction-in-branding",
-    slug: "the-role-of-art-direction-in-branding",
-    title: "The Role of Art Direction in Branding",
-    date: "Jun 16, 2025",
-    image: "/images/thoughts/second%20one.avif",
-    desc: "Why visual direction helps brands create emotion and a distinct point of view."
-  },
-  {
-    id: "how-creative-teams-build-brand-systems",
-    slug: "how-creative-teams-build-brand-systems",
-    title: "How Creative Teams Build Brand Systems",
-    date: "Jun 16, 2025",
-    image: "/images/thoughts/First%20one.avif",
-    desc: "A look at the workflows that keep branding consistent across every touchpoint."
-  },
-  {
-    id: "the-rise-of-modern-tech-startup-websites",
-    slug: "the-rise-of-modern-tech-startup-websites",
-    title: "The Rise of Modern Tech Startup Websites",
-    date: "Jun 16, 2025",
-    image: "/images/thoughts/third%20one.avif",
-    desc: "Why tech startups need clear, high trust digital experiences to communicate and attract users."
   }
 ];
