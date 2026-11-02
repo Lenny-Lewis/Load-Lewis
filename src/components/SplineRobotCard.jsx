@@ -47,13 +47,13 @@ const SplineRobotCard = ({ scene }) => {
   };
 
   return (
-    <div ref={elementRef} className="relative h-full min-h-[420px] overflow-hidden bg-black">
+    <div ref={elementRef} className="relative h-full w-full min-h-[480px] lg:min-h-full [clip-path:inset(-100vh_0_0_0)] bg-black flex items-center justify-center">
       {isMobile ? (
         <div className="h-full min-h-[360px] w-full" style={{ touchAction: "pan-y" }}>
           <ComputersCanvas />
         </div>
       ) : shouldLoadScene ? (
-        <div className="relative h-full w-full">
+        <div className="relative h-full w-full flex items-center justify-center">
           {!isSplineLoaded && (
             <div className="absolute inset-0 z-20 flex items-center justify-center bg-black transition-opacity duration-500">
               <Loader />
@@ -67,7 +67,7 @@ const SplineRobotCard = ({ scene }) => {
               style={{
                 width: "100%",
                 height: "100%",
-                transform: "scale(1.15) translateY(-3%)",
+                transform: "scale(1.25) translate(4%, -8%)",
                 transformOrigin: "center center",
                 opacity: isSplineLoaded ? 1 : 0,
                 transition: "opacity 0.5s ease-in-out",

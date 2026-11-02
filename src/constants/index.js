@@ -368,6 +368,7 @@ const expCards = [
     lineColor: "#673DE6",
     imgPath: "/images/experience/exp1.png",
     logoPath: "/images/experience/logo1.png",
+    companyName: "Hostinger",
     title: "Frontend Developer",
     date: "January 2023 - Present",
     responsibilities: [
@@ -378,9 +379,10 @@ const expCards = [
   },
   {
     review: "Lennox’s contributions to Docker's web applications have been outstanding. He approaches challenges with a problem-solving mindset.",
-    lineColor: "#F02E65",
-    imgPath: "/images/experience/exp2.png",
-    logoPath: "/images/experience/logo2.png",
+    lineColor: "#2496ED",
+    imgPath: "/images/experience/exp3.png",
+    logoPath: "/images/experience/logo3.png",
+    companyName: "Docker",
     title: "Full Stack Developer",
     date: "June 2024 - Present",
     responsibilities: [
@@ -425,9 +427,10 @@ const expCards = [
   },
   {
     review: "Lennox’s work on Appwrite’s mobile app brought a high level of quality and efficiency. He delivered solutions that enhanced our mobile experience & meet our product goals.",
-    lineColor: "#2496ED",
-    imgPath: "/images/experience/exp3.png",
-    logoPath: "/images/experience/logo3.png",
+    lineColor: "#F02E65",
+    imgPath: "/images/experience/exp2.png",
+    logoPath: "/images/experience/logo2.png",
+    companyName: "Appwrite",
     title: "React Native Developer",
     date: "March 2025 - Present",
     responsibilities: [
@@ -441,7 +444,7 @@ const expCards = [
     lineColor: "#08A8D5",
     imgPath: "/images/experience/kemri-logo.png",
     imageClassName: "md:size-20 size-10 object-contain",
-    companyName: "kemri",
+    companyName: "KEMRI",
     logoPath: "/images/experience/kemri-logo.png",
     title: "Data Analyst — KEMRI",
     date: "May - August 2026",

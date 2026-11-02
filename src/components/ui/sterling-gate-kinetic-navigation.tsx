@@ -1,89 +1,94 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 
+// Register GSAP Plugins safely
 if (typeof window !== "undefined") {
   gsap.registerPlugin(CustomEase);
 }
 
-const menuLinks = [
-  { label: "Home", to: "/", shape: "1" },
-  { label: "Work", to: "/work", shape: "2" },
-  { label: "Experience", to: "/#experience", shape: "3" },
-  { label: "Skills", to: "/#skills", shape: "4" },
-  { label: "Thoughts", to: "/#thoughts", shape: "5" },
-  { label: "Contact", to: "/#contact", shape: "1" },
+export interface NavItem {
+  label: string;
+  href?: string;
+  to?: string;
+  shape?: string | number;
+}
+
+export interface SterlingGateKineticNavProps {
+  brandName?: string;
+  brandHref?: string;
+  items?: NavItem[];
+}
+
+const defaultItems: NavItem[] = [
+  { label: "About us", href: "#", shape: "1" },
+  { label: "Our work", href: "#", shape: "2" },
+  { label: "Services", href: "#", shape: "3" },
+  { label: "Blog", href: "#", shape: "4" },
+  { label: "Contact us", href: "#", shape: "5" },
 ];
 
-export function Component() {
+export function Component({
+  brandName = "Lennox Lewis",
+  brandHref = "/",
+  items = defaultItems,
+}: SterlingGateKineticNavProps = {}) {
+  // We need a ref for the parent container to scope GSAP
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
 
-  // Close overlay on route/hash change
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [location.pathname, location.hash]);
-
-  // Lock body scroll while open
-  useEffect(() => {
-    if (!isMenuOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [isMenuOpen]);
-
+  // Initial Setup & Hover Effects
   useEffect(() => {
     if (!containerRef.current) return;
 
+    // Create custom easing
     try {
       if (!gsap.parseEase("main")) {
         CustomEase.create("main", "0.65, 0.01, 0.05, 0.99");
         gsap.defaults({ ease: "main", duration: 0.7 });
       }
-    } catch {
+    } catch (e) {
+      console.warn("CustomEase failed to load, falling back to default.", e);
       gsap.defaults({ ease: "power2.out", duration: 0.7 });
     }
 
     const ctx = gsap.context(() => {
-      const menuItems = containerRef.current!.querySelectorAll(
-        ".menu-list-item[data-shape]"
-      );
-      const shapesContainer = containerRef.current!.querySelector(
-        ".ambient-background-shapes"
-      );
+      // 1. Arrow Animation (Safe check)
+      const arrowLine = document.querySelector(".arrow-line");
+      if (arrowLine) {
+        const pathLength = (arrowLine as SVGPathElement).getTotalLength();
+        gsap.set(arrowLine, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
+        const arrowTl = gsap.timeline({ repeat: -1, repeatDelay: 0.8 });
+        arrowTl
+          .to(arrowLine, { strokeDashoffset: 0, duration: 1, ease: "power2.out" })
+          .to({}, { duration: 1.2 })
+          .to(arrowLine, { strokeDashoffset: -pathLength, duration: 0.6, ease: "power2.in" })
+          .set(arrowLine, { strokeDashoffset: pathLength });
+      }
+
+      // 2. Shape Hover
+      const menuItems = containerRef.current!.querySelectorAll(".menu-list-item[data-shape]");
+      const shapesContainer = containerRef.current!.querySelector(".ambient-background-shapes");
 
       menuItems.forEach((item) => {
         const shapeIndex = item.getAttribute("data-shape");
-        const shape = shapesContainer
-          ? shapesContainer.querySelector(`.bg-shape-${shapeIndex}`)
-          : null;
+        const shape = shapesContainer ? shapesContainer.querySelector(`.bg-shape-${shapeIndex}`) : null;
+
         if (!shape) return;
 
         const shapeEls = shape.querySelectorAll(".shape-element");
 
         const onEnter = () => {
           if (shapesContainer) {
-            shapesContainer
-              .querySelectorAll(".bg-shape")
-              .forEach((s) => s.classList.remove("active"));
+            shapesContainer.querySelectorAll(".bg-shape").forEach((s) => s.classList.remove("active"));
           }
           shape.classList.add("active");
+
           gsap.fromTo(
             shapeEls,
-            { scale: 0.5, opacity: 0, x: -10 },
-            {
-              scale: 1,
-              opacity: 1,
-              x: 0,
-              duration: 0.6,
-              stagger: 0.08,
-              ease: "back.out(1.7)",
-              overwrite: "auto",
-            }
+            { scale: 0.5, opacity: 0, rotation: -10 },
+            { scale: 1, opacity: 1, rotation: 0, duration: 0.6, stagger: 0.08, ease: "back.out(1.7)", overwrite: "auto" }
           );
         };
 
@@ -100,6 +105,7 @@ export function Component() {
 
         item.addEventListener("mouseenter", onEnter);
         item.addEventListener("mouseleave", onLeave);
+
         (item as HTMLElement & { _cleanup?: () => void })._cleanup = () => {
           item.removeEventListener("mouseenter", onEnter);
           item.removeEventListener("mouseleave", onLeave);
@@ -109,15 +115,14 @@ export function Component() {
 
     return () => {
       ctx.revert();
-      containerRef.current
-        ?.querySelectorAll(".menu-list-item[data-shape]")
-        .forEach((item) => {
-          const el = item as HTMLElement & { _cleanup?: () => void };
-          el._cleanup?.();
-        });
+      if (containerRef.current) {
+        const menuItems = containerRef.current.querySelectorAll(".menu-list-item[data-shape]");
+        menuItems.forEach((item: any) => item._cleanup && item._cleanup());
+      }
     };
-  }, []);
+  }, [items]);
 
+  // Menu Open/Close Animation Effect
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -126,8 +131,9 @@ export function Component() {
       const menu = containerRef.current!.querySelector(".menu-content");
       const overlay = containerRef.current!.querySelector(".overlay");
       const bgPanels = containerRef.current!.querySelectorAll(".backdrop-layer");
-      const links = containerRef.current!.querySelectorAll(".nav-link");
+      const menuLinks = containerRef.current!.querySelectorAll(".nav-link");
       const fadeTargets = containerRef.current!.querySelectorAll("[data-menu-fade]");
+
       const menuButton = containerRef.current!.querySelector(".nav-close-btn");
       const menuButtonTexts = menuButton?.querySelectorAll("p");
       const menuButtonIcon = menuButton?.querySelector(".menu-button-icon");
@@ -135,37 +141,28 @@ export function Component() {
       const tl = gsap.timeline();
 
       if (isMenuOpen) {
-        navWrap?.setAttribute("data-nav", "open");
+        // OPEN
+        if (navWrap) navWrap.setAttribute("data-nav", "open");
+
         tl.set(navWrap, { display: "block" })
           .set(menu, { xPercent: 0 }, "<")
+          // Animate Button Text Swapping if it exists
           .fromTo(menuButtonTexts, { yPercent: 0 }, { yPercent: -100, stagger: 0.2 })
           .fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 315 }, "<")
           .fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1 }, "<")
-          .fromTo(
-            bgPanels,
-            { xPercent: 101 },
-            { xPercent: 0, stagger: 0.12, duration: 0.575 },
-            "<"
-          )
-          .fromTo(
-            links,
-            { yPercent: 140, rotate: 10 },
-            { yPercent: 0, rotate: 0, stagger: 0.05 },
-            "<+=0.35"
-          );
+          .fromTo(bgPanels, { xPercent: 101 }, { xPercent: 0, stagger: 0.12, duration: 0.575 }, "<")
+          .fromTo(menuLinks, { yPercent: 140, rotate: 10 }, { yPercent: 0, rotate: 0, stagger: 0.05 }, "<+=0.35");
 
         if (fadeTargets.length) {
-          tl.fromTo(
-            fadeTargets,
-            { autoAlpha: 0, yPercent: 50 },
-            { autoAlpha: 1, yPercent: 0, stagger: 0.04, clearProps: "all" },
-            "<+=0.2"
-          );
+          tl.fromTo(fadeTargets, { autoAlpha: 0, yPercent: 50 }, { autoAlpha: 1, yPercent: 0, stagger: 0.04, clearProps: "all" }, "<+=0.2");
         }
       } else {
-        navWrap?.setAttribute("data-nav", "closed");
+        // CLOSE
+        if (navWrap) navWrap.setAttribute("data-nav", "closed");
+
         tl.to(overlay, { autoAlpha: 0 })
           .to(menu, { xPercent: 120 }, "<")
+          // Animate Button Text and Icon Back
           .to(menuButtonTexts, { yPercent: 0 }, "<")
           .to(menuButtonIcon, { rotate: 0 }, "<")
           .set(navWrap, { display: "none" });
@@ -175,9 +172,22 @@ export function Component() {
     return () => ctx.revert();
   }, [isMenuOpen]);
 
+  // Prevent background scroll when open
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isMenuOpen]);
+
+  // keydown Escape handling
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isMenuOpen) setIsMenuOpen(false);
+      if (e.key === "Escape" && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
@@ -191,33 +201,30 @@ export function Component() {
       <div className="site-header-wrapper">
         <header className="header">
           <div className="container is--full">
-            <nav className="nav-row" aria-label="Primary">
-              <Link
-                to="/"
-                aria-label="Lennox Lewis home"
-                className="nav-logo-row w-inline-block"
-                onClick={closeMenu}
-              >
-                <span className="nav-logo-text">Lennox Lewis</span>
-              </Link>
+            <nav className="nav-row" aria-label="Main Navigation">
+              {brandHref?.startsWith("/") ? (
+                <Link to={brandHref} aria-label={brandName || "home"} className="nav-logo-row w-inline-block" onClick={closeMenu}>
+                  {brandName && <span className="nav-logo-text">{brandName}</span>}
+                </Link>
+              ) : (
+                <a href={brandHref || "#"} aria-label={brandName || "home"} className="nav-logo-row w-inline-block" onClick={closeMenu}>
+                  {brandName && <span className="nav-logo-text">{brandName}</span>}
+                </a>
+              )}
               <div className="nav-row__right">
-                <button
-                  type="button"
-                  className="nav-toggle-label"
-                  onClick={toggleMenu}
-                  aria-expanded={isMenuOpen}
-                  aria-controls="sterling-gate-menu"
-                >
-                  <span className="toggle-text">Menu</span>
-                </button>
+                {/* Clean Menu Indicator (Arrow Removed) */}
+                <div className="nav-toggle-label" onClick={toggleMenu} style={{ cursor: "pointer", pointerEvents: "auto" }}>
+                  <span className="toggle-text">click me</span>
+                </div>
 
+                {/* Menu Button */}
                 <button
                   type="button"
                   className="nav-close-btn"
                   onClick={toggleMenu}
                   aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                   aria-expanded={isMenuOpen}
-                  aria-controls="sterling-gate-menu"
+                  style={{ pointerEvents: "auto" }}
                 >
                   <div className="menu-button-text">
                     <p className="p-large">Menu</p>
@@ -265,109 +272,111 @@ export function Component() {
         </header>
       </div>
 
-      <section className="fullscreen-menu-container" aria-hidden={!isMenuOpen}>
-        <div
-          id="sterling-gate-menu"
-          data-nav="closed"
-          className="nav-overlay-wrapper"
-        >
-          <div className="overlay" onClick={closeMenu} />
-          <nav className="menu-content" aria-label="Site menu">
+      <section className="fullscreen-menu-container">
+        <div data-nav="closed" className="nav-overlay-wrapper">
+          <div className="overlay" onClick={closeMenu}></div>
+          <nav className="menu-content" aria-label="Kinetic Navigation Menu">
             <div className="menu-bg">
-              <div className="backdrop-layer first" />
-              <div className="backdrop-layer second" />
-              <div className="backdrop-layer" />
+              <div className="backdrop-layer first"></div>
+              <div className="backdrop-layer second"></div>
+              <div className="backdrop-layer"></div>
 
+              {/* Abstract shapes container */}
               <div className="ambient-background-shapes" aria-hidden="true">
+                {/* Shape 1: Floating circles */}
                 <svg className="bg-shape bg-shape-1" viewBox="0 0 400 400" fill="none">
-                  <circle className="shape-element" cx="80" cy="120" r="40" fill="rgba(205,161,68,0.18)" />
-                  <circle className="shape-element" cx="300" cy="80" r="60" fill="rgba(250,247,243,0.08)" />
-                  <circle className="shape-element" cx="200" cy="300" r="80" fill="rgba(205,161,68,0.1)" />
-                  <circle className="shape-element" cx="350" cy="280" r="30" fill="rgba(250,247,243,0.12)" />
+                  <circle className="shape-element" cx="80" cy="120" r="40" fill="rgba(99,102,241,0.22)" />
+                  <circle className="shape-element" cx="300" cy="80" r="60" fill="rgba(139,92,246,0.18)" />
+                  <circle className="shape-element" cx="200" cy="300" r="80" fill="rgba(236,72,153,0.15)" />
+                  <circle className="shape-element" cx="350" cy="280" r="30" fill="rgba(99,102,241,0.22)" />
                 </svg>
 
+                {/* Shape 2: Wave pattern */}
                 <svg className="bg-shape bg-shape-2" viewBox="0 0 400 400" fill="none">
                   <path
                     className="shape-element"
                     d="M0 200 Q100 100, 200 200 T 400 200"
-                    stroke="rgba(205,161,68,0.22)"
+                    stroke="rgba(99,102,241,0.28)"
                     strokeWidth="60"
                     fill="none"
                   />
                   <path
                     className="shape-element"
                     d="M0 280 Q100 180, 200 280 T 400 280"
-                    stroke="rgba(250,247,243,0.12)"
+                    stroke="rgba(139,92,246,0.22)"
                     strokeWidth="40"
                     fill="none"
                   />
                 </svg>
 
+                {/* Shape 3: Grid dots */}
                 <svg className="bg-shape bg-shape-3" viewBox="0 0 400 400" fill="none">
-                  {[
-                    [50, 50, 8],
-                    [150, 50, 8],
-                    [250, 50, 8],
-                    [350, 50, 8],
-                    [100, 150, 12],
-                    [200, 150, 12],
-                    [300, 150, 12],
-                    [50, 250, 10],
-                    [150, 250, 10],
-                    [250, 250, 10],
-                    [350, 250, 10],
-                    [100, 350, 6],
-                    [200, 350, 6],
-                    [300, 350, 6],
-                  ].map(([cx, cy, r], i) => (
-                    <circle
-                      key={i}
-                      className="shape-element"
-                      cx={cx}
-                      cy={cy}
-                      r={r}
-                      fill="rgba(205,161,68,0.28)"
-                    />
-                  ))}
+                  <circle className="shape-element" cx="50" cy="50" r="8" fill="rgba(99,102,241,0.4)" />
+                  <circle className="shape-element" cx="150" cy="50" r="8" fill="rgba(139,92,246,0.4)" />
+                  <circle className="shape-element" cx="250" cy="50" r="8" fill="rgba(236,72,153,0.4)" />
+                  <circle className="shape-element" cx="350" cy="50" r="8" fill="rgba(99,102,241,0.4)" />
+                  <circle className="shape-element" cx="100" cy="150" r="12" fill="rgba(139,92,246,0.35)" />
+                  <circle className="shape-element" cx="200" cy="150" r="12" fill="rgba(236,72,153,0.35)" />
+                  <circle className="shape-element" cx="300" cy="150" r="12" fill="rgba(99,102,241,0.35)" />
+                  <circle className="shape-element" cx="50" cy="250" r="10" fill="rgba(236,72,153,0.4)" />
+                  <circle className="shape-element" cx="150" cy="250" r="10" fill="rgba(99,102,241,0.4)" />
+                  <circle className="shape-element" cx="250" cy="250" r="10" fill="rgba(139,92,246,0.4)" />
+                  <circle className="shape-element" cx="350" cy="250" r="10" fill="rgba(236,72,153,0.4)" />
+                  <circle className="shape-element" cx="100" cy="350" r="6" fill="rgba(99,102,241,0.4)" />
+                  <circle className="shape-element" cx="200" cy="350" r="6" fill="rgba(139,92,246,0.4)" />
+                  <circle className="shape-element" cx="300" cy="350" r="6" fill="rgba(236,72,153,0.4)" />
                 </svg>
 
+                {/* Shape 4: Organic blobs */}
                 <svg className="bg-shape bg-shape-4" viewBox="0 0 400 400" fill="none">
                   <path
                     className="shape-element"
                     d="M100 100 Q150 50, 200 100 Q250 150, 200 200 Q150 250, 100 200 Q50 150, 100 100"
-                    fill="rgba(205,161,68,0.12)"
+                    fill="rgba(99,102,241,0.18)"
                   />
                   <path
                     className="shape-element"
-                    d="M250 200 Q300 150, 350 200 Q380 250, 350 300 Q300 350, 250 300 Q200 250, 250 200"
-                    fill="rgba(250,247,243,0.08)"
+                    d="M250 200 Q300 150, 350 200 Q400 250, 350 300 Q400 250, 350 300 Q300 350, 250 300 Q200 250, 250 200"
+                    fill="rgba(236,72,153,0.15)"
                   />
                 </svg>
 
+                {/* Shape 5: Diagonal lines */}
                 <svg className="bg-shape bg-shape-5" viewBox="0 0 400 400" fill="none">
-                  <line className="shape-element" x1="0" y1="100" x2="300" y2="400" stroke="rgba(205,161,68,0.15)" strokeWidth="30" />
-                  <line className="shape-element" x1="100" y1="0" x2="400" y2="300" stroke="rgba(250,247,243,0.1)" strokeWidth="25" />
-                  <line className="shape-element" x1="200" y1="0" x2="400" y2="200" stroke="rgba(205,161,68,0.12)" strokeWidth="20" />
+                  <line className="shape-element" x1="0" y1="100" x2="300" y2="400" stroke="rgba(99,102,241,0.22)" strokeWidth="30" />
+                  <line className="shape-element" x1="100" y1="0" x2="400" y2="300" stroke="rgba(139,92,246,0.18)" strokeWidth="25" />
+                  <line className="shape-element" x1="200" y1="0" x2="400" y2="200" stroke="rgba(236,72,153,0.15)" strokeWidth="20" />
                 </svg>
               </div>
             </div>
 
             <div className="menu-content-wrapper">
               <ul className="menu-list">
-                {menuLinks.map(({ label, to, shape }) => (
-                  <li key={label} className="menu-list-item" data-shape={shape}>
-                    <Link
-                      to={to}
-                      className="nav-link w-inline-block"
-                      onClick={closeMenu}
-                    >
-                      <p className="nav-link-text" data-menu-fade={label === "Thoughts" ? true : undefined}>
-                        {label}
-                      </p>
-                      <div className="nav-link-hover-bg" />
-                    </Link>
-                  </li>
-                ))}
+                {items.map((item, index) => {
+                  const shapeNum = item.shape || (index % 5) + 1;
+                  const isFade = index === 3;
+                  const isRouterLink = Boolean(item.to);
+
+                  return (
+                    <li key={item.label} className="menu-list-item" data-shape={shapeNum}>
+                      {isRouterLink ? (
+                        <Link to={item.to!} className="nav-link w-inline-block" onClick={closeMenu}>
+                          <p className="nav-link-text" data-menu-fade={isFade ? true : undefined}>
+                            {item.label}
+                          </p>
+                          <div className="nav-link-hover-bg"></div>
+                        </Link>
+                      ) : (
+                        <a href={item.href || "#"} className="nav-link w-inline-block" onClick={closeMenu}>
+                          <p className="nav-link-text" data-menu-fade={isFade ? true : undefined}>
+                            {item.label}
+                          </p>
+                          <div className="nav-link-hover-bg"></div>
+                        </a>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </nav>

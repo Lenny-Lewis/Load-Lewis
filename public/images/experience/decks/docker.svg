@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 238 1000" width="238" height="1000">
+  <defs>
+    <clipPath id="deck"><path d="M3,150 C3,46 53,4 119,4 C185,4 235,46 235,150 L235,850 C235,954 185,996 119,996 C53,996 3,954 3,850 Z"/></clipPath>
+    <linearGradient id="base" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2496ED"/>
+      <stop offset="0.55" stop-color="#2496ED" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#0b0b0f" stop-opacity="1"/>
+    </linearGradient>
+    <pattern id="lines" width="238" height="14" patternUnits="userSpaceOnUse">
+      <rect y="0" width="238" height="1.2" fill="#ffffff" fill-opacity="0.08"/>
+    </pattern>
+  </defs>
+  <g clip-path="url(#deck)">
+    <rect width="238" height="1000" fill="#0b0b0f"/>
+    <rect width="238" height="1000" fill="url(#base)"/>
+    <rect width="238" height="1000" fill="url(#lines)"/>
+    <circle cx="119" cy="300" r="150" fill="#ffffff" fill-opacity="0.06"/>
+    <circle cx="119" cy="300" r="112" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.5"/>
+    <circle cx="119" cy="300" r="72" fill="#ffffff"/>
+    <image x="69" y="250" width="100" height="100" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,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"/>
+    <text x="119" y="640" transform="rotate(-90 119 640)" text-anchor="middle" dominant-baseline="central"
+      font-family="Mona Sans, Helvetica, Arial, sans-serif" font-weight="800" font-size="46" letter-spacing="6"
+      fill="#ffffff"><tspan>D</tspan><tspan>O</tspan><tspan>C</tspan><tspan>K</tspan><tspan>E</tspan><tspan>R</tspan></text>
+    <text x="119" y="900" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="22"
+      letter-spacing="4" fill="#ffffff" fill-opacity="0.7">02</text>
+  </g>
+</svg>

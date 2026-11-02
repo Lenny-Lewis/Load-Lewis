@@ -1,103 +1,83 @@
-import { useMemo, useState } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useMediaQuery } from "react-responsive";
+import { useState } from "react";
 
 import { expCards } from "../constants";
 import TitleHeader from "../components/TitleHeader";
-import GlowCard from "../components/GlowCard";
-import AgenticFactory3D from "../components/ui/agentic-factory-3d";
+import SkateDeckRail from "../components/ui/skate-deck-rail";
+import SushiConveyorMenu from "../components/ui/sushi-conveyor-menu";
+import BlurInWords from "../components/ui/BlurInWords";
 
-gsap.registerPlugin(ScrollTrigger);
+const MONTHS = /\b(January|February|March|April|June|July|August|September|October|November|December)\b/g;
+
+// "January 2023 - Present" -> "Jan 2023 – Present" so it fits tags and chips.
+const shortDate = (date) =>
+  date.replace(MONTHS, (month) => month.slice(0, 3)).replace(/\s*-\s*/, " – ");
+
+// One slug per role, in the same order as expCards. Deck art lives in
+// /public/images/experience/decks, plate art in /public/images/experience/plates.
+const SLUGS = ["hostinger", "docker", "photoshop", "microsoft", "appwrite", "kemri"];
+// Plate ring colour (theme chart-1…5) per role, matched to each brand colour.
+const PLATE_TIERS = [1, 3, 3, 4, 2, 5];
+
+const roles = expCards.map((card, index) => ({
+  id: `${SLUGS[index] ?? index}-${index}`,
+  slug: SLUGS[index],
+  name: card.title.split("—")[0].trim(),
+  company: card.companyName,
+  date: shortDate(card.date),
+  description: card.review,
+  details: card.responsibilities,
+}));
+
+const decks = roles.map((role) => ({
+  id: role.id,
+  name: role.name,
+  series: role.company,
+  tag: role.date,
+  description: role.description,
+  details: role.details,
+  image: `/images/experience/decks/${role.slug}.svg`,
+}));
+
+const plates = roles.map((role, index) => ({
+  id: role.id,
+  name: role.name,
+  company: role.company,
+  subtitle: role.company,
+  price: role.date,
+  tier: PLATE_TIERS[index] ?? 1,
+  description: role.description,
+  details: role.details,
+  image: `/images/experience/plates/${role.slug}.svg`,
+}));
+
+// Shown on the left when a role reaches the belt's mid point. Keyed by index so
+// the word animation replays for each new role.
+const renderMidPoint = (plate, index) => (
+  <div key={plate.id} className="flex flex-col gap-3">
+    <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground lg:text-sm">
+      <BlurInWords text={`${String(index + 1).padStart(2, "0")} / ${String(plates.length).padStart(2, "0")} · ${plate.price}`} stagger={0.04} />
+    </p>
+    <h3 className="text-3xl font-semibold leading-tight text-white xl:text-4xl">
+      <BlurInWords text={plate.name} delay={0.1} stagger={0.1} />
+    </h3>
+    <p className="text-base font-medium text-white-50 lg:text-lg">
+      <BlurInWords text={plate.company} delay={0.25} stagger={0.1} />
+    </p>
+    <p className="text-base leading-relaxed text-white/70 lg:text-lg">
+      <BlurInWords text={plate.description} delay={0.35} stagger={0.03} />
+    </p>
+  </div>
+);
+
+// Temporary while comparing layouts: /?exp=rail shows the deck rail,
+// anything else shows the conveyor belt.
+const pickVariant = () => {
+  if (typeof window === "undefined") return "belt";
+  return new URLSearchParams(window.location.search).get("exp") === "rail" ? "rail" : "belt";
+};
 
 const Experience = () => {
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-  const [activeStation, setActiveStation] = useState(0);
-  const careerStations = useMemo(
-    () =>
-      expCards.map((card) => ({
-        id: card.title,
-        title: card.title,
-        organization:
-          card.companyName || card.title.split("—").at(-1)?.trim() || "Career stage",
-        date: card.date,
-        summary: card.responsibilities.join(" "),
-        color: card.lineColor,
-      })),
-    []
-  );
-
-  useGSAP(
-    () => {
-      if (!isMobile) return;
-
-      const updateTimelineGradient = () => {
-        const line = document.querySelector(".experience-line");
-        const lineBounds = line?.getBoundingClientRect();
-        if (!lineBounds?.height) return;
-
-        const colorStops = gsap.utils.toArray(".exp-card-wrapper").map((card) => {
-          const logo = card.querySelector(".timeline-logo");
-          const logoBounds = logo?.getBoundingClientRect();
-          if (!logoBounds) return null;
-          const position = gsap.utils.clamp(
-            0,
-            100,
-            ((logoBounds.top + logoBounds.height / 2 - lineBounds.top) / lineBounds.height) * 100
-          );
-          return `${card.dataset.lineColor} ${position}%`;
-        }).filter(Boolean);
-
-        if (colorStops.length) {
-          line.style.background = `linear-gradient(to bottom, ${colorStops.join(", ")})`;
-        }
-      };
-
-      updateTimelineGradient();
-
-      gsap.utils.toArray(".timeline-card").forEach((card) => {
-        gsap.from(card, {
-          xPercent: -100,
-          opacity: 0,
-          transformOrigin: "left left",
-          duration: 1,
-          ease: "power2.inOut",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 80%",
-          },
-        });
-      });
-
-      gsap.to(".timeline", {
-        scaleY: 0,
-        transformOrigin: "bottom bottom",
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".experience-timeline",
-          start: "top center",
-          end: "bottom center",
-          scrub: true,
-          onRefresh: updateTimelineGradient,
-        },
-      });
-
-      gsap.utils.toArray(".expText").forEach((text) => {
-        gsap.from(text, {
-          opacity: 0,
-          xPercent: 0,
-          duration: 1,
-          ease: "power2.inOut",
-          scrollTrigger: {
-            trigger: text,
-            start: "top 60%",
-          },
-        });
-      });
-    },
-    { dependencies: [isMobile], revertOnUpdate: true }
-  );
+  const [variant] = useState(pickVariant);
 
   return (
     <section id="experience" className="experience-section md:mt-40 mt-20">
@@ -113,73 +93,29 @@ const Experience = () => {
         />
       </div>
 
-      {isMobile ? (
-        <div className="mt-16 relative px-5 section-padding lg:px-0 pt-0">
-          <div className="timeline-wrapper">
-            <div className="timeline" />
-            <div className="gradient-line experience-line w-1 h-full" />
-          </div>
-          <div className="experience-timeline relative z-50 space-y-10">
-            {expCards.map((card) => (
-              <div
-                key={card.title}
-                className="exp-card-wrapper"
-                data-line-color={card.lineColor}
-              >
-                <div>
-                  <GlowCard card={card}>
-                    <div className={card.companyName ? "flex items-center gap-4" : ""}>
-                      <img
-                        src={card.imgPath}
-                        alt=""
-                        className={card.imageClassName}
-                      />
-                      {card.companyName && (
-                        <span
-                          className={
-                            card.companyNameClassName || "font-semibold text-3xl"
-                          }
-                        >
-                          {card.companyName}
-                        </span>
-                      )}
-                    </div>
-                  </GlowCard>
-                </div>
-                <div>
-                  <div className="flex items-start">
-                    <div className="expText flex gap-5 relative z-20">
-                      <div className="timeline-logo">
-                        <img src={card.logoPath} alt="" />
-                      </div>
-                      <div>
-                        <h1 className="font-semibold text-3xl">{card.title}</h1>
-                        <p className="my-5 text-white-50">🗓️&nbsp;{card.date}</p>
-                        <p className="text-[#839CB5] italic">Responsibilities</p>
-                        <ul className="list-disc ms-5 mt-5 flex flex-col gap-5 text-white-50">
-                          {card.responsibilities.map((responsibility, index) => (
-                            <li key={index} className="text-lg">
-                              {responsibility}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <AgenticFactory3D
-          height="min(90svh, 920px)"
-          className="experience-factory-full mt-12 md:mt-16"
-          stations={careerStations}
-          activeStation={activeStation}
-          onStation={setActiveStation}
-        />
-      )}
+      <div className="dark mt-10 md:mt-14">
+        {variant === "rail" ? (
+          <SkateDeckRail
+            items={decks}
+            caption="Hover along the rail to face a role. Click it to open the details."
+            labels={{ graphic: "Front", grip: "Back", close: "Close", open: "Open" }}
+            autoplay
+            aria-label="Professional work experience"
+            className="bg-black!"
+          />
+        ) : (
+          <SushiConveyorMenu
+            items={plates}
+            legend={{}}
+            renderCenter={renderMidPoint}
+            caption="Hover to stop the belt, flick to spin it, pick a role to see the details."
+            labels={{ add: "", close: "Close", previous: "Previous role", next: "Next role", pause: "Pause belt", front: "Front", back: "Back" }}
+            autoplay
+            aria-label="Professional work experience"
+            className="bg-black!"
+          />
+        )}
+      </div>
     </section>
   );
 };

@@ -58,11 +58,15 @@ const App = () => {
   const isCommentsPage = location.pathname === "/comments";
   const isArticlePage = location.pathname.startsWith("/article");
   const isHomePage = location.pathname === "/";
-  const [showPreloader, setShowPreloader] = useState(() => {
-    if (typeof window !== "undefined") {
-      return !sessionStorage.getItem("hasSeenPreloader");
+  // First visit in this session plays the full intro; repeat visits get the
+  // quick logo-only version.
+  const [showPreloader, setShowPreloader] = useState(true);
+  const [isQuickPreload] = useState(() => {
+    try {
+      return sessionStorage.getItem("hasSeenPreloader") === "true";
+    } catch {
+      return false;
     }
-    return true;
   });
 
   useEffect(() => {
@@ -78,12 +82,16 @@ const App = () => {
 
   const handlePreloaderComplete = () => {
     setShowPreloader(false);
-    sessionStorage.setItem("hasSeenPreloader", "true");
+    try {
+      sessionStorage.setItem("hasSeenPreloader", "true");
+    } catch {
+      // Storage unavailable (private mode); the intro will simply replay.
+    }
   };
 
   return (
     <>
-      {showPreloader && <Preloader onComplete={handlePreloaderComplete} waitForScenes={isHomePage} />}
+      {showPreloader && <Preloader onComplete={handlePreloaderComplete} waitForScenes={isHomePage} quick={isQuickPreload} />}
       <ScrollToAnchor />
       {!isCommentsPage && <Navbar />}
       <Routes>

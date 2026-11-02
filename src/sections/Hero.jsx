@@ -25,10 +25,10 @@ const Hero = () => {
     <section
       id="hero"
       ref={heroRef}
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-black pt-0 md:pt-24"
+      className="relative flex flex-col overflow-hidden bg-black pt-16 md:pt-20 lg:pt-20"
     >
-      <div className="hero-reveal relative z-10 grid min-h-screen lg:grid-cols-[0.95fr_1.05fr]">
-        <header className="relative flex items-start justify-start px-6 pt-16 pb-8 sm:px-10 sm:pt-28 sm:pb-12 lg:px-12 lg:pt-20 xl:pt-32 lg:pb-0 lg:pl-12 xl:pl-16">
+      <div className="hero-reveal relative z-10 grid lg:grid-cols-[0.85fr_1.15fr] xl:grid-cols-[0.8fr_1.2fr] min-h-[85vh] lg:min-h-screen items-stretch">
+        <header className="relative flex items-start justify-start self-start px-6 pt-4 sm:px-10 sm:pt-6 lg:px-12 lg:pt-4 lg:-translate-y-6 xl:pt-6 lg:pb-0 lg:pl-12 xl:pl-16">
           <div className="hero-copy max-w-[25rem] lg:max-w-[34rem] xl:max-w-[42rem] 2xl:max-w-[48rem]">
             <div className="hero-text">
               <h1>
@@ -69,7 +69,7 @@ const Hero = () => {
           </div>
         </header>
 
-        <div className="hero-visual relative min-h-[48vh] lg:min-h-screen">
+        <div className="hero-visual relative w-full h-full min-h-[50vh] lg:min-h-full flex items-center justify-center">
           <SplineRobotCard scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode" />
         </div>
       </div>
