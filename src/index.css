@@ -1936,6 +1936,17 @@ section {
 }
 
 @media screen and (max-width: 767px) {
+  /* Line the brand up with the hero copy (px-6, sm:px-10). */
+  .header .container.is--full {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .header .container.is--full {
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+  }
   .fullscreen-menu-container {
     --menu-padding: 1.25em;
     /* The menu itself is fixed; this padding only pushed the hero down. */
