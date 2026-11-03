@@ -18,12 +18,12 @@ const webProjects = [
     bg: "bg-[#FFE7EB]"
   },
   {
-    id: 9,
-    title: "ConSentinel",
-    desc: "A secuirty platform for a startup.",
-    img: "/images/projects/web/ConSentinel.png",
-    link: "https://con-sentinel.vercel.app/",
-    bg: "bg-[#FFE7EB]"
+    id: 6,
+    title: "Zedos Technologies",
+    desc: "AI & ML, digital systems and smart operations for East African teams, with an interactive 3D hero.",
+    img: "/images/projects/web/zedos_technologies_showcase.png",
+    link: "https://zedostechnologies.co.ke/",
+    bg: "bg-[#0A0A0C]"
   },
   {
     id: 2,
