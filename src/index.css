@@ -1608,6 +1608,26 @@ section {
   pointer-events: none;
 }
 
+/* Line the brand up with the hero copy (sm:px-10, lg:px-12, xl:pl-16).
+   Below 768px this is handled in the mobile block further down. */
+@media (min-width: 768px) {
+  .header .container.is--full {
+    padding-left: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header .container.is--full {
+    padding-left: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .header .container.is--full {
+    padding-left: 4rem;
+  }
+}
+
 .nav-row {
   justify-content: space-between;
   align-items: center;
