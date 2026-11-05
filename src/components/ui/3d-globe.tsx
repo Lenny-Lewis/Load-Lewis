@@ -427,18 +427,23 @@ interface SceneProps {
 }
 
 function Scene({ markers, config, onReady, onMarkerClick, onMarkerHover }: SceneProps) {
-  const { camera } = useThree();
+  const camera = useThree((state) => state.camera);
+  const aspect = useThree((state) => state.viewport.aspect);
 
   // Runs only after Suspense resolves, i.e. once the textures are in.
   React.useEffect(() => {
     onReady?.();
   }, [onReady]);
 
-  // Set initial camera position (pulled back to accommodate markers)
+  // Set initial camera position (pulled back to accommodate markers). On a narrow
+  // canvas such as a phone it moves further back, so the routes and the Moon's
+  // orbit still fit across the width: tan(22.5 deg) is half the 45 degree view.
+  const fitWidth = (config.radius * 1.5) / (Math.tan(Math.PI / 8) * aspect);
+  const cameraDistance = Math.max(config.radius * 3.5, fitWidth);
   React.useEffect(() => {
-    camera.position.set(0, 0, config.radius * 3.5);
+    camera.position.set(0, 0, cameraDistance);
     camera.lookAt(0, 0, 0);
-  }, [camera, config.radius]);
+  }, [camera, cameraDistance]);
 
   return (
     <>
