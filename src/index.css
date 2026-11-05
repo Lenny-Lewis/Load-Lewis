@@ -933,58 +933,93 @@ section {
   }
 }
 
-/* Contact form ↔ wireframe globe palette (#000 / #fff / #999 / white@25%) */
-#contact .contact-form-card {
-  background: #000000;
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+/* Contact form: flat, cardless fields in the site's colours, with the gold accent on focus and submit. */
+#contact .contact-heading {
+  margin-bottom: 2rem;
+  /* Sized so "LET'S WORK" stays on one line at any width. */
+  font-size: clamp(2rem, 11vw, 4.625rem);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+
+#contact .contact-heading span {
+  display: block;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Beside the globe the form column is narrower, so the heading scales with it. */
+@media (min-width: 1024px) {
+  #contact .contact-heading {
+    font-size: clamp(2.875rem, 4.6vw, 4.5rem);
+  }
 }
 
 #contact .contact-form label {
-  color: #999999;
+  margin-bottom: 10px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: normal;
 }
 
 #contact .contact-form input,
 #contact .contact-form textarea {
-  background: #0a0a0a;
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45);
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--foreground);
+  font-size: 14px;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+#contact .contact-form textarea {
+  display: block;
+  border-radius: 10px;
+  line-height: 1.4;
+  resize: vertical;
 }
 
 #contact .contact-form input::placeholder,
 #contact .contact-form textarea::placeholder {
-  color: rgba(153, 153, 153, 0.85);
+  color: var(--muted-foreground);
 }
 
 #contact .contact-form input:focus,
 #contact .contact-form textarea:focus {
-  border-color: rgba(255, 255, 255, 0.55);
+  border-color: var(--primary);
   outline: none;
-  /* Override global gold (#cda144) focus ring */
-  --tw-ring-color: transparent;
-  --tw-ring-shadow: 0 0 0 0 transparent;
-  --tw-ring-offset-shadow: 0 0 0 0 transparent;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
+  box-shadow: none;
 }
 
-#contact .contact-form-cta {
-  background: #141414;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+#contact .contact-form-submit {
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--primary);
+  /* Dark text: white on this gold is too low-contrast to read comfortably. */
+  color: var(--primary-foreground);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s ease;
 }
 
-#contact .contact-form-cta .bg-circle,
-#contact .contact-form-cta .arrow-wrapper {
-  background: #ffffff;
+#contact .contact-form-submit:hover:not(:disabled) {
+  filter: brightness(1.1);
 }
 
-#contact .contact-form-cta .text {
-  color: #000000;
+#contact .contact-form-submit:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
 }
 
-#contact .contact-form-cta:hover .text,
-#contact .contact-form-cta.group:hover .text {
-  color: #ffffff;
+#contact .contact-form-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* Hero text slider starts */

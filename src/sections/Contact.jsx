@@ -120,92 +120,80 @@ const Contact = () => {
         />
         <div className="grid-12-cols mt-16">
           <div className="lg:col-span-5 mt-8 lg:mt-12">
-            <div className="contact-form-card flex-center card-border rounded-xl p-10">
-              <div className="w-full flex flex-col gap-8">
-                <form
-                  ref={formRef}
-                  onSubmit={handleSubmit}
-                  className="contact-form w-full flex flex-col gap-7"
-                >
+            <h2 className="contact-heading">
+              Let&apos;s work
+              <span>together</span>
+            </h2>
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="contact-form w-full flex flex-col gap-5"
+            >
+              <input
+                type="text"
+                name="company"
+                value={honeypot}
+                onChange={(event) => setHoneypot(event.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="sr-only"
+              />
+              <div className="flex flex-col md:flex-row gap-5 w-full">
+                <div className="flex-1">
+                  <label htmlFor="name">Your name</label>
                   <input
                     type="text"
-                    name="company"
-                    value={honeypot}
-                    onChange={(event) => setHoneypot(event.target.value)}
-                    tabIndex={-1}
-                    autoComplete="off"
-                    aria-hidden="true"
-                    className="sr-only"
+                    id="name"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="What’s your good name?"
+                    required
                   />
-                  <div className="flex flex-col md:flex-row gap-7 w-full">
-                    <div className="flex-1">
-                      <label htmlFor="name">Your name</label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={form.name}
-                        onChange={handleChange}
-                        placeholder="What’s your good name?"
-                        required
-                      />
-                    </div>
+                </div>
 
-                    <div className="flex-1">
-                      <label htmlFor="email">Your Email</label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={form.email}
-                        onChange={handleChange}
-                        placeholder="What’s your email address?"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message">Your Message</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={form.message}
-                      onChange={handleChange}
-                      placeholder="How can I help you?"
-                      rows="5"
-                      required
-                    />
-                  </div>
-
-                  <button type="submit" disabled={loading}>
-                    <div className="cta-button contact-form-cta group">
-                      <div className="bg-circle" />
-                      <p className="text">
-                        {loading
-                          ? "Sending..."
-                          : isSubmitted
-                          ? "Message Sent"
-                          : "Send Message"}
-                      </p>
-                      <div className="arrow-wrapper">
-                        <img src="/images/ui/arrow-down.svg" alt="arrow" />
-                      </div>
-                    </div>
-                  </button>
-
-                  {(isSubmitted || submitError) && (
-                    <p
-                      className={`text-sm ${
-                        submitError ? "text-red-400" : "text-green-400"
-                      }`}
-                    >
-                      {submitError || "Message sent successfully."}
-                    </p>
-                  )}
-                </form>
+                <div className="flex-1">
+                  <label htmlFor="email">Your Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="What’s your email address?"
+                    required
+                  />
+                </div>
               </div>
-            </div>
+
+              <div>
+                <label htmlFor="message">Your Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  placeholder="How can I help you?"
+                  rows="5"
+                  required
+                />
+              </div>
+
+              <button type="submit" disabled={loading} className="contact-form-submit">
+                {loading ? "Sending..." : isSubmitted ? "Message Sent" : "Send Message"}
+              </button>
+
+              {(isSubmitted || submitError) && (
+                <p
+                  className={`text-sm ${
+                    submitError ? "text-red-400" : "text-green-400"
+                  }`}
+                >
+                  {submitError || "Message sent successfully."}
+                </p>
+              )}
+            </form>
           </div>
           <div className="lg:col-span-7 min-h-96">
             <div className="w-full h-full rounded-3xl overflow-hidden">
