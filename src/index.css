@@ -934,6 +934,16 @@ section {
 }
 
 /* Contact form: flat, cardless fields in the site's colours, with the gold accent on focus and submit. */
+/* Fades the starfield out towards the edges so it doesn't end in a hard rectangle. */
+#contact .contact-globe-fade {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent),
+    linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent),
+    linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+  mask-composite: intersect;
+}
+
 #contact .contact-heading {
   margin-bottom: 2rem;
   /* Sized so "LET'S WORK" stays on one line at any width. */

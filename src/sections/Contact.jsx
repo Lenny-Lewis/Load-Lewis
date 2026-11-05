@@ -1,13 +1,81 @@
-import { useRef, useState } from "react";
+import { Component, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { useMediaQuery } from "react-responsive";
+import { useReducedMotion } from "framer-motion";
 
 import TitleHeader from "../components/TitleHeader";
-import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
-import EarthCanvas from "../canvas/Earth";
+import Globe3D from "@/components/ui/3d-globe";
+import useInView from "../hooks/useInView";
+
+// Kept outside the component so the globe's settings stay stable between renders.
+const HOME_BASE = { lat: -1.2921, lng: 36.8219, label: "Nairobi" };
+
+// A spread across every inhabited continent, standing in for worldwide reach.
+const ROUTE_DESTINATIONS = [
+  { lat: 40.7128, lng: -74.006, label: "New York" },
+  { lat: 34.0522, lng: -118.2437, label: "Los Angeles" },
+  { lat: 43.6532, lng: -79.3832, label: "Toronto" },
+  { lat: 19.4326, lng: -99.1332, label: "Mexico City" },
+  { lat: 4.711, lng: -74.0721, label: "Bogotá" },
+  { lat: -23.5505, lng: -46.6333, label: "São Paulo" },
+  { lat: -34.6037, lng: -58.3816, label: "Buenos Aires" },
+  { lat: 51.5074, lng: -0.1278, label: "London" },
+  { lat: 40.4168, lng: -3.7038, label: "Madrid" },
+  { lat: 52.52, lng: 13.405, label: "Berlin" },
+  { lat: 59.3293, lng: 18.0686, label: "Stockholm" },
+  { lat: 41.0082, lng: 28.9784, label: "Istanbul" },
+  { lat: 6.5244, lng: 3.3792, label: "Lagos" },
+  { lat: 30.0444, lng: 31.2357, label: "Cairo" },
+  { lat: -26.2041, lng: 28.0473, label: "Johannesburg" },
+  { lat: 25.2048, lng: 55.2708, label: "Dubai" },
+  { lat: 19.076, lng: 72.8777, label: "Mumbai" },
+  { lat: 1.3521, lng: 103.8198, label: "Singapore" },
+  { lat: -6.2088, lng: 106.8456, label: "Jakarta" },
+  { lat: 31.2304, lng: 121.4737, label: "Shanghai" },
+  { lat: 25.033, lng: 121.5654, label: "Taipei" },
+  { lat: 35.6762, lng: 139.6503, label: "Tokyo" },
+  { lat: -33.8688, lng: 151.2093, label: "Sydney" },
+  { lat: -36.8509, lng: 174.7645, label: "Auckland" },
+];
+
+// Less ambient light and a stronger sun give the Moon real shadows. The starting
+// turn puts Nairobi just left of centre, so the spin carries it across the view.
+const GLOBE_CONFIG = {
+  bumpScale: 5,
+  autoRotateSpeed: 1,
+  showSpace: true,
+  ambientIntensity: 0.3,
+  pointLightIntensity: 2,
+  routes: { origin: HOME_BASE, destinations: ROUTE_DESTINATIONS },
+  initialRotation: { x: 0.15, y: ((-90 - HOME_BASE.lng - 25) * Math.PI) / 180 },
+};
+const STILL_GLOBE_CONFIG = { ...GLOBE_CONFIG, autoRotateSpeed: 0 };
+
+// The preloader holds the page until this fires.
+const announceGlobeReady = () => {
+  window.__CONTACT_3D_READY__ = true;
+  window.dispatchEvent(new CustomEvent("contact-3d-ready"));
+};
+
+// No WebGL or a failed texture only loses the globe, not the page around it.
+class GlobeBoundary extends Component {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidCatch() {
+    announceGlobeReady();
+  }
+
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
 
 const Contact = () => {
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const reduceMotion = useReducedMotion();
+  const { elementRef: globeRef, isInView: globeInView } = useInView({ rootMargin: "200px" });
   const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -196,12 +264,16 @@ const Contact = () => {
             </form>
           </div>
           <div className="lg:col-span-7 min-h-96">
-            <div className="w-full h-full rounded-3xl overflow-hidden">
-              {isMobile ? (
-                <EarthCanvas />
-              ) : (
-                <RotatingEarth className="h-full min-h-[350px] sm:min-h-[460px] md:min-h-[520px]" />
-              )}
+            <div ref={globeRef} className="w-full h-full rounded-3xl overflow-hidden">
+              <GlobeBoundary>
+                {/* Not draggable on phones: it would block page scrolling over the globe. */}
+                <Globe3D
+                  className="contact-globe-fade h-[350px] sm:h-[460px] md:h-[520px] lg:h-full lg:min-h-[520px] max-md:pointer-events-none"
+                  config={reduceMotion ? STILL_GLOBE_CONFIG : GLOBE_CONFIG}
+                  frameloop={globeInView ? "always" : "never"}
+                  onReady={announceGlobeReady}
+                />
+              </GlobeBoundary>
             </div>
           </div>
         </div>
