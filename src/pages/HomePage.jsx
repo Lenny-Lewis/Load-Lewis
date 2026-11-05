@@ -1,5 +1,4 @@
-import { Testimonial } from "../components/ui/design-testimonial";
-import { testimonials } from "../constants";
+import Feedback from "../sections/Feedback";
 import Thoughts from "../sections/Thoughts";
 import Contact from "../sections/Contact";
 import TechStack from "../sections/TechStack";
@@ -18,7 +17,7 @@ const HomePage = () => {
       <FeatureCards />
       <Experience />
       <TechStack />
-      <Testimonial testimonials={testimonials} />
+      <Feedback />
       <Thoughts />
       <Contact />
     </>
