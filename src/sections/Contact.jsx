@@ -40,6 +40,8 @@ const ROUTE_DESTINATIONS = [
 // Less ambient light and a stronger sun give the Moon real shadows. The starting
 // turn puts Nairobi just left of centre, so the spin carries it across the view.
 const GLOBE_CONFIG = {
+  // NASA 3D Resources "Earth (A)".
+  textureUrl: "/images/contact/globe/earth-a.jpg",
   bumpScale: 5,
   autoRotateSpeed: 1,
   showSpace: true,
