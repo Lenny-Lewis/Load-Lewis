@@ -268,9 +268,8 @@ const Contact = () => {
           <div className="lg:col-span-7 min-h-96">
             <div ref={globeRef} className="w-full h-full rounded-3xl overflow-hidden">
               <GlobeBoundary>
-                {/* Not draggable on phones: it would block page scrolling over the globe. */}
                 <Globe3D
-                  className="contact-globe-fade h-[350px] sm:h-[460px] md:h-[520px] lg:h-full lg:min-h-[520px] max-md:pointer-events-none"
+                  className="contact-globe-fade h-[350px] sm:h-[460px] md:h-[520px] lg:h-full lg:min-h-[520px]"
                   config={reduceMotion ? STILL_GLOBE_CONFIG : GLOBE_CONFIG}
                   frameloop={globeInView ? "always" : "never"}
                   onReady={announceGlobeReady}

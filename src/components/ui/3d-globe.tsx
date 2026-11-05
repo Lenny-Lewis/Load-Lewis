@@ -1,10 +1,11 @@
 "use client";
 import React, { useRef, useMemo, useState, useCallback, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import type { ThreeEvent } from "@react-three/fiber";
 import { OrbitControls, Html, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { cn } from "@/lib/utils";
-import { SpaceScene } from "./space-scene";
+import { MOON_RADIUS, MoonOrbit, Starfield } from "./space-scene";
 import { GlobeRoutes } from "./globe-routes";
 import type { GlobeRoutesConfig } from "./globe-routes";
 
@@ -61,7 +62,7 @@ export interface Globe3DConfig {
   ambientIntensity?: number;
   /** Point light intensity */
   pointLightIntensity?: number;
-  /** Add stars and the Moon around the globe */
+  /** Add stars and the Moon around the globe; clicking the Moon swaps it into focus */
   showSpace?: boolean;
   /** Airline-style routes from a hub to destinations (null for none) */
   routes?: GlobeRoutesConfig | null;
@@ -263,6 +264,7 @@ function Marker({
 interface RotatingGlobeProps {
   config: Required<Globe3DConfig>;
   markers: GlobeMarker[];
+  onEarthClick?: (event: ThreeEvent<MouseEvent>) => void;
   onMarkerClick?: (marker: GlobeMarker) => void;
   onMarkerHover?: (marker: GlobeMarker | null) => void;
 }
@@ -270,6 +272,7 @@ interface RotatingGlobeProps {
 function RotatingGlobe({
   config,
   markers,
+  onEarthClick,
   onMarkerClick,
   onMarkerHover,
 }: RotatingGlobeProps) {
@@ -312,7 +315,7 @@ function RotatingGlobe({
   return (
     <group ref={groupRef} rotation={[config.initialRotation.x, config.initialRotation.y, 0]}>
       {/* Main globe mesh with Earth texture */}
-      <mesh geometry={geometry}>
+      <mesh geometry={geometry} onClick={onEarthClick}>
         <meshStandardMaterial
           map={earthTexture}
           bumpMap={bumpTexture}
@@ -421,12 +424,27 @@ function Atmosphere({ radius, color, intensity, blur }: AtmosphereProps) {
 interface SceneProps {
   markers: GlobeMarker[];
   config: Required<Globe3DConfig>;
+  moonFocused: boolean;
+  onMoonFocusChange: (focused: boolean) => void;
   onReady?: () => void;
   onMarkerClick?: (marker: GlobeMarker) => void;
   onMarkerHover?: (marker: GlobeMarker | null) => void;
 }
 
-function Scene({ markers, config, onReady, onMarkerClick, onMarkerHover }: SceneProps) {
+// How small the Earth gets while the Moon is in focus.
+const EARTH_FOCUS_SCALE = 0.225;
+const FOCUS_EASE = 2.5;
+const CLICK_SLOP = 6;
+
+function Scene({
+  markers,
+  config,
+  moonFocused,
+  onMoonFocusChange,
+  onReady,
+  onMarkerClick,
+  onMarkerHover,
+}: SceneProps) {
   const camera = useThree((state) => state.camera);
   const aspect = useThree((state) => state.viewport.aspect);
 
@@ -445,6 +463,42 @@ function Scene({ markers, config, onReady, onMarkerClick, onMarkerHover }: Scene
     camera.lookAt(0, 0, 0);
   }, [camera, cameraDistance]);
 
+  // The focus swap. Moving everything by the Moon's offset keeps the two bodies'
+  // relative orbit, so the Moon settles at the centre with the Earth circling it,
+  // while their sizes trade places. Camera, stars and sunlight stay where they are.
+  const animate = config.autoRotateSpeed > 0;
+  const systemRef = useRef<THREE.Group>(null);
+  const earthRef = useRef<THREE.Group>(null);
+  const moonAnchorRef = useRef<THREE.Group>(null);
+  const moonSizeRef = useRef<THREE.Group>(null);
+  const focusMix = useRef(0);
+  const moonOffset = useMemo(() => new THREE.Vector3(), []);
+
+  useFrame((_, delta) => {
+    const system = systemRef.current;
+    const moonAnchor = moonAnchorRef.current;
+    if (!system || !moonAnchor) return;
+    const target = moonFocused ? 1 : 0;
+    focusMix.current = animate
+      ? THREE.MathUtils.damp(focusMix.current, target, FOCUS_EASE, Math.min(delta, 0.1))
+      : target;
+    const mix = focusMix.current;
+    moonAnchor.getWorldPosition(moonOffset).sub(system.position);
+    system.position.copy(moonOffset).multiplyScalar(-mix);
+    earthRef.current?.scale.setScalar(THREE.MathUtils.lerp(1, EARTH_FOCUS_SCALE, mix));
+    moonSizeRef.current?.scale.setScalar(THREE.MathUtils.lerp(1, 2 / MOON_RADIUS, mix));
+  });
+
+  // Earth blocks clicks from reaching a Moon behind it, and is the way back.
+  const handleEarthClick = useCallback(
+    (event: ThreeEvent<MouseEvent>) => {
+      event.stopPropagation();
+      if (moonFocused && event.delta <= CLICK_SLOP) onMoonFocusChange(false);
+    },
+    [moonFocused, onMoonFocusChange],
+  );
+  const handleMoonSelect = useCallback(() => onMoonFocusChange(true), [onMoonFocusChange]);
+
   return (
     <>
       {/* Lighting */}
@@ -460,27 +514,40 @@ function Scene({ markers, config, onReady, onMarkerClick, onMarkerHover }: Scene
         color="#88ccff"
       />
 
-      {config.showSpace && (
-        <SpaceScene radius={config.radius} animate={config.autoRotateSpeed > 0} />
-      )}
+      {config.showSpace && <Starfield animate={animate} />}
 
-      {/* Rotating Globe with Markers */}
-      <RotatingGlobe
-        config={config}
-        markers={markers}
-        onMarkerClick={onMarkerClick}
-        onMarkerHover={onMarkerHover}
-      />
+      <group ref={systemRef}>
+        <group ref={earthRef}>
+          {/* Rotating Globe with Markers */}
+          <RotatingGlobe
+            config={config}
+            markers={markers}
+            onEarthClick={config.showSpace ? handleEarthClick : undefined}
+            onMarkerClick={onMarkerClick}
+            onMarkerHover={onMarkerHover}
+          />
 
-      {/* Atmosphere (static) */}
-      {config.showAtmosphere && (
-        <Atmosphere
-          radius={config.radius}
-          color={config.atmosphereColor}
-          intensity={config.atmosphereIntensity}
-          blur={config.atmosphereBlur}
-        />
-      )}
+          {/* Atmosphere (static) */}
+          {config.showAtmosphere && (
+            <Atmosphere
+              radius={config.radius}
+              color={config.atmosphereColor}
+              intensity={config.atmosphereIntensity}
+              blur={config.atmosphereBlur}
+            />
+          )}
+        </group>
+
+        {config.showSpace && (
+          <MoonOrbit
+            animate={animate}
+            focused={moonFocused}
+            onSelect={handleMoonSelect}
+            anchorRef={moonAnchorRef}
+            sizeRef={moonSizeRef}
+          />
+        )}
+      </group>
 
       {/* Controls */}
       <OrbitControls
@@ -556,6 +623,7 @@ export function Globe3D({
     () => ({ ...defaultConfig, ...config }),
     [config],
   );
+  const [moonFocused, setMoonFocused] = useState(false);
 
   return (
     <div className={cn("relative h-[500px] w-full", className)}>
@@ -581,6 +649,8 @@ export function Globe3D({
           <Scene
             markers={markers}
             config={mergedConfig}
+            moonFocused={moonFocused}
+            onMoonFocusChange={setMoonFocused}
             onReady={onReady}
             onMarkerClick={onMarkerClick}
             onMarkerHover={onMarkerHover}

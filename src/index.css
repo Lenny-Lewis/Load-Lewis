@@ -944,6 +944,12 @@ section {
   mask-composite: intersect;
 }
 
+/* Beats the inline touch-action:none from the orbit controls: up and down keeps
+   scrolling the page, while sideways drags and taps reach the globe. */
+#contact .contact-globe-fade * {
+  touch-action: pan-y !important;
+}
+
 #contact .contact-heading {
   margin-bottom: 2rem;
   /* Sized so "LET'S WORK" stays on one line at any width. */
