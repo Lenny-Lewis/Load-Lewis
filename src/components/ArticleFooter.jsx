@@ -4,6 +4,8 @@ import HoverTextSlide from "./ui/HoverTextSlide";
 const quickLinks = [
   { name: "Home", to: "/" },
   { name: "Work", to: "/#work" },
+  { name: "Services", to: "/#services" },
+  { name: "Pricing", to: "/#pricing" },
   { name: "Experience", to: "/#experience" },
   { name: "Skills", to: "/#skills" },
   { name: "Contact", to: "/#contact" },

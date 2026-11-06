@@ -4,6 +4,14 @@ const navLinks = [
     link: "/#work",
   },
   {
+    name: "Services",
+    link: "/#services",
+  },
+  {
+    name: "Pricing",
+    link: "/#pricing",
+  },
+  {
     name: "Experience",
     link: "/#experience",
   },
@@ -39,53 +47,6 @@ const resumeLinks = {
   resume: "/resume/Lennox_Lewis_Resume.docx",
   cv: "/resume/Lennox_Odhiambo_CV.docx",
 };
-
-const logoIconsList = [
-  {
-    name: "Shopify",
-    imgPath: "/images/brands/company-logo-1.png",
-  },
-  {
-    name: "Microsoft",
-    imgPath: "/images/brands/company-logo-2.png",
-  },
-  {
-    name: "Adidas",
-    imgPath: "/images/brands/company-logo-3.png",
-  },
-  {
-    name: "Docker",
-    imgPath: "/images/brands/company-logo-4.png",
-  },
-  {
-    name: "Hostinger",
-    imgPath: "/images/brands/company-logo-5.png",
-  },
-  {
-    name: "Adobe",
-    imgPath: "/images/brands/company-logo-6.png",
-  },
-  {
-    name: "Appwrite",
-    imgPath: "/images/brands/company-logo-7.png",
-  },
-  {
-    name: "NVIDIA",
-    imgPath: "/images/brands/company-logo-8.png",
-  },
-  {
-    name: "Vercel",
-    imgPath: "/images/brands/company-logo-9.png",
-  },
-  {
-    name: "Linear",
-    imgPath: "/images/brands/company-logo-10.png",
-  },
-  {
-    name: "Loom",
-    imgPath: "/images/brands/company-logo-11.png",
-  },
-];
 
 const abilities = [
   {
@@ -317,6 +278,186 @@ const stackAssetMap = {
   },
 };
 
+// Only icons that stay readable on a black background.
+const logoIconsList = [
+  "React",
+  "TypeScript",
+  "JavaScript",
+  "Node.js",
+  "Python",
+  "TensorFlow",
+  "PyTorch",
+  "Tailwind",
+  "MongoDB",
+  "PostgreSQL",
+  "Firebase",
+  "Docker",
+  "Figma",
+  "Photoshop",
+].map((name) => ({ name, imgPath: stackAssetMap[name].imageSrc }));
+
+const services = [
+  {
+    name: "Website Design & Build",
+    categories: ["Landing Pages", "Business Sites", "Redesigns"],
+    tiers: [
+      {
+        name: "Static Website",
+        price: "$250",
+        features: ["Up to 5 responsive pages", "Custom hero section", "Contact form", "Basic SEO setup"],
+      },
+      {
+        name: "Animated Website",
+        price: "$600",
+        recommended: true,
+        features: ["Everything in Static", "GSAP scroll animations", "Animated navigation", "Page transitions"],
+      },
+      {
+        name: "E-commerce Website",
+        price: "$900",
+        features: ["Product and category pages", "Cart and checkout", "Online payments", "Order management"],
+      },
+      {
+        name: "3D Website",
+        price: "$1,200",
+        features: ["Interactive 3D models", "Immersive 3D hero", "GSAP animations", "Performance tuning for 3D"],
+      },
+    ],
+  },
+  {
+    name: "Web Apps",
+    categories: ["Dashboards", "Client Portals", "Full Stack"],
+    tiers: [
+      {
+        name: "Standard App",
+        price: "$1,000",
+        features: ["Hero and landing page", "User accounts and login", "Database setup", "Admin dashboard"],
+      },
+      {
+        name: "Advanced App",
+        price: "$2,000",
+        recommended: true,
+        features: ["Everything in Standard", "Animated navigation", "User roles and permissions", "Payments and API integrations"],
+      },
+      {
+        name: "AI-Powered App",
+        price: "$3,500",
+        features: ["Everything in Advanced", "AI and ML features", "Custom AI assistant", "3D models and visuals"],
+      },
+    ],
+  },
+  {
+    name: "Mobile Apps",
+    categories: ["iOS", "Android", "React Native"],
+    tiers: [
+      {
+        name: "Standard App",
+        price: "$1,200",
+        features: ["iOS and Android with React Native", "Up to 5 screens", "User accounts and login", "App store preparation"],
+      },
+      {
+        name: "Advanced App",
+        price: "$2,200",
+        recommended: true,
+        features: ["Everything in Standard", "Backend and database", "Push notifications", "In-app payments"],
+      },
+      {
+        name: "AI-Powered App",
+        price: "$3,500",
+        features: ["Everything in Advanced", "AI and ML features", "Custom animations", "Offline support"],
+      },
+    ],
+  },
+  {
+    name: "Desktop Applications",
+    categories: ["Business Tools", "Internal Software", "Cross-Platform"],
+    tiers: [
+      {
+        name: "Standard App",
+        price: "$1,000",
+        features: ["One operating system", "Up to 5 screens", "Local data storage", "Installer included"],
+      },
+      {
+        name: "Advanced App",
+        price: "$1,800",
+        recommended: true,
+        features: ["Windows, macOS and Linux", "Database setup", "Reports and exports", "User accounts"],
+      },
+      {
+        name: "Connected App",
+        price: "$3,000",
+        features: ["Everything in Advanced", "Cloud sync", "Third-party integrations", "AI and ML features"],
+      },
+    ],
+  },
+  {
+    name: "AI & Data",
+    categories: ["AI Assistants", "Predictive Models", "Data Analysis"],
+    tiers: [
+      {
+        name: "Data Analysis",
+        price: "$800",
+        features: ["Data cleaning and preparation", "Patterns and trends", "Visual summaries", "Written findings"],
+      },
+      {
+        name: "Predictive Model",
+        price: "$1,500",
+        recommended: true,
+        features: ["Everything in Data Analysis", "Custom ML model", "Accuracy evaluation", "Ready to connect to your app"],
+      },
+      {
+        name: "AI Assistant",
+        price: "$3,000",
+        features: ["Custom agentic assistant", "Connected models and tools", "Trained on your data", "Web or app integration"],
+      },
+    ],
+  },
+  {
+    name: "Company Profiles",
+    categories: ["Profile Design", "Layout", "Print & PDF"],
+    tiers: [
+      {
+        name: "Standard Profile",
+        price: "$60",
+        features: ["Up to 6 pages", "Clean branded layout", "Print-ready PDF"],
+      },
+      {
+        name: "Designed Profile",
+        price: "$120",
+        recommended: true,
+        features: ["Up to 12 pages", "Custom graphics and icons", "Print and digital versions"],
+      },
+      {
+        name: "Premium Profile",
+        price: "$250",
+        features: ["Up to 20 pages", "Image retouching", "Help refining your wording", "Editable source files"],
+      },
+    ],
+  },
+  {
+    name: "Company Logos",
+    categories: ["Logo Design", "Brand Colours", "File Handover"],
+    tiers: [
+      {
+        name: "Standard Logo",
+        price: "$40",
+        features: ["2 logo concepts", "2 rounds of changes", "PNG and SVG files"],
+      },
+      {
+        name: "Professional Logo",
+        price: "$90",
+        recommended: true,
+        features: ["3 logo concepts", "Colour and mono versions", "Full file package"],
+      },
+      {
+        name: "Brand Kit",
+        price: "$180",
+        features: ["Everything in Professional", "Colour palette and typography", "Social media kit", "Simple brand guide"],
+      },
+    ],
+  },
+];
+
 const techStackRows = [
   [
     "Python",
@@ -372,88 +513,12 @@ const techStackRows = [
 
 const expCards = [
   {
-    review: "Lennox brought creativity and technical expertise to the team, significantly improving our frontend performance. His work has been invaluable in delivering faster experiences.",
-    lineColor: "#673DE6",
-    imgPath: "/images/experience/exp1.png",
-    logoPath: "/images/experience/logo1.png",
-    companyName: "Hostinger",
-    title: "Frontend Developer",
-    date: "January 2023 - Present",
-    responsibilities: [
-      "Developed and maintained user-facing features for the Hostinger website.",
-      "Collaborated closely with UI/UX designers to ensure seamless user experiences.",
-      "Optimized web applications for maximum speed and scalability.",
-    ],
-  },
-  {
-    review: "Lennox’s contributions to Docker's web applications have been outstanding. He approaches challenges with a problem-solving mindset.",
-    lineColor: "#1D63ED",
-    imgPath: "/images/experience/exp3.png",
-    logoPath: "/images/experience/logo3.png",
-    companyName: "Docker",
-    title: "Full Stack Developer",
-    date: "June 2024 - Present",
-    responsibilities: [
-      "Led the development of Docker's web applications, focusing on scalability.",
-      "Worked with backend engineers to integrate APIs seamlessly with the frontend.",
-      "Contributed to open-source projects that were used with the Docker ecosystem.",
-    ],
-  },
-  {
-    review: "Design brand and marketing visuals in Adobe Photoshop that give products and businesses a consistent, professional look.",
-    lineColor: "#31A8FF",
-    imgPath: "/images/experience/photo-shop.png",
-    imageClassName: "md:size-20 size-10 rounded-full object-contain",
-    logoClassName: "rounded-full object-contain",
-    companyName: "Photoshop",
-    companyNameClassName: "font-sans font-semibold text-3xl text-[#31A8FF]",
-    logoPath: "/images/experience/photo-shop.png",
-    title: "Graphic Designer",
-    date: "December 2024 - Present",
-    responsibilities: [
-      "Designed logos, social media graphics, posters, and marketing assets in Adobe Photoshop.",
-      "Retouched and composited images to produce clean, high-quality visuals for web and print.",
-      "Built consistent brand identities (colour palettes, typography, layouts) for Zed OS Technologies and client projects.",
-      "Prepared and exported optimized assets for websites, social platforms, and print.",
-    ],
-  },
-  {
-    review: "Building AI-powered systems, from predictive models to an agentic assistant, that turn data into practical tools.",
-    lineColor: "#8B5CF6",
-    imgPath: "/images/experience/microsofy.png",
-    imageClassName: "md:size-20 size-10 rounded-full object-contain",
-    logoClassName: "rounded-full object-contain",
-    companyName: "Microsoft",
-    logoPath: "/images/experience/microsofy.png",
-    title: "AI / Machine Learning Engineer",
-    date: "December 2024 - Present",
-    responsibilities: [
-      "Developing Cindi, an agentic AI assistant that handles tasks through connected models and tools.",
-      "Applied machine learning to prepare data, train models, and evaluate predictive performance.",
-      "Integrated AI features into full-stack MERN and TypeScript applications.",
-    ],
-  },
-  {
-    review: "Lennox’s work on Appwrite’s mobile app brought a high level of quality and efficiency. He delivered solutions that enhanced our mobile experience & meet our product goals.",
-    lineColor: "#FD366E",
-    imgPath: "/images/experience/exp2.png",
-    logoPath: "/images/experience/logo2.png",
-    companyName: "Appwrite",
-    title: "React Native Developer",
-    date: "March 2025 - Present",
-    responsibilities: [
-      "Built cross-platform mobile apps using React Native, integrating with Appwrite's backend services.",
-      "Improved app performance and user experience through code optimization and testing.",
-      "Coordinated with the product team to implement features based on feedback.",
-    ],
-  },
-  {
     review: "Supported KEMRI research teams with data analysis and machine learning to turn raw research data into evidence-based findings.",
     lineColor: "#08A8D5",
-    imgPath: "/images/experience/kemri-logo.png",
-    imageClassName: "md:size-20 size-10 object-contain",
+    plate: "kemri",
+    plateAlt: "KEMRI logo",
     companyName: "KEMRI",
-    logoPath: "/images/experience/kemri-logo.png",
+    subheading: "Work experience",
     title: "Data Analyst — KEMRI",
     date: "May - August 2026",
     responsibilities: [
@@ -461,6 +526,77 @@ const expCards = [
       "Analyzed research data to uncover patterns and trends that supported evidence-based findings.",
       "Built and evaluated machine learning models to generate predictive insights for research teams.",
       "Communicated results to researchers through clear summaries and visualizations.",
+    ],
+  },
+  {
+    review: "Where it started: learning to build fast, responsive interfaces with React, JavaScript and Tailwind CSS.",
+    lineColor: "#8B5CF6",
+    plate: "frontend",
+    plateAlt: "Code icon",
+    companyName: "Learning path",
+    title: "Frontend Development",
+    date: "Since 2023",
+    responsibilities: [
+      "Building responsive interfaces with React and Tailwind CSS.",
+      "Turning designs into clean, reusable components.",
+      "Keeping pages fast and easy to use on any device.",
+    ],
+  },
+  {
+    review: "Moving beyond the browser to build complete applications, from the database to the interface.",
+    lineColor: "#8B5CF6",
+    plate: "fullstack",
+    plateAlt: "Stacked layers icon",
+    companyName: "Learning path",
+    title: "Full Stack Development",
+    date: "Since 2024",
+    responsibilities: [
+      "Building full stack projects with the MERN stack and TypeScript.",
+      "Designing APIs and connecting them to frontends.",
+      "Working with databases such as MongoDB and PostgreSQL.",
+    ],
+  },
+  {
+    review: "Designing brand and marketing visuals in Adobe Photoshop that give products and businesses a consistent, professional look.",
+    lineColor: "#8B5CF6",
+    plate: "design",
+    plateAlt: "Pen tool icon",
+    companyName: "Learning path",
+    title: "Graphic Design",
+    date: "Since 2024",
+    responsibilities: [
+      "Designing logos, social media graphics, posters, and marketing assets in Adobe Photoshop.",
+      "Retouching and compositing images into clean visuals for web and print.",
+      "Building consistent brand identities, including colour palettes, typography and layouts.",
+      "Preparing optimized assets for websites, social platforms, and print.",
+    ],
+  },
+  {
+    review: "Building AI-powered systems, from predictive models to an agentic assistant, that turn data into practical tools.",
+    lineColor: "#8B5CF6",
+    plate: "ai",
+    plateAlt: "Circuit brain icon",
+    companyName: "Learning path",
+    title: "AI & Machine Learning",
+    date: "Since 2024",
+    responsibilities: [
+      "Developing Cindi, an agentic AI assistant that handles tasks through connected models and tools.",
+      "Preparing data, training models, and evaluating predictive performance.",
+      "Integrating AI features into full-stack MERN and TypeScript applications.",
+    ],
+  },
+  {
+    review: "Taking those web skills to phones by learning to build cross-platform apps with React Native.",
+    lineColor: "#8B5CF6",
+    plate: "mobile",
+    plateAlt: "Smartphone icon",
+    companyName: "Learning path",
+    title: "Mobile Development",
+    date: "Since 2025",
+    responsibilities: [
+      "Building cross-platform apps with React Native.",
+      "Connecting apps to backend services and APIs.",
+      "Improving performance and usability through testing.",
     ],
   },
 ];
@@ -623,6 +759,7 @@ export {
   words,
   abilities,
   logoIconsList,
+  services,
   counterItems,
   expCards,
   testimonials,

@@ -15,6 +15,7 @@ const webProjects = [
     desc: "Design, disrupt and conquer",
     img: "/images/projects/web/Vanguard.webp",
     link: "https://vanguard-zeta-ruddy.vercel.app/",
+    caseStudy: "/work/vanguard",
     bg: "bg-[#FFE7EB]"
   },
   {
@@ -23,6 +24,7 @@ const webProjects = [
     desc: "AI & ML, digital systems and smart operations for East African teams, with an interactive 3D hero.",
     img: "/images/projects/web/zedos_technologies_showcase.png",
     link: "https://zedostechnologies.co.ke/",
+    caseStudy: "/work/zedos-technologies",
     bg: "bg-[#0A0A0C]"
   },
   {
@@ -31,6 +33,7 @@ const webProjects = [
     desc: "An immersive 3D/GSAP animated cocktail website built with modern web animations and smooth transitions.",
     img: "/images/projects/web/Cocktail_Mojito.png",
     link: "https://gsap-cocktails-website-nine.vercel.app/",
+    caseStudy: "/work/mojito",
     bg: "bg-[#0B1D13]"
   },
   {
@@ -39,6 +42,7 @@ const webProjects = [
     desc: "A modern landing page for a pet care service.",
     img: "/images/projects/web/Pawello_Project.png",
     link: "https://tedious-backgrounds-421163.framer.app/",
+    caseStudy: "/work/pawello",
     bg: "bg-[#FFE7EB]"
   }
 ];

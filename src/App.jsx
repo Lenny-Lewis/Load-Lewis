@@ -5,10 +5,12 @@ import WhatsAppFloatingButton from "./components/WhatsAppFloatingButton";
 import Footer from "./sections/Footer";
 import HomePage from "./pages/HomePage";
 import WorkPage from "./pages/WorkPage";
+import CaseStudyPage from "./pages/CaseStudyPage";
 import CommentsPage from "./pages/CommentsPage";
 import ArticleDetailPage from "./pages/ArticleDetailPage";
 import ThoughtsPage from "./pages/ThoughtsPage";
 import Preloader from "./components/Preloader";
+import TabTitle from "./components/TabTitle";
 import { PersistentSplineHost } from "./components/PersistentSpline";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -57,6 +59,8 @@ const ScrollToAnchor = () => {
 const App = () => {
   const location = useLocation();
   const isWorkPage = location.pathname === "/work";
+  // Project description pages render their own footer.
+  const isCaseStudyPage = location.pathname.startsWith("/work/");
   const isCommentsPage = location.pathname === "/comments";
   // Article pages and the all-articles page share the article layout (own nav pill + footer).
   const isArticlePage =
@@ -97,16 +101,18 @@ const App = () => {
       {/* Hero Spline scene, kept alive across route changes */}
       <PersistentSplineHost />
       <ScrollToAnchor />
+      <TabTitle />
       {!isCommentsPage && <Navbar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/work" element={<WorkPage />} />
+        <Route path="/work/:slug" element={<CaseStudyPage />} />
         <Route path="/comments" element={<CommentsPage />} />
         <Route path="/thoughts" element={<ThoughtsPage />} />
         <Route path="/article/:slug" element={<ArticleDetailPage />} />
       </Routes>
       {!isCommentsPage && !isArticlePage && <WhatsAppFloatingButton />}
-      {!isWorkPage && !isCommentsPage && !isArticlePage && <Footer />}
+      {!isWorkPage && !isCaseStudyPage && !isCommentsPage && !isArticlePage && <Footer />}
       <Analytics />
     </>
   );

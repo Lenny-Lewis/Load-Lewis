@@ -4,6 +4,8 @@ import { Component as SterlingGateNav } from "@/components/ui/sterling-gate-kine
 const portfolioNavItems = [
   { label: "Home", to: "/#hero", shape: "1" },
   { label: "Work", to: "/work", shape: "2" },
+  { label: "Services", to: "/#services", shape: "2" },
+  { label: "Pricing", to: "/#pricing", shape: "4" },
   { label: "Experience", to: "/#experience", shape: "3" },
   { label: "Skills", to: "/#skills", shape: "4" },
   { label: "Thoughts", to: "/#thoughts", shape: "5" },

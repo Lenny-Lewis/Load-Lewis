@@ -16,6 +16,7 @@ const webProjects = [
     desc: "An editorial creative-studio template with bold typography and a monochrome visual direction.",
     img: "/images/projects/web/ShamProject.avif",
     link: "https://victorious-actions-723983.framer.app/",
+    caseStudy: "/work/sham-project",
     bg: "bg-[#E8E8E8]"
   },
   {
@@ -24,6 +25,7 @@ const webProjects = [
     desc: "Find your scent one bottle at a time.",
     img: "/images/projects/web/Recueil_Perfume.png",
     link: "https://alert-apartment-762464.framer.app/",
+    caseStudy: "/work/recueil",
     bg: "bg-[#FFE7EB]"
   },
   {
@@ -32,6 +34,7 @@ const webProjects = [
     desc: "A modern UI service platform for a startup.",
     img: "/images/projects/web/agenicy_project.png",
     link: "https://compassionate-time-092074.framer.app/",
+    caseStudy: "/work/ageincy",
     bg: "bg-[#FFEFDB]"
   },
   {
@@ -40,6 +43,7 @@ const webProjects = [
     desc: "A modern landing page for a coffee shop.",
     img: "/images/projects/web/Latte_Project.png",
     link: "https://traditional-checklist-769919.framer.app/",
+    caseStudy: "/work/latte-have",
     bg: "bg-[#1C1C21]"
   },
   {
@@ -48,6 +52,7 @@ const webProjects = [
     desc: "A modern landing page for a pet care service.",
     img: "/images/projects/web/Pawello_Project.png",
     link: "https://tedious-backgrounds-421163.framer.app/",
+    caseStudy: "/work/pawello",
     bg: "bg-[#FFE7EB]"
   },
   {
@@ -56,6 +61,7 @@ const webProjects = [
     desc: "A museum showcase for past and present artifacts.",
     img: "/images/projects/web/Neo_Museum-1.png",
     link: "https://nhm-xi.vercel.app/",
+    caseStudy: "/work/nhm",
     bg: "bg-[#FFE7EB]"
   },
   {
@@ -64,6 +70,7 @@ const webProjects = [
     desc: "A geology and mineralogy showcase.",
     img: "/images/projects/web/Lithos.webp",
     link: "https://lithos-blush.vercel.app/",
+    caseStudy: "/work/lithos",
     bg: "bg-[#FFE7EB]"
   },
   {
@@ -72,6 +79,7 @@ const webProjects = [
     desc: "An immersive 3D/GSAP animated cocktail website built with modern web animations and smooth transitions.",
     img: "/images/projects/web/Cocktail_Mojito.png",
     link: "https://gsap-cocktails-website-nine.vercel.app/",
+    caseStudy: "/work/mojito",
     bg: "bg-[#0B1D13]"
   },
   {
@@ -80,6 +88,7 @@ const webProjects = [
     desc: "Design, disrupt and conquer",
     img: "/images/projects/web/Vanguard.webp",
     link: "https://vanguard-zeta-ruddy.vercel.app/",
+    caseStudy: "/work/vanguard",
     bg: "bg-[#FFE7EB]"
   },
   {
@@ -88,6 +97,7 @@ const webProjects = [
     desc: "A cinematic gaming landing experience with bold typography, immersive visuals, and a metagame-inspired play economy.",
     img: "/images/projects/web/zed_gaming_mockup.png",
     link: "https://zed-gaming.vercel.app/",
+    caseStudy: "/work/zed-gaming",
     bg: "bg-[#0A0612]"
   },
   {
@@ -96,6 +106,7 @@ const webProjects = [
     desc: "A security platform for a startup.",
     img: "/images/projects/web/ConSentinel.png",
     link: "https://con-sentinel.vercel.app/",
+    caseStudy: "/work/consentinel",
     bg: "bg-[#FFE7EB]"
   },
   {
@@ -104,6 +115,7 @@ const webProjects = [
     desc: "AI & ML, digital systems and smart operations for East African teams, with an interactive 3D hero.",
     img: "/images/projects/web/zedos_technologies_showcase.png",
     link: "https://zedostechnologies.co.ke/",
+    caseStudy: "/work/zedos-technologies",
     bg: "bg-[#0A0A0C]"
   }
 ];

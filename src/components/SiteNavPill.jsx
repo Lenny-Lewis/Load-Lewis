@@ -18,6 +18,8 @@ import MorphDotsIcon from "@/components/ui/MorphDotsIcon";
 const links = [
   { label: "Home", to: "/" },
   { label: "Work", to: "/work" },
+  { label: "Services", to: "/#services" },
+  { label: "Pricing", to: "/#pricing" },
   { label: "Experience", to: "/#experience" },
   { label: "Thoughts", to: "/thoughts" },
   { label: "Contact", to: "/#contact" },

@@ -39,13 +39,9 @@ const useReveal = () => {
 const LogoGroup = ({ duplicate = false }) => (
   <ul className="logo-ticker__group" aria-hidden={duplicate || undefined}>
     {logoIconsList.map((icon) => (
-      <li key={icon.imgPath} className="flex-none">
-        <img
-          src={icon.imgPath}
-          alt={duplicate ? "" : icon.name}
-          draggable="false"
-          className="h-[35px] w-auto max-w-none"
-        />
+      <li key={icon.name} className="flex flex-none items-center gap-2.5">
+        <img src={icon.imgPath} alt="" draggable="false" className="size-7 max-w-none object-contain" />
+        <span className="text-base font-medium text-white">{icon.name}</span>
       </li>
     ))}
   </ul>
@@ -87,7 +83,7 @@ const LogoShowcase = () => {
 
   return (
     <section
-      aria-label="Brands and platforms"
+      aria-label="Tools I work with"
       className="flex flex-col items-center px-4 py-12 md:px-6 md:pb-8 md:pt-16 xl:px-8 xl:py-20"
     >
       <motion.div
@@ -95,7 +91,7 @@ const LogoShowcase = () => {
         {...reveal({ opacity: 0, scale: 0.5 }, SECTION_SPRING)}
       >
         <p className="text-sm font-medium uppercase tracking-[0.12em] text-white">
-          Brands &amp; platforms
+          Tools I work with
         </p>
 
         <div className="flex w-full flex-col items-center gap-16 py-8 min-[810px]:flex-row min-[810px]:gap-6">

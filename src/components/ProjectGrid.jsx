@@ -1,3 +1,7 @@
+import { Link } from "react-router-dom";
+import PriceTag from "./ui/PriceTag";
+import { caseStudies } from "../data/caseStudies";
+
 /**
  * ProjectGrid — shared work-project grid used by BOTH the homepage Showcase
  * section and the Work page's "All Projects" tab.
@@ -48,6 +52,25 @@
  * `.framer-card`, Work re-runs a GSAP tween on tab change via
  * `.framer-card-work`.
  */
+const salePrice = (path) => caseStudies.find((study) => path?.endsWith(`/${study.slug}`))?.price;
+
+// A project with a case study opens it on this site; others go straight to the live link.
+const CardLink = ({ project, className, children }) =>
+  project.caseStudy ? (
+    <Link to={project.caseStudy} className={className}>
+      {children}
+    </Link>
+  ) : (
+    <a
+      href={project.link || "#"}
+      target={project.link ? "_blank" : "_self"}
+      rel="noreferrer"
+      className={className}
+    >
+      {children}
+    </a>
+  );
+
 const ProjectGrid = ({
   projects,
   cardClassName = "framer-card",
@@ -58,11 +81,9 @@ const ProjectGrid = ({
   return (
     <div className="mx-auto grid w-full max-w-[1176px] grid-cols-1 gap-4 min-[810px]:grid-cols-2">
       {projects.map((project) => (
-        <a
+        <CardLink
           key={project.id}
-          href={project.link || "#"}
-          target={project.link ? "_blank" : "_self"}
-          rel="noreferrer"
+          project={project}
           className={`${cardClassName} group flex flex-col gap-2.5 cursor-pointer`}
         >
           <div
@@ -96,6 +117,7 @@ const ProjectGrid = ({
               />
             )}
             <div className="absolute inset-0 border border-white/5 rounded-[20px] pointer-events-none" />
+            {salePrice(project.caseStudy) && <PriceTag price={salePrice(project.caseStudy)} />}
           </div>
 
           <div className="flex flex-col gap-1">
@@ -108,7 +130,7 @@ const ProjectGrid = ({
               </p>
             )}
           </div>
-        </a>
+        </CardLink>
       ))}
     </div>
   );

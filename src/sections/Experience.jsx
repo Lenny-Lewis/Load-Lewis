@@ -8,10 +8,6 @@ const MONTHS = /\b(January|February|March|April|June|July|August|September|Octob
 const shortDate = (date) =>
   date.replace(MONTHS, (month) => month.slice(0, 3)).replace(/\s*-\s*/, " – ");
 
-// One slug per role, in the same order as expCards. Art lives in
-// /public/images/experience/plates.
-const SLUGS = ["hostinger", "docker", "photoshop", "microsoft", "appwrite", "kemri"];
-
 // Defined once, outside the component: the carousel re-runs its swap when this
 // array changes identity.
 const roles = expCards.map((card, index) => {
@@ -22,11 +18,12 @@ const roles = expCards.map((card, index) => {
   return {
     title: words.join(" "),
     subtitle,
-    image: `/images/experience/plates/${SLUGS[index]}.svg`,
-    alt: `${card.companyName} logo`,
+    image: `/images/experience/plates/${card.plate}.svg`,
+    alt: card.plateAlt,
     eyebrow: shortDate(card.date),
     badge: String(index + 1).padStart(2, "0"),
     heading: card.companyName,
+    subheading: card.subheading,
     description: card.review,
     details: card.responsibilities,
     accent: card.lineColor,
@@ -41,7 +38,7 @@ const Experience = () => {
   return (
     <section id="experience" className="experience-section md:mt-40 mt-20">
       <div className="px-5 md:px-20">
-        <TitleHeader title="Professional Work Experience" />
+        <TitleHeader title="My Career Path" />
       </div>
 
       <div className="dark mt-10 md:mt-14 [--color-background:#000]">
@@ -49,12 +46,12 @@ const Experience = () => {
           dishes={roles}
           height={CAROUSEL_HEIGHT}
           labels={{
-            region: "Professional work experience",
-            pager: "Choose a role",
-            previous: "Previous role",
-            next: "Next role",
-            details: "Responsibilities",
-            item: "Role",
+            region: "Career path",
+            pager: "Choose a stage",
+            previous: "Previous stage",
+            next: "Next stage",
+            details: "Highlights",
+            item: "Stage",
           }}
         />
       </div>

@@ -6,6 +6,15 @@ import TitleHeader from "../components/TitleHeader";
 import Globe3D from "@/components/ui/3d-globe";
 import useInView from "../hooks/useInView";
 
+const BUDGET_OPTIONS = [
+  "Under $250",
+  "$250 – $1,000",
+  "$1,000 – $2,500",
+  "$2,500 – $5,000",
+  "$5,000+",
+  "Not sure yet",
+];
+
 // Kept outside the component so the globe's settings stay stable between renders.
 const HOME_BASE = { lat: -1.2921, lng: 36.8219, label: "Nairobi" };
 
@@ -86,6 +95,7 @@ const Contact = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    budget: "",
     message: "",
   });
 
@@ -121,10 +131,11 @@ const Contact = () => {
     const trimmedForm = {
       name: form.name.trim(),
       email: form.email.trim(),
+      budget: form.budget,
       message: form.message.trim(),
     };
 
-    if (!trimmedForm.name || !trimmedForm.email || !trimmedForm.message) {
+    if (!trimmedForm.name || !trimmedForm.email || !trimmedForm.budget || !trimmedForm.message) {
       setForm(trimmedForm);
       formRef.current?.reportValidity();
       return;
@@ -150,7 +161,9 @@ const Contact = () => {
         {
           name: trimmedForm.name,
           email: trimmedForm.email,
-          message: trimmedForm.message,
+          // Also in the message, so it arrives even if the EmailJS template has no {{budget}}.
+          message: `${trimmedForm.message}\n\nBudget: ${trimmedForm.budget}`,
+          budget: trimmedForm.budget,
           from_name: trimmedForm.name,
           from_email: trimmedForm.email,
           reply_to: trimmedForm.email,
@@ -160,7 +173,7 @@ const Contact = () => {
       );
 
       // Reset form and stop loading
-      setForm({ name: "", email: "", message: "" });
+      setForm({ name: "", email: "", budget: "", message: "" });
       setIsSubmitted(true);
     } catch (error) {
       console.error("EmailJS Error:", {
@@ -227,6 +240,26 @@ const Contact = () => {
                     required
                   />
                 </div>
+              </div>
+
+              <div>
+                <label htmlFor="budget">Your Budget</label>
+                <select
+                  id="budget"
+                  name="budget"
+                  value={form.budget}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled>
+                    What budget do you have in mind?
+                  </option>
+                  {BUDGET_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>

@@ -976,6 +976,7 @@ section {
 }
 
 #contact .contact-form input,
+#contact .contact-form select,
 #contact .contact-form textarea {
   padding: 12px;
   background: rgba(255, 255, 255, 0.1);
@@ -999,7 +1000,30 @@ section {
   color: var(--muted-foreground);
 }
 
+#contact .contact-form select {
+  width: 100%;
+  padding-right: 36px;
+  appearance: none;
+  color-scheme: dark;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
+/* The unchosen placeholder option matches the other fields' placeholders. */
+#contact .contact-form select:invalid {
+  color: var(--muted-foreground);
+}
+
+#contact .contact-form select option {
+  background: #141417;
+  color: var(--foreground);
+}
+
 #contact .contact-form input:focus,
+#contact .contact-form select:focus,
 #contact .contact-form textarea:focus {
   border-color: var(--primary);
   outline: none;

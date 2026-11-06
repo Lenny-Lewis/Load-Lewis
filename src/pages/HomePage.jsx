@@ -7,6 +7,8 @@ import Hero from "../sections/Hero";
 import ShowcaseSection from "../sections/ShowcaseSection";
 import LogoShowcase from "../sections/LogoShowcase";
 import FeatureCards from "../sections/FeatureCards";
+import Services from "../sections/Services";
+import Pricing from "../sections/Pricing";
 
 const HomePage = () => {
   return (
@@ -15,10 +17,12 @@ const HomePage = () => {
       <ShowcaseSection />
       <LogoShowcase />
       <FeatureCards />
+      <Services />
       <Experience />
       <TechStack />
       <Feedback />
       <Thoughts />
+      <Pricing />
       <Contact />
     </>
   );
