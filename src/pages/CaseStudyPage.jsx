@@ -150,7 +150,7 @@ const CaseStudyPage = () => {
 
   return (
     <>
-      <main className="w-full overflow-x-hidden bg-black px-5 pb-20 pt-32 md:px-8 md:pt-40">
+      <main className="w-full overflow-x-hidden bg-black px-5 pb-20 pt-32 md:px-8 md:pb-28 md:pt-40">
         <div className="mx-auto flex w-full max-w-[1080px] flex-col gap-10">
           <motion.header
             className="flex w-full flex-col gap-10"

@@ -452,7 +452,7 @@ const WorkPage = () => {
   return (
     <div className="w-full min-h-screen bg-[#050505] text-white pt-32 overflow-x-hidden">
       <SiteNavPill label="Work page navigation" />
-      <section ref={containerRef} className="w-full flex-col-center section-padding">
+      <section ref={containerRef} className="w-full flex-col-center section-padding pb-20 md:pb-28">
         
         <div className="w-full max-w-7xl mx-auto mb-16 flex flex-col gap-10">
           <Link 

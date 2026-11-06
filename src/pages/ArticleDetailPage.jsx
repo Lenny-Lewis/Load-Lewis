@@ -163,7 +163,7 @@ const ArticleDetailPage = () => {
   return (
     <div className="article-detail-page w-full min-h-screen bg-black text-white selection:bg-white selection:text-black">
       <SiteNavPill label="Article page navigation" />
-      <main id="article-section" className="w-full pt-[140px] md:pt-[180px] pb-16 md:pb-20">
+      <main id="article-section" className="w-full pt-[140px] md:pt-[180px] pb-20 md:pb-28">
         <div className="w-full max-w-[1080px] mx-auto px-5 lg:px-0">
           {/* Title, subtitle, meta and hero: left 740px column, as on Majd's page */}
           <div className="w-full lg:w-[740px] text-left">
