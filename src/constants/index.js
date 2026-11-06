@@ -610,9 +610,9 @@ const testimonials = [
     name: "Zed OS Tech CEO",
     city: "Kisumu",
     country: "KE",
-    // Kisumu and Nairobi are too close for two pins, so both are nudged apart on the globe.
-    lat: 5,
-    lng: 28,
+    // Kisumu and Nairobi are too close for these four pins, so they're spread around East Africa on the globe.
+    lat: 9,
+    lng: 26,
     mentions: "Zed OS Technologies · Company website",
     rating: 5,
     review:
@@ -621,11 +621,37 @@ const testimonials = [
     imageAlt: "Avatar for the Zed OS Tech CEO",
   },
   {
+    name: "B. Wamuyu",
+    city: "Nairobi",
+    country: "KE",
+    lat: 9,
+    lng: 43,
+    mentions: "CEO, Villagio Travel & Tours · Company profile",
+    rating: 5,
+    review:
+      "Lennox Lewis works professionally, provides timely updates and heavily upgraded our company profile to something more professional. Funny enough, I wish we found him before we made our website.",
+    imgPath: testimonialAvatar("B. Wamuyu"),
+    imageAlt: "Avatar for B. Wamuyu",
+  },
+  {
+    name: "Shanzy Solutions",
+    city: "Nairobi",
+    country: "KE",
+    lat: -11,
+    lng: 26,
+    mentions: "Shanzy Solutions Ltd · Company profile and website",
+    rating: 5,
+    review:
+      "Lennox works really well. Diligent, professional, soft spoken and his products always deliver. We are currently working on our website with him and he is doing such a fantastic job!",
+    imgPath: testimonialAvatar("Shanzy Solutions"),
+    imageAlt: "Avatar for Shanzy Solutions",
+  },
+  {
     name: "Kevin Katami, personnel at Villagio",
     city: "Nairobi",
     country: "KE",
-    lat: -7,
-    lng: 39,
+    lat: -11,
+    lng: 43,
     mentions: "Villagio · Customer Service Week poster",
     rating: 5,
     review:

@@ -6,6 +6,8 @@ import SiteHalftoneFooter from "@/components/SiteHalftoneFooter";
 import { Zap } from "lucide-react";
 import HoverTextSlide from "@/components/ui/HoverTextSlide";
 import GraphicDesignGrid from "@/components/GraphicDesignGrid";
+import CompanyProfileGrid from "@/components/CompanyProfileGrid";
+import { companyProfiles } from "../data/companyProfiles";
 import ProjectGrid from "@/components/ProjectGrid";
 import SiteNavPill from "@/components/SiteNavPill";
 
@@ -333,6 +335,7 @@ const workTabs = [
   { id: "web", label: "Web Apps" },
   { id: "mobile", label: "Mobile Apps" },
   { id: "graphics", label: "Graphics Design" },
+  { id: "profiles", label: "Company Profiles" },
   { id: "current", label: "Current Projects" },
 ];
 
@@ -489,7 +492,11 @@ const WorkPage = () => {
         </div>
         
         {/* Grid Content */}
-        {activeTab === "graphics" ? (
+        {activeTab === "profiles" ? (
+          <div className="w-full max-w-7xl mx-auto">
+            <CompanyProfileGrid profiles={companyProfiles} />
+          </div>
+        ) : activeTab === "graphics" ? (
           <div className="w-full max-w-7xl mx-auto">
             {graphicProjects.length > 0 ? (
               <GraphicDesignGrid projects={graphicProjects} />
