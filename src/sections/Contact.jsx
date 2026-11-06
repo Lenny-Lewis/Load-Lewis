@@ -1,5 +1,6 @@
 import { Component, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { useLocation } from "react-router-dom";
 import { useReducedMotion } from "framer-motion";
 
 import TitleHeader from "../components/TitleHeader";
@@ -92,11 +93,13 @@ const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [honeypot, setHoneypot] = useState("");
+  const location = useLocation();
   const [form, setForm] = useState({
     name: "",
     email: "",
     budget: "",
-    message: "",
+    // Links such as "Request for profile" can start the message for the visitor.
+    message: location.state?.message ?? "",
   });
 
   const getSubmitErrorMessage = (error) => {

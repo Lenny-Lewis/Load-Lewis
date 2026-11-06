@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { matchPath, useLocation } from "react-router-dom";
 import { articles } from "../data/articles";
 import { caseStudies } from "../data/caseStudies";
+import { companyProfiles } from "../data/companyProfiles";
 
 const NAME = "Lennox";
 
@@ -30,6 +31,10 @@ const pageTitle = (pathname) => {
   const slug = matchPath("/article/:slug", pathname)?.params.slug;
   const article = articles.find((item) => item.slug === slug || item.id === slug);
   if (article) return `${article.title} - ${NAME}`;
+
+  const profileSlug = matchPath("/work/company-profiles/:slug", pathname)?.params.slug;
+  const profile = companyProfiles.find((item) => item.slug === profileSlug);
+  if (profile) return `${profile.title} - ${NAME}`;
 
   const studySlug = matchPath("/work/:slug", pathname)?.params.slug;
   const study = caseStudies.find((item) => item.slug === studySlug);

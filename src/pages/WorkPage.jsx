@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { motion, useReducedMotion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SiteHalftoneFooter from "@/components/SiteHalftoneFooter";
 import { Zap } from "lucide-react";
 import HoverTextSlide from "@/components/ui/HoverTextSlide";
@@ -408,7 +408,11 @@ const ProjectProgressOverlay = ({ project, progress }) => {
 
 const WorkPage = () => {
   const containerRef = useRef(null);
-  const [activeTab, setActiveTab] = useState("web");
+  const { search } = useLocation();
+  const [activeTab, setActiveTab] = useState(() => {
+    const requested = new URLSearchParams(search).get("tab");
+    return workTabs.some(({ id }) => id === requested) ? requested : "web";
+  });
   const [introReady, setIntroReady] = useState(false);
 
   useEffect(() => {

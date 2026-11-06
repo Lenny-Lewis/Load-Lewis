@@ -6,6 +6,7 @@ import SiteHalftoneFooter from "./components/SiteHalftoneFooter";
 import HomePage from "./pages/HomePage";
 import WorkPage from "./pages/WorkPage";
 import CaseStudyPage from "./pages/CaseStudyPage";
+import CompanyProfilePage from "./pages/CompanyProfilePage";
 import CommentsPage from "./pages/CommentsPage";
 import ArticleDetailPage from "./pages/ArticleDetailPage";
 import ThoughtsPage from "./pages/ThoughtsPage";
@@ -107,6 +108,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/work" element={<WorkPage />} />
         <Route path="/work/:slug" element={<CaseStudyPage />} />
+        <Route path="/work/company-profiles/:slug" element={<CompanyProfilePage />} />
         <Route path="/comments" element={<CommentsPage />} />
         <Route path="/thoughts" element={<ThoughtsPage />} />
         <Route path="/article/:slug" element={<ArticleDetailPage />} />
