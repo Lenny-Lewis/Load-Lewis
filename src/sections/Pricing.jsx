@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
+import { Link } from "react-router-dom";
 import { services } from "../constants";
 
 const EASE = [0.16, 1, 0.3, 1];
+const TIER_LINK =
+  "rounded-lg bg-white/10 px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-primary hover:text-primary-foreground";
 
 const TierCard = ({ tier }) => (
   <article
@@ -27,12 +30,15 @@ const TierCard = ({ tier }) => (
         </li>
       ))}
     </ul>
-    <a
-      href="#contact"
-      className="rounded-lg bg-white/10 px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-primary hover:text-primary-foreground"
-    >
-      Get started
-    </a>
+    {tier.link ? (
+      <Link to={tier.link} className={TIER_LINK}>
+        View project
+      </Link>
+    ) : (
+      <a href="#contact" className={TIER_LINK}>
+        Get started
+      </a>
+    )}
   </article>
 );
 
@@ -80,7 +86,7 @@ const Pricing = () => {
           <motion.div
             key={selectedName}
             className={`mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 ${
-              selected.tiers.length > 3 ? "xl:grid-cols-4" : "lg:grid-cols-3"
+              selected.tiers.length === 4 ? "xl:grid-cols-4" : "lg:grid-cols-3"
             }`}
             initial={initial}
             animate={{ opacity: 1, y: 0 }}
@@ -94,7 +100,7 @@ const Pricing = () => {
         </AnimatePresence>
 
         <p className="mt-6 text-sm text-white-50">
-          Starting prices in USD. Your final quote depends on the project.
+          {selected.pricingNote ?? "Starting prices in USD. Your final quote depends on the project."}
         </p>
       </div>
     </section>

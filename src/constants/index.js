@@ -1,3 +1,5 @@
+import { caseStudies, caseStudyPath } from "../data/caseStudies";
+
 const navLinks = [
   {
     name: "Work",
@@ -455,6 +457,20 @@ const services = [
         features: ["Everything in Professional", "Colour palette and typography", "Social media kit", "Simple brand guide"],
       },
     ],
+  },
+  {
+    name: "Ready-Made Projects",
+    categories: ["Websites", "Mobile Apps", "Optional Maintenance"],
+    pricingNote: "Prices in USD. Maintenance plans have a 12-month minimum. Hosting is separate.",
+    tiers: caseStudies
+      .filter((study) => study.saleOptions)
+      .sort((a, b) => a.saleFrom - b.saleFrom)
+      .map((study) => ({
+        name: study.title,
+        price: `$${study.saleFrom.toLocaleString("en-US")}`,
+        features: study.saleOptions.map((option) => option.summary),
+        link: caseStudyPath(study.slug),
+      })),
   },
 ];
 

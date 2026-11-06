@@ -52,7 +52,14 @@ import { caseStudies } from "../data/caseStudies";
  * `.framer-card`, Work re-runs a GSAP tween on tab change via
  * `.framer-card-work`.
  */
-const salePrice = (path) => caseStudies.find((study) => path?.endsWith(`/${study.slug}`))?.price;
+const studyFor = (path) => caseStudies.find((study) => path?.endsWith(`/${study.slug}`));
+
+// Shows Sold or the price, for projects whose case study has either.
+const ProjectTag = ({ path }) => {
+  const study = studyFor(path);
+  if (study?.sold) return <PriceTag sold />;
+  return study?.price ? <PriceTag price={study.price} /> : null;
+};
 
 // A project with a case study opens it on this site; others go straight to the live link.
 const CardLink = ({ project, className, children }) =>
@@ -117,7 +124,7 @@ const ProjectGrid = ({
               />
             )}
             <div className="absolute inset-0 border border-white/5 rounded-[20px] pointer-events-none" />
-            {salePrice(project.caseStudy) && <PriceTag price={salePrice(project.caseStudy)} />}
+            <ProjectTag path={project.caseStudy} />
           </div>
 
           <div className="flex flex-col gap-1">

@@ -1,10 +1,12 @@
 /**
  * Project pages, shown at /work/:slug. Each entry drives its page and its "More Projects" card.
  *
- * `price` marks a site as for sale: it adds the price to the page and card, plus a buy section.
- * Leave it out for work that isn't for sale.
- * `saleOptions` replaces the single buy link with a choice of options, introduced by `saleNote`.
+ * `siteTerms` or `saleTerms` marks a project as for sale: it adds the price range to the page and
+ * card, a choice of sale options, and an entry in the Pricing section. Leave it out for work that
+ * isn't for sale.
+ * `sold` adds a Sold tag to the card and a Sold status to the page.
  * `result` adds a real client outcome and review; only add it with the client's own words.
+ * `quotes` adds real quotes from people testing the project, under the same rule.
  * `panel` is the gradient behind the screenshots, sampled from the colours of the site's hero.
  */
 export const caseStudyPath = (slug) => `/work/${slug}`;
@@ -25,6 +27,50 @@ const study = ({ slug, heroAlt, coverSrc, galleryAlts, featureAlt, ...rest }) =>
   ...rest,
 });
 
+const money = (amount) => `$${amount.toLocaleString("en-US")}`;
+
+// Choosing maintenance lowers the sale price: about 10% off with yearly, 5% off with monthly.
+const saleTerms = ({ full, yearly, monthly, yearlyFee, monthlyFee, note }) => ({
+  price: `${money(yearly)}–${money(full)}`,
+  // The lowest amount a buyer can actually pay: the yearly plan's price comes with maintenance.
+  saleFrom: full,
+  saleNote: `${note} Maintenance plans have a 12-month minimum.`,
+  saleOptions: [
+    {
+      name: "Sale plus yearly maintenance",
+      price: money(yearly),
+      term: `Plus ${money(yearlyFee)} per year, ${money(yearly + yearlyFee)} in the first year`,
+      note: `Adds bug fixes and security updates, paid yearly to save ${money(monthlyFee * 12 - yearlyFee)} a year.`,
+      summary: `With yearly maintenance: ${money(yearly)} + ${money(yearlyFee)} per year`,
+    },
+    {
+      name: "Sale plus monthly maintenance",
+      price: money(monthly),
+      term: `Plus ${money(monthlyFee)} per month, ${money(monthly + monthlyFee * 12)} in the first year`,
+      note: "The same maintenance, paid monthly.",
+      summary: `With monthly maintenance: ${money(monthly)} + ${money(monthlyFee)} per month`,
+    },
+    {
+      name: "Full sale",
+      price: money(full),
+      term: "One-time payment",
+      note: "It's yours to run and maintain.",
+      summary: `Full sale: ${money(full)}`,
+    },
+  ],
+});
+
+// Websites share a flat fee: a percentage of these prices would be too small to be worth billing.
+const siteTerms = (full, yearly, monthly) =>
+  saleTerms({
+    full,
+    yearly,
+    monthly,
+    yearlyFee: 150,
+    monthlyFee: 15,
+    note: "Every option includes the site files, setup help and rebranding to your details. Hosting is separate.",
+  });
+
 const RTMS_IMAGES = "/images/mobile_apps/rtms";
 
 export const caseStudies = [
@@ -33,6 +79,7 @@ export const caseStudies = [
     title: "Zed OS Technologies",
     category: "Company Website",
     client: "Zed OS Technologies",
+    sold: true,
     result: {
       outcome: "We now have our home on the web and are globally recognised. Our clients can reach us much more easily, and marketing our products has become 100% easier.",
       review: "It has been such a journey with Lennox Lewis. I was referred to him by a startup and straight away I understood why. He works diligently, very well and is always on time, always asking, always updating. I would definitely recommend him. He has a good understanding of projects and how things work.",
@@ -81,7 +128,7 @@ export const caseStudies = [
     slug: "nhm",
     title: "NHM",
     category: "Museum Website",
-    price: "$250",
+    ...siteTerms(250, 225, 240),
     panel: ["#8f8f90", "#3f3f3f"],
     liveUrl: "https://nhm-xi.vercel.app/",
     summary:
@@ -126,7 +173,7 @@ export const caseStudies = [
     slug: "lithos",
     title: "Lithos",
     category: "Education Website",
-    price: "$150",
+    ...siteTerms(150, 135, 145),
     panel: ["#6b4a3a", "#1a100c"],
     liveUrl: "https://lithos-blush.vercel.app/",
     summary:
@@ -170,7 +217,7 @@ export const caseStudies = [
     slug: "consentinel",
     title: "ConSentinel",
     category: "SaaS Website",
-    price: "$150",
+    ...siteTerms(150, 135, 145),
     panel: ["#b9c8df", "#79869b"],
     liveUrl: "https://con-sentinel.vercel.app/",
     summary:
@@ -213,7 +260,7 @@ export const caseStudies = [
     slug: "mojito",
     title: "Mojito",
     category: "Cocktail Bar Website",
-    price: "$300",
+    ...siteTerms(300, 270, 285),
     panel: ["#6b6a58", "#101010"],
     liveUrl: "https://gsap-cocktails-website-nine.vercel.app/",
     summary:
@@ -256,7 +303,7 @@ export const caseStudies = [
     slug: "zed-gaming",
     title: "ZED Gaming",
     category: "Gaming Website",
-    price: "$300",
+    ...siteTerms(300, 270, 285),
     panel: ["#a1b9e7", "#373e50"],
     liveUrl: "https://zed-gaming.vercel.app/",
     summary:
@@ -299,7 +346,7 @@ export const caseStudies = [
     slug: "vanguard",
     title: "Vanguard",
     category: "Agency Website",
-    // Add price: "$300" here once the hero's Ninja Turtles and Witcher art has been replaced.
+    // Add ...siteTerms(300, 270, 285) here once the hero's Ninja Turtles and Witcher art has been replaced.
     panel: ["#6e1515", "#180e0e"],
     liveUrl: "https://vanguard-zeta-ruddy.vercel.app/",
     summary: "A bold agency website built on one attitude: design, disrupt and conquer.",
@@ -557,31 +604,25 @@ export const caseStudies = [
       { label: "Category", value: "Mobile App and Website" },
       { label: "Status", value: "In pre-launch testing" },
     ],
-    // Lowest to highest sale price across `saleOptions`, before any maintenance.
-    price: "$4,500–$5,000",
-    saleNote:
-      "Every option includes the mobile app, website and server code, setup help and rebranding to your details. Hosting and app store fees are separate.",
-    saleOptions: [
+    ...saleTerms({
+      full: 5000,
+      yearly: 4500,
+      monthly: 4750,
+      yearlyFee: 750,
+      monthlyFee: 75,
+      note: "Every option includes the mobile app, website and server code, setup help and rebranding to your details. Hosting and app store fees are separate.",
+    }),
+    backTo: "/work?tab=mobile",
+    quotes: [
       {
-        name: "Sale plus yearly maintenance",
-        price: "$4,500",
-        term: "Plus $750 per year, $5,250 in the first year",
-        note: "Adds bug fixes and security updates, paid yearly to save $150 a year.",
+        text: "The project holds up so well, is fast and well optimised, also has so many customisable features, I cannot say enough about how easy and helpful it is.",
+        attribution: "Chair of Department, Kisii University",
       },
       {
-        name: "Sale plus monthly maintenance",
-        price: "$4,750",
-        term: "Plus $75 per month, $5,650 in the first year",
-        note: "The same maintenance, paid monthly.",
-      },
-      {
-        name: "Full sale",
-        price: "$5,000",
-        term: "One-time payment",
-        note: "The system is yours to run and maintain.",
+        text: "As a pen tester and cyber security analyst, security is pretty well done with backend concepts properly catered for, definitely a must have for any academic institution globally.",
+        attribution: "Tester, penetration tester and cyber security analyst",
       },
     ],
-    backTo: "/work?tab=mobile",
     panel: ["#3f5a7d", "#0f1a2a"],
     summary:
       "A mobile app and website that manage final-year student projects from the first proposal to final completion, shown here in its Kisii University branding.",
@@ -624,7 +665,7 @@ export const caseStudies = [
         heading: "From Proposal to Completion",
         paragraphs: [
           "During the open dates, a student submits a proposal, chooses a supervisor and can invite one partner. After approval, they upload five chapters and the full documentation one stage at a time, and each approval unlocks the next stage.",
-          "Supervisors approve, ask for revisions or reject with comments. They also see a proposal's similarity to other projects and an estimate of how likely a document is to be AI-written, as guides rather than final judgements. Marks are recorded out of 100, and only staff can see them.",
+          "Supervisors approve, ask for revisions or reject with comments. They also see a proposal's similarity to other projects and an estimate of how likely a document is to be AI-written, as guides rather than final judgements. Marks are recorded out of 100, and only supervisors can see them.",
         ],
       },
     ],
@@ -645,7 +686,7 @@ export const caseStudies = [
       {
         heading: "Where It Stands",
         paragraphs: [
-          "The system is built and in pre-launch testing, and isn't live with real users yet. Push notifications are built, but testing on a phone is still pending.",
+          "The system is in pre-launch testing at Kisii University, with 32 students, 4 supervisors, a project coordinator and an administrator using it. Push notifications are built, but testing on a phone is still pending.",
           "It's built with Expo (React Native), React and Vite, Node.js and Express, and MongoDB, with Cloudflare R2 for files and Brevo for email. It's designed for 400–600 students and supervisors. In a local load test, a server limited to 1 CPU kept up with 600 people online at once, but that test hasn't been repeated on live hosting.",
         ],
       },

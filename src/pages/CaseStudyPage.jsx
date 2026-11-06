@@ -60,15 +60,15 @@ const GridShowcase = ({ image }) => (
       height={1240}
       loading="lazy"
       decoding="async"
-      className="h-auto w-full md:w-[60%] md:flex-none"
+      className="aspect-[3/2] h-auto w-full object-cover md:aspect-auto md:w-[60%] md:flex-none"
     />
-    <div className="flex flex-col items-center gap-4 px-6 pb-10 pt-4 text-center md:px-8 md:py-8">
-      <GraduationCap className="size-10 text-white" aria-hidden="true" />
+    <div className="flex flex-col items-center gap-3 px-5 pb-8 pt-3 text-center md:gap-4 md:px-8 md:py-8">
+      <GraduationCap className="size-8 text-white md:size-10" aria-hidden="true" />
       <div>
-        <h3 className="text-3xl font-semibold leading-[1.2] tracking-[-0.02em] text-white">{image.title}</h3>
-        <p className="mt-1 text-base leading-[1.4] tracking-[-0.04em] text-white/50">{image.byline}</p>
+        <h3 className="text-2xl font-semibold leading-[1.2] tracking-[-0.02em] text-white md:text-3xl">{image.title}</h3>
+        <p className="mt-1 text-sm leading-[1.4] tracking-[-0.04em] text-white/50 md:text-base">{image.byline}</p>
       </div>
-      <p className="text-lg leading-[1.4] tracking-[-0.04em] text-white">{image.text}</p>
+      <p className="text-base leading-[1.4] tracking-[-0.04em] text-white md:text-lg">{image.text}</p>
       <Link
         to="/#contact"
         className="mt-2 w-fit rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
@@ -109,6 +109,22 @@ const Result = ({ result }) => (
   </figure>
 );
 
+const Quotes = ({ quotes }) => (
+  <div className="flex w-full max-w-[740px] flex-col gap-10">
+    <h2 className="text-3xl font-semibold leading-[1.2] tracking-[-0.02em] text-white md:text-[52px]">
+      From the People Testing It
+    </h2>
+    {quotes.map(({ text, attribution }) => (
+      <figure key={attribution} className="m-0">
+        <blockquote className="m-0 text-2xl font-medium leading-[1.3] tracking-[-0.02em] text-white md:text-[32px]">
+          “{text}”
+        </blockquote>
+        <figcaption className="mt-5 text-base leading-[1.4] tracking-[-0.04em] text-white/50">{attribution}</figcaption>
+      </figure>
+    ))}
+  </div>
+);
+
 const DetailItem = ({ label, value }) => (
   <div>
     <dt className="text-base leading-[1.4] tracking-[-0.04em] text-white/50">{label}</dt>
@@ -134,6 +150,12 @@ const ProjectDetails = ({ study }) => (
       <>
         <Separator />
         <DetailItem label="Price" value={study.price} />
+      </>
+    )}
+    {study.sold && (
+      <>
+        <Separator />
+        <DetailItem label="Status" value="Sold" />
       </>
     )}
     {study.liveUrl && (
@@ -164,19 +186,6 @@ const BuyLink = ({ message, children }) => (
     {children}
     <span className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
   </Link>
-);
-
-const BuyStrip = ({ study }) => (
-  <div className="flex w-full flex-col gap-6 md:flex-row md:items-center md:justify-between">
-    <div>
-      <p className="text-base tracking-[-0.04em] text-white/50">Available to buy</p>
-      <p className="mt-1 text-4xl font-semibold tracking-[-0.02em] text-white">{study.price}</p>
-      <p className="mt-3 max-w-xl text-lg leading-[1.4] tracking-[-0.04em] text-white">
-        Includes the site files, setup help and rebranding to your details.
-      </p>
-    </div>
-    <BuyLink message={`Hi Lennox, I'd like to buy ${study.title}.`}>Buy this site</BuyLink>
-  </div>
 );
 
 const SaleOptions = ({ study }) => (
@@ -222,7 +231,7 @@ const MoreProjects = ({ current }) => {
               className="aspect-[532/367] transition-transform duration-500 group-hover:scale-[1.01]"
               insetClassName={study.hero.wide ? "top-[8%] w-[90%]" : "top-[8%] w-[82%]"}
             >
-              {study.price && <PriceTag price={study.price} />}
+              {study.sold ? <PriceTag sold /> : study.price && <PriceTag price={study.price} />}
             </Panel>
             <div>
               <h3 className="text-[32px] font-medium leading-[1.2] tracking-[-0.02em] text-white">{study.title}</h3>
@@ -308,7 +317,9 @@ const CaseStudyPage = () => {
 
         {study.result && <Result result={study.result} />}
 
-          {study.saleOptions ? <SaleOptions study={study} /> : study.price && <BuyStrip study={study} />}
+          {study.quotes && <Quotes quotes={study.quotes} />}
+
+          {study.saleOptions && <SaleOptions study={study} />}
 
           <MoreProjects current={study} />
         </div>
