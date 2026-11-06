@@ -637,6 +637,21 @@ const testimonials = [
     imageAlt: "Avatar for the Zed OS Tech CEO",
   },
   {
+    // Name withheld to protect her privacy. The avatar seed must stay free of her name too.
+    name: "Chair of Department",
+    city: "Kisii",
+    country: "KE",
+    // Kisii's real position, which falls between the four spread-out East African pins.
+    lat: -0.68,
+    lng: 34.77,
+    mentions: "Kisii University · KSU RTMS project management system",
+    rating: 5,
+    review:
+      "The project holds up so well, is fast and well optimised, also has so many customisable features, I cannot say enough about how easy and helpful it is.",
+    imgPath: testimonialAvatar("Chair of Department"),
+    imageAlt: "Avatar for the Chair of Department",
+  },
+  {
     name: "B. Wamuyu",
     city: "Nairobi",
     country: "KE",
