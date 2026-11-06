@@ -65,8 +65,8 @@ const SiteHalftoneFooter = () => {
         meta={`©${new Date().getFullYear()} · Nairobi, Kenya`}
         columns={columns}
         rulePosition="top"
-        palette={{ background: "#000000", ink: "#e9e4da", warm: "#cda144" }}
-        fontFamily='"Mona Sans", "Helvetica Neue", Arial, sans-serif'
+        palette={{ background: "#000000", ink: "#e9e4da", warm: "#8b5cf6" }}
+        fontFamily='"Archivo", "Helvetica Neue", Arial, sans-serif'
         fontWeight={800}
         height="clamp(420px, 52vw, 600px)"
       />

@@ -90,7 +90,7 @@ const GraphicDesignGrid = ({ projects }) => {
           >
             <motion.div
               layoutId={reduceMotion ? undefined : `graphic-frame-${project.id}`}
-              className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-[#141417] ring-1 ring-white/5 transition-[box-shadow] duration-500 ease-out group-hover:shadow-[0_18px_50px_rgba(0,0,0,0.55)] group-hover:ring-[#cda144]/40 group-focus-visible:ring-2 group-focus-visible:ring-[#cda144]"
+              className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-[#141417] ring-1 ring-white/5 transition-[box-shadow] duration-500 ease-out group-hover:shadow-[0_18px_50px_rgba(0,0,0,0.55)] group-hover:ring-[#8b5cf6]/40 group-focus-visible:ring-2 group-focus-visible:ring-[#8b5cf6]"
             >
               <img
                 src={project.thumb}
@@ -110,7 +110,7 @@ const GraphicDesignGrid = ({ projects }) => {
             </motion.div>
 
             <div className="flex flex-col gap-1.5 px-1">
-              <h3 className="text-base font-bold text-white transition-colors duration-300 group-hover:text-[#cda144] md:text-lg">
+              <h3 className="text-base font-bold text-white transition-colors duration-300 group-hover:text-[#8b5cf6] md:text-lg">
                 {project.title}
               </h3>
               {project.desc && (

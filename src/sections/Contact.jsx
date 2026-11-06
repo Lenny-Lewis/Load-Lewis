@@ -179,15 +179,7 @@ const Contact = () => {
   return (
     <section id="contact" className="flex-center section-padding">
       <div className="w-full h-full md:px-10 px-5">
-        <TitleHeader
-          title="Get in Touch – Let’s Connect"
-          sub={
-            <>
-              <img src="/images/contact/contact.png" alt="" aria-hidden="true" />
-              <span>Have questions or ideas? Let&apos;s talk!</span>
-            </>
-          }
-        />
+        <TitleHeader title="Get in Touch – Let’s Connect" />
         <div className="grid-12-cols mt-16">
           <div className="lg:col-span-5 mt-8 lg:mt-12">
             <h2 className="contact-heading">

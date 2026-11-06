@@ -114,7 +114,7 @@ export const SlotMachineNumber = ({
       type="button"
       onClick={handleReplay}
       aria-label={`${value}${suffix ?? ""} ${label ?? ""}. Replay number animation`.trim()}
-      className={`inline-flex cursor-pointer appearance-none items-baseline gap-1 border-0 bg-transparent p-0 text-left focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cda144] ${className}`}
+      className={`inline-flex cursor-pointer appearance-none items-baseline gap-1 border-0 bg-transparent p-0 text-left focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8b5cf6] ${className}`}
     >
       <span aria-hidden="true" className="inline-flex items-baseline leading-none tabular-nums">
         {digits.map((digit, index) => (

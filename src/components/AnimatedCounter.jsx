@@ -8,7 +8,7 @@ const AnimatedCounter = () => {
         {counterItems.map((item, index) => (
           <div
             key={index}
-            className="flex min-h-48 flex-col justify-between rounded-lg bg-zinc-900 p-7 sm:p-10"
+            className="card-dark flex min-h-48 flex-col justify-between rounded-lg p-7 sm:p-10"
           >
             <SlotMachineNumber
               value={item.value}

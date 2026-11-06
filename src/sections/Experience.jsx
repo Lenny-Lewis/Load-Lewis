@@ -33,24 +33,21 @@ const roles = expCards.map((card, index) => {
   };
 });
 
+// Caps the carousel's scale. 54.17vw is its 960 x 520 design ratio, so narrower
+// screens get no empty space above and below it.
+const CAROUSEL_HEIGHT = "min(560px, 54.17vw, 85svh)";
+
 const Experience = () => {
   return (
     <section id="experience" className="experience-section md:mt-40 mt-20">
       <div className="px-5 md:px-20">
-        <TitleHeader
-          title="Professional Work Experience"
-          sub={
-            <>
-              <img src="/images/experience/workoverview.png" alt="" aria-hidden="true" />
-              <span>My Career Overview</span>
-            </>
-          }
-        />
+        <TitleHeader title="Professional Work Experience" />
       </div>
 
       <div className="dark mt-10 md:mt-14 [--color-background:#000]">
         <DishOrbitCarousel
           dishes={roles}
+          height={CAROUSEL_HEIGHT}
           labels={{
             region: "Professional work experience",
             pager: "Choose a role",

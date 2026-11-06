@@ -1,7 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -70,7 +69,7 @@
   --gradient: radial-gradient(circle, #e5e5e5 0%, #fff 100%);
   --background: #050505;
   --foreground: #ffffff;
-  --primary: #cda144;
+  --primary: #8b5cf6;
   --primary-foreground: #050505;
   --secondary: #1c1c21;
   --secondary-foreground: #ffffff;
@@ -82,7 +81,7 @@
   --destructive-foreground: #ffffff;
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.1);
-  --ring: #cda144;
+  --ring: #8b5cf6;
   --card: #141417;
   --card-foreground: #ffffff;
   --chart-1: #673de6;
@@ -100,7 +99,7 @@ body {
   background-color: black;
   color: white;
   scroll-behavior: smooth;
-  font-family: "Mona Sans", sans-serif;
+  font-family: "Archivo", sans-serif;
 }
 
 @media (max-width: 768px) {
@@ -155,7 +154,7 @@ section {
 }
 
 @theme {
-  --font-sans: "Mona Sans", sans-serif;
+  --font-sans: "Archivo", sans-serif;
   --font-article: "Archivo", "Inter", sans-serif;
   --color-white-50: #d9ecff;
   --color-black-50: #1c1c21;
@@ -404,8 +403,8 @@ section {
     @apply border border-black-50 bg-black-100;
   }
 
-  .marquee-item {
-    @apply md:w-40 w-32;
+  .card-dark {
+    @apply border border-[#161619] bg-[#070708];
   }
 
   .timeline-wrapper {
@@ -426,10 +425,6 @@ section {
 
   .exp-card-wrapper {
     @apply flex flex-col-reverse xl:flex-row xl:gap-20 gap-10 justify-between;
-  }
-
-  .gradient-edge {
-    @apply w-36 h-full absolute bottom-0 z-20;
   }
 
   .tech-card-animated-bg {
@@ -560,7 +555,7 @@ section {
 
     input,
     textarea {
-      @apply w-full px-5 py-4 md:text-[15px] text-sm placeholder:text-blue-50 bg-blue-100 rounded-[8px] border border-white/5 focus:border-[#cda144]/80 focus:ring-1 focus:ring-[#cda144]/80 focus:outline-none transition-all duration-300 shadow-[inset_0_1px_3px_rgba(0,0,0,0.2)];
+      @apply w-full px-5 py-4 md:text-[15px] text-sm placeholder:text-blue-50 bg-blue-100 rounded-[8px] border border-white/5 focus:border-[#8b5cf6]/80 focus:ring-1 focus:ring-[#8b5cf6]/80 focus:outline-none transition-all duration-300 shadow-[inset_0_1px_3px_rgba(0,0,0,0.2)];
     }
 
     a {
@@ -933,7 +928,7 @@ section {
   }
 }
 
-/* Contact form: flat, cardless fields in the site's colours, with the gold accent on focus and submit. */
+/* Contact form: flat, cardless fields in the site's colours, with the purple accent on focus and submit. */
 /* Fades the starfield out towards the edges so it doesn't end in a hard rectangle. */
 #contact .contact-globe-fade {
   -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent),
@@ -1016,7 +1011,7 @@ section {
   height: 40px;
   border-radius: 8px;
   background: var(--primary);
-  /* Dark text: white on this gold is too low-contrast to read comfortably. */
+  /* Dark text: white on this purple is too low-contrast to read comfortably. */
   color: var(--primary-foreground);
   font-size: 14px;
   font-weight: 600;
@@ -1301,7 +1296,7 @@ section {
   pointer-events: none;
 }
 .career-factory-label {
-  --accent: #cda144;
+  --accent: #8b5cf6;
   position: absolute;
   left: 0;
   top: 0;
@@ -1364,12 +1359,12 @@ section {
   z-index: 1;
   width: min(100%, 31rem);
   padding: 1.65rem;
-  border: 1px solid rgba(205, 161, 68, 0.35);
+  border: 1px solid rgba(139, 92, 246, 0.35);
   border-radius: 0.9rem;
   background: #141417;
   box-shadow: 0 1.5rem 5rem rgba(0,0,0,0.5);
 }
-.career-factory-modal__card > span { color: #cda144; font: 0.65rem ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; }
+.career-factory-modal__card > span { color: #8b5cf6; font: 0.65rem ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; }
 .career-factory-modal__card h3 { margin: 0.55rem 2rem 0.35rem 0; color: #fff; font-size: clamp(1.25rem, 3vw, 1.8rem); }
 .career-factory-modal__card p { margin: 1rem 0 0; color: #d9ecff; font-size: 0.93rem; line-height: 1.7; }
 .career-factory-modal__card .career-factory-modal__meta { margin-top: 0; color: #839cb5; font-size: 0.75rem; }
@@ -1383,51 +1378,36 @@ section {
   .career-factory-label small { font-size: 11px; }
 }
 
-.gradient-edge:nth-of-type(1) {
-  left: 0;
-  background: rgb(0, 0, 0);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-}
-.gradient-edge:nth-of-type(2) {
-  right: 0;
-  background: linear-gradient(
-    -90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
-}
-
-/* marquee */
-.marquee {
-  width: 100dvw;
+/* logo ticker */
+.logo-ticker {
   overflow: hidden;
-  position: relative;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 20%, #000 80%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 20%, #000 80%, transparent 100%);
 }
-.marquee-box {
+.logo-ticker__track {
   display: flex;
+  width: max-content;
+  animation: logo-ticker 40s linear infinite;
+}
+.logo-ticker__group {
+  display: flex;
+  flex: none;
   align-items: center;
-  width: 200%;
-  height: 100%;
-  position: absolute;
-  overflow: hidden;
-  animation: marquee 60s linear infinite;
+  gap: 64px;
+  padding-right: 64px;
+  list-style: none;
 }
-.marquee-item {
-  float: left;
-}
-@keyframes marquee {
-  0% {
-    left: 0;
-  }
-  100% {
-    left: -100%;
+@keyframes logo-ticker {
+  to {
+    transform: translateX(-50%);
   }
 }
-/* marquee end */
+@media (prefers-reduced-motion: reduce) {
+  .logo-ticker__track {
+    animation: none;
+  }
+}
+/* logo ticker end */
 
 .card {
   --start: 0;
@@ -1524,22 +1504,22 @@ section {
 
 .boxes .box .face-front {
   transform: rotateY(0deg) translateZ(calc(var(--size) / 2));
-  background: #cda144;
+  background: #8b5cf6;
 }
 
 .boxes .box .face-right {
   transform: rotateY(90deg) translateZ(calc(var(--size) / 2));
-  background: #a67c2e;
+  background: #6d28d9;
 }
 
 .boxes .box .face-top {
   transform: rotateX(90deg) translateZ(calc(var(--size) / 2));
-  background: #e6c875;
+  background: #c4b5fd;
 }
 
 .boxes .box .face-back {
   transform: rotateY(180deg) translateZ(calc(var(--size) / 2));
-  background: #876220;
+  background: #5b21b6;
 }
 
 @keyframes box1 {

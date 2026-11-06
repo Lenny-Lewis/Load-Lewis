@@ -1,24 +1,16 @@
 import { abilities } from "../constants";
+import {
+  DeliveryProgress,
+  FeaturesSection,
+  LiveChat,
+  QualityTracker,
+} from "../components/ui/feature";
 
-const FeatureCards = () => (
-  <div className="w-full padding-x-lg">
-    <div className="mx-auto grid-3-cols">
-      {abilities.map(({ imgPath, title, desc }) => (
-        <div
-          key={title}
-          className="card-border rounded-xl p-6 md:p-8 flex flex-col gap-4"
-        >
-          <div className="size-14 flex items-center justify-center rounded-full">
-            <img src={imgPath} alt={title} />
-          </div>
-          <h3 className="text-white text-xl md:text-2xl font-semibold mt-2">
-            {title}
-          </h3>
-          <p className="text-white-50 text-base md:text-lg">{desc}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-);
+// Same order as `abilities`.
+const VISUALS = [QualityTracker, LiveChat, DeliveryProgress];
+
+const items = abilities.map((ability, index) => ({ ...ability, Visual: VISUALS[index] }));
+
+const FeatureCards = () => <FeaturesSection eyebrow="How I work" items={items} />;
 
 export default FeatureCards;

@@ -42,53 +42,61 @@ const resumeLinks = {
 
 const logoIconsList = [
   {
+    name: "Shopify",
     imgPath: "/images/brands/company-logo-1.png",
   },
   {
+    name: "Microsoft",
     imgPath: "/images/brands/company-logo-2.png",
   },
   {
+    name: "Adidas",
     imgPath: "/images/brands/company-logo-3.png",
   },
   {
+    name: "Docker",
     imgPath: "/images/brands/company-logo-4.png",
   },
   {
+    name: "Hostinger",
     imgPath: "/images/brands/company-logo-5.png",
   },
   {
+    name: "Adobe",
     imgPath: "/images/brands/company-logo-6.png",
   },
   {
+    name: "Appwrite",
     imgPath: "/images/brands/company-logo-7.png",
   },
   {
+    name: "NVIDIA",
     imgPath: "/images/brands/company-logo-8.png",
   },
   {
+    name: "Vercel",
     imgPath: "/images/brands/company-logo-9.png",
   },
   {
+    name: "Linear",
     imgPath: "/images/brands/company-logo-10.png",
   },
   {
+    name: "Loom",
     imgPath: "/images/brands/company-logo-11.png",
   },
 ];
 
 const abilities = [
   {
-    imgPath: "/images/services/seo.png",
     title: "Quality Focus",
     desc: "Delivering high-quality results while maintaining attention to every detail.",
   },
   {
-    imgPath: "/images/services/chat.png",
     title: "Reliable Communication",
     desc: "Keeping you updated at every step to ensure transparency and clarity.",
   },
   {
-    imgPath: "/images/services/time.png",
     title: "On-Time Delivery",
     desc: "Making sure projects are completed on schedule, with quality & attention to detail.",
   },
@@ -457,7 +465,7 @@ const expCards = [
   },
 ];
 
-const testimonialAvatar = (seed) =>
+export const testimonialAvatar = (seed) =>
   `https://api.dicebear.com/10.x/adventurer/svg?seed=${encodeURIComponent(seed)}`;
 
 const testimonials = [

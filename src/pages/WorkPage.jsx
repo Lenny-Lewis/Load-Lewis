@@ -445,7 +445,7 @@ const WorkPage = () => {
         <div className="w-full max-w-7xl mx-auto mb-16 flex flex-col gap-10">
           <Link 
             to="/"
-            className="group flex items-center gap-2 text-white-50 hover:text-[#cda144] transition-colors w-fit text-sm font-semibold tracking-wider uppercase"
+            className="group flex items-center gap-2 text-white-50 hover:text-[#8b5cf6] transition-colors w-fit text-sm font-semibold tracking-wider uppercase"
           >
             <span className="transform transition-transform group-hover:-translate-x-1">←</span>
             <HoverTextSlide text="Back to Home" />
@@ -468,7 +468,7 @@ const WorkPage = () => {
                 type="button"
                 aria-pressed={activeTab === id}
                 onClick={() => setActiveTab(id)}
-                className={`group min-h-12 rounded-xl border px-2 py-3 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cda144] sm:text-base md:min-h-0 md:rounded-none md:border-0 md:px-0 md:py-0 md:text-xl ${activeTab === id ? 'border-[#cda144]/50 bg-[#cda144]/15 text-white md:border-b-2 md:border-[#cda144] md:bg-transparent md:pb-2 md:-mb-[18px]' : 'border-white/10 bg-white/5 text-white-50 hover:bg-white/10 hover:text-white md:bg-transparent md:pb-2 md:-mb-[18px] md:hover:bg-transparent'}`}
+                className={`group min-h-12 rounded-xl border px-2 py-3 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8b5cf6] sm:text-base md:min-h-0 md:rounded-none md:border-0 md:px-0 md:py-0 md:text-xl ${activeTab === id ? 'border-[#8b5cf6]/50 bg-[#8b5cf6]/15 text-white md:border-b-2 md:border-[#8b5cf6] md:bg-transparent md:pb-2 md:-mb-[18px]' : 'border-white/10 bg-white/5 text-white-50 hover:bg-white/10 hover:text-white md:bg-transparent md:pb-2 md:-mb-[18px] md:hover:bg-transparent'}`}
               >
                 <HoverTextSlide text={label} />
               </button>
@@ -506,7 +506,7 @@ const WorkPage = () => {
                 <ProjectProgressOverlay project="Roam" progress={28} />
               </div>
               <figcaption className="px-2">
-                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#cda144] transition-colors duration-300">Roam</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8b5cf6] transition-colors duration-300">Roam</h3>
                 <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
                   A modern travel app for discovering destinations and booking stays.
                 </p>
@@ -518,7 +518,7 @@ const WorkPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View KSU RTMS on GitHub"
-                className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cda144]"
+                className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8b5cf6]"
               >
                 <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#25292b]">
                   <img
@@ -533,7 +533,7 @@ const WorkPage = () => {
                 </div>
               </a>
               <figcaption className="px-2">
-                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#cda144] transition-colors duration-300">KSU RTMS</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8b5cf6] transition-colors duration-300">KSU RTMS</h3>
                 <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
                   A project management system for Kisii University.
                 </p>
@@ -545,7 +545,7 @@ const WorkPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View Cindi on GitHub"
-                className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#cda144]"
+                className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8b5cf6]"
               >
                 <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#d8d8d8] flex items-center justify-center">
                   <img
@@ -561,7 +561,7 @@ const WorkPage = () => {
                 </div>
               </a>
               <figcaption className="px-2">
-                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#cda144] transition-colors duration-300">Cindi</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8b5cf6] transition-colors duration-300">Cindi</h3>
                 <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
                   An agentic, modern AI assistant — a female Jarvis.
                 </p>

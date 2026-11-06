@@ -99,7 +99,7 @@ const ProjectGrid = ({
           </div>
 
           <div className="flex flex-col gap-1">
-            <h3 className="text-[28px] min-[810px]:text-[30px] xl:text-[32px] font-medium leading-[1.2] tracking-[-0.02em] text-white group-hover:text-[#cda144] transition-colors duration-300">
+            <h3 className="text-[28px] min-[810px]:text-[30px] xl:text-[32px] font-medium leading-[1.2] tracking-[-0.02em] text-white group-hover:text-[#8b5cf6] transition-colors duration-300">
               {project.title}
             </h3>
             {project.desc && (

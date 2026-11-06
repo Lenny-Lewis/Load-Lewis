@@ -240,7 +240,7 @@ export function GlobeRoutes({
   radius: number;
   animate: boolean;
 }) {
-  const color = useMemo(() => new THREE.Color(routes.color ?? "#cda144"), [routes.color]);
+  const color = useMemo(() => new THREE.Color(routes.color ?? "#8b5cf6"), [routes.color]);
   return (
     <>
       <Hub location={routes.origin} radius={radius} color={color} animate={animate} />

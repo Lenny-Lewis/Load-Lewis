@@ -26,14 +26,14 @@ export type AgenticFactory3DProps = {
 const makeMaterial = (color: number, metalness = 0.5, roughness = 0.35) =>
   new THREE.MeshStandardMaterial({ color, metalness, roughness })
 
-/** Flat "$" face for gold coins in the scene. */
+/** Flat "$" face for coins in the scene. */
 const makeDollarFace = (size = 0.22) => {
   const canvas = document.createElement("canvas")
   canvas.width = 128
   canvas.height = 128
   const ctx = canvas.getContext("2d")!
   ctx.clearRect(0, 0, 128, 128)
-  ctx.fillStyle = "#5a3d08"
+  ctx.fillStyle = "#2e1065"
   ctx.font = "bold 92px ui-sans-serif, system-ui, sans-serif"
   ctx.textAlign = "center"
   ctx.textBaseline = "middle"
@@ -52,7 +52,7 @@ const makeDollarFace = (size = 0.22) => {
 const createInspectorBot = () => {
   const bot = new THREE.Group()
   const bodyMat = makeMaterial(0xe8e4dc, 0.15, 0.55)
-  const accentMat = makeMaterial(0xcda144, 0.45, 0.3)
+  const accentMat = makeMaterial(0x8b5cf6, 0.45, 0.3)
   const darkMat = makeMaterial(0x1c1c22, 0.2, 0.45)
   const clipMat = makeMaterial(0xf4f1ea, 0, 0.78)
 
@@ -76,8 +76,8 @@ const createInspectorBot = () => {
   const tip = new THREE.Mesh(
     new THREE.SphereGeometry(0.045, 10, 8),
     new THREE.MeshStandardMaterial({
-      color: 0xcda144,
-      emissive: 0xcda144,
+      color: 0x8b5cf6,
+      emissive: 0x8b5cf6,
       emissiveIntensity: 0.6,
       metalness: 0.45,
       roughness: 0.3,
@@ -187,14 +187,14 @@ export default function AgenticFactory3D({
     key.castShadow = true
     key.shadow.mapSize.set(1024, 1024)
     scene.add(key)
-    const rim = new THREE.DirectionalLight(0xcda144, 2.1)
+    const rim = new THREE.DirectionalLight(0x8b5cf6, 2.1)
     rim.position.set(5, 5, -8)
     scene.add(rim)
 
     const steel = makeMaterial(0x424249, 0.78, 0.3)
     const dark = makeMaterial(0x151519, 0.3, 0.52)
     const chrome = makeMaterial(0xf2f4f7, 0.75, 0.2)
-    const warmAccent = makeMaterial(0xcda144, 0.55, 0.28)
+    const warmAccent = makeMaterial(0x8b5cf6, 0.55, 0.28)
 
     const base = new THREE.Mesh(new RoundedBoxGeometry(15, 0.45, 7, 5, 0.16), steel)
     base.position.y = -0.25
@@ -447,7 +447,7 @@ export default function AgenticFactory3D({
         group.add(receipt)
         const coin = new THREE.Group()
         coin.position.set(-0.48, 1.72, 0.16)
-        const coinDisc = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.065, 24), makeMaterial(0xcda144, 0.6, 0.22))
+        const coinDisc = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.065, 24), makeMaterial(0x8b5cf6, 0.6, 0.22))
         coinDisc.rotation.x = Math.PI / 2
         coin.add(coinDisc)
         const dollar = makeDollarFace(0.24)

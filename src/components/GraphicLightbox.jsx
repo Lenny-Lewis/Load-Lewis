@@ -147,7 +147,7 @@ const GraphicLightbox = ({ project, onClose, onExited }) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: reduceMotion ? 1 : 0.85 }}
             transition={reduceMotion ? { duration: 0 } : { duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute right-4 top-4 z-20 flex size-11 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#111] text-white shadow-2xl transition-colors hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cda144] sm:right-8 sm:top-8"
+            className="absolute right-4 top-4 z-20 flex size-11 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#111] text-white shadow-2xl transition-colors hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8b5cf6] sm:right-8 sm:top-8"
           >
             <X className="size-5" aria-hidden="true" />
           </motion.button>
