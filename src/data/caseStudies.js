@@ -3,6 +3,7 @@
  *
  * `price` marks a site as for sale: it adds the price to the page and card, plus a buy section.
  * Leave it out for work that isn't for sale.
+ * `saleOptions` replaces the single buy link with a choice of options, introduced by `saleNote`.
  * `result` adds a real client outcome and review; only add it with the client's own words.
  * `panel` is the gradient behind the screenshots, sampled from the colours of the site's hero.
  */
@@ -23,6 +24,8 @@ const study = ({ slug, heroAlt, coverSrc, galleryAlts, featureAlt, ...rest }) =>
   feature: { src: `/images/case-studies/${slug}/feature.webp`, alt: featureAlt },
   ...rest,
 });
+
+const RTMS_IMAGES = "/images/mobile_apps/rtms";
 
 export const caseStudies = [
   study({
@@ -544,4 +547,115 @@ export const caseStudies = [
       },
     ],
   }),
+  // A mobile app: `showcase` replaces the landscape gallery and feature panels, which would crop
+  // portrait screenshots. Figures come from the project's own write-up.
+  {
+    slug: "ksu-rtms",
+    title: "KSU RTMS",
+    category: "Mobile App and Website",
+    details: [
+      { label: "Category", value: "Mobile App and Website" },
+      { label: "Status", value: "In pre-launch testing" },
+    ],
+    // Lowest to highest sale price across `saleOptions`, before any maintenance.
+    price: "$4,500–$5,000",
+    saleNote:
+      "Every option includes the mobile app, website and server code, setup help and rebranding to your details. Hosting and app store fees are separate.",
+    saleOptions: [
+      {
+        name: "Sale plus yearly maintenance",
+        price: "$4,500",
+        term: "Plus $750 per year, $5,250 in the first year",
+        note: "Adds bug fixes and security updates, paid yearly to save $150 a year.",
+      },
+      {
+        name: "Sale plus monthly maintenance",
+        price: "$4,750",
+        term: "Plus $75 per month, $5,650 in the first year",
+        note: "The same maintenance, paid monthly.",
+      },
+      {
+        name: "Full sale",
+        price: "$5,000",
+        term: "One-time payment",
+        note: "The system is yours to run and maintain.",
+      },
+    ],
+    backTo: "/work?tab=mobile",
+    panel: ["#3f5a7d", "#0f1a2a"],
+    summary:
+      "A mobile app and website that manage final-year student projects from the first proposal to final completion, shown here in its Kisii University branding.",
+    hero: {
+      src: `${RTMS_IMAGES}/cover.webp`,
+      alt: "KSU RTMS project management system cover with a grid of app screens",
+      wide: true,
+    },
+    showcase: {
+      tilted: {
+        src: `${RTMS_IMAGES}/showcase_tilted.webp`,
+        alt: "Tilted documents, home and progress screens with cards lifting off them",
+      },
+      grid: {
+        src: `${RTMS_IMAGES}/showcase_grid.webp`,
+        alt: "Diagonal grid of onboarding, login, notifications and settings screens",
+        title: "KSU-RTMS",
+        byline: "Mobile app and website",
+        text: "Students, supervisors and department leaders can do their work on either one, with fingerprint sign-in on the app. An account works on both, and both show the same data.",
+        cta: "Ask about this system",
+      },
+    },
+    intro: [
+      {
+        heading: "The Problem",
+        paragraphs: [
+          "Final-year projects are often managed through email, paper forms and spreadsheets. Files and feedback get spread across inboxes, students can't easily see where they stand, and departments have to ask each supervisor for progress.",
+          "Some supervisors end up with too many students, similar topics are hard to spot by hand, and completion reports have to be put together manually.",
+        ],
+      },
+      {
+        heading: "One Shared System",
+        paragraphs: [
+          "Students, supervisors, department leaders and administrators all work in one place. An account works on both the mobile app and the website, and both show the same data.",
+        ],
+      },
+    ],
+    body: [
+      {
+        heading: "From Proposal to Completion",
+        paragraphs: [
+          "During the open dates, a student submits a proposal, chooses a supervisor and can invite one partner. After approval, they upload five chapters and the full documentation one stage at a time, and each approval unlocks the next stage.",
+          "Supervisors approve, ask for revisions or reject with comments. They also see a proposal's similarity to other projects and an estimate of how likely a document is to be AI-written, as guides rather than final judgements. Marks are recorded out of 100, and only staff can see them.",
+        ],
+      },
+    ],
+    outro: [
+      {
+        heading: "A Clear View for Every Role",
+        paragraphs: [
+          "Each supervisor can hold up to 10 active projects, which keeps workloads balanced. Heads of Department and Project Coordinators can see all students and projects, along with proposal status, milestone summaries and completion reports.",
+          "Administrators work from the website, where they import users from a CSV file, set academic periods and proposal dates, manage departments and programmes, and view the audit log.",
+        ],
+      },
+      {
+        heading: "Security Built In",
+        paragraphs: [
+          "Accounts use email verification and email codes as an extra sign-in check, with fingerprint sign-in on the mobile app. Users can view and sign out of active sessions and manage trusted devices, and permissions for each role are enforced on the server.",
+        ],
+      },
+      {
+        heading: "Where It Stands",
+        paragraphs: [
+          "The system is built and in pre-launch testing, and isn't live with real users yet. Push notifications are built, but testing on a phone is still pending.",
+          "It's built with Expo (React Native), React and Vite, Node.js and Express, and MongoDB, with Cloudflare R2 for files and Brevo for email. It's designed for 400–600 students and supervisors. In a local load test, a server limited to 1 CPU kept up with 600 people online at once, but that test hasn't been repeated on live hosting.",
+        ],
+      },
+      {
+        heading: "What It Costs to Run",
+        paragraphs: [
+          "Going live with 400–600 users is estimated at about $95–$115 per month for hosting, database, file storage and email. App store fees are separate: $25 one time for Google Play and $99 per year for Apple. That comes to about $1,260–$1,500 for the first year.",
+          "These are estimates based on prices checked on 6 November 2026, and they can change. They don't include a custom domain, taxes, support staff or optional SMS alerts.",
+        ],
+      },
+    ],
+  },
 ];

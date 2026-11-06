@@ -122,6 +122,17 @@ const webProjects = [
   }
 ];
 
+const mobileProjects = [
+  {
+    id: "m1",
+    title: "KSU RTMS",
+    desc: "A mobile app and website that manage final-year student projects from the first proposal to final completion.",
+    img: "/images/mobile_apps/rtms/cover.webp",
+    caseStudy: "/work/ksu-rtms",
+    bg: "bg-[#0F1A2A]"
+  }
+];
+
 /**
  * Graphics Design pieces.
  *
@@ -436,9 +447,9 @@ const WorkPage = () => {
 
   useEffect(() => {
     // The Graphics Design tab renders its own Framer Motion `whileInView`
-    // reveal, so GSAP only drives the web-projects cards here. Running both on
-    // the same nodes would have them fighting over `transform`/`opacity`.
-    if (activeTab !== "web") return;
+    // reveal, so GSAP only drives the web and mobile project cards here. Running
+    // both on the same nodes would have them fighting over `transform`/`opacity`.
+    if (activeTab !== "web" && activeTab !== "mobile") return;
 
     const cards = gsap.utils.toArray(".framer-card-work");
     
@@ -592,10 +603,8 @@ const WorkPage = () => {
             </figure>
           </div>
         ) : (
-          <div className="w-full max-w-7xl mx-auto py-20 px-6 flex items-center justify-center">
-            <h2 className="text-center text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-white">
-              <WorkIntroWords text="Coming soon, hey I am excited too!!" ready={introReady} delay={0.1} stagger={0.1} />
-            </h2>
+          <div className="w-full max-w-7xl mx-auto">
+            <ProjectGrid projects={mobileProjects} cardClassName="framer-card-work" />
           </div>
         )}
       </section>

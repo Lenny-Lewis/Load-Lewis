@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
+import { GraduationCap } from "lucide-react";
 import SiteHalftoneFooter from "../components/SiteHalftoneFooter";
 import SiteNavPill from "../components/SiteNavPill";
 import PriceTag from "../components/ui/PriceTag";
@@ -33,6 +34,49 @@ const LargePanel = ({ study, image, eager }) => (
     className="aspect-[1080/742]"
     insetClassName={image.wide ? "top-[6.5%] w-[88%]" : "top-[6.5%] w-[78%]"}
   />
+);
+
+// A finished 2:1 composite of tilted phone screens.
+const TiltedShowcase = ({ image }) => (
+  <img
+    src={image.src}
+    alt={image.alt}
+    width={2160}
+    height={1080}
+    loading="lazy"
+    decoding="async"
+    className="h-auto w-full rounded-[20px]"
+  />
+);
+
+// A diagonal grid of phone screens beside real text. The image is transparent, so the panel colour
+// shows through, and the text stays live so it's readable on phones and the button works.
+const GridShowcase = ({ image }) => (
+  <div className="flex w-full flex-col overflow-hidden rounded-[20px] bg-[#101927] md:flex-row md:items-center">
+    <img
+      src={image.src}
+      alt={image.alt}
+      width={1300}
+      height={1240}
+      loading="lazy"
+      decoding="async"
+      className="h-auto w-full md:w-[60%] md:flex-none"
+    />
+    <div className="flex flex-col items-center gap-4 px-6 pb-10 pt-4 text-center md:px-8 md:py-8">
+      <GraduationCap className="size-10 text-white" aria-hidden="true" />
+      <div>
+        <h3 className="text-3xl font-semibold leading-[1.2] tracking-[-0.02em] text-white">{image.title}</h3>
+        <p className="mt-1 text-base leading-[1.4] tracking-[-0.04em] text-white/50">{image.byline}</p>
+      </div>
+      <p className="text-lg leading-[1.4] tracking-[-0.04em] text-white">{image.text}</p>
+      <Link
+        to="/#contact"
+        className="mt-2 w-fit rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
+      >
+        {image.cta} →
+      </Link>
+    </div>
+  </div>
 );
 
 const TextSections = ({ sections }) => (
@@ -92,23 +136,38 @@ const ProjectDetails = ({ study }) => (
         <DetailItem label="Price" value={study.price} />
       </>
     )}
-    <Separator />
-    <a
-      href={study.liveUrl}
-      target="_blank"
-      rel="noreferrer"
-      className="group flex items-center gap-2.5 text-lg leading-[1.4] tracking-[-0.04em] text-white"
-    >
-      Live Link
-      <span className="grid size-7 place-items-center rounded-lg border border-white text-sm transition-colors group-hover:bg-white group-hover:text-black">
-        ↗
-      </span>
-    </a>
+    {study.liveUrl && (
+      <>
+        <Separator />
+        <a
+          href={study.liveUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="group flex items-center gap-2.5 text-lg leading-[1.4] tracking-[-0.04em] text-white"
+        >
+          Live Link
+          <span className="grid size-7 place-items-center rounded-lg border border-white text-sm transition-colors group-hover:bg-white group-hover:text-black">
+            ↗
+          </span>
+        </a>
+      </>
+    )}
   </dl>
 );
 
+const BuyLink = ({ message, children }) => (
+  <Link
+    to="/#contact"
+    state={{ message }}
+    className="group flex w-fit flex-none items-center gap-2 text-sm font-semibold uppercase tracking-wider text-white"
+  >
+    {children}
+    <span className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
+  </Link>
+);
+
 const BuyStrip = ({ study }) => (
-  <div className="card-dark flex w-full flex-col gap-6 rounded-[20px] p-6 md:flex-row md:items-center md:justify-between md:p-8">
+  <div className="flex w-full flex-col gap-6 md:flex-row md:items-center md:justify-between">
     <div>
       <p className="text-base tracking-[-0.04em] text-white/50">Available to buy</p>
       <p className="mt-1 text-4xl font-semibold tracking-[-0.02em] text-white">{study.price}</p>
@@ -116,12 +175,33 @@ const BuyStrip = ({ study }) => (
         Includes the site files, setup help and rebranding to your details.
       </p>
     </div>
-    <Link
-      to="/#contact"
-      className="w-fit flex-none rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground"
-    >
-      Buy this site
-    </Link>
+    <BuyLink message={`Hi Lennox, I'd like to buy ${study.title}.`}>Buy this site</BuyLink>
+  </div>
+);
+
+const SaleOptions = ({ study }) => (
+  <div className="flex w-full flex-col gap-8">
+    <div>
+      <p className="text-base tracking-[-0.04em] text-white/50">Available to buy</p>
+      <p className="mt-3 max-w-2xl text-lg leading-[1.4] tracking-[-0.04em] text-white">{study.saleNote}</p>
+    </div>
+    <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-3">
+      {study.saleOptions.map((option) => (
+        <div key={option.name} className="flex flex-col gap-3 border-t border-white/20 pt-5">
+          <h3 className="text-xl font-medium leading-[1.2] tracking-[-0.02em] text-white">{option.name}</h3>
+          <div>
+            <p className="text-4xl font-semibold tracking-[-0.02em] text-white">{option.price}</p>
+            <p className="mt-1 text-base tracking-[-0.04em] text-white/50">{option.term}</p>
+          </div>
+          <p className="text-lg leading-[1.4] tracking-[-0.04em] text-white">{option.note}</p>
+          <div className="mt-auto pt-2">
+            <BuyLink message={`Hi Lennox, I'd like to buy ${study.title} (${option.name.toLowerCase()}).`}>
+              Choose this option
+            </BuyLink>
+          </div>
+        </div>
+      ))}
+    </div>
   </div>
 );
 
@@ -178,7 +258,7 @@ const CaseStudyPage = () => {
             <div className="mt-2 flex flex-col gap-8 md:mt-20 lg:flex-row lg:items-end lg:justify-between">
               <div className="flex flex-col items-start gap-5">
               <Link
-                to="/work"
+                to={study.backTo ?? "/work"}
                 aria-label="Back to all projects"
                 className="group flex items-center gap-2.5 text-lg leading-[1.4] tracking-[-0.04em] text-white"
               >
@@ -199,28 +279,36 @@ const CaseStudyPage = () => {
 
           <TextSections sections={study.intro} />
 
-          <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 md:gap-10">
-            {study.gallery.map((image) => (
-              <Panel
-                key={image.src}
-                study={study}
-                src={image.src}
-                alt={image.alt}
-                className="aspect-[4/3]"
-                insetClassName="top-[6%] w-[86%]"
-              />
-            ))}
-          </div>
+          {study.showcase ? (
+            <TiltedShowcase image={study.showcase.tilted} />
+          ) : (
+            <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 md:gap-10">
+              {study.gallery.map((image) => (
+                <Panel
+                  key={image.src}
+                  study={study}
+                  src={image.src}
+                  alt={image.alt}
+                  className="aspect-[4/3]"
+                  insetClassName="top-[6%] w-[86%]"
+                />
+              ))}
+            </div>
+          )}
 
           <TextSections sections={study.body} />
 
-          <LargePanel study={study} image={study.feature} />
+          {study.showcase ? (
+            <GridShowcase image={study.showcase.grid} />
+          ) : (
+            <LargePanel study={study} image={study.feature} />
+          )}
 
           <TextSections sections={study.outro} />
 
         {study.result && <Result result={study.result} />}
 
-          {study.price && <BuyStrip study={study} />}
+          {study.saleOptions ? <SaleOptions study={study} /> : study.price && <BuyStrip study={study} />}
 
           <MoreProjects current={study} />
         </div>
