@@ -14,7 +14,8 @@ const portfolioNavItems = [
 
 const NavBar = () => {
   const location = useLocation();
-  const isWorkPage = location.pathname === "/work";
+  // The Work page and every project description page.
+  const isWorkPage = location.pathname === "/work" || location.pathname.startsWith("/work/");
   const isArticlePage =
     location.pathname.startsWith("/article") || location.pathname === "/thoughts";
 

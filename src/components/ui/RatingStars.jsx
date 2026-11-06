@@ -1,4 +1,7 @@
-const RatingStars = ({ rating = 5, className = "", sizeClassName = "size-5" }) => {
+const RatingStars = ({ rating, className = "", sizeClassName = "size-5" }) => {
+  // Reviews without a rating show no stars rather than an assumed score.
+  if (rating === undefined) return null;
+
   const value = Math.max(0, Math.min(5, Math.round(rating)));
 
   return (

@@ -2,7 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useLayoutEffect, useState } from "react";
 import Navbar from "./components/NavBar";
 import WhatsAppFloatingButton from "./components/WhatsAppFloatingButton";
-import Footer from "./sections/Footer";
+import SiteHalftoneFooter from "./components/SiteHalftoneFooter";
 import HomePage from "./pages/HomePage";
 import WorkPage from "./pages/WorkPage";
 import CaseStudyPage from "./pages/CaseStudyPage";
@@ -59,7 +59,7 @@ const ScrollToAnchor = () => {
 const App = () => {
   const location = useLocation();
   const isWorkPage = location.pathname === "/work";
-  // Project description pages render their own footer.
+  // Work, project, article and Thoughts pages place the footer themselves.
   const isCaseStudyPage = location.pathname.startsWith("/work/");
   const isCommentsPage = location.pathname === "/comments";
   // Article pages and the all-articles page share the article layout (own nav pill + footer).
@@ -112,7 +112,11 @@ const App = () => {
         <Route path="/article/:slug" element={<ArticleDetailPage />} />
       </Routes>
       {!isCommentsPage && !isArticlePage && <WhatsAppFloatingButton />}
-      {!isWorkPage && !isCaseStudyPage && !isCommentsPage && !isArticlePage && <Footer />}
+      {!isWorkPage && !isCaseStudyPage && !isCommentsPage && !isArticlePage && (
+        <div className="pt-20 md:pt-28">
+          <SiteHalftoneFooter />
+        </div>
+      )}
       <Analytics />
     </>
   );

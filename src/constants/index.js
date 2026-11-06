@@ -38,9 +38,9 @@ const words = [
 
 const counterItems = [
   { value: 3, suffix: "+", label: "Years of Experience" },
-  { value: 15, suffix: "+", label: "Satisfied Clients" },
-  { value: 19, suffix: "+", label: "Completed Projects" },
-  { value: 90, suffix: "%", label: "Client Retention Rate" },
+  { value: 5, suffix: "+", label: "Satisfied Clients" },
+  { value: 30, suffix: "+", label: "Completed Projects" },
+  { value: 100, suffix: "%", label: "Client Retention Rate" },
 ];
 
 const resumeLinks = {
@@ -606,11 +606,26 @@ export const testimonialAvatar = (seed) =>
 
 const testimonials = [
   {
+    // Name withheld at the client's request.
+    name: "Zed OS Tech CEO",
+    city: "Kisumu",
+    country: "KE",
+    // Kisumu and Nairobi are too close for two pins, so both are nudged apart on the globe.
+    lat: 5,
+    lng: 28,
+    mentions: "Zed OS Technologies · Company website",
+    rating: 5,
+    review:
+      "It has been such a journey with Lennox Lewis. I was referred to him by a startup and straight away I understood why. He works diligently, very well and is always on time, always asking, always updating. I would definitely recommend him. He has a good understanding of projects and how things work.",
+    imgPath: testimonialAvatar("Zed OS Tech CEO"),
+    imageAlt: "Avatar for the Zed OS Tech CEO",
+  },
+  {
     name: "Kevin Katami, personnel at Villagio",
     city: "Nairobi",
     country: "KE",
-    lat: -1.2921,
-    lng: 36.8219,
+    lat: -7,
+    lng: 39,
     mentions: "Villagio · Customer Service Week poster",
     rating: 5,
     review:

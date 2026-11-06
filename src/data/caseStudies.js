@@ -3,6 +3,7 @@
  *
  * `price` marks a site as for sale: it adds the price to the page and card, plus a buy section.
  * Leave it out for work that isn't for sale.
+ * `result` adds a real client outcome and review; only add it with the client's own words.
  * `panel` is the gradient behind the screenshots, sampled from the colours of the site's hero.
  */
 export const caseStudyPath = (slug) => `/work/${slug}`;
@@ -10,7 +11,10 @@ export const caseStudyPath = (slug) => `/work/${slug}`;
 // `coverSrc` swaps the captured hero for an existing cover image, which is wider than the captures.
 const study = ({ slug, heroAlt, coverSrc, galleryAlts, featureAlt, ...rest }) => ({
   slug,
-  details: [{ label: "Category", value: rest.category }],
+  details: [
+    { label: "Category", value: rest.category },
+    ...(rest.client ? [{ label: "Client", value: rest.client }] : []),
+  ],
   hero: { src: coverSrc ?? `/images/case-studies/${slug}/hero.webp`, alt: heroAlt, wide: Boolean(coverSrc) },
   gallery: [
     { src: `/images/case-studies/${slug}/gallery-1.webp`, alt: galleryAlts[0] },
@@ -25,6 +29,12 @@ export const caseStudies = [
     slug: "zedos-technologies",
     title: "Zed OS Technologies",
     category: "Company Website",
+    client: "Zed OS Technologies",
+    result: {
+      outcome: "We now have our home on the web and are globally recognised. Our clients can reach us much more easily, and marketing our products has become 100% easier.",
+      review: "It has been such a journey with Lennox Lewis. I was referred to him by a startup and straight away I understood why. He works diligently, very well and is always on time, always asking, always updating. I would definitely recommend him. He has a good understanding of projects and how things work.",
+      attribution: "Zed OS Tech CEO",
+    },
     panel: ["#8e8d8d", "#2a2a2a"],
     liveUrl: "https://www.zedostechnologies.co.ke/",
     summary:

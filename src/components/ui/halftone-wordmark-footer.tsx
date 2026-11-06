@@ -32,7 +32,9 @@ export interface FooterLink {
 
 export interface FooterColumn {
   title: string
-  links: FooterLink[]
+  links?: FooterLink[]
+  /** Custom content, shown instead of the links. */
+  content?: React.ReactNode
 }
 
 export interface HalftoneWordmarkFooterProps {
@@ -42,6 +44,8 @@ export interface HalftoneWordmarkFooterProps {
   label?: string
   /** The muted line under it. */
   meta?: string
+  /** Extra content below the studio lines. */
+  brandExtra?: React.ReactNode
   /** Link columns along the top. */
   columns?: FooterColumn[]
   /** Show the back-to-top link. It scrolls the window to 0. Defaults to true. */
@@ -157,14 +161,14 @@ const HWF_CSS = `
 .hwf-brand span { opacity: .45; }
 .hwf-col h3 { margin: 0; font: inherit; opacity: .4; font-weight: 500; }
 .hwf-col ul { list-style: none; margin: 0; padding: 0; }
-.hwf-col a, .hwf-up {
+.hwf-col li a, .hwf-up {
   color: inherit; text-decoration: none; opacity: .78; background: none; border: 0; padding: 0;
   font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer;
   background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px;
   background-repeat: no-repeat; background-position: 0 100%; transition: opacity .25s ease, background-size .35s cubic-bezier(.2,.7,.1,1);
 }
-.hwf-col a:hover, .hwf-up:hover { opacity: 1; background-size: 100% 1px; }
-.hwf-col a:focus-visible, .hwf-up:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; opacity: 1; }
+.hwf-col li a:hover, .hwf-up:hover { opacity: 1; background-size: 100% 1px; }
+.hwf-col li a:focus-visible, .hwf-up:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; opacity: 1; }
 .hwf-rule {
   position: relative; z-index: 1; display: flex; justify-content: flex-end; align-items: center; gap: 16px;
   margin: clamp(18px, 2.6vw, 30px) clamp(20px, 3.4vw, 44px) 0; padding-top: 12px;
@@ -179,7 +183,7 @@ const HWF_CSS = `
   .hwf-brand { grid-column: 1 / -1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hwf-col a, .hwf-up { transition: none; }
+  .hwf-col li a, .hwf-up { transition: none; }
 }
 `
 
@@ -187,6 +191,7 @@ export default function HalftoneWordmarkFooter({
   wordmark = "halden",
   label = "Halden Studio",
   meta = "©2026 · Oslo / Lisbon",
+  brandExtra,
   columns = DEFAULT_COLUMNS,
   backToTop = true,
   rulePosition = "bottom",
@@ -487,17 +492,20 @@ export default function HalftoneWordmarkFooter({
         <div className="hwf-brand">
           <strong>{label}</strong>
           <span>{meta}</span>
+          {brandExtra}
         </div>
         {columns.map((col) => (
           <nav className="hwf-col" key={col.title} aria-label={col.title}>
             <h3>{col.title}</h3>
-            <ul>
-              {col.links.map((l) => (
-                <li key={l.label}>
-                  <a href={l.href || "#"}>{l.label}</a>
-                </li>
-              ))}
-            </ul>
+            {col.content ?? (
+              <ul>
+                {col.links?.map((l) => (
+                  <li key={l.label}>
+                    <a href={l.href || "#"}>{l.label}</a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </nav>
         ))}
       </div>

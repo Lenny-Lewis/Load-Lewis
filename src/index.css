@@ -583,28 +583,15 @@ section {
     @apply transition-colors duration-300 hover:bg-white hover:text-black;
   }
 
-  .footer {
-    @apply my-10 md:mt-20 mt-10 text-white-50 px-5 md:px-20 xl:px-20 flex items-center justify-center;
+  .socials {
+    @apply mt-2 flex flex-wrap items-center gap-3;
 
-    .footer-container {
-      @apply grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-0 w-full;
+    .icon {
+      @apply flex justify-start items-center size-10 md:size-12 cursor-pointer transition-all duration-300 hover:scale-110 hover:-translate-y-1;
     }
 
-    p {
-      @apply text-center md:text-start cursor-pointer;
-    }
-
-    .socials {
-      @apply flex items-center justify-center gap-5;
-
-      .icon {
-        @apply border border-black-50 bg-black-100 flex justify-center items-center rounded-xl size-10 md:size-12 cursor-pointer transition-all duration-300 hover:bg-black-50 hover:scale-110 hover:-translate-y-1;
-      }
-
-      img {
-        @apply inline-block w-5 h-5 md:w-6 md:h-6 object-contain;
-      }
-
+    img {
+      @apply inline-block w-5 h-5 md:w-6 md:h-6 object-contain;
     }
   }
 
@@ -726,11 +713,7 @@ section {
     @apply text-base leading-7;
   }
 
-  .footer p {
-    @apply text-base;
-  }
-
-  .footer .socials .icon {
+  .socials .icon {
     @apply size-9;
   }
 
@@ -774,9 +757,6 @@ section {
     @apply gap-3;
   }
 
-  .footer {
-    @apply px-5;
-  }
 }
 
 @media (min-width: 769px) and (max-width: 1536px) {
@@ -845,9 +825,6 @@ section {
     @apply h-6 w-6;
   }
 
-  .footer {
-    margin-top: 3rem;
-  }
 }
 
 @media (min-width: 769px) and (max-width: 1366px) {
@@ -923,9 +900,6 @@ section {
     min-height: 20rem;
   }
 
-  .footer {
-    margin-top: 2.5rem;
-  }
 }
 
 /* Contact form: flat, cardless fields in the site's colours, with the purple accent on focus and submit. */

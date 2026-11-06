@@ -4,7 +4,7 @@ import RatingStars from "./RatingStars";
 export type TestimonialItem = {
   name: string;
   mentions: string;
-  rating: number;
+  rating?: number;
   review: string;
   imgPath: string;
   imageAlt?: string;

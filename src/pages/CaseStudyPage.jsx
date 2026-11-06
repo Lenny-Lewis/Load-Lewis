@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import SiteHalftoneFooter from "../components/SiteHalftoneFooter";
+import SiteNavPill from "../components/SiteNavPill";
 import PriceTag from "../components/ui/PriceTag";
 import { caseStudies, caseStudyPath } from "../data/caseStudies";
 
@@ -49,6 +50,19 @@ const TextSections = ({ sections }) => (
       </div>
     ))}
   </div>
+);
+
+const Result = ({ result }) => (
+  <figure className="m-0 w-full max-w-[740px]">
+    <h2 className="text-3xl font-semibold leading-[1.2] tracking-[-0.02em] text-white md:text-[52px]">The Result</h2>
+    <blockquote className="m-0 mt-5 text-2xl font-medium leading-[1.3] tracking-[-0.02em] text-white md:text-[32px]">
+      “{result.outcome}”
+    </blockquote>
+    <p className="mt-5 text-lg leading-[1.4] tracking-[-0.04em] text-white/80">“{result.review}”</p>
+    <figcaption className="mt-5 text-base leading-[1.4] tracking-[-0.04em] text-white/50">
+      {result.attribution}
+    </figcaption>
+  </figure>
 );
 
 const DetailItem = ({ label, value }) => (
@@ -150,6 +164,7 @@ const CaseStudyPage = () => {
 
   return (
     <>
+      <SiteNavPill label="Project page navigation" />
       <main className="w-full overflow-x-hidden bg-black px-5 pb-20 pt-32 md:px-8 md:pb-28 md:pt-40">
         <div className="mx-auto flex w-full max-w-[1080px] flex-col gap-10">
           <motion.header
@@ -161,7 +176,19 @@ const CaseStudyPage = () => {
             <h1 className="text-5xl font-bold leading-none tracking-[-0.02em] text-white md:text-[72px]">{study.title}</h1>
 
             <div className="mt-2 flex flex-col gap-8 md:mt-20 lg:flex-row lg:items-end lg:justify-between">
+              <div className="flex flex-col items-start gap-5">
+              <Link
+                to="/work"
+                aria-label="Back to all projects"
+                className="group flex items-center gap-2.5 text-lg leading-[1.4] tracking-[-0.04em] text-white"
+              >
+                <span className="grid size-7 place-items-center rounded-lg border border-white text-sm transition-colors group-hover:bg-white group-hover:text-black">
+                  ←
+                </span>
+                Back
+              </Link>
               <ProjectDetails study={study} />
+            </div>
               <p className="w-full text-lg leading-[1.4] tracking-[-0.04em] text-white lg:w-[456px] lg:flex-none">
                 {study.summary}
               </p>
@@ -190,6 +217,8 @@ const CaseStudyPage = () => {
           <LargePanel study={study} image={study.feature} />
 
           <TextSections sections={study.outro} />
+
+        {study.result && <Result result={study.result} />}
 
           {study.price && <BuyStrip study={study} />}
 

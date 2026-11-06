@@ -1,8 +1,8 @@
 import { testimonials } from "../constants";
 import TestimonialGlobe from "../components/ui/testimonial-globe";
 
-// Longitude of the first review shown (Kevin, Nairobi).
-const START_LNG = 36.8219;
+// Longitude of the first review shown (Zed OS Tech CEO, Kisumu).
+const START_LNG = 28;
 // Degrees travelled westward from the start, so the reviews run once round the globe.
 const westOfStart = ({ lng }) => (START_LNG - lng + 360) % 360;
 

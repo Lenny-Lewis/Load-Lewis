@@ -8,7 +8,7 @@ import { Button } from "../components/ui/button";
 const CommentsPage = () => {
   const firstColumn = testimonials.slice(0, 3);
   const secondColumn = testimonials.slice(3, 6);
-  const thirdColumn = testimonials.slice(6, 9);
+  const thirdColumn = testimonials.slice(6);
 
   return (
     <main className="min-h-screen px-5 pb-24 pt-24 md:px-10 md:pt-28">

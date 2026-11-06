@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
 import MorphDotsIcon from "@/components/ui/MorphDotsIcon";
 
 /**
@@ -13,6 +13,8 @@ import MorphDotsIcon from "@/components/ui/MorphDotsIcon";
  *   close    links disappear at once and the pill shrinks back to 60px
  *   hover    link and logo letters roll up one after another (~35ms apart)
  *   button   44 × 36 cream button, greys on hover, dots morph into an X
+ *
+ *   scroll   slides away while scrolling down, back when scrolling up, so it never sits over text
  */
 
 const links = [
@@ -26,6 +28,9 @@ const links = [
 ];
 
 const CLOSED_HEIGHT = 60;
+const HIDDEN_Y = -110; // clears the 30px top offset and the pill's height
+const ALWAYS_SHOWN_ABOVE = 120; // scroll position near the top where the pill never hides
+const SCROLL_THRESHOLD = 6; // ignores tiny scroll jitters
 const pillSpring = { type: "spring", bounce: 0, duration: 0.7 };
 
 /** Letters roll up and a copy rolls in from below, staggered per letter. */
@@ -52,6 +57,8 @@ function RollingText({ text }) {
 
 export default function SiteNavPill({ label = "Site navigation" }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolledAway, setScrolledAway] = useState(false);
+  const { scrollY } = useScroll();
   const navRef = useRef(null);
   const reduceMotion = useReducedMotion();
 
@@ -76,6 +83,12 @@ export default function SiteNavPill({ label = "Site navigation" }) {
     };
   }, [isOpen]);
 
+  useMotionValueEvent(scrollY, "change", (current) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    if (current < ALWAYS_SHOWN_ABOVE) setScrolledAway(false);
+    else if (Math.abs(current - previous) > SCROLL_THRESHOLD) setScrolledAway(current > previous);
+  });
+
   const close = () => setIsOpen(false);
 
   return (
@@ -87,7 +100,7 @@ export default function SiteNavPill({ label = "Site navigation" }) {
         ref={navRef}
         aria-label={label}
         initial={false}
-        animate={{ height: isOpen ? "auto" : CLOSED_HEIGHT }}
+        animate={{ height: isOpen ? "auto" : CLOSED_HEIGHT, y: scrolledAway && !isOpen ? HIDDEN_Y : 0 }}
         transition={reduceMotion ? { duration: 0 } : pillSpring}
         className="fixed left-1/2 top-[30px] z-[110] w-[320px] max-w-[calc(100vw-32px)] -translate-x-1/2 overflow-hidden rounded-[20px] bg-[#111] shadow-2xl"
         style={{ fontFamily: "var(--font-article), Archivo, sans-serif" }}

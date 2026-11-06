@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import HalftoneWordmarkFooter from "@/components/ui/halftone-wordmark-footer";
+import { socialImgs } from "../constants";
 
 /**
- * The site's halftone footer, shared by the Work page and article pages so the
- * two stay identical.
+ * The site's halftone footer, shared by every page that has a footer so they
+ * all stay identical.
  *
  * The underlying component renders plain <a> tags. Clicks are intercepted here
  * so internal links ("/…") use the router (no full page reload, so the hero's
@@ -15,6 +16,8 @@ const columns = [
     links: [
       { label: "Home", href: "/" },
       { label: "Work", href: "/work" },
+      { label: "Services", href: "/#services" },
+      { label: "Pricing", href: "/#pricing" },
       { label: "Experience", href: "/#experience" },
       { label: "Skills", href: "/#skills" },
       { label: "Contact", href: "/#contact" },
@@ -22,12 +25,15 @@ const columns = [
   },
   {
     title: "Social",
-    links: [
-      { label: "GitHub", href: "https://github.com/Lenny-Lewis" },
-      { label: "LinkedIn", href: "https://www.linkedin.com/in/lennox-lewis-975642359" },
-      { label: "Instagram", href: "https://www.instagram.com/thatboylewis" },
-      { label: "X / Twitter", href: "https://x.com/thatboylewis" },
-    ],
+    content: (
+      <div className="socials">
+        {socialImgs.map(({ name, url, imgPath }) => (
+          <a key={name} href={url} target="_blank" rel="noopener noreferrer" className={`icon ${name}-icon`}>
+            <img src={imgPath} alt={name} />
+          </a>
+        ))}
+      </div>
+    ),
   },
   {
     title: "Contact",
@@ -37,6 +43,18 @@ const columns = [
     ],
   },
 ];
+
+const SignOff = () => (
+  <div className="mt-3">
+    <p>© {new Date().getFullYear()} Lennox Lewis. All rights reserved.</p>
+    <img
+      src="/images/branding/mysignature.png"
+      alt="Lennox Lewis signature"
+      loading="lazy"
+      className="mt-2 h-12 w-24 object-contain object-left"
+    />
+  </div>
+);
 
 const SiteHalftoneFooter = () => {
   const navigate = useNavigate();
@@ -62,13 +80,14 @@ const SiteHalftoneFooter = () => {
       <HalftoneWordmarkFooter
         wordmark="lennox"
         label="Lennox Lewis"
-        meta={`©${new Date().getFullYear()} · Nairobi, Kenya`}
+        meta="Nairobi, Kenya"
+        brandExtra={<SignOff />}
         columns={columns}
         rulePosition="top"
         palette={{ background: "#000000", ink: "#e9e4da", warm: "#8b5cf6" }}
         fontFamily='"Archivo", "Helvetica Neue", Arial, sans-serif'
         fontWeight={800}
-        height="clamp(420px, 52vw, 600px)"
+        height="clamp(540px, 52vw, 640px)"
       />
     </div>
   );

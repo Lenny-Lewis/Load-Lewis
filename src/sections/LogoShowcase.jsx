@@ -17,8 +17,8 @@ const AVATAR_ENTRANCES = [
 const RATING_DELAY = 0.2;
 const LOGOS_DELAY = 0.6;
 
-const averageRating =
-  testimonials.reduce((sum, { rating }) => sum + rating, 0) / testimonials.length;
+const ratings = testimonials.flatMap(({ rating }) => (rating === undefined ? [] : [rating]));
+const averageRating = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
 
 // Plays once when half of the element is on screen; no animation with reduced motion.
 const useReveal = () => {
