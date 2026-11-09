@@ -18,10 +18,11 @@ const Heading = ({ eyebrow, text }) => (
 const LabelledList = ({ items }) => (
   <ul className={`m-0 flex list-none flex-col gap-3 p-0 ${BODY}`}>
     {items.map(({ label, text }) => (
-      <li key={label} className="flex gap-3">
+      <li key={label ?? text} className="flex gap-3">
         <span aria-hidden="true" className="mt-[9px] size-2 flex-none rounded-full bg-[var(--profile-accent)]" />
         <span>
-          <strong className="font-semibold text-white">{label}:</strong> {text}
+          {label && <strong className="font-semibold text-white">{label}: </strong>}
+          {text}
         </span>
       </li>
     ))}

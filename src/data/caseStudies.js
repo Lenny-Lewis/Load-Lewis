@@ -91,7 +91,7 @@ export const caseStudies = [
       "A company website for a Kisumu-based business, bringing supplies, software, data and AI together under one clear message.",
     heroAlt: "Zed OS Technologies homepage with an interactive 3D centerpiece",
     galleryAlts: ["About section explaining who Zed OS serves", "Five-step process beside a 3D model"],
-    featureAlt: "Eight numbered service cards",
+    featureAlt: "What we do section with large service photos and a thumbnail rail",
     intro: [
       {
         heading: "The Problem",

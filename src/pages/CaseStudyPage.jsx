@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { GraduationCap } from "lucide-react";
 import SiteHalftoneFooter from "../components/SiteHalftoneFooter";
 import SiteNavPill from "../components/SiteNavPill";
+import { usePageRevealed } from "../hooks/usePageRevealed";
 import PriceTag from "../components/ui/PriceTag";
 import { caseStudies, caseStudyPath } from "../data/caseStudies";
 
@@ -247,6 +248,7 @@ const MoreProjects = ({ current }) => {
 const CaseStudyPage = () => {
   const { slug } = useParams();
   const reduceMotion = useReducedMotion();
+  const pageRevealed = usePageRevealed();
   const study = caseStudies.find((item) => item.slug === slug);
 
   if (!study) return <Navigate to="/work" replace />;
@@ -259,7 +261,7 @@ const CaseStudyPage = () => {
           <motion.header
             className="flex w-full flex-col gap-10"
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={pageRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <h1 className="text-5xl font-bold leading-none tracking-[-0.02em] text-white md:text-[72px]">{study.title}</h1>

@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
-import { motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import SiteHalftoneFooter from "@/components/SiteHalftoneFooter";
 import { Zap } from "lucide-react";
@@ -10,6 +10,7 @@ import CompanyProfileGrid from "@/components/CompanyProfileGrid";
 import { companyProfiles } from "../data/companyProfiles";
 import ProjectGrid from "@/components/ProjectGrid";
 import SiteNavPill from "@/components/SiteNavPill";
+import { usePageRevealed } from "@/hooks/usePageRevealed";
 
 const webProjects = [
   {
@@ -350,6 +351,24 @@ const workTabs = [
   { id: "current", label: "Current Projects" },
 ];
 
+// Tab switch: the old panel blurs out in place, then the new one comes into focus
+// with the same blur-in the page heading uses.
+const EASE_OUT = [0.22, 1, 0.36, 1];
+const tabPanelVariants = {
+  hidden: { opacity: 0, filter: "blur(10px)", y: 10 },
+  // The filter is cleared once the blur ends: any leftover filter would trap the
+  // graphics lightbox (position: fixed) inside this panel instead of the viewport.
+  shown: {
+    opacity: 1,
+    filter: "blur(0px)",
+    y: 0,
+    transition: { duration: 0.5, ease: EASE_OUT },
+    transitionEnd: { filter: "none" },
+  },
+  gone: { opacity: 0, filter: "blur(6px)", transition: { duration: 0.2, ease: "easeIn" } },
+};
+const tabUnderlineSpring = { type: "spring", bounce: 0, duration: 0.5 };
+
 const WorkIntroWords = ({ text, ready, delay, stagger }) => {
   const reduceMotion = useReducedMotion();
   if (reduceMotion) return text;
@@ -419,12 +438,16 @@ const ProjectProgressOverlay = ({ project, progress }) => {
 
 const WorkPage = () => {
   const containerRef = useRef(null);
+  const tabPanelRef = useRef(null);
+  const reduceMotion = useReducedMotion();
   const { search } = useLocation();
   const [activeTab, setActiveTab] = useState(() => {
     const requested = new URLSearchParams(search).get("tab");
     return workTabs.some(({ id }) => id === requested) ? requested : "web";
   });
   const [introReady, setIntroReady] = useState(false);
+  // Arriving from another page, the intro and first panel wait until the transition uncovers them.
+  const pageRevealed = usePageRevealed();
 
   useEffect(() => {
     const root = document.getElementById("root");
@@ -445,27 +468,18 @@ const WorkPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    // The Graphics Design tab renders its own Framer Motion `whileInView`
-    // reveal, so GSAP only drives the web and mobile project cards here. Running
-    // both on the same nodes would have them fighting over `transform`/`opacity`.
-    if (activeTab !== "web" && activeTab !== "mobile") return;
-
-    const cards = gsap.utils.toArray(".framer-card-work");
-    
+  // Staggers the web and mobile project cards in as their panel arrives. The Graphics
+  // Design tab renders its own Framer Motion `whileInView` reveal, so GSAP stays off
+  // it; running both on the same nodes would have them fighting over transform/opacity.
+  const revealCards = (variant) => {
+    if (variant !== "shown" || (activeTab !== "web" && activeTab !== "mobile")) return;
+    const cards = gsap.utils.toArray(".framer-card-work", tabPanelRef.current);
     gsap.fromTo(
       cards,
       { y: 40, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.6,
-        ease: "power2.out",
-        stagger: 0.1,
-        overwrite: "auto",
-      }
+      { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", stagger: 0.1, overwrite: "auto" }
     );
-  }, [activeTab]);
+  };
 
   return (
     <div className="w-full min-h-screen bg-[#050505] text-white pt-32 overflow-x-hidden">
@@ -483,10 +497,10 @@ const WorkPage = () => {
           
           <div className="flex flex-col gap-6 mt-4 md:mt-12">
             <h1 className="text-5xl md:text-6xl lg:text-[5.5rem] font-bold tracking-tighter leading-none text-white">
-              <WorkIntroWords text="My Brightest Creations" ready={introReady} delay={0.1} stagger={0.1} />
+              <WorkIntroWords text="My Brightest Creations" ready={introReady && pageRevealed} delay={0.1} stagger={0.1} />
             </h1>
             <p className="text-white-50 text-lg md:text-xl max-w-2xl leading-relaxed">
-              <WorkIntroWords text="A showcase of my latest projects, highlighting thoughtful design, clear strategy, and impactful results." ready={introReady} delay={0.35} stagger={0.05} />
+              <WorkIntroWords text="A showcase of my latest projects, highlighting thoughtful design, clear strategy, and impactful results." ready={introReady && pageRevealed} delay={0.35} stagger={0.05} />
             </p>
           </div>
           
@@ -498,115 +512,136 @@ const WorkPage = () => {
                 type="button"
                 aria-pressed={activeTab === id}
                 onClick={() => setActiveTab(id)}
-                className={`group min-h-12 rounded-xl border px-2 py-3 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8b5cf6] sm:text-base md:min-h-0 md:rounded-none md:border-0 md:px-0 md:py-0 md:text-xl ${activeTab === id ? 'border-[#8b5cf6]/50 bg-[#8b5cf6]/15 text-white md:border-b-2 md:border-[#8b5cf6] md:bg-transparent md:pb-2 md:-mb-[18px]' : 'border-white/10 bg-white/5 text-white-50 hover:bg-white/10 hover:text-white md:bg-transparent md:pb-2 md:-mb-[18px] md:hover:bg-transparent'}`}
+                className={`group relative min-h-12 rounded-xl border px-2 py-3 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8b5cf6] sm:text-base md:min-h-0 md:rounded-none md:border-0 md:border-b-2 md:border-transparent md:px-0 md:py-0 md:text-xl ${activeTab === id ? 'border-[#8b5cf6]/50 bg-[#8b5cf6]/15 text-white md:bg-transparent md:pb-2 md:-mb-[18px]' : 'border-white/10 bg-white/5 text-white-50 hover:bg-white/10 hover:text-white md:bg-transparent md:pb-2 md:-mb-[18px] md:hover:bg-transparent'}`}
               >
                 <HoverTextSlide text={label} />
+                {activeTab === id && (
+                  <motion.span
+                    layoutId="work-tab-underline"
+                    aria-hidden="true"
+                    transition={reduceMotion ? { duration: 0 } : tabUnderlineSpring}
+                    className="absolute inset-x-0 -bottom-[2px] hidden h-[2px] bg-[#8b5cf6] md:block"
+                  />
+                )}
               </button>
             ))}
           </div>
         </div>
         
         {/* Grid Content */}
-        {activeTab === "profiles" ? (
-          <div className="w-full max-w-7xl mx-auto">
-            <CompanyProfileGrid profiles={companyProfiles} />
-          </div>
-        ) : activeTab === "graphics" ? (
-          <div className="w-full max-w-7xl mx-auto">
-            {graphicProjects.length > 0 ? (
-              <GraphicDesignGrid projects={graphicProjects} />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            ref={tabPanelRef}
+            variants={tabPanelVariants}
+            initial={reduceMotion ? false : "hidden"}
+            animate={pageRevealed ? "shown" : "hidden"}
+            exit={reduceMotion ? undefined : "gone"}
+            onAnimationStart={revealCards}
+            className="w-full"
+          >
+            {activeTab === "profiles" ? (
+              <div className="w-full max-w-7xl mx-auto">
+                <CompanyProfileGrid profiles={companyProfiles} />
+              </div>
+            ) : activeTab === "graphics" ? (
+              <div className="w-full max-w-7xl mx-auto">
+                {graphicProjects.length > 0 ? (
+                  <GraphicDesignGrid projects={graphicProjects} />
+                ) : (
+                  <div className="py-20 flex flex-col items-center justify-center border border-white/5 rounded-3xl bg-white/5">
+                    <h3 className="text-2xl font-bold text-white-50">Coming Soon</h3>
+                    <p className="text-white/40 mt-2">Exciting new graphic design projects are in the works.</p>
+                  </div>
+                )}
+              </div>
+            ) : activeTab === "web" ? (
+              <div className="w-full max-w-7xl mx-auto">
+                <ProjectGrid projects={webProjects} cardClassName="framer-card-work" />
+              </div>
+            ) : activeTab === "current" ? (
+              <div className="w-full max-w-7xl mx-auto grid grid-cols-1 gap-5 md:grid-cols-2">
+                <figure className="group flex flex-col gap-5">
+                  <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#c9d0ed]">
+                    <img
+                      src="/images/projects/current/roam-project-template.png"
+                      alt="Roam travel app screens"
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                    />
+                    <ProjectProgressOverlay project="Roam" progress={28} />
+                  </div>
+                  <figcaption className="px-2">
+                    <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8b5cf6] transition-colors duration-300">Roam</h3>
+                    <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
+                      A modern travel app for discovering destinations and booking stays.
+                    </p>
+                  </figcaption>
+                </figure>
+                <figure className="group flex flex-col gap-5">
+                  <a
+                    href="https://github.com/Lenny-Lewis/KSU-RTMS"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View KSU RTMS on GitHub"
+                    className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8b5cf6]"
+                  >
+                    <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#25292b]">
+                      <img
+                        src="/images/projects/current/ksu-rtms-project-template.png"
+                        alt="Kisii University project management system preview"
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                        style={{ maskImage: "linear-gradient(to bottom, transparent 6%, black 13%, black 87%, transparent 94%)" }}
+                      />
+                      <ProjectProgressOverlay project="KSU RTMS" progress={88} />
+                    </div>
+                  </a>
+                  <figcaption className="px-2">
+                    <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8b5cf6] transition-colors duration-300">KSU RTMS</h3>
+                    <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
+                      A project management system for Kisii University.
+                    </p>
+                  </figcaption>
+                </figure>
+                <figure className="group flex flex-col gap-5">
+                  <a
+                    href="https://github.com/Lenny-Lewis/Cindi"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View Cindi on GitHub"
+                    className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8b5cf6]"
+                  >
+                    <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#d8d8d8] flex items-center justify-center">
+                      <img
+                        src="/images/projects/current/Cindi_Project.png"
+                        alt="Cindi project preview"
+                        loading="lazy"
+                        decoding="async"
+                        width="397"
+                        height="258"
+                        className="w-full max-w-[397px] h-auto [clip-path:inset(10px_12px)] group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                      />
+                      <ProjectProgressOverlay project="Cindi" progress={12} />
+                    </div>
+                  </a>
+                  <figcaption className="px-2">
+                    <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8b5cf6] transition-colors duration-300">Cindi</h3>
+                    <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
+                      An agentic, modern AI assistant — a female Jarvis.
+                    </p>
+                  </figcaption>
+                </figure>
+              </div>
             ) : (
-              <div className="py-20 flex flex-col items-center justify-center border border-white/5 rounded-3xl bg-white/5">
-                <h3 className="text-2xl font-bold text-white-50">Coming Soon</h3>
-                <p className="text-white/40 mt-2">Exciting new graphic design projects are in the works.</p>
+              <div className="w-full max-w-7xl mx-auto">
+                <ProjectGrid projects={mobileProjects} cardClassName="framer-card-work" />
               </div>
             )}
-          </div>
-        ) : activeTab === "web" ? (
-          <div className="w-full max-w-7xl mx-auto">
-            <ProjectGrid projects={webProjects} cardClassName="framer-card-work" />
-          </div>
-        ) : activeTab === "current" ? (
-          <div className="w-full max-w-7xl mx-auto grid grid-cols-1 gap-5 md:grid-cols-2">
-            <figure className="group flex flex-col gap-5">
-              <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#c9d0ed]">
-                <img
-                  src="/images/projects/current/roam-project-template.png"
-                  alt="Roam travel app screens"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                />
-                <ProjectProgressOverlay project="Roam" progress={28} />
-              </div>
-              <figcaption className="px-2">
-                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8b5cf6] transition-colors duration-300">Roam</h3>
-                <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
-                  A modern travel app for discovering destinations and booking stays.
-                </p>
-              </figcaption>
-            </figure>
-            <figure className="group flex flex-col gap-5">
-              <a
-                href="https://github.com/Lenny-Lewis/KSU-RTMS"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View KSU RTMS on GitHub"
-                className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8b5cf6]"
-              >
-                <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#25292b]">
-                  <img
-                    src="/images/projects/current/ksu-rtms-project-template.png"
-                    alt="Kisii University project management system preview"
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                    style={{ maskImage: "linear-gradient(to bottom, transparent 6%, black 13%, black 87%, transparent 94%)" }}
-                  />
-                  <ProjectProgressOverlay project="KSU RTMS" progress={88} />
-                </div>
-              </a>
-              <figcaption className="px-2">
-                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8b5cf6] transition-colors duration-300">KSU RTMS</h3>
-                <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
-                  A project management system for Kisii University.
-                </p>
-              </figcaption>
-            </figure>
-            <figure className="group flex flex-col gap-5">
-              <a
-                href="https://github.com/Lenny-Lewis/Cindi"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View Cindi on GitHub"
-                className="block rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8b5cf6]"
-              >
-                <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#d8d8d8] flex items-center justify-center">
-                  <img
-                    src="/images/projects/current/Cindi_Project.png"
-                    alt="Cindi project preview"
-                    loading="lazy"
-                    decoding="async"
-                    width="397"
-                    height="258"
-                    className="w-full max-w-[397px] h-auto [clip-path:inset(10px_12px)] group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                  />
-                  <ProjectProgressOverlay project="Cindi" progress={12} />
-                </div>
-              </a>
-              <figcaption className="px-2">
-                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8b5cf6] transition-colors duration-300">Cindi</h3>
-                <p className="mt-2 text-white-50 text-sm md:text-base leading-relaxed">
-                  An agentic, modern AI assistant — a female Jarvis.
-                </p>
-              </figcaption>
-            </figure>
-          </div>
-        ) : (
-          <div className="w-full max-w-7xl mx-auto">
-            <ProjectGrid projects={mobileProjects} cardClassName="framer-card-work" />
-          </div>
-        )}
+          </motion.div>
+        </AnimatePresence>
       </section>
 
       <SiteHalftoneFooter />

@@ -1,14 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
 
 import './index.css'
 import App from './App.jsx'
+import { PageTransitionRouter } from './components/PageTransition.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+    <PageTransitionRouter>
       <App />
-    </BrowserRouter>
+    </PageTransitionRouter>
   </StrictMode>,
 )

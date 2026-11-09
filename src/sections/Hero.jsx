@@ -6,19 +6,26 @@ import AnimatedCounter from "../components/AnimatedCounter";
 import Button from "../components/Button";
 import SplineRobotCard from "../components/SplineRobotCard";
 import { words } from "../constants";
+import { usePageRevealed } from "../hooks/usePageRevealed";
 
 const Hero = () => {
   const heroRef = useRef(null);
+  const pageRevealed = usePageRevealed();
 
   useGSAP(
     () => {
+      // Coming from another page, hold the headline hidden until the transition uncovers it.
+      if (!pageRevealed) {
+        gsap.set(".hero-text h1", { y: 50, opacity: 0 });
+        return;
+      }
       gsap.fromTo(
         ".hero-text h1",
         { y: 50, opacity: 0 },
         { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power2.inOut" }
       );
     },
-    { scope: heroRef }
+    { scope: heroRef, dependencies: [pageRevealed] }
   );
 
   return (

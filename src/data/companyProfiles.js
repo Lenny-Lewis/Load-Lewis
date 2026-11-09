@@ -10,6 +10,7 @@ export const companyProfilePath = (slug) => `/work/company-profiles/${slug}`;
 
 const VILLAGIO_IMAGES = "/images/company-profiles/villagio-travel-tours";
 const SHANZY_IMAGES = "/images/company-profiles/shanzy-solutions";
+const ZEDOS_IMAGES = "/images/company-profiles/zed-os-tech";
 
 export const companyProfiles = [
   {
@@ -167,6 +168,74 @@ export const companyProfiles = [
           { label: "Telephone", value: "+254 727 884 730" },
           { label: "Email", value: "shanzysolutionsltd@gmail.com" },
         ],
+      },
+    ],
+  },
+  {
+    slug: "zed-os-tech",
+    title: "Zed OS Technologies Ltd",
+    excerpt:
+      "A company profile for a Kisumu technology and supplies company, presenting its software, data and supply services to private, NGO and government clients.",
+    date: "Nov 7, 2026",
+    pages: 7,
+    accent: "#e5e5e5",
+    cover: { src: `${ZEDOS_IMAGES}/cover.webp`, alt: "Zed OS Technologies logo and wordmark on a black background" },
+    content: [
+      { type: "heading", eyebrow: "01 — Company Overview", text: "One partner for supplies, systems and insight" },
+      {
+        type: "text",
+        text: "ZED OS TECHNOLOGIES LIMITED is a registered Kenyan company based in Kisumu Town West, specialising in General Supplies, Software Systems, Websites, Data Analytics, Artificial Intelligence, Machine Learning and Consultancy Services.",
+      },
+      {
+        type: "text",
+        text: "We provide reliable, efficient and professional solutions to individuals, private sector organisations, NGOs and government institutions. Today we serve more than 50 clients across East Africa, helping teams automate workflows, ship digital systems and scale their operations.",
+      },
+      {
+        type: "text",
+        text: "We pride ourselves on integrity, innovation and customer satisfaction. Our operations are guided by a commitment to quality service delivery, timely execution and value for money. Through a skilled team and strategic partnerships, we deliver solutions that meet modern business and institutional needs.",
+      },
+      { type: "text", text: "Learn more at www.zedostechnologies.co.ke." },
+      { type: "heading", eyebrow: "02 — About the Company", text: "Leadership" },
+      {
+        type: "text",
+        text: "The company is owned and led by Lennox Lewis Odhiambo, a highly motivated and visionary Director with a background in information technology, supply chain management and business consultation. Under his leadership, the company has grown steadily and established itself as a reliable partner in delivering high-quality products, services and digital solutions to its clients.",
+      },
+      {
+        type: "text",
+        text: "Lennox has developed a deep understanding of market dynamics, operational efficiency and client relations. This allows the company to offer tailored solutions that are both practical and sustainable. By combining strategic planning with hands-on operational and technical knowledge, the company ensures that every project is executed with precision and professionalism.",
+      },
+      {
+        type: "text",
+        text: "Looking ahead, the company is committed to sustainable growth and expansion, guided by a vision of excellence and ethical business practice. With strong leadership and a motivated team, we aim to set new benchmarks in supply, technology and consultancy services while contributing positively to our community and industry.",
+      },
+      { type: "heading", eyebrow: "03 — Vision & Mission", text: "Where we are going" },
+      {
+        type: "table",
+        rows: [
+          {
+            label: "Vision",
+            value: "To be East Africa's most trusted single partner for supplies, digital systems and operational support.",
+          },
+          {
+            label: "Mission",
+            value: "To deliver quality supplies, dependable digital systems and seamless support services that help individuals and organisations achieve their operational goals, from Kisumu to everywhere they need to be.",
+          },
+        ],
+      },
+      { type: "heading", eyebrow: "04 — Our Commitment", text: "At Zed OS Technologies Limited, we are committed to" },
+      {
+        type: "list",
+        items: [
+          { text: "Delivering high-quality products, services and digital solutions that meet the expectations of our clients." },
+          { text: "Building software, websites and data tools that genuinely fit the way our clients work." },
+          { text: "Maintaining a safe, reliable and modern fleet of vehicles for both short-term and long-term hire." },
+          { text: "Providing professional and adaptable conference facilities suitable for any type of business or social event." },
+          { text: "Ensuring exceptional customer service through our dedicated and skilled team." },
+        ],
+      },
+      {
+        type: "text",
+        text: "By combining quality, reliability and efficiency, Zed OS Technologies Limited continues to grow as a trusted partner for organisations and individuals seeking dependable goods, services and technology solutions in Kenya and across East Africa.",
       },
     ],
   },
