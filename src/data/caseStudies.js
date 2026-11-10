@@ -61,6 +61,7 @@ const saleTerms = ({ full, yearly, monthly, yearlyFee, monthlyFee, note }) => ({
 });
 
 // Websites share a flat fee: a percentage of these prices would be too small to be worth billing.
+// No website sells below 30,000 KES (about 32,000 at the cheapest): at 126.5–130 KES per USD, keep every option at $240 or more.
 const siteTerms = (full, yearly, monthly) =>
   saleTerms({
     full,
@@ -128,7 +129,7 @@ export const caseStudies = [
     slug: "nhm",
     title: "NHM",
     category: "Museum Website",
-    ...siteTerms(250, 225, 240),
+    ...siteTerms(380, 340, 360),
     panel: ["#8f8f90", "#3f3f3f"],
     liveUrl: "https://nhm-xi.vercel.app/",
     summary:
@@ -173,7 +174,7 @@ export const caseStudies = [
     slug: "lithos",
     title: "Lithos",
     category: "Education Website",
-    ...siteTerms(150, 135, 145),
+    ...siteTerms(280, 250, 265),
     panel: ["#6b4a3a", "#1a100c"],
     liveUrl: "https://lithos-blush.vercel.app/",
     summary:
@@ -217,7 +218,7 @@ export const caseStudies = [
     slug: "consentinel",
     title: "ConSentinel",
     category: "SaaS Website",
-    ...siteTerms(150, 135, 145),
+    ...siteTerms(290, 260, 275),
     panel: ["#b9c8df", "#79869b"],
     liveUrl: "https://con-sentinel.vercel.app/",
     summary:
@@ -260,7 +261,7 @@ export const caseStudies = [
     slug: "mojito",
     title: "Mojito",
     category: "Cocktail Bar Website",
-    ...siteTerms(300, 270, 285),
+    ...siteTerms(450, 405, 430),
     panel: ["#6b6a58", "#101010"],
     liveUrl: "https://gsap-cocktails-website-nine.vercel.app/",
     summary:
@@ -303,7 +304,7 @@ export const caseStudies = [
     slug: "zed-gaming",
     title: "ZED Gaming",
     category: "Gaming Website",
-    ...siteTerms(300, 270, 285),
+    ...siteTerms(480, 430, 455),
     panel: ["#a1b9e7", "#373e50"],
     liveUrl: "https://zed-gaming.vercel.app/",
     summary:
@@ -346,7 +347,7 @@ export const caseStudies = [
     slug: "vanguard",
     title: "Vanguard",
     category: "Agency Website",
-    // Add ...siteTerms(300, 270, 285) here once the hero's Ninja Turtles and Witcher art has been replaced.
+    // Add ...siteTerms(420, 380, 400) here once the hero's Ninja Turtles and Witcher art has been replaced.
     panel: ["#6e1515", "#180e0e"],
     liveUrl: "https://vanguard-zeta-ruddy.vercel.app/",
     summary: "A bold agency website built on one attitude: design, disrupt and conquer.",
@@ -389,8 +390,9 @@ export const caseStudies = [
     slug: "pawello",
     title: "Pawello",
     category: "Pet Care Website",
+    ...siteTerms(320, 290, 305),
     panel: ["#938471", "#3c3b39"],
-    liveUrl: "https://tedious-backgrounds-421163.framer.app/",
+    liveUrl: "https://pawello-tawny.vercel.app/",
     summary:
       "A warm, friendly website for a pet care service, designed to reassure owners and make booking feel easy.",
     heroAlt: "Pawello homepage with a large wordmark and a cat being held",

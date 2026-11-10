@@ -41,7 +41,7 @@ const webProjects = [
     title: "Pawello",
     desc: "A modern landing page for a pet care service.",
     img: "/images/projects/web/Pawello_Project.png",
-    link: "https://tedious-backgrounds-421163.framer.app/",
+    link: "https://pawello-tawny.vercel.app/",
     caseStudy: "/work/pawello",
     bg: "bg-[#FFE7EB]"
   }
