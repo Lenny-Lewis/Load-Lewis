@@ -8,6 +8,7 @@ import SiteNavPill from "../components/SiteNavPill";
 import ArticleCard from "../components/article/ArticleCard";
 import RichText from "../components/article/RichText";
 import { fadeUpInView, fadeUpOnLoad } from "../components/article/articleMotion";
+import { track } from "../lib/analytics";
 
 /*
  * Layout, type scale and motion follow majd-portfolio.framer.website's article
@@ -22,7 +23,7 @@ import { fadeUpInView, fadeUpOnLoad } from "../components/article/articleMotion"
 
 const BODY = "text-[18px] font-normal leading-[1.4] tracking-[-0.04em] text-neutral-300";
 
-const NewsletterCard = ({ email, setEmail, subscribed, onSubmit }) => (
+const NewsletterCard = ({ email, setEmail, subscribed, loading, error, honeypot, setHoneypot, onSubmit }) => (
   <div className="article-newsletter w-full bg-[#111] rounded-[18px] p-5 text-left shadow-2xl">
     <h3
       className="text-[#faf7f3] leading-6 tracking-[-0.04em] font-semibold"
@@ -44,6 +45,17 @@ const NewsletterCard = ({ email, setEmail, subscribed, onSubmit }) => (
       </div>
     ) : (
       <form onSubmit={onSubmit} className="mt-5 space-y-4">
+        {/* Bot trap: hidden from people, often filled by bots. */}
+        <input
+          type="text"
+          name="website"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="hidden"
+        />
         <input
           type="email"
           required
@@ -53,11 +65,17 @@ const NewsletterCard = ({ email, setEmail, subscribed, onSubmit }) => (
           autoComplete="email"
           className="article-newsletter__input w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 py-3 text-base text-[#faf7f3] placeholder:text-[#faf7f3]/30 outline-none focus:outline-none focus:ring-0 focus:border-white/50 transition-colors tracking-[-0.04em]"
         />
+        {error && (
+          <p role="alert" className="text-sm text-red-400 tracking-[-0.02em]">
+            {error}
+          </p>
+        )}
         <button
           type="submit"
-          className="w-full py-3 rounded-[12px] bg-[#faf7f3] text-[#111] font-semibold text-base hover:bg-white transition-colors cursor-pointer text-center tracking-[-0.02em] focus:outline-none focus:ring-0"
+          disabled={loading}
+          className="w-full py-3 rounded-[12px] bg-[#faf7f3] text-[#111] font-semibold text-base hover:bg-white transition-colors cursor-pointer text-center tracking-[-0.02em] focus:outline-none focus:ring-0 disabled:cursor-wait disabled:opacity-70"
         >
-          Submit
+          {loading ? "Subscribing..." : "Submit"}
         </button>
       </form>
     )}
@@ -134,6 +152,9 @@ const ArticleDetailPage = () => {
   const { slug } = useParams();
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [newsletterLoading, setNewsletterLoading] = useState(false);
+  const [newsletterError, setNewsletterError] = useState("");
+  const [honeypot, setHoneypot] = useState("");
 
   const article = articles.find((a) => a.slug === slug || a.id === slug);
 
@@ -146,17 +167,42 @@ const ArticleDetailPage = () => {
   const laterSections = sections.slice(4);
   const relatedArticles = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
 
-  const handleNewsletterSubmit = (e) => {
+  const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !email.includes("@")) return;
-    setSubscribed(true);
-    setEmail("");
+    if (newsletterLoading) return;
+    const trimmed = email.trim();
+    if (!trimmed || !trimmed.includes("@")) return;
+
+    setNewsletterError("");
+    setNewsletterLoading(true);
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmed, website: honeypot }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || "Couldn't subscribe right now. Please try again later.");
+
+      track("newsletter_subscribe", { newsletter_article: article.slug });
+      setSubscribed(true);
+      setEmail("");
+    } catch (error) {
+      track("newsletter_subscribe_error");
+      setNewsletterError(error.message || "Couldn't subscribe right now. Please try again later.");
+    } finally {
+      setNewsletterLoading(false);
+    }
   };
 
   const newsletterProps = {
     email,
     setEmail,
     subscribed,
+    loading: newsletterLoading,
+    error: newsletterError,
+    honeypot,
+    setHoneypot,
     onSubmit: handleNewsletterSubmit,
   };
 
