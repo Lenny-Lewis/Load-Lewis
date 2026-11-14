@@ -3,12 +3,13 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import { services } from "../constants";
+import { track } from "../lib/analytics";
 
 const EASE = [0.16, 1, 0.3, 1];
 const TIER_LINK =
   "rounded-lg bg-white/10 px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-primary hover:text-primary-foreground";
 
-const TierCard = ({ tier }) => (
+const TierCard = ({ tier, service }) => (
   <article
     className={`card-dark relative flex flex-col rounded-xl p-6 md:p-7 ${tier.recommended ? "border-primary/70" : ""}`}
   >
@@ -31,11 +32,19 @@ const TierCard = ({ tier }) => (
       ))}
     </ul>
     {tier.link ? (
-      <Link to={tier.link} className={TIER_LINK}>
+      <Link
+        to={tier.link}
+        className={TIER_LINK}
+        onClick={() => track("pricing_view_project", { pricing_service: service, pricing_tier: tier.name })}
+      >
         View project
       </Link>
     ) : (
-      <a href="#contact" className={TIER_LINK}>
+      <a
+        href="#contact"
+        className={TIER_LINK}
+        onClick={() => track("pricing_get_started", { pricing_service: service, pricing_tier: tier.name })}
+      >
         Get started
       </a>
     )}
@@ -69,7 +78,10 @@ const Pricing = () => {
                 key={name}
                 type="button"
                 aria-pressed={name === selectedName}
-                onClick={() => setSelectedName(name)}
+                onClick={() => {
+                  setSelectedName(name);
+                  track("pricing_service_select", { pricing_service: name });
+                }}
                 className={`cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
                   name === selectedName
                     ? "bg-primary text-primary-foreground"
@@ -94,7 +106,7 @@ const Pricing = () => {
             transition={{ duration: 0.25, ease: EASE }}
           >
             {selected.tiers.map((tier) => (
-              <TierCard key={tier.name} tier={tier} />
+              <TierCard key={tier.name} tier={tier} service={selectedName} />
             ))}
           </motion.div>
         </AnimatePresence>

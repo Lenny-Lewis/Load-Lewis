@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { services } from "../constants";
+import { track } from "../lib/analytics";
 
 const REVEAL = {
   hidden: { opacity: 0, y: 20 },
@@ -49,6 +50,7 @@ const Services = () => {
         <motion.div className="mt-8 flex justify-end" {...reveal}>
           <a
             href="#pricing"
+            onClick={() => track("services_to_pricing")}
             className="group flex w-fit items-center gap-2 text-sm font-semibold uppercase tracking-wider text-white"
           >
             See pricing

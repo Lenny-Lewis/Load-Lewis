@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import HalftoneWordmarkFooter from "@/components/ui/halftone-wordmark-footer";
 import { socialImgs } from "../constants";
+import { track } from "../lib/analytics";
 
 /**
  * The site's halftone footer, shared by every page that has a footer so they
@@ -65,6 +66,8 @@ const SiteHalftoneFooter = () => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const href = anchor.getAttribute("href");
     if (!href) return;
+
+    if (href.startsWith("mailto:")) track("email_click", { email_source: "site_footer" });
 
     if (href.startsWith("/")) {
       event.preventDefault();

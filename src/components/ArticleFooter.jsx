@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import HoverTextSlide from "./ui/HoverTextSlide";
+import { track } from "../lib/analytics";
 
 const quickLinks = [
   { name: "Home", to: "/" },
@@ -71,6 +72,7 @@ const ArticleFooter = () => {
             </p>
             <a
               href="mailto:lennylewis6a6y@gmail.com"
+              onClick={() => track("email_click", { email_source: "article_footer" })}
               className="group inline-flex text-[18px] text-[#faf7f3] font-normal leading-[1.4] tracking-[-0.04em] hover:text-white transition-colors break-all"
             >
               <HoverTextSlide text="lennylewis6a6y@gmail.com" />

@@ -1,9 +1,12 @@
+import { track } from "../lib/analytics";
+
 const WHATSAPP_URL = "https://wa.me/254115740615";
 
 const WhatsAppFloatingButton = () => {
   return (
     <a
       href={WHATSAPP_URL}
+      onClick={() => track("whatsapp_click")}
       className="whatsapp-fab"
       aria-label="Chat with me on WhatsApp"
       title="Chat with me on WhatsApp"

@@ -1,5 +1,6 @@
 import { Component, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { track } from "../lib/analytics";
 import { useLocation } from "react-router-dom";
 import { useReducedMotion } from "framer-motion";
 
@@ -176,6 +177,7 @@ const Contact = () => {
       );
 
       // Reset form and stop loading
+      track("contact_submit_success", { contact_budget: trimmedForm.budget });
       setForm({ name: "", email: "", budget: "", message: "" });
       setIsSubmitted(true);
     } catch (error) {
@@ -185,6 +187,7 @@ const Contact = () => {
         message: error?.message,
         error,
       });
+      track("contact_submit_error");
       setIsSubmitted(false);
       setSubmitError(getSubmitErrorMessage(error));
     } finally {
