@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Navbar from "./components/NavBar";
 import WhatsAppFloatingButton from "./components/WhatsAppFloatingButton";
 import SiteHalftoneFooter from "./components/SiteHalftoneFooter";
@@ -15,17 +15,27 @@ import TabTitle from "./components/TabTitle";
 import { PersistentSplineHost } from "./components/PersistentSpline";
 import { Analytics } from "@vercel/analytics/react";
 
+const prefersReducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+
 const ScrollToAnchor = () => {
   const location = useLocation();
+  const previousPathRef = useRef(location.pathname);
+  // Pre-filled links re-run the scroll on every click, even to the hash already in the address.
+  const prefillKey = location.state?.message ? location.key : null;
 
   // Instant hash jumps before paint — prevents hero flash when returning to /#thoughts
   useLayoutEffect(() => {
+    const samePage = previousPathRef.current === location.pathname;
+    previousPathRef.current = location.pathname;
     if (!location.hash) {
       window.scrollTo(0, 0);
       return;
     }
 
     const id = location.hash.slice(1);
+    // A link that pre-fills the contact form, clicked on this same page, glides down to it.
+    // Everything else jumps instantly, so arriving from another page shows no scroll.
+    const glide = samePage && Boolean(prefillKey) && !prefersReducedMotion();
     let cancelled = false;
     let attempts = 0;
 
@@ -33,6 +43,10 @@ const ScrollToAnchor = () => {
       if (cancelled) return true;
       const element = document.getElementById(id);
       if (!element) return false;
+      if (glide) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        return true;
+      }
       const prev = document.documentElement.style.scrollBehavior;
       document.documentElement.style.scrollBehavior = "auto";
       element.scrollIntoView({ behavior: "auto", block: "start" });
@@ -52,7 +66,7 @@ const ScrollToAnchor = () => {
     return () => {
       cancelled = true;
     };
-  }, [location.pathname, location.hash]);
+  }, [location.pathname, location.hash, prefillKey]);
 
   return null;
 };

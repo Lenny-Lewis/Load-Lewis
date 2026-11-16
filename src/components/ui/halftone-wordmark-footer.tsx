@@ -167,7 +167,8 @@ const HWF_CSS = `
   background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px;
   background-repeat: no-repeat; background-position: 0 100%; transition: opacity .25s ease, background-size .35s cubic-bezier(.2,.7,.1,1);
 }
-.hwf-col li a:hover, .hwf-up:hover { opacity: 1; background-size: 100% 1px; }
+.hwf-col li a:hover, .hwf-col li a:focus-visible { opacity: 1; }
+.hwf-col li a.hwf-lined, .hwf-up:hover { opacity: 1; background-size: 100% 1px; }
 .hwf-col li a:focus-visible, .hwf-up:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; opacity: 1; }
 .hwf-rule {
   position: relative; z-index: 1; display: flex; justify-content: flex-end; align-items: center; gap: 16px;
@@ -501,7 +502,7 @@ export default function HalftoneWordmarkFooter({
               <ul>
                 {col.links?.map((l) => (
                   <li key={l.label}>
-                    <a href={l.href || "#"}>{l.label}</a>
+                    <ScrambleLink href={l.href || "#"} label={l.label} />
                   </li>
                 ))}
               </ul>
@@ -511,6 +512,76 @@ export default function HalftoneWordmarkFooter({
       </div>
       {rulePosition === "bottom" ? rule : null}
     </footer>
+  )
+}
+
+// Link hover: the letters scramble and settle left to right, then the underline draws.
+const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+=?"
+const SCRAMBLE_MS = 450
+const SCRAMBLE_STEP_MS = 45 // how often the unsettled letters change
+const KEEP = /[\s@.\-_/]/ // spaces and punctuation stay put, so the word keeps its shape
+
+function ScrambleLink({ href, label }: { href: string; label: string }) {
+  const [text, setText] = React.useState(label)
+  const [lined, setLined] = React.useState(false)
+  const frameRef = React.useRef(0)
+
+  React.useEffect(() => () => cancelAnimationFrame(frameRef.current), [])
+
+  const start = () => {
+    cancelAnimationFrame(frameRef.current)
+    setLined(false)
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setLined(true)
+      return
+    }
+    const letters = Array.from(label)
+    const startedAt = performance.now()
+    let lastStep = -1
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - startedAt) / SCRAMBLE_MS)
+      if (progress >= 1) {
+        setText(label)
+        setLined(true)
+        return
+      }
+      const step = Math.floor((now - startedAt) / SCRAMBLE_STEP_MS)
+      if (step !== lastStep) {
+        lastStep = step
+        const settled = Math.floor(progress * letters.length)
+        setText(
+          letters
+            .map((letter, i) =>
+              i < settled || KEEP.test(letter)
+                ? letter
+                : SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)]
+            )
+            .join("")
+        )
+      }
+      frameRef.current = requestAnimationFrame(tick)
+    }
+    frameRef.current = requestAnimationFrame(tick)
+  }
+
+  const stop = () => {
+    cancelAnimationFrame(frameRef.current)
+    setText(label)
+    setLined(false)
+  }
+
+  return (
+    <a
+      href={href}
+      aria-label={label}
+      className={lined ? "hwf-lined" : undefined}
+      onMouseEnter={start}
+      onMouseLeave={stop}
+      onFocus={start}
+      onBlur={stop}
+    >
+      <span aria-hidden="true">{text}</span>
+    </a>
   )
 }
 

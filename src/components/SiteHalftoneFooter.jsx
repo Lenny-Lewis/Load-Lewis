@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import HalftoneWordmarkFooter from "@/components/ui/halftone-wordmark-footer";
+import SignatureDraw from "@/components/ui/SignatureDraw";
 import { socialImgs } from "../constants";
 import { track } from "../lib/analytics";
 
@@ -48,12 +49,7 @@ const columns = [
 const SignOff = () => (
   <div className="mt-3">
     <p>© {new Date().getFullYear()} Lennox Lewis. All rights reserved.</p>
-    <img
-      src="/images/branding/mysignature.png"
-      alt="Lennox Lewis signature"
-      loading="lazy"
-      className="mt-2 h-12 w-24 object-contain object-left"
-    />
+    <SignatureDraw className="mt-2 h-14 w-28" />
   </div>
 );
 

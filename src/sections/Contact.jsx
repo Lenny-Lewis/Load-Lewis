@@ -1,4 +1,4 @@
-import { Component, useRef, useState } from "react";
+import { Component, useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { track } from "../lib/analytics";
 import { useLocation } from "react-router-dom";
@@ -102,6 +102,12 @@ const Contact = () => {
     // Links such as "Request for profile" can start the message for the visitor.
     message: location.state?.message ?? "",
   });
+
+  // A link on this same page (such as a pricing card) can also start the message.
+  const incomingMessage = location.state?.message;
+  useEffect(() => {
+    if (incomingMessage) setForm((current) => ({ ...current, message: incomingMessage }));
+  }, [location.key, incomingMessage]);
 
   const getSubmitErrorMessage = (error) => {
     const errorText = `${error?.text || ""} ${error?.message || ""}`.toLowerCase();

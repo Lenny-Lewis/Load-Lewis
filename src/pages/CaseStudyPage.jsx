@@ -1,9 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, useId, useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { GraduationCap } from "lucide-react";
 import SiteHalftoneFooter from "../components/SiteHalftoneFooter";
 import SiteNavPill from "../components/SiteNavPill";
+import ContactChoices from "../components/ContactChoices";
+import { useDismiss } from "../hooks/useDismiss";
 import { usePageRevealed } from "../hooks/usePageRevealed";
 import PriceTag from "../components/ui/PriceTag";
 import { caseStudies, caseStudyPath } from "../data/caseStudies";
@@ -99,8 +101,7 @@ const TextSections = ({ sections }) => (
 
 const Result = ({ result }) => (
   <figure className="m-0 w-full max-w-[740px]">
-    <h2 className="text-3xl font-semibold leading-[1.2] tracking-[-0.02em] text-white md:text-[52px]">The Result</h2>
-    <blockquote className="m-0 mt-5 text-2xl font-medium leading-[1.3] tracking-[-0.02em] text-white md:text-[32px]">
+    <blockquote className="m-0 text-2xl font-medium leading-[1.3] tracking-[-0.02em] text-white md:text-[32px]">
       “{result.outcome}”
     </blockquote>
     <p className="mt-5 text-lg leading-[1.4] tracking-[-0.04em] text-white/80">“{result.review}”</p>
@@ -109,6 +110,38 @@ const Result = ({ result }) => (
     </figcaption>
   </figure>
 );
+
+// Real projects (a client result or tester quotes) show results; concept work shows what it's built to do.
+const Outcomes = ({ study }) => {
+  const real = Boolean(study.result || study.quotes);
+  const heading = study.result ? "The Result" : real ? "The Result So Far" : "Built to Deliver";
+
+  return (
+    <div className="flex w-full flex-col gap-10">
+      <div className="max-w-[740px]">
+        <h2 className="text-3xl font-semibold leading-[1.2] tracking-[-0.02em] text-white md:text-[52px]">{heading}</h2>
+        {study.valueLead && (
+          <p className="mt-5 text-lg leading-[1.4] tracking-[-0.04em] text-white">{study.valueLead}</p>
+        )}
+        {!real && (
+          <p className="mt-5 text-lg leading-[1.4] tracking-[-0.04em] text-white/50">
+            A concept project, not yet run by a client. Here's what it's designed to do for the business behind it.
+          </p>
+        )}
+      </div>
+      <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-3">
+        {study.outcomes.map(({ stat, title, text }) => (
+          <div key={title} className="flex flex-col gap-3 border-t border-white/20 pt-5">
+            {stat && <p className="text-4xl font-semibold tracking-[-0.02em] text-white md:text-5xl">{stat}</p>}
+            <h3 className="text-xl font-medium leading-[1.2] tracking-[-0.02em] text-white">{title}</h3>
+            <p className="text-lg leading-[1.4] tracking-[-0.04em] text-white/80">{text}</p>
+          </div>
+        ))}
+      </div>
+      {study.result && <Result result={study.result} />}
+    </div>
+  );
+};
 
 const Quotes = ({ quotes }) => (
   <div className="flex w-full max-w-[740px] flex-col gap-10">
@@ -178,16 +211,44 @@ const ProjectDetails = ({ study }) => (
   </dl>
 );
 
-const BuyLink = ({ message, children }) => (
-  <Link
-    to="/#contact"
-    state={{ message }}
-    className="group flex w-fit flex-none items-center gap-2 text-sm font-semibold uppercase tracking-wider text-white"
-  >
-    {children}
-    <span className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1">↗</span>
-  </Link>
-);
+// "Choose this option" opens the ways to get in touch, each carrying the project, option and price.
+const BuyChoices = ({ study, option }) => {
+  const [open, setOpen] = useState(false);
+  const listId = useId();
+  const rootRef = useRef(null);
+  useDismiss(open, setOpen, rootRef);
+
+  const pageUrl = typeof window === "undefined" ? "" : window.location.href;
+  const message = `Hi Lennox, I'd like to buy ${study.title} (${option.name.toLowerCase()}, ${option.price}).`;
+
+  return (
+    <div ref={rootRef}>
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={listId}
+        onClick={() => setOpen((value) => !value)}
+        className="group flex w-fit flex-none cursor-pointer items-center gap-2 text-sm font-semibold uppercase tracking-wider text-primary transition-colors hover:text-primary/80"
+      >
+        Choose this option
+        <span aria-hidden="true" className={`transition-transform ${open ? "rotate-90" : "group-hover:translate-x-1"}`}>
+          →
+        </span>
+      </button>
+      <ContactChoices
+        id={listId}
+        open={open}
+        label={`How to buy ${study.title}`}
+        message={message}
+        fullMessage={pageUrl ? `${message}\n\n${pageUrl}` : message}
+        subject={`Buying ${study.title}`}
+        includeCall
+        source="buy_option"
+        tags={{ buy_project: study.slug, buy_option: option.name }}
+      />
+    </div>
+  );
+};
 
 const SaleOptions = ({ study }) => (
   <div className="flex w-full flex-col gap-8">
@@ -195,19 +256,18 @@ const SaleOptions = ({ study }) => (
       <p className="text-base tracking-[-0.04em] text-white/50">Available to buy</p>
       <p className="mt-3 max-w-2xl text-lg leading-[1.4] tracking-[-0.04em] text-white">{study.saleNote}</p>
     </div>
-    <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-3">
+    {/* Cards share row tracks, so their parts line up and a list opening in one card leaves the others' buttons in place. */}
+    <div className="grid w-full grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
       {study.saleOptions.map((option) => (
-        <div key={option.name} className="flex flex-col gap-3 border-t border-white/20 pt-5">
+        <div key={option.name} className="row-span-4 grid grid-rows-subgrid gap-3 border-t border-white/20 pt-5">
           <h3 className="text-xl font-medium leading-[1.2] tracking-[-0.02em] text-white">{option.name}</h3>
           <div>
             <p className="text-4xl font-semibold tracking-[-0.02em] text-white">{option.price}</p>
             <p className="mt-1 text-base tracking-[-0.04em] text-white/50">{option.term}</p>
           </div>
           <p className="text-lg leading-[1.4] tracking-[-0.04em] text-white">{option.note}</p>
-          <div className="mt-auto pt-2">
-            <BuyLink message={`Hi Lennox, I'd like to buy ${study.title} (${option.name.toLowerCase()}).`}>
-              Choose this option
-            </BuyLink>
+          <div className="self-start pt-2">
+            <BuyChoices study={study} option={option} />
           </div>
         </div>
       ))}
@@ -317,7 +377,7 @@ const CaseStudyPage = () => {
 
           <TextSections sections={study.outro} />
 
-        {study.result && <Result result={study.result} />}
+          {study.outcomes ? <Outcomes study={study} /> : study.result && <Result result={study.result} />}
 
           {study.quotes && <Quotes quotes={study.quotes} />}
 

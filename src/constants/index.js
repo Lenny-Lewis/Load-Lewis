@@ -305,22 +305,26 @@ const services = [
     tiers: [
       {
         name: "Static Website",
+        description: "For a small business that needs a clean, fast site people can find and contact.",
         price: "$250",
         features: ["Up to 5 responsive pages", "Custom hero section", "Contact form", "Basic SEO setup"],
       },
       {
         name: "Animated Website",
+        description: "For brands that want motion and polish to stand out from template sites.",
         price: "$600",
         recommended: true,
         features: ["Everything in Static", "GSAP scroll animations", "Animated navigation", "Page transitions"],
       },
       {
         name: "E-commerce Website",
+        description: "For businesses ready to sell products online and take payments.",
         price: "$900",
         features: ["Product and category pages", "Cart and checkout", "Online payments", "Order management"],
       },
       {
         name: "3D Website",
+        description: "For launches and brands that want an immersive, memorable first impression.",
         price: "$1,200",
         features: ["Interactive 3D models", "Immersive 3D hero", "GSAP animations", "Performance tuning for 3D"],
       },
@@ -332,17 +336,20 @@ const services = [
     tiers: [
       {
         name: "Standard App",
+        description: "For a first product or internal tool with accounts and a database.",
         price: "$1,000",
         features: ["Hero and landing page", "User accounts and login", "Database setup", "Admin dashboard"],
       },
       {
         name: "Advanced App",
+        description: "For growing products that need roles, payments and integrations.",
         price: "$2,000",
         recommended: true,
         features: ["Everything in Standard", "Animated navigation", "User roles and permissions", "Payments and API integrations"],
       },
       {
         name: "AI-Powered App",
+        description: "For products where AI features are part of what you sell.",
         price: "$3,500",
         features: ["Everything in Advanced", "AI and ML features", "Custom AI assistant", "3D models and visuals"],
       },
@@ -354,17 +361,20 @@ const services = [
     tiers: [
       {
         name: "Standard App",
+        description: "For getting a simple app onto both iOS and Android.",
         price: "$1,200",
         features: ["iOS and Android with React Native", "Up to 5 screens", "User accounts and login", "App store preparation"],
       },
       {
         name: "Advanced App",
+        description: "For apps with their own backend, notifications and payments.",
         price: "$2,200",
         recommended: true,
         features: ["Everything in Standard", "Backend and database", "Push notifications", "In-app payments"],
       },
       {
         name: "AI-Powered App",
+        description: "For apps that need AI features and keep working offline.",
         price: "$3,500",
         features: ["Everything in Advanced", "AI and ML features", "Custom animations", "Offline support"],
       },
@@ -376,17 +386,20 @@ const services = [
     tiers: [
       {
         name: "Standard App",
+        description: "For a simple tool that runs on one operating system.",
         price: "$1,000",
         features: ["One operating system", "Up to 5 screens", "Local data storage", "Installer included"],
       },
       {
         name: "Advanced App",
+        description: "For business software used across Windows, macOS and Linux.",
         price: "$1,800",
         recommended: true,
         features: ["Windows, macOS and Linux", "Database setup", "Reports and exports", "User accounts"],
       },
       {
         name: "Connected App",
+        description: "For desktop software that syncs to the cloud and your other tools.",
         price: "$3,000",
         features: ["Everything in Advanced", "Cloud sync", "Third-party integrations", "AI and ML features"],
       },
@@ -398,17 +411,20 @@ const services = [
     tiers: [
       {
         name: "Data Analysis",
+        description: "For understanding what your existing data is telling you.",
         price: "$800",
         features: ["Data cleaning and preparation", "Patterns and trends", "Visual summaries", "Written findings"],
       },
       {
         name: "Predictive Model",
+        description: "For forecasting outcomes with a model built on your data.",
         price: "$1,500",
         recommended: true,
         features: ["Everything in Data Analysis", "Custom ML model", "Accuracy evaluation", "Ready to connect to your app"],
       },
       {
         name: "AI Assistant",
+        description: "For an assistant that works with your own data and tools.",
         price: "$3,000",
         features: ["Custom agentic assistant", "Connected models and tools", "Trained on your data", "Web or app integration"],
       },
@@ -420,17 +436,20 @@ const services = [
     tiers: [
       {
         name: "Standard Profile",
+        description: "For a short, clean profile to send to clients and partners.",
         price: "$60",
         features: ["Up to 6 pages", "Clean branded layout", "Print-ready PDF"],
       },
       {
         name: "Designed Profile",
+        description: "For a fuller profile with custom graphics, in print and digital.",
         price: "$120",
         recommended: true,
         features: ["Up to 12 pages", "Custom graphics and icons", "Print and digital versions"],
       },
       {
         name: "Premium Profile",
+        description: "For a detailed profile with polished images and wording.",
         price: "$250",
         features: ["Up to 20 pages", "Image retouching", "Help refining your wording", "Editable source files"],
       },
@@ -442,17 +461,20 @@ const services = [
     tiers: [
       {
         name: "Standard Logo",
+        description: "For a new business that needs a simple, professional mark.",
         price: "$40",
         features: ["2 logo concepts", "2 rounds of changes", "PNG and SVG files"],
       },
       {
         name: "Professional Logo",
+        description: "For a logo with more options and every file you'll need.",
         price: "$90",
         recommended: true,
         features: ["3 logo concepts", "Colour and mono versions", "Full file package"],
       },
       {
         name: "Brand Kit",
+        description: "For one consistent look across your logo, colours and social media.",
         price: "$180",
         features: ["Everything in Professional", "Colour palette and typography", "Social media kit", "Simple brand guide"],
       },
@@ -467,6 +489,7 @@ const services = [
       .sort((a, b) => a.saleFrom - b.saleFrom)
       .map((study) => ({
         name: study.title,
+        description: study.category,
         price: `$${study.saleFrom.toLocaleString("en-US")}`,
         features: study.saleOptions.map((option) => option.summary),
         link: caseStudyPath(study.slug),

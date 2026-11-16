@@ -7,6 +7,10 @@
  * `sold` adds a Sold tag to the card and a Sold status to the page.
  * `result` adds a real client outcome and review; only add it with the client's own words.
  * `quotes` adds real quotes from people testing the project, under the same rule.
+ * `outcomes` lists three points on the value a project brings, each with an optional `stat`. With
+ * `result` or `quotes` they show as results, so use only real figures or the client's own words.
+ * Without them they show as "Built to Deliver" under a concept note: say what the work is designed
+ * to do, never claim it has been measured.
  * `panel` is the gradient behind the screenshots, sampled from the colours of the site's hero.
  */
 export const caseStudyPath = (slug) => `/work/${slug}`;
@@ -86,6 +90,13 @@ export const caseStudies = [
       review: "It has been such a journey with Lennox Lewis. I was referred to him by a startup and straight away I understood why. He works diligently, very well and is always on time, always asking, always updating. I would definitely recommend him. He has a good understanding of projects and how things work.",
       attribution: "Zed OS Tech CEO",
     },
+    outcomes: [
+      { stat: "100%", title: "Easier to market", text: "The CEO's own words for how much simpler marketing their products has become, now that everything points to one site." },
+      { title: "Easier to reach", text: "Clients can now find and contact the business much more easily than before." },
+      { title: "Recognised further afield", text: "A Kisumu business now has a home on the web and, in the CEO's words, is globally recognised." },
+    ],
+    valueLead:
+      "The site had one job: make a broad business easy to understand, reach and market. Here's what changed after launch, in the client's own words.",
     panel: ["#8e8d8d", "#2a2a2a"],
     liveUrl: "https://www.zedostechnologies.co.ke/",
     summary:
@@ -105,6 +116,7 @@ export const caseStudies = [
         heading: "One Clear Message",
         paragraphs: [
           "The homepage opens with “One partner for”, then rotates through what the company does. An interactive 3D centerpiece that visitors can drag and rotate gives the first screen a memorable focal point.",
+          "A rotating headline was chosen over a long list of services because visitors decide in seconds whether a company is for them. Leading with “one partner” makes the range read as a strength, and the 3D centerpiece keeps people on the first screen long enough to see it.",
         ],
       },
     ],
@@ -130,6 +142,13 @@ export const caseStudies = [
     title: "NHM",
     category: "Museum Website",
     ...siteTerms(380, 340, 360),
+    outcomes: [
+      { title: "Interest that turns into visits", text: "Exhibition stories sit beside visit details and common questions, so a curious reader has everything needed to plan a trip." },
+      { title: "Fewer repeat questions", text: "Answers to what visitors usually ask are already on the page, which takes pressure off front desk and email." },
+      { title: "A site that keeps working", text: "Exhibitions and learning content are structured to be swapped as collections change, without a redesign." },
+    ],
+    valueLead:
+      "For a museum, the website's job is to turn curiosity into a planned visit.",
     panel: ["#8f8f90", "#3f3f3f"],
     liveUrl: "https://nhm-xi.vercel.app/",
     summary:
@@ -150,6 +169,7 @@ export const caseStudies = [
         heading: "A Museum You Can Scroll",
         paragraphs: [
           "Each section works like a room in an exhibition. Large fossil imagery and short, confident headlines lead visitors from the story of life on Earth through dinosaurs, ancient life and marine life.",
+          "This approach was chosen because people decide to visit a museum on feeling as much as facts. Leading with spectacle and keeping facts short gives visitors the wonder first and the detail when they want it.",
         ],
       },
     ],
@@ -175,6 +195,13 @@ export const caseStudies = [
     title: "Lithos",
     category: "Education Website",
     ...siteTerms(280, 250, 265),
+    outcomes: [
+      { title: "Newcomers who stay", text: "A dramatic first screen makes a dry subject feel exciting, giving casual visitors a reason to keep scrolling." },
+      { title: "Quicker routes to content", text: "Three clear paths (field guides, geology and plans) take learners to the right material in one click." },
+      { title: "More sign-ups", text: "The page ends on a single, bold call to action, so interest has one obvious place to go." },
+    ],
+    valueLead:
+      "For a learning business, the website's job is to turn curious visitors into members.",
     panel: ["#6b4a3a", "#1a100c"],
     liveUrl: "https://lithos-blush.vercel.app/",
     summary:
@@ -194,6 +221,7 @@ export const caseStudies = [
         heading: "Layers as the Big Idea",
         paragraphs: [
           "The hero uses layered, molten-looking rock and an elegant headline, “Layers hold tales of time”, so the subject itself becomes the visual identity.",
+          "Using the subject itself as the visual identity, rather than stock classroom imagery, shows newcomers what makes geology exciting before asking them to read anything.",
         ],
       },
     ],
@@ -219,6 +247,13 @@ export const caseStudies = [
     title: "ConSentinel",
     category: "SaaS Website",
     ...siteTerms(290, 260, 275),
+    outcomes: [
+      { title: "Trust before the first click", text: "A calm, protective look replaces the usual scare tactics, so buyers feel confident enough to try the product." },
+      { title: "Value understood quickly", text: "Three capability cards explain the product in seconds, cutting the time sales spends explaining basics." },
+      { title: "A short path to trial", text: "A three-step workflow and one closing call to action show how little effort it takes to get started." },
+    ],
+    valueLead:
+      "For a security product, the website's job is to earn enough trust for a visitor to start a trial.",
     panel: ["#b9c8df", "#79869b"],
     liveUrl: "https://con-sentinel.vercel.app/",
     summary:
@@ -237,6 +272,7 @@ export const caseStudies = [
         heading: "Calm Over Alarm",
         paragraphs: [
           "Rather than the usual dark, threatening look, the design uses soft blues and a glass sphere that suggests protection. “Smarter Security Starts Here” gets the message across straight away.",
+          "This was chosen because fear-led security marketing makes buyers hesitate, while a calm look signals a product that's in control. People buying protection want to feel safe, so the design makes them feel that first.",
         ],
       },
     ],
@@ -262,6 +298,13 @@ export const caseStudies = [
     title: "Mojito",
     category: "Cocktail Bar Website",
     ...siteTerms(450, 405, 430),
+    outcomes: [
+      { title: "Atmosphere that sells", text: "Scroll animation gives visitors a feel for the bar before they arrive, which a plain menu page can't do." },
+      { title: "A menu that drives orders", text: "Each cocktail gets its own spotlight with ingredients and flavour notes, helping guests decide before they sit down." },
+      { title: "A stronger brand", text: "A rich, moody first impression sets the bar apart from competitors with template sites." },
+    ],
+    valueLead:
+      "For a bar, the website's job is to fill seats by selling the night before the drink.",
     panel: ["#6b6a58", "#101010"],
     liveUrl: "https://gsap-cocktails-website-nine.vercel.app/",
     summary:
@@ -280,6 +323,7 @@ export const caseStudies = [
         heading: "Motion as Atmosphere",
         paragraphs: [
           "Smooth scroll animation moves visitors through the experience, with drinks and tropical leaves framing a bold wordmark for a rich, moody first impression.",
+          "Motion was chosen over static photos because people choose a bar for how it feels, and animation is the closest a website gets to atmosphere. It gives the menu the same sense of theatre as the room.",
         ],
       },
     ],
@@ -305,6 +349,13 @@ export const caseStudies = [
     title: "ZED Gaming",
     category: "Gaming Website",
     ...siteTerms(480, 430, 455),
+    outcomes: [
+      { title: "Launch-day excitement", text: "Trailer-style scenes and oversized type give players a reason to stay and explore from the first screen." },
+      { title: "A clear product range", text: "A bold product grid shows how everything connects, so an abstract idea like a play economy becomes easy to follow." },
+      { title: "Reusable for every launch", text: "The structure is built to carry new games and announcements without starting over." },
+    ],
+    valueLead:
+      "For a game launch, the website's job is to build excitement and keep players coming back for what's next.",
     panel: ["#a1b9e7", "#373e50"],
     liveUrl: "https://zed-gaming.vercel.app/",
     summary:
@@ -323,6 +374,7 @@ export const caseStudies = [
         heading: "Big, Cinematic Moments",
         paragraphs: [
           "Oversized type and full-screen scenes make the page feel closer to a game trailer than a website, with each scroll revealing a new part of the world.",
+          "A trailer-style approach was chosen because players judge a launch the way they judge a trailer: in the first few seconds. Showing the world instead of explaining it makes an abstract idea easier to buy into.",
         ],
       },
     ],
@@ -348,6 +400,13 @@ export const caseStudies = [
     title: "Vanguard",
     category: "Agency Website",
     // Add ...siteTerms(420, 380, 400) here once the hero's Ninja Turtles and Witcher art has been replaced.
+    outcomes: [
+      { title: "Remembered after one visit", text: "A bold voice and strong colour help the agency stand out in a market where most sites look alike." },
+      { title: "Proof at a glance", text: "Project cards lead with imagery and a single achievement, so prospects see the range of work without reading much." },
+      { title: "More conversations", text: "Clear capabilities and a direct closing invitation turn interest into enquiries." },
+    ],
+    valueLead:
+      "For an agency, the website's job is to win the first conversation with a client.",
     panel: ["#6e1515", "#180e0e"],
     liveUrl: "https://vanguard-zeta-ruddy.vercel.app/",
     summary: "A bold agency website built on one attitude: design, disrupt and conquer.",
@@ -366,6 +425,7 @@ export const caseStudies = [
         heading: "Attitude First",
         paragraphs: [
           "Heavy condensed type and a deep red palette give the brand its voice, turning three short words into the whole message.",
+          "A strong, narrow voice was chosen over a broad, polite one because an agency is hired for its point of view. A site that commits to an attitude shows clients the agency will commit to theirs.",
         ],
       },
     ],
@@ -391,6 +451,13 @@ export const caseStudies = [
     title: "Pawello",
     category: "Pet Care Website",
     ...siteTerms(320, 290, 305),
+    outcomes: [
+      { title: "Owners who feel at ease", text: "Warm tones and a real moment of care reassure worried pet owners before they book." },
+      { title: "Fewer pricing questions", text: "Services and prices are laid out plainly, so owners know what to expect without calling first." },
+      { title: "More bookings", text: "A booking button stays close by on every section, making it easy to go from browsing to booking." },
+    ],
+    valueLead:
+      "For a pet clinic, the website's job is to turn a worried owner into a booked appointment.",
     panel: ["#938471", "#3c3b39"],
     liveUrl: "https://pawello-tawny.vercel.app/",
     summary:
@@ -409,6 +476,7 @@ export const caseStudies = [
         heading: "Calm From the First Screen",
         paragraphs: [
           "A real moment of care and a huge friendly wordmark set the tone immediately, and warm tones carry that feeling through the rest of the page.",
+          "This was chosen because owners pick a clinic on trust before price. Showing care first eases the worry that stops people from booking, and the warm palette keeps the site from feeling clinical.",
         ],
       },
     ],
@@ -433,6 +501,13 @@ export const caseStudies = [
     slug: "recueil",
     title: "Recueil",
     category: "Subscription Brand Website",
+    outcomes: [
+      { title: "Desire without a sample", text: "Mood, imagery and vivid scent descriptions help visitors imagine a fragrance they can't smell through a screen." },
+      { title: "A premium feel that supports the price", text: "A calm, considered design matches the product, so a subscription feels worth paying for." },
+      { title: "Easier sign-ups", text: "Three simple steps and clearly compared plans remove friction from starting a subscription." },
+    ],
+    valueLead:
+      "For a subscription brand, the website's job is to turn a first visit into a recurring customer.",
     panel: ["#777f9d", "#2a3855"],
     liveUrl: "https://alert-apartment-762464.framer.app/",
     summary:
@@ -451,6 +526,7 @@ export const caseStudies = [
         heading: "Selling a Feeling",
         paragraphs: [
           "Soft blues, elegant type and dreamlike product imagery give the bottle room to be the star, with “One bottle at a time” explaining the idea in a few words.",
+          "This was chosen because fragrance can't be sampled online, so the site has to sell the mood a scent creates. Giving the bottle space and keeping the palette soft lets imagination do the work a sample would.",
         ],
       },
     ],
@@ -475,6 +551,13 @@ export const caseStudies = [
     slug: "sham-project",
     title: "Sham Project",
     category: "Creative Studio Website",
+    outcomes: [
+      { title: "Taste on show", text: "A distinctive editorial look shows prospects the studio's eye before they see a single project." },
+      { title: "An offer that's easy to buy", text: "Services, results and pricing sit in simple blocks, so a subscription model is quick to understand." },
+      { title: "Room to grow", text: "Pricing, common questions and a blog are already in place for the studio to build on." },
+    ],
+    valueLead:
+      "For a creative studio, the website's job is to sell its taste and make the subscription easy to buy.",
     panel: ["#959595", "#3a3a3a"],
     liveUrl: "https://victorious-actions-723983.framer.app/",
     summary:
@@ -493,6 +576,7 @@ export const caseStudies = [
         heading: "Monochrome With Intent",
         paragraphs: [
           "Removing color puts the focus on type, composition and moody imagery, giving the studio a strong editorial character.",
+          "Monochrome was chosen because a creative studio's website is its first portfolio piece. Taking colour away shows restraint and a confident eye, the qualities clients are paying for.",
         ],
       },
     ],
@@ -517,6 +601,13 @@ export const caseStudies = [
     slug: "ageincy",
     title: "Ageincy",
     category: "Agency Website",
+    outcomes: [
+      { title: "Services that stand apart", text: "Four services each get a short, plain description, so visitors see the full offer without confusion." },
+      { title: "Trust without searching", text: "Featured projects and testimonials sit next to the services, giving proof right where prospects are deciding." },
+      { title: "Message first", text: "A restrained dark interface keeps attention on the agency's work and what it offers." },
+    ],
+    valueLead:
+      "For a multi-service agency, the website's job is to make the offer clear and back it with proof.",
     panel: ["#616161", "#141414"],
     liveUrl: "https://compassionate-time-092074.framer.app/",
     summary:
@@ -535,6 +626,7 @@ export const caseStudies = [
         heading: "Quiet Confidence",
         paragraphs: [
           "A minimal dark interface and restrained typography let the agency's message and work stand out.",
+          "Restraint was chosen because an agency's own site shouldn't compete with its work. A quiet interface lets the projects and testimonials carry the pitch.",
         ],
       },
     ],
@@ -559,6 +651,13 @@ export const caseStudies = [
     slug: "latte-have",
     title: "Latte Have",
     category: "Coffee Shop Website",
+    outcomes: [
+      { title: "The menu in one tap", text: "The Explore Menu button sits right under the headline, answering the main reason people visit a café's site." },
+      { title: "More first visits", text: "Warm photography and cosy tones give new customers a feel for the shop before they walk in." },
+      { title: "Regulars who come back", text: "Coffee news and the shop's story give returning customers a reason to check in again." },
+    ],
+    valueLead:
+      "For a café, the website's job is to get people through the door and bring regulars back.",
     panel: ["#d5c3a8", "#9a8167"],
     liveUrl: "https://traditional-checklist-769919.framer.app/",
     summary: "A warm, inviting website for a coffee shop, with a menu that's easy to browse on any device.",
@@ -576,6 +675,7 @@ export const caseStudies = [
         heading: "Cozy From the First Scroll",
         paragraphs: [
           "Cream tones and close-up photography bring out the warmth of the shop, with the Explore Menu button right under the headline.",
+          "This was chosen because people mostly visit a café's site to see the menu and decide whether to go. Putting both the mood and the menu button on the first screen answers both questions straight away.",
         ],
       },
     ],
@@ -625,6 +725,13 @@ export const caseStudies = [
         attribution: "Tester, penetration tester and cyber security analyst",
       },
     ],
+    outcomes: [
+      { stat: "32", title: "Students using it in testing", text: "Along with 4 supervisors, a project coordinator and an administrator at Kisii University, all working in one system." },
+      { stat: "600", title: "People online at once", text: "Handled by a server limited to 1 CPU in a local load test. That test hasn't been repeated on live hosting yet." },
+      { stat: "$95–$115", title: "A month to run", text: "Estimated hosting, database, file storage and email for 400–600 users, checked on 6 November 2026." },
+    ],
+    valueLead:
+      "The goal is to save departments the time spent chasing progress, compiling reports and balancing supervisors by hand. The system is still in pre-launch testing, so these are figures from testing, not from a full rollout.",
     panel: ["#3f5a7d", "#0f1a2a"],
     summary:
       "A mobile app and website that manage final-year student projects from the first proposal to final completion, shown here in its Kisii University branding.",
@@ -659,6 +766,7 @@ export const caseStudies = [
         heading: "One Shared System",
         paragraphs: [
           "Students, supervisors, department leaders and administrators all work in one place. An account works on both the mobile app and the website, and both show the same data.",
+          "A single shared system was chosen over separate tools for each role because the problems came from information being spread out. With one source of truth, students, supervisors and departments see the same status without chasing each other.",
         ],
       },
     ],

@@ -1,6 +1,5 @@
 import { track } from "../lib/analytics";
-
-const WHATSAPP_URL = "https://wa.me/254115740615";
+import { WHATSAPP_URL } from "../lib/contact";
 
 const WhatsAppFloatingButton = () => {
   return (
