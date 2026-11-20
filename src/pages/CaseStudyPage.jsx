@@ -39,6 +39,27 @@ const LargePanel = ({ study, image, eager }) => (
   />
 );
 
+// A silent scroll-through of the live site, framed like the screenshots but inset on every side.
+// With reduced motion it waits on its first frame with controls instead of playing by itself.
+const WalkthroughPanel = ({ study, video, reduceMotion }) => (
+  <div className="w-full rounded-[20px] p-[4%] md:p-[6%]" style={panelStyle(study)}>
+    <video
+      src={video.src}
+      poster={video.poster}
+      aria-label={video.alt}
+      width={1280}
+      height={800}
+      autoPlay={!reduceMotion}
+      controls={reduceMotion}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      className="block h-auto w-full rounded-[14px] shadow-[0_18px_50px_rgba(0,0,0,0.35)]"
+    />
+  </div>
+);
+
 // A finished 2:1 composite of tilted phone screens.
 const TiltedShowcase = ({ image }) => (
   <img
@@ -349,6 +370,10 @@ const CaseStudyPage = () => {
           </motion.header>
 
           <TextSections sections={study.intro} />
+
+          {study.walkthrough && (
+            <WalkthroughPanel study={study} video={study.walkthrough} reduceMotion={reduceMotion} />
+          )}
 
           {study.showcase ? (
             <TiltedShowcase image={study.showcase.tilted} />

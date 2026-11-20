@@ -14,6 +14,15 @@ import { usePageRevealed } from "@/hooks/usePageRevealed";
 
 const webProjects = [
   {
+    id: 13,
+    title: "Fizz",
+    desc: "A scroll-animated website for a prebiotic soda brand.",
+    img: "/images/projects/web/Fizz_Project.webp",
+    link: "https://fizz-woad.vercel.app/",
+    caseStudy: "/work/fizz",
+    bg: "bg-[#FCCFD5]"
+  },
+  {
     id: 12,
     title: "Sham Project",
     desc: "An editorial creative-studio template with bold typography and a monochrome visual direction.",

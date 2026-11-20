@@ -12,11 +12,13 @@
  * Without them they show as "Built to Deliver" under a concept note: say what the work is designed
  * to do, never claim it has been measured.
  * `panel` is the gradient behind the screenshots, sampled from the colours of the site's hero.
+ * `walkthroughAlt` adds a short silent recording of scrolling through the site, saved as
+ * scroll.mp4 with a scroll-poster.webp first frame beside the project's screenshots.
  */
 export const caseStudyPath = (slug) => `/work/${slug}`;
 
 // `coverSrc` swaps the captured hero for an existing cover image, which is wider than the captures.
-const study = ({ slug, heroAlt, coverSrc, galleryAlts, featureAlt, ...rest }) => ({
+const study = ({ slug, heroAlt, coverSrc, galleryAlts, featureAlt, walkthroughAlt, ...rest }) => ({
   slug,
   details: [
     { label: "Category", value: rest.category },
@@ -28,6 +30,13 @@ const study = ({ slug, heroAlt, coverSrc, galleryAlts, featureAlt, ...rest }) =>
     { src: `/images/case-studies/${slug}/gallery-2.webp`, alt: galleryAlts[1] },
   ],
   feature: { src: `/images/case-studies/${slug}/feature.webp`, alt: featureAlt },
+  ...(walkthroughAlt && {
+    walkthrough: {
+      src: `/images/case-studies/${slug}/scroll.mp4`,
+      poster: `/images/case-studies/${slug}/scroll-poster.webp`,
+      alt: walkthroughAlt,
+    },
+  }),
   ...rest,
 });
 
@@ -138,6 +147,60 @@ export const caseStudies = [
     ],
   }),
   study({
+    slug: "fizz",
+    title: "Fizz",
+    category: "Drinks Brand Website",
+    ...siteTerms(450, 405, 430),
+    outcomes: [
+      { title: "A brand people remember", text: "A playful wordmark, floating fruit and a sky of pink clouds give a new drink a look shoppers recognise on the shelf." },
+      { title: "Flavours sold on sight", text: "Each can sits in its own bright colour beside the fruit inside it, so visitors know what it tastes like before reading a word." },
+      { title: "Social proof up front", text: "Real-looking posts from people pouring it show the drink being enjoyed, helping first-time buyers trust a brand they haven't tried." },
+    ],
+    valueLead:
+      "For a new drinks brand, the website's job is to make someone want to taste it before they've ever held a can.",
+    panel: ["#f4b8c8", "#b5134f"],
+    liveUrl: "https://fizz-woad.vercel.app/",
+    summary:
+      "A bright, scroll-animated website for a prebiotic soda brand, where the cans, the fruit and the flavours tell the story.",
+    heroAlt: "Fizz homepage with a Strawberry Yuzu can floating over a pink sky",
+    galleryAlts: ["Three flavour cans standing on a cloud", "Flavour cards for Strawberry Yuzu, Peach Fuzz and Yuzu Ginger"],
+    featureAlt: "Social posts of people pouring Fizz, fanned out between TikTok and Instagram icons",
+    walkthroughAlt: "Scrolling through the Fizz website from the hero to the footer",
+    intro: [
+      {
+        heading: "The Problem",
+        paragraphs: [
+          "Better-for-you sodas all make the same promises: real fruit, less sugar, good for your gut. On a crowded shelf, the claims blur together and the brand is what people remember.",
+          "Fizz needed a website that made a prebiotic soda feel fun first and healthy second, without losing what makes it different.",
+        ],
+      },
+      {
+        heading: "Taste Before Facts",
+        paragraphs: [
+          "The homepage opens on a single can floating through a pink sky, surrounded by the fruit inside it. As visitors scroll, the can settles onto a cloud and is joined by the rest of the range.",
+          "This was chosen because people buy drinks on flavour and mood. Letting the product and fruit lead makes the site feel like the drink, and the health benefits land better once someone already wants a sip.",
+        ],
+      },
+    ],
+    body: [
+      {
+        heading: "Every Flavour Its Own Colour",
+        paragraphs: [
+          "Each flavour gets a bold colour card with its can and fruit, plus a one-line taste note, so the range is easy to compare and quick to add to a cart.",
+        ],
+      },
+    ],
+    outro: [
+      {
+        heading: "Proof From the Feed",
+        paragraphs: [
+          "A fan of social posts shows people pouring and sharing Fizz, followed by three plain reasons it's kind to your gut and a newsletter sign-up for new flavours and early drops.",
+          "The structure suits drinks, snacks and other consumer brands that sell on look, taste and word of mouth.",
+        ],
+      },
+    ],
+  }),
+  study({
     slug: "nhm",
     title: "NHM",
     category: "Museum Website",
@@ -157,6 +220,7 @@ export const caseStudies = [
     heroAlt: "NHM homepage with a large wordmark and Tyrannosaurus rex skeleton",
     galleryAlts: ["Flying reptile skeleton section", "Fossil collection cards"],
     featureAlt: "Geological timeline section",
+    walkthroughAlt: "Scrolling through the NHM website from the hero to the footer",
     intro: [
       {
         heading: "The Problem",
@@ -209,6 +273,7 @@ export const caseStudies = [
     heroAlt: "Lithos homepage with layered rock imagery",
     galleryAlts: ["Field guides, geology and plans", "Orange call to action"],
     featureAlt: "Learning collections below the hero",
+    walkthroughAlt: "Scrolling through the Lithos website from the hero to the footer",
     intro: [
       {
         heading: "The Problem",
@@ -312,6 +377,7 @@ export const caseStudies = [
     heroAlt: "Mojito homepage with a large wordmark and cocktail",
     galleryAlts: ["Photo grid of cocktails", "Bartender section"],
     featureAlt: "Featured cocktail with recipe details",
+    walkthroughAlt: "Scrolling through the Mojito website from the hero to the footer",
     intro: [
       {
         heading: "The Problem",
@@ -363,6 +429,7 @@ export const caseStudies = [
     heroAlt: "ZED Gaming section inviting players to discover a shared adventure",
     galleryAlts: ["Full-screen fantasy city scene", "Product grid with character art"],
     featureAlt: "Immersive scene with animated framing",
+    walkthroughAlt: "Scrolling through the ZED Gaming website from the hero to the footer",
     intro: [
       {
         heading: "The Problem",
@@ -465,6 +532,7 @@ export const caseStudies = [
     heroAlt: "Pawello homepage with a large wordmark and a cat being held",
     galleryAlts: ["About section", "Grooming services"],
     featureAlt: "Grooming pricing cards",
+    walkthroughAlt: "Scrolling through the Pawello website from the hero to the footer",
     intro: [
       {
         heading: "The Problem",
